@@ -15,6 +15,10 @@ class SDLSample: Object
     rand: GLib.Rand
     running: bool
     flag: bool
+    x: int16
+    y: int16
+    r: int16
+    c: uint32
 
     construct()
         stderr.printf("construct\n")
@@ -51,16 +55,24 @@ class SDLSample: Object
         self.window.show()
 
     def draw()
+        f: bool
         w: int
         h: int
         self.window.get_size(out w, out h);
-        var x = (int16)rand.int_range(0, w)
-        var y = (int16)rand.int_range(0, h)
-        var radius = (int16)rand.int_range(0, 100)
-        var color = rand.next_int()
 
-        Circle.fill_color(self.render, x, y, radius, color)
-        Circle.outline_color_aa(self.render, x, y, radius, color)
+        if self.x == -1
+            f = false
+            self.x = (int16)rand.int_range(0, w)
+            self.y = (int16)rand.int_range(0, h)
+            self.r = (int16)rand.int_range(0, 100)
+            self.c = rand.next_int()
+        else
+            f = true
+
+        Circle.fill_color(self.render, self.x, self.y, self.r, self.c)
+        Circle.outline_color_aa(self.render, self.x, self.y, self.r, self.c)
+        if f
+            self.x = -1
 
         self.render.present();
 

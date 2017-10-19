@@ -12,3 +12,7 @@ $ make
 - install valac
 - install libsdl2-dev, libsdl2-gfx-dev, libsdl2-image-dev
 
+## Result
+
+![snapshot](raw/snapshot.png)
+

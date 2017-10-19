@@ -9,6 +9,6 @@ $ make
 
 ## Prerequirement
 
-- install libsdl-dev, libsdl-gfx-dev, libsdl-image-dev
 - install valac
+- install libsdl2-dev, libsdl2-gfx-dev, libsdl2-image-dev
 

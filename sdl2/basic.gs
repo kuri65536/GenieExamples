@@ -7,26 +7,26 @@ uses
 class SDLSample: Object
     const SCREEN_WIDTH: int = 640
     const SCREEN_HEIGHT: int = 480
-    const DELAY: int = 10
+    const DELAY: int = 100
 
     // prop window: Video.Window    // don't do this, you will get sigv.
     window: Video.Window
     render: Video.Renderer
-    prop rand: weak GLib.Rand;
-    prop done: bool;
+    rand: GLib.Rand
+    running: bool
     flag: bool
 
     construct()
         stderr.printf("construct\n")
         self.rand = new GLib.Rand()
-        self.done = false
+        self.running = true
 
     def run()
         stderr.printf("run\n")
         init_video()
 
         stderr.printf("loop\n")
-        while !this.done
+        while self.running
             draw()
             process_events()
             SDL.Timer.delay(DELAY)
@@ -34,22 +34,21 @@ class SDLSample: Object
     def init_video()
         // stderr.printf("window.\n")
         window = new Video.Window("Genie SDL Demo",
-                                       Video.Window.POS_CENTERED,
-                                       Video.Window.POS_CENTERED,
-                                       SCREEN_WIDTH, SCREEN_HEIGHT,
-                                       Video.WindowFlags.RESIZABLE)
-                                       // | Video.WindowFlags.SHOWN)
-        assert this.window != null
+                                  Video.Window.POS_CENTERED,
+                                  Video.Window.POS_CENTERED,
+                                  SCREEN_WIDTH, SCREEN_HEIGHT,
+                                  Video.WindowFlags.RESIZABLE)
+        assert self.window != null
 
         // stderr.printf("renderer.\n")
-        this.render = Video.Renderer.create(
-            this.window, -1,
+        self.render = Video.Renderer.create(
+            self.window, -1,
             Video.RendererFlags.ACCELERATED |
-            Video.RendererFlags.PRESENTVSYNC);
-        assert this.render != null
+            Video.RendererFlags.PRESENTVSYNC)
+        assert self.render != null
 
         // stderr.printf("show.\n")
-        this.window.show()
+        self.window.show()
 
     def draw()
         w: int
@@ -60,10 +59,10 @@ class SDLSample: Object
         var radius = (int16)rand.int_range(0, 100)
         var color = rand.next_int()
 
-        Circle.fill_color(this.render, x, y, radius, color)
-        Circle.outline_color_aa(this.render, x, y, radius, color)
+        Circle.fill_color(self.render, x, y, radius, color)
+        Circle.outline_color_aa(self.render, x, y, radius, color)
 
-        this.render.present();
+        self.render.present();
 
     def process_events()
         ev: Event
@@ -71,7 +70,7 @@ class SDLSample: Object
             case ev.type
                 when EventType.QUIT
                     stderr.printf("quit.\n")
-                    this.done = true
+                    self.running = false
                 when EventType.KEYDOWN
                     stderr.printf("keydown.\n")
                     this.on_keyboard_event(ev.key)
@@ -82,7 +81,7 @@ class SDLSample: Object
                 this.flag = false
                 window.set_fullscreen(Video.WindowFlags.FULLSCREEN)
             else
-                this.flag = true
+                self.flag = true
                 window.set_fullscreen(0)
 
     def is_alt_enter(key: SDL.Input.Key): bool

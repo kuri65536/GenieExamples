@@ -9,6 +9,14 @@ class SDLSample: Object
     const SCREEN_HEIGHT: int = 480
     const DELAY: int = 1
 
+    const keys: array of Input.Scancode = {
+        Input.Scancode.UP,
+        Input.Scancode.DOWN,
+        Input.Scancode.LEFT,
+        Input.Scancode.RIGHT,
+        Input.Scancode.S,
+        Input.Scancode.Q}
+
     // prop window: Video.Window    // don't do this, you will get sigv.
     window: Video.Window
     render: Video.Renderer
@@ -20,10 +28,12 @@ class SDLSample: Object
     hWin: int
     wWin: int
     speed: int
+    seq: array of int
 
     construct()
         stderr.printf("construct\n")
         self.rand = new GLib.Rand()
+        self.speed = 1
         self.running = true
 
     def run()
@@ -44,10 +54,12 @@ class SDLSample: Object
         self.rectSrc.w = self.rect.w
         self.rectSrc.h = self.rect.h
 
+        self.seq = new array of int[5]
+
         stderr.printf("loop\n")
         while self.running
             draw(tx)
-            process_events()
+            getkeys(self.seq)
             SDL.Timer.delay(DELAY)
 
     def init_video()
@@ -70,51 +82,49 @@ class SDLSample: Object
         self.window.show()
 
     def draw(tx: Video.Texture)
-        if self.rect.x >= self.wWin
+        f: bool = false
+        if self.rect.x > self.wWin
+            f = true
+        if self.rect.x < -(int)self.rectSrc.w
+            f = true
+        if self.rect.y > self.hWin
+            f = true
+        if self.rect.y < -(int)self.rectSrc.h
+            f = true
+        if f
             self.rect.x = 0
             self.rect.y = (int16)rand.int_range(0, self.hWin)
-            self.speed = rand.int_range(1, (int)self.rectSrc.w)
-        else
-            self.rect.x += self.speed
 
         self.render.clear()
         self.render.copy(tx, self.rectSrc, self.rect)
         self.render.present()
 
-    def process_events()
-        ev: Event
-        while Event.poll(out ev) == 1
-            case ev.type
-                when EventType.QUIT
-                    stderr.printf("quit.\n")
-                    self.running = false
-                when EventType.KEYDOWN
-                    stderr.printf("keydown.\n")
-                    this.on_keyboard_event(ev.key)
+    def getkeys(seq: array of int
+    )
+        Event.pump()
+        var buf = Input.Keyboard.get_raw_state()
 
-    def on_keyboard_event(event: KeyboardEvent)
-        if (is_alt_enter(event.keysym))
-            if this.flag
-                this.flag = false
-                window.set_fullscreen(Video.WindowFlags.FULLSCREEN)
-            else
-                self.flag = true
-                window.set_fullscreen(0)
-        if event.keysym.scancode == Input.Scancode.UP
-            self.rect.y -= 1
-        if event.keysym.scancode == Input.Scancode.DOWN
-            self.rect.y += 1
-        if event.keysym.scancode == Input.Scancode.LEFT
-            self.rect.x -= 3
-        if event.keysym.scancode == Input.Scancode.RIGHT
-            self.rect.x -= 1
-        if event.keysym.scancode == Input.Scancode.Q
+        i: int = 0
+        for key in keys
+            seq[i] = buf[key]
+            if (seq[i] & 1) != buf[key]
+                seq[i] = seq[i] | 2
+            i += 1
+
+        if seq[0] != 0
+            self.rect.y -= self.speed
+        if seq[1] != 0
+            self.rect.y += self.speed
+        if seq[2] != 0
+            self.rect.x -= self.speed
+        if seq[3] != 0
+            self.rect.x += self.speed
+        if seq[4] != 0
+            self.speed += 1
+            if self.speed > (int)self.rectSrc.h
+                self.speed = 1
+        if seq[5] != 0
             self.running = false
-
-    def is_alt_enter(key: SDL.Input.Key): bool
-        return (((key.mod & Input.Keymod.LALT) != 0)
-                and (key.sym == Input.Keycode.RETURN
-                     or key.sym == Input.Keycode.KP_ENTER))
 
 
 init

@@ -26,26 +26,23 @@ class MainAppWindow : Gtk.Window
         default_height = 400  // set the height of the window
         default_width = 400  // set the width of the window
 
-        self.drawing_area = new Gtk.DrawingArea()
-        self.add(self.drawing_area)
-        self.drawing_area.draw.connect(self.on_draw)
+        drawing_area = new Gtk.DrawingArea()
+        drawing_area.draw += def (context)
+            // Get necessary data:
+            style_context: weak Gtk.StyleContext
+            style_context = drawing_area.get_style_context ()
+            var height = drawing_area.get_allocated_height()
+            var width = drawing_area.get_allocated_width()
+            var color = style_context.get_color(0)
 
-    def on_draw(context: Cairo.Context): bool
-        // Get necessary data:
-        style_context: weak Gtk.StyleContext
-        style_context = drawing_area.get_style_context ()
-        var height = drawing_area.get_allocated_height()
-        var width = drawing_area.get_allocated_width()
-        var color = style_context.get_color(0)
+            // Draw an arc:
+            var xc = width / 2.0
+            var yc = height / 2.0
+            var radius = int.min (width, height) / 2.0
+            var angle1 = 0
+            var angle2 = 2 * Math.PI
 
-        // Draw an arc:
-        var xc = width / 2.0
-        var yc = height / 2.0
-        var radius = int.min (width, height) / 2.0
-        var angle1 = 0
-        var angle2 = 2*Math.PI
-
-        context.arc(xc, yc, radius, angle1, angle2)
-        Gdk.cairo_set_source_rgba (context, color)
-        context.fill()
-        return true
+            context.arc(xc, yc, radius, angle1, angle2)
+            Gdk.cairo_set_source_rgba (context, color)
+            context.fill()
+        self.add(drawing_area)

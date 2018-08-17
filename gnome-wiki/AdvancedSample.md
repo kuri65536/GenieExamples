@@ -1,46 +1,40 @@
 # Vala Advanced Example
 
-```
+```genie
 /* class derived from GObject */
-public class AdvancedSample : Object {
+[indent=4]
+class AdvancedSample: Object
 
     /* automatic property, data field is implicit */
-    public string name { get; set; }
+    prop name: string
 
     /* signal */
-    public signal void foo ();
+    event foo()
 
     /* creation method */
-    public AdvancedSample (string name) {
+    construct(name: string)
         this.name = name;
-    }
 
     /* public instance method */
-    public void run () {
+    def run()
         /* assigning anonymous function as signal handler */
-        this.foo.connect ((s) => {
+        this.foo += def (s)
             stdout.printf ("Lambda expression %s!\n", this.name);
-        });
 
         /* emitting the signal */
-        this.foo ();
-    }
+        this.foo()
 
-    /* application entry point */
-    public static int main (string[] args) {
-        foreach (string arg in args) {
-            var sample = new AdvancedSample (arg);
-            sample.run ();
-            /* "sample" is freed as block ends */
-        }
-        return 0;
-    }
-}
+/* application entry point */
+init
+    for arg in args
+        var sample = new AdvancedSample(arg)
+        sample.run()
+        /* "sample" is freed as block ends */
 ```
 
 ## Compile and Run
 
-```
+```shell
 $ valac -o advancedsample AdvancedSample.vala
 $ ./advancedsample
 ```
@@ -49,7 +43,7 @@ $ ./advancedsample
 
 Requires at least Vala 0.7.5 (for stdin.read_line () support)
 
-```
+```genie
 public class NumberGuessing {
 
     private int min;
@@ -97,7 +91,7 @@ public class NumberGuessing {
 
 ## Compile and Run
 
-```
+```shell
 $ valac number-guessing.vala
 $ ./number-guessing
 ```

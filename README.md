@@ -1,2 +1,70 @@
-# GenieExamples
-clone of the vala examples from https://wiki.gnome.org/Projects/Vala/Examples and plus alpha.
+# Genie Examples
+genie clone codes of the vala examples from
+https://wiki.gnome.org/Projects/Vala/Examples and plus alpha.
+
+## Clone from [vala examples](https://wiki.gnome.org/Projects/Vala/Examples)
+
+This page links to all the Genie examples available in this repository.
+
+List of pages in this category:
+
+- [AdvancedSample](gnome-wiki/AdvancedSample)
+- [AsyncSamples](gnome-wiki/AsyncSamples)
+- [BasicSample](gnome-wiki/BasicSample)
+- [BasicSample/ru](gnome-wiki/BasicSample/ru)
+- [CairoSample](gnome-wiki/CairoSample)
+- [CharacterSample](gnome-wiki/CharacterSample)
+- [ClutterSamples](gnome-wiki/ClutterSamples)
+- [ConditionalCompilationSample](gnome-wiki/ConditionalCompilationSample)
+- [CursesSample](gnome-wiki/CursesSample)
+- [CustomWidgetSamples](gnome-wiki/CustomWidgetSamples)
+- [DBusClientSamples](gnome-wiki/DBusClientSamples)
+- [DBusClientSamples/Waiting](gnome-wiki/DBusClientSamples/Waiting)
+- [DBusServerSample](gnome-wiki/DBusServerSample)
+- [DBusServerSamplePassingObjects](gnome-wiki/DBusServerSamplePassingObjects)
+- [DragAndDropSample](gnome-wiki/DragAndDropSample)
+- [GIOCompressionSample](gnome-wiki/GIOCompressionSample)
+- [GIONetworkingSample](gnome-wiki/GIONetworkingSample)
+- [GIOSamples](gnome-wiki/GIOSamples)
+- [GSFSample](gnome-wiki/GSFSample)
+- [GSLSample](gnome-wiki/GSLSample)
+- [GSettingsSample](gnome-wiki/GSettingsSample)
+- [GStreamerSample](gnome-wiki/GStreamerSample)
+- [GStreamerSamples](gnome-wiki/GStreamerSamples)
+- [GTKSample](gnome-wiki/GTKSample)
+- [GdlSample](gnome-wiki/GdlSample)
+- [Gedit3PluginSample](gnome-wiki/Gedit3PluginSample)
+- [GeeSamples](gnome-wiki/GeeSamples)
+- [GnomeDesktopAndGMenuExample](gnome-wiki/GnomeDesktopAndGMenuExample)
+- [GtkCellRendererSample](gnome-wiki/GtkCellRendererSample)
+- [InputSamples](gnome-wiki/InputSamples)
+- [IoChannelsSample](gnome-wiki/IoChannelsSample)
+- [JsonSample](gnome-wiki/JsonSample)
+- [LibSoupSample](gnome-wiki/LibSoupSample)
+- [ListSample](gnome-wiki/ListSample)
+- [LoudmouthSample](gnome-wiki/LoudmouthSample)
+- [LuaSample](gnome-wiki/LuaSample)
+- [MxSample](gnome-wiki/MxSample)
+- [OpenGLSamples](gnome-wiki/OpenGLSamples)
+- [PangoCairoSample](gnome-wiki/PangoCairoSample)
+- [PopplerSample](gnome-wiki/PopplerSample)
+- [PropertiesSample](gnome-wiki/PropertiesSample)
+- [PulseAudioSamples](gnome-wiki/PulseAudioSamples)
+- [SDLBouncingBall](gnome-wiki/SDLBouncingBall)
+- [SDLSample](gnome-wiki/SDLSample)
+- [SharedLibSample](gnome-wiki/SharedLibSample)
+- [SqliteSample](gnome-wiki/SqliteSample)
+- [StringSample](gnome-wiki/StringSample)
+- [TestSample](gnome-wiki/TestSample)
+- [ThreadingSamples](gnome-wiki/ThreadingSamples)
+- [TiffSample](gnome-wiki/TiffSample)
+- [TimeSample](gnome-wiki/TimeSample)
+- [TypeModuleSample](gnome-wiki/TypeModuleSample)
+- [TypeModules](gnome-wiki/TypeModules)
+- [USBSample](gnome-wiki/USBSample)
+- [ValueSample](gnome-wiki/ValueSample)
+- [WebKitSample](gnome-wiki/WebKitSample)
+- [Win32CrossBuildSample](gnome-wiki/Win32CrossBuildSample)
+- [XmlSample](gnome-wiki/XmlSample)
+
+

@@ -9,9 +9,9 @@ init
     if args.length < 3
         pass
     else if args[1] == "--opt"
-        var num = args[2]
-        var fname = args[3]
-        print(@"$num, $fname")
+        //  var num = args[2]
+        //  var fname = args[3]
+        //  print(@"$num, $fname")
         main_extract_opt(args[2], args[3])
         return
     main_extract_src(args[1], args[2])
@@ -24,17 +24,31 @@ def get_int(num: string): int
     return 1
 
 
+delegate Eachline(line: string)
+
+
 def main_extract_src(num: string, fname: string): int
-    main_extract(num, fname, "genie")
+    main_extract(num, fname, "genie", src_filter)
     return 0
+
+def src_filter(line: string)
+    print(line)
 
 
 def main_extract_opt(num: string, fname: string): int
-    main_extract(num, fname, "shell")
+    main_extract(num, fname, "shell", opt_filter)
     return 0
 
 
-def main_extract(num: string, fname: string, key: string): int
+def opt_filter(line: string)
+    if not line.contains("--pkg")
+        return
+    for i in line.split(" ")
+        if i.has_prefix("--pkg")
+            print(i)
+
+
+def main_extract(num: string, fname: string, key: string, cb: Eachline): int
     var n = get_int(num)
     var file = File.new_for_path(fname);
     if not file.query_exists()
@@ -54,7 +68,7 @@ def main_extract(num: string, fname: string, key: string): int
                 f_in_src = false
                 cur += 1
             if f_in_src and cur == n
-                print(line)
+                cb(line)
             if is_begin_of_code(line, key)
                 f_in_src = true
     except e: GLib.Error

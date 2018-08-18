@@ -1,16 +1,19 @@
-Projects/Vala/LuaSample - GNOME Wiki!
-<!--
-var search_hint = "Search";
-//-->
-Projects/Vala/LuaSampleHomeRecentChangesScheduleLogin
-Lua Sample
-vala-test:examples/lua-test.vala using Lua;
-static int my_func (LuaVM vm) {
+# Projects/Vala/LuaSample - GNOME Wiki!
+
+# Projects/Vala/LuaSampleHomeRecentChangesScheduleLogin
+
+## Lua Sample
+```genie
+// vala-test:examples/lua-test.vala
+[indent=4]
+uses Lua
+
+def my_func(vm: LuaVM): int
     stdout.printf ("Vala Code From Lua Code! (%f)\n", vm.to_number (1));
     return 1;
-}
-static int main (string[] args) {
-    string code = """
+
+init
+    var code = """
             print "Lua Code From Vala Code!"
             my_func(33)
         """;
@@ -18,15 +21,32 @@ static int main (string[] args) {
     vm.open_libs ();
     vm.register ("my_func", my_func);
     vm.do_string (code);
-    return 0;
-}
-Compile and Run
-$ valac --pkg lua luatest.vala -o luatest
+    // return 0;
+```
+
+### Compile and Run
+
+```shell
+$ valac --pkg=lua luatest.vala -o luatest
 $ ./luatest
 Lua Code From Vala Code!
-Vala Code From Lua Code! (33.000000)Note: Some distributions such as Debian and Ubuntu install the pkg-config information for Lua under a wrong name. Here's a workaround: sudo ln -s /usr/lib/pkgconfig/lua5.1.pc /usr/lib/pkgconfig/lua.pcAlternatively, you can rename the vapi file. 
-Lua Table Sample
-Based on Simple Lua Api Example from lua-users.org. vala-test:examples/lua-table.vala using Lua;
+Vala Code From Lua Code! (33.000000)
+```
+
+Note: Some distributions such as Debian and
+Ubuntu install the pkg-config information for Lua under a wrong name. Here's a
+workaround: sudo ln -s /usr/lib/pkgconfig/lua5.1.pc
+/usr/lib/pkgconfig/lua.pc
+
+Alternatively, you can rename the vapi file.
+
+
+## Lua Table Sample
+Based on Simple Lua Api Example from lua-users.org.
+
+```genie
+// vala-test:examples/lua-table.vala
+uses Lua
 static int main () {
     var vm = new LuaVM ();
     vm.open_libs ();
@@ -56,23 +76,12 @@ static int main () {
     vm.pop (1);  // Take the returned value out of the stack
     return 0;
 }
+```
+
+```shell
 $ valac --pkg lua simplesample.vala -o simplesample
-$ ./simplesample Vala/Examples Projects/Vala/LuaSample  (last edited 2013-11-22 16:48:28 by WilliamJonMcCann)
-Search:
-<input id="searchinput" type="text" name="value" value="" size="20"
-    onfocus="searchFocus(this)" onblur="searchBlur(this)"
-    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
-<input id="titlesearch" name="titlesearch" type="submit"
-    value="Titles" alt="Search Titles">
-<input id="fullsearch" name="fullsearch" type="submit"
-    value="Text" alt="Search Full Text">
-<!--// Initialize search form
-var f = document.getElementById('searchform');
-f.getElementsByTagName('label')[0].style.display = 'none';
-var e = document.getElementById('searchinput');
-searchChange(e);
-searchBlur(e);
-//-->
-        Copyright &copy; 2005 -  The GNOME Project.
-        Hosted by Red Hat.
-  document.getElementById('current-year').innerHTML = new Date().getFullYear();
+$ ./simplesample
+```
+
+Vala/Examples Projects/Vala/LuaSample
+    (last edited 2013-11-22 16:48:28 by WilliamJonMcCann)

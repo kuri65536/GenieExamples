@@ -1,56 +1,53 @@
-Projects/Vala/GSettingsSample - GNOME Wiki!
-<!--
-var search_hint = "Search";
-//-->
-Projects/Vala/GSettingsSampleHomeRecentChangesScheduleLogin
-Vala Settings Sample
-Requires Vala &gt;= 0.10.0 and GLib/GIO &gt;= 2.26 Create a GSettings schema file for your application settings, with filename extension .gschema.xml, e.g. org.example.my-app.gschema.xml: &lt;schemalist&gt;
-  &lt;schema id=&quot;org.example.my-app&quot; path=&quot;/org/example/my-app/&quot; gettext-domain=&quot;my-app&quot;&gt;
-    &lt;key name=&quot;greeting&quot; type=&quot;s&quot;&gt;
-      &lt;default l10n=&quot;messages&quot;&gt;&quot;Hello, earthlings&quot;&lt;/default&gt;
-      &lt;summary&gt;A greeting&lt;/summary&gt;
-      &lt;description&gt;
+# Projects/Vala/GSettingsSample - GNOME Wiki!
+# Vala Settings Sample
+
+Requires Vala >= 0.10.0 and GLib/GIO >= 2.26 Create a GSettings schema file for your application settings, with filename extension .gschema.xml, e.g. org.example.my-app.gschema.xml: <schemalist>
+  <schema id="org.example.my-app" path="/org/example/my-app/" gettext-domain="my-app">
+    <key name="greeting" type="s">
+      <default l10n="messages">"Hello, earthlings"</default>
+      <summary>A greeting</summary>
+      <description>
         Greeting of the invading martians
-      &lt;/description&gt;
-    &lt;/key&gt;
-    &lt;key name=&quot;bottles-of-beer&quot; type=&quot;i&quot;&gt;
-      &lt;default&gt;99&lt;/default&gt;
-      &lt;summary&gt;Bottles of beer&lt;/summary&gt;
-      &lt;description&gt;
+      </description>
+    </key>
+    <key name="bottles-of-beer" type="i">
+      <default>99</default>
+      <summary>Bottles of beer</summary>
+      <description>
         Number of bottles of beer on the wall
-      &lt;/description&gt;
-    &lt;/key&gt;
-    &lt;key name=&quot;lighting&quot; type=&quot;b&quot;&gt;
-      &lt;default&gt;false&lt;/default&gt;
-      &lt;summary&gt;Is the light switched on?&lt;/summary&gt;
-      &lt;description&gt;
+      </description>
+    </key>
+    <key name="lighting" type="b">
+      <default>false</default>
+      <summary>Is the light switched on?</summary>
+      <description>
         State of an imaginary light switch.
-      &lt;/description&gt;
-    &lt;/key&gt;
-  &lt;/schema&gt;
-&lt;/schemalist&gt;Install it to a glib-2.0/schemas subdirectory of a XDG_DATA_DIRS directory and recompile all schema files of this directory with glib-compile-schemas: $ cp org.example.my-app.gschema.xml /usr/share/glib-2.0/schemas/
+      </description>
+    </key>
+  </schema>
+</schemalist>Install it to a glib-2.0/schemas subdirectory of a XDG_DATA_DIRS directory and recompile all schema files of this directory with glib-compile-schemas: $ cp org.example.my-app.gschema.xml /usr/share/glib-2.0/schemas/
 $ glib-compile-schemas /usr/share/glib-2.0/schemas/Compile and run the following demo program: vala-test:examples/gio-settings-demo.vala void main () {
-    var settings = new Settings (&quot;org.example.my-app&quot;);
+    var settings = new Settings ("org.example.my-app");
     // Getting keys
-    var greeting = settings.get_string (&quot;greeting&quot;);
-    var bottles = settings.get_int (&quot;bottles-of-beer&quot;);
-    var lighting = settings.get_boolean (&quot;lighting&quot;);
-    print (&quot;%s\n&quot;, greeting);
-    print (&quot;%d bottles of beer on the wall\n&quot;, bottles);
-    print (&quot;Is the light switched on? %s\n&quot;, lighting ? &quot;yes&quot; : &quot;no&quot;);
+    var greeting = settings.get_string ("greeting");
+    var bottles = settings.get_int ("bottles-of-beer");
+    var lighting = settings.get_boolean ("lighting");
+    print ("%s\n", greeting);
+    print ("%d bottles of beer on the wall\n", bottles);
+    print ("Is the light switched on? %s\n", lighting ? "yes" : "no");
     // Change notification for any key in the schema
-    settings.changed.connect ((key) =&gt; {
-        print (&quot;Key '%s' changed\n&quot;, key);
+    settings.changed.connect ((key) => {
+        print ("Key '%s' changed\n", key);
     });
     // Change notification for a single key
-    settings.changed[&quot;greeting&quot;].connect (() =&gt; {
-        print (&quot;New greeting: %s\n&quot;, settings.get_string (&quot;greeting&quot;));
+    settings.changed["greeting"].connect (() => {
+        print ("New greeting: %s\n", settings.get_string ("greeting"));
     });
     // Setting keys
-    settings.set_int (&quot;bottles-of-beer&quot;, bottles - 1);
-    settings.set_boolean (&quot;lighting&quot;, !lighting);
-    settings.set_string (&quot;greeting&quot;, &quot;hello, world&quot;);
-    print (&quot;Please start 'dconf-editor' and edit keys in /org/example/my-app/\n&quot;);
+    settings.set_int ("bottles-of-beer", bottles - 1);
+    settings.set_boolean ("lighting", !lighting);
+    settings.set_string ("greeting", "hello, world");
+    print ("Please start 'dconf-editor' and edit keys in /org/example/my-app/\n");
     new MainLoop ().run ();
 }
 Compile and Run

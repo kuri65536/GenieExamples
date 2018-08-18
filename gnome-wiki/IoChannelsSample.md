@@ -4,43 +4,43 @@ var search_hint = "Search";
 //-->
 Projects/Vala/IoChannelsSampleHomeRecentChangesScheduleLogin
 Using gio's IO channels to communicate through pipes
-Vala port of example from http://www.linuxjournal.com/article/8545 Complete and working console application that uses IO channels to communicate across two pipes. The example will continuously read and write and spam your console.  You can stop the program via &lt;Ctrl&gt;-C. vala-test:examples/gio-channel.vala public class PipeTalker : Object {
+Vala port of example from http://www.linuxjournal.com/article/8545 Complete and working console application that uses IO channels to communicate across two pipes. The example will continuously read and write and spam your console.  You can stop the program via <Ctrl>-C. vala-test:examples/gio-channel.vala public class PipeTalker : Object {
         // reading callback
         private bool gio_in(IOChannel gio, IOCondition condition) {
                 IOStatus ret;
                 string msg;
                 size_t len;
                 if((condition &amp; IOCondition.HUP) == IOCondition.HUP)
-                        print(&quot;Read end of pipe died!\n&quot;);
+                        print("Read end of pipe died!\n");
                 try {
                         ret = gio.read_line(out msg, out len, null);
                 }
                 catch(IOChannelError e) {
-                        print(&quot;Error reading: %s\n&quot;, e.message);
+                        print("Error reading: %s\n", e.message);
                 }
                 catch(ConvertError e) {
-                        print(&quot;Error reading: %s\n&quot;, e.message);
+                        print("Error reading: %s\n", e.message);
                 }
-                print(&quot;Read %u bytes: %s\n&quot;, (uint)len, msg);
+                print("Read %u bytes: %s\n", (uint)len, msg);
                 return true;
         }
         // writing callback
         private bool gio_out(IOChannel gio, IOCondition condition) {
-                string msg = &quot;The price of greatness is responsibility.\n&quot;;
+                string msg = "The price of greatness is responsibility.\n";
                 IOStatus ret;
                 size_t len;
                 if((condition &amp; IOCondition.HUP) == IOCondition.HUP)
-                        print(&quot;Write end of pipe died!\n&quot;);
+                        print("Write end of pipe died!\n");
                 try {
                         ret = gio.write_chars((char[])msg, out len);
                 }
                 catch(IOChannelError e) {
-                        print(&quot;Error writing: %s\n&quot;, e.message);
+                        print("Error writing: %s\n", e.message);
                 }
                 catch(ConvertError e) {
-                        print(&quot;Error writing: %s\n&quot;, e.message);
+                        print("Error writing: %s\n", e.message);
                 }
-                print(&quot;Wrote %u bytes.\n&quot;, (uint)len);
+                print("Wrote %u bytes.\n", (uint)len);
                 return true;
         }
         public void init_channels() {
@@ -50,26 +50,26 @@ Vala port of example from http://www.linuxjournal.com/article/8545 Complete and 
                 // setup a pipe
                 ret = Posix.pipe(fd);
                 if(ret == -1) {
-                        print(&quot;Creating pipe failed: %s\n&quot;, strerror(errno));
+                        print("Creating pipe failed: %s\n", strerror(errno));
                         return;
                 }
                 // setup iochannels
                 io_read  = new IOChannel.unix_new(fd[0]);
                 io_write = new IOChannel.unix_new(fd[1]);
                 if((io_read == null) || (io_write == null)) {
-                        print(&quot;Cannot create new IOChannel!\n&quot;);
+                        print("Cannot create new IOChannel!\n");
                         return;
                 }
                 // The watch calls the gio_in function, if there data is available for 
                 // reading without locking
                 if(!(io_read.add_watch(IOCondition.IN | IOCondition.HUP, gio_in) != 0)) {
-                        print(&quot;Cannot add watch on IOChannel!\n&quot;);
+                        print("Cannot add watch on IOChannel!\n");
                         return;
                 }
                 // The watch calls the gio_out function if there data is available for 
                 // writing without locking
                 if(!(io_write.add_watch(IOCondition.OUT | IOCondition.HUP, gio_out) != 0)) {
-                        print(&quot;Cannot add watch on IOChannel!\n&quot;);
+                        print("Cannot add watch on IOChannel!\n");
                         return;
                 }
         }

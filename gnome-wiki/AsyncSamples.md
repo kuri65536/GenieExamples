@@ -101,13 +101,13 @@ def run()
 
 init
     var loop = new MainLoop()
-    do_calc_in_bg.begin(0.001, (obj, res) =&gt; {
+    do_calc_in_bg.begin(0.001, (obj, res) => {
             try {
                 double result = do_calc_in_bg.end(res);
-                stderr.printf(@&quot;Result: $result\n&quot;);
+                stderr.printf(@"Result: $result\n");
             } catch (ThreadError e) {
                 string msg = e.message;
-                stderr.printf(@&quot;Thread error: $msg\n&quot;);
+                stderr.printf(@"Thread error: $msg\n");
             }
             loop.quit();
         });
@@ -150,14 +150,14 @@ abstract class Generator<G> {
         return result;
     }
 
-    public Generator&lt;G&gt; iterator () {
+    public Generator<G> iterator () {
         return this;
     }
 }
 
-class IntGenerator : Generator&lt;int&gt; {
+class IntGenerator : Generator<int> {
     protected override async void generate () {
-        for (int i=0; i &lt; 10; i++) {
+        for (int i=0; i < 10; i++) {
              if (i%2 ==0) yield feed (i);
         }
     }
@@ -167,7 +167,7 @@ void main(string[] args) {
     var gen = new IntGenerator();
 
     foreach (var item in gen)
-        stdout.printf(@&quot;Result: $item\n&quot;);
+        stdout.printf(@"Result: $item\n");
 }
 ```
 
@@ -178,7 +178,7 @@ This is a version of the venerable sleep() function which allows the main loop t
 // Build with: valac --pkg=gio-2.0 example.vala
 
 public async void nap (uint interval, int priority = GLib.Priority.DEFAULT) {
-  GLib.Timeout.add (interval, () =&gt; {
+  GLib.Timeout.add (interval, () => {
       nap.callback ();
       return false;
     }, priority);
@@ -191,7 +191,7 @@ private async void do_stuff () {
 
 private static int main (string[] args) {
   GLib.MainLoop loop = new GLib.MainLoop ();
-  do_stuff.begin ((obj, async_res) =&gt; {
+  do_stuff.begin ((obj, async_res) => {
       loop.quit ();
     });
   loop.run ();
@@ -215,10 +215,10 @@ class Test.Async: Object
 init  // args[]
     var myasync = new Test.Async()
     GLib.MainLoop mainloop = new GLib.MainLoop()
-    myasync.say.begin(&quot;helloworld&quot;,
-                      (obj, res) =&gt; {
+    myasync.say.begin("helloworld",
+                      (obj, res) => {
                           string sentence = myasync.say.end(res);
-                          print(&quot;%s\n&quot;, sentence);
+                          print("%s\n", sentence);
                           mainloop.quit();
                       })
     mainloop.run()

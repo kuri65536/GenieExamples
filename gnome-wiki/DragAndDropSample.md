@@ -104,7 +104,7 @@ class Well: Label
                     time            // time stamp
                 );
         else
-            // No target offered by source =&gt; error
+            // No target offered by source => error
             is_valid_drop_site = false;
 
         return is_valid_drop_site;

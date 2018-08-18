@@ -6,24 +6,24 @@ Projects/Vala/DBusClientSamples/WaitingHomeRecentChangesScheduleLogin
 Waiting for a DBus service to become available (outdated example)
 About
 Sometimes you want to wait for a service to become available, then as soon as you see it appearing immediately start using it. And letting go of it as soon as the service disappears. You do this by listening for NameOwnerChanged, and initially by checking out the list using ListNames. This sample is based on the spec being proposed at Evolution/Metadata vala-test:examples/dbus-client-waiting.vala using DBus;
-// [DBus (name = &quot;org.gnome.evolution.metadata.Manager&quot;)]
+// [DBus (name = "org.gnome.evolution.metadata.Manager")]
 // public interface Manager : GLib.Object {
 //    public abstract void Register (DBus.ObjectPath registrar_path, uint last_checkout);
 // }
-[DBus (name = &quot;org.gnome.evolution.metadata.Registrar&quot;)]
+[DBus (name = "org.gnome.evolution.metadata.Registrar")]
 public class Registrar: GLib.Object {
     public void Set (string subject, string[] predicates, string[] values) {
-        print (&quot;set: %s\n&quot;, subject);
+        print ("set: %s\n", subject);
     }
     public void Cleanup () {
-        print (&quot;cleanup\n&quot;);
+        print ("cleanup\n");
     }
     public void SetMany (string[] subjects, string[][] predicates, string[][] values) {
         uint len = subjects.length;
         uint i;
-        print (&quot;setmany: %d\n&quot;, subjects.length);
-        for (i = 0; i &lt; len; i++) {
-                message (&quot;setmany: &quot; + subjects[i]);
+        print ("setmany: %d\n", subjects.length);
+        for (i = 0; i < len; i++) {
+                message ("setmany: " + subjects[i]);
 //
 //              There's a bug in Vala that makes lengths of inner arrays of a 
 //              stacked array being wrong (apparently the inner array is no 
@@ -33,18 +33,18 @@ public class Registrar: GLib.Object {
 //              uint plen = 7; // strv_length (predicates[i]); 
 //              uint y;
 //
-//              for (y = 0; y &lt; plen; y++) {
+//              for (y = 0; y < plen; y++) {
 //                      if (predicates[i][y] != null &amp;&amp; values[i][y] != null) {
-//                              print (&quot;\t%s=%s\n&quot;, predicates[i][y], values[i][y]);
+//                              print ("\t%s=%s\n", predicates[i][y], values[i][y]);
 //                      }
 //              }
         }
    }
     public void UnsetMany (string[] subjects) {
-        print (&quot;unsetmany %d\n&quot;, subjects.length);
+        print ("unsetmany %d\n", subjects.length);
     }
     public void Unset (string subject) {
-        message (&quot;unset: %s\n&quot; + subject);
+        message ("unset: %s\n" + subject);
     }
 }
 public class MyApplication : GLib.Object {
@@ -62,28 +62,28 @@ public class MyApplication : GLib.Object {
         DBus.ObjectPath path;
         registrar = new Registrar ();
         conn = DBus.Bus.get (DBus.BusType .SESSION);
-        path = new DBus.ObjectPath (&quot;/my/application/evolution_registrar&quot;);
-        obj = conn.get_object (&quot;org.gnome.evolution&quot;,
-                               &quot;/org/gnome/evolution/metadata/Manager&quot;,
-                               &quot;org.gnome.evolution.metadata.Manager&quot;);
+        path = new DBus.ObjectPath ("/my/application/evolution_registrar");
+        obj = conn.get_object ("org.gnome.evolution",
+                               "/org/gnome/evolution/metadata/Manager",
+                               "org.gnome.evolution.metadata.Manager");
         conn.register_object (path, registrar);
         try {
                 obj.Register (path, stored_time, on_reply);
         } catch (GLib.Error e) {
-                message (&quot;Can't register: %s&quot;, e.message);
+                message ("Can't register: %s", e.message);
         }
     }
     private void on_name_owner_changed (DBus.Object sender, string name, string old_owner, string new_owner) {
-        if (name == &quot;org.gnome.evolution&quot;) {
-                if (new_owner != &quot;&quot; &amp;&amp; old_owner == &quot;&quot;)
+        if (name == "org.gnome.evolution") {
+                if (new_owner != "" &amp;&amp; old_owner == "")
                         activate ();
-                if (old_owner != &quot;&quot; &amp;&amp; new_owner == &quot;&quot;)
+                if (old_owner != "" &amp;&amp; new_owner == "")
                         deactivate ();
         }
     }
     private void list_names_reply_cb (string[] names, GLib.Error e) {
         foreach (string name in names) {
-                if (name == &quot;org.gnome.evolution&quot;) {
+                if (name == "org.gnome.evolution") {
                         activate();
                         break;
                 }
@@ -91,19 +91,19 @@ public class MyApplication : GLib.Object {
     }
     private bool on_ready () {
         try {
-                print (&quot;...\n&quot;);
+                print ("...\n");
                 bus.list_names (list_names_reply_cb);
         } catch (GLib.Error e) {
-                message (&quot;Can't list: %s&quot;, e.message);
+                message ("Can't list: %s", e.message);
         }
         return false;
     }
     public void setup (uint stored_time) throws DBus.Error, GLib.Error {
         this.stored_time = stored_time;
         conn = DBus.Bus.get (DBus.BusType. SESSION);
-        bus = conn.get_object (&quot;org.freedesktop.DBus&quot;,
-                               &quot;/org/freedesktop/DBus&quot;,
-                               &quot;org.freedesktop.DBus&quot;);
+        bus = conn.get_object ("org.freedesktop.DBus",
+                               "/org/freedesktop/DBus",
+                               "org.freedesktop.DBus");
         bus.NameOwnerChanged += on_name_owner_changed;
         Idle.add (on_ready);
     }
@@ -112,16 +112,16 @@ public class MyApplication : GLib.Object {
         var app = new MyApplication ();
         try {
             uint a = 0;
-            if (args.length &gt; 1)
+            if (args.length > 1)
                 a = (uint) args[1].to_ulong();
             else
                 a = 0;
             app.setup (a);
         } catch (DBus.Error e) {
-            stderr.printf (&quot;Failed to initialise&quot;);
+            stderr.printf ("Failed to initialise");
             return 1;
         } catch {
-            stderr.printf (&quot;Dynamic method failure&quot;);
+            stderr.printf ("Dynamic method failure");
             return 1;
         }
         loop.run ();

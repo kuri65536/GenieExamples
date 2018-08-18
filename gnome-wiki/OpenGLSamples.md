@@ -50,7 +50,7 @@ using Gdk;
 using GL;
 class GtkGLExtSample : Gtk.Window {
     public GtkGLExtSample () {
-        this.title = &quot;OpenGL with GtkGLExt&quot;;
+        this.title = "OpenGL with GtkGLExt";
         this.destroy.connect (Gtk.main_quit);
         set_reallocate_redraws (true);
         var drawing_area = new DrawingArea ();
@@ -124,7 +124,7 @@ class SpotSample : Gtk.Window {
     static const GLfloat[] ambientLight = { 0.5f, 0.5f, 0.5f, 1.0f };
     static const GLfloat[] spotDir = { 0.0f, 0.0f, -1.0f };
     public SpotSample () {
-        this.title = &quot;OpenGL with GtkGLExt&quot;;
+        this.title = "OpenGL with GtkGLExt";
         this.destroy.connect (Gtk.main_quit);
         set_reallocate_redraws (true);
         var drawing_area = new DrawingArea ();
@@ -228,21 +228,21 @@ class SpotSample : Gtk.Window {
     /* A key was pressed */
     private bool on_key_press_event (Widget drawing_area, EventKey event) {
         string key = Gdk.keyval_name (event.keyval);
-        if (key == &quot;Up&quot;)
+        if (key == "Up")
             xRot-= 5.0f;
-        if (key == &quot;Down&quot;)
+        if (key == "Down")
             xRot += 5.0f;
-        if (key == &quot;Left&quot;)
+        if (key == "Left")
             yRot -= 5.0f;
-        if (key == &quot;Right&quot;)
+        if (key == "Right")
             yRot += 5.0f;
-        if (xRot &gt; 356.0f)
+        if (xRot > 356.0f)
             xRot = 0.0f;
-        if (xRot &lt; -1.0f)
+        if (xRot < -1.0f)
             xRot = 355.0f;
-        if (yRot &gt; 356.0f)
+        if (yRot > 356.0f)
             yRot = 0.0f;
-        if (yRot &lt; -1.0f)
+        if (yRot < -1.0f)
             yRot = 355.0f;
         queue_draw ();
         return true;
@@ -266,7 +266,7 @@ class GLXSample : Gtk.Window {
     private GLX.Context context;
     private XVisualInfo xvinfo;
     public GLXSample () {
-        this.title = &quot;OpenGL with GLX&quot;;
+        this.title = "OpenGL with GLX";
         set_reallocate_redraws (true);
         destroy.connect (Gtk.main_quit);
         int[] attrlist = {
@@ -278,11 +278,11 @@ class GLXSample : Gtk.Window {
         };
         this.xdisplay = x11_get_default_xdisplay ();
         if (!glXQueryExtension (xdisplay, null, null)) {
-            stderr.printf (&quot;OpenGL not supported\n&quot;);
+            stderr.printf ("OpenGL not supported\n");
         }
         this.xvinfo = glXChooseVisual (xdisplay, x11_get_default_screen (), attrlist);
         if (xvinfo == null) {
-            stderr.printf (&quot;Error configuring OpenGL\n&quot;);
+            stderr.printf ("Error configuring OpenGL\n");
         }
         var drawing_area = new DrawingArea ();
         drawing_area.set_size_request (300, 300);
@@ -563,7 +563,7 @@ public class Example : Object {
                 glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
                 glutInitWindowSize (400, 400);
                 glutInitWindowPosition (100, 100);
-                glutCreateWindow (&quot;Glut example&quot;);
+                glutCreateWindow ("Glut example");
         }
         protected static void Init_Events () {
                 glutDisplayFunc (on_glutDisplayFunc);
@@ -573,41 +573,41 @@ public class Example : Object {
         protected static void Init_Menu () {
                 int menuMain, menuBack, menuDraw, menuSolid, menuModel, menuAxes, menuAnimation;
                 menuBack = glutCreateMenu (on_glutCreateMenu_EColorBack);
-                glutAddMenuEntry (&quot;Black&quot;, EColorBack.BLACK);
-                glutAddMenuEntry (&quot;Dark red&quot;, EColorBack.DARKRED);
-                glutAddMenuEntry (&quot;Dark green&quot;, EColorBack.DARKGREEN);
-                glutAddMenuEntry (&quot;Dark blue&quot;, EColorBack.DARKBLUE);
+                glutAddMenuEntry ("Black", EColorBack.BLACK);
+                glutAddMenuEntry ("Dark red", EColorBack.DARKRED);
+                glutAddMenuEntry ("Dark green", EColorBack.DARKGREEN);
+                glutAddMenuEntry ("Dark blue", EColorBack.DARKBLUE);
                 menuDraw = glutCreateMenu (on_glutCreateMenu_EColorDraw);
-                glutAddMenuEntry (&quot;White&quot;, EColorDraw.WHITE);
-                glutAddMenuEntry (&quot;Light red&quot;, EColorDraw.LIGHTRED);
-                glutAddMenuEntry (&quot;Light green&quot;, EColorDraw.LIGHTGREEN);
-                glutAddMenuEntry (&quot;Light blue&quot;, EColorDraw.LIGHTBLUE);
+                glutAddMenuEntry ("White", EColorDraw.WHITE);
+                glutAddMenuEntry ("Light red", EColorDraw.LIGHTRED);
+                glutAddMenuEntry ("Light green", EColorDraw.LIGHTGREEN);
+                glutAddMenuEntry ("Light blue", EColorDraw.LIGHTBLUE);
                 menuSolid = glutCreateMenu (on_glutCreateMenu_ESolid);
-                glutAddMenuEntry (&quot;Wire&quot;, ESolid.WIRE);
-                glutAddMenuEntry (&quot;Solid&quot;, ESolid.SOLID);
+                glutAddMenuEntry ("Wire", ESolid.WIRE);
+                glutAddMenuEntry ("Solid", ESolid.SOLID);
                 menuModel = glutCreateMenu (on_glutCreateMenu_EModel);
-                glutAddMenuEntry (&quot;Teapot&quot;, EModel.TEAPOT);
-                glutAddMenuEntry (&quot;Cube&quot;, EModel.CUBE);
-                glutAddMenuEntry (&quot;Sphere&quot;, EModel.SPHERE);
-                glutAddMenuEntry (&quot;Cone&quot;, EModel.CONE);
-                glutAddMenuEntry (&quot;Torus&quot;, EModel.TORUS);
-                glutAddMenuEntry (&quot;Dodecahedron&quot;, EModel.DODECAHEDRON);
-                glutAddMenuEntry (&quot;Octahedron&quot;, EModel.OCTAHEDRON);
-                glutAddMenuEntry (&quot;Tetrahedron&quot;, EModel.TETRAHEDRON);
-                glutAddMenuEntry (&quot;Icosahedron&quot;, EModel.ICOSAHEDRON);
+                glutAddMenuEntry ("Teapot", EModel.TEAPOT);
+                glutAddMenuEntry ("Cube", EModel.CUBE);
+                glutAddMenuEntry ("Sphere", EModel.SPHERE);
+                glutAddMenuEntry ("Cone", EModel.CONE);
+                glutAddMenuEntry ("Torus", EModel.TORUS);
+                glutAddMenuEntry ("Dodecahedron", EModel.DODECAHEDRON);
+                glutAddMenuEntry ("Octahedron", EModel.OCTAHEDRON);
+                glutAddMenuEntry ("Tetrahedron", EModel.TETRAHEDRON);
+                glutAddMenuEntry ("Icosahedron", EModel.ICOSAHEDRON);
                 menuAxes = glutCreateMenu (on_glutCreateMenu_EAxes);
-                glutAddMenuEntry (&quot;No axes&quot;, EAxes.AXESNO);
-                glutAddMenuEntry (&quot;Simple axes&quot;, EAxes.AXESSIMPLE);
+                glutAddMenuEntry ("No axes", EAxes.AXESNO);
+                glutAddMenuEntry ("Simple axes", EAxes.AXESSIMPLE);
                 menuAnimation = glutCreateMenu (on_glutCreateMenu_Animation);
-                glutAddMenuEntry (&quot;Disable&quot;, 0);
-                glutAddMenuEntry (&quot;Enable&quot;, 1);
+                glutAddMenuEntry ("Disable", 0);
+                glutAddMenuEntry ("Enable", 1);
                 menuMain = glutCreateMenu(on_glutCreateMenu);
-                glutAddSubMenu (&quot;Background color&quot;, menuBack);
-                glutAddSubMenu (&quot;Color drawing&quot;, menuDraw);
-                glutAddSubMenu (&quot;Type of representation&quot;, menuSolid);
-                glutAddSubMenu (&quot;Model&quot;, menuModel);
-                glutAddSubMenu (&quot;Axes&quot;, menuAxes);
-                glutAddSubMenu (&quot;Animation&quot;, menuAnimation);
+                glutAddSubMenu ("Background color", menuBack);
+                glutAddSubMenu ("Color drawing", menuDraw);
+                glutAddSubMenu ("Type of representation", menuSolid);
+                glutAddSubMenu ("Model", menuModel);
+                glutAddSubMenu ("Axes", menuAxes);
+                glutAddSubMenu ("Animation", menuAnimation);
                 glutAttachMenu ((int)GLUT_RIGHT_BUTTON);
         }
         protected static void Init_Options () {

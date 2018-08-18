@@ -5,10 +5,10 @@ var search_hint = "Search";
 Projects/Vala/GnomeDesktopAndGMenuExampleHomeRecentChangesScheduleLogin
 Gnome-Desktop and GMenu Example
 vala-test:examples/gnome-desktop-and-menu.vala public class GMenuExample {
-    public List&lt;GMenu.TreeDirectory&gt; get_main_directories () {
-        var tree = GMenu.Tree.lookup (&quot;applications.menu&quot;, GMenu.TreeFlags.INCLUDE_EXCLUDED);
+    public List<GMenu.TreeDirectory> get_main_directories () {
+        var tree = GMenu.Tree.lookup ("applications.menu", GMenu.TreeFlags.INCLUDE_EXCLUDED);
         var root = tree.get_root_directory ();
-        var dirs = new List&lt;GMenu.TreeDirectory&gt; ();
+        var dirs = new List<GMenu.TreeDirectory> ();
         foreach (GMenu.TreeItem item in root.get_contents ()) {
             if (item.get_type () == GMenu.TreeItemType.DIRECTORY) {
                 dirs.append ((GMenu.TreeDirectory) item);
@@ -16,8 +16,8 @@ vala-test:examples/gnome-desktop-and-menu.vala public class GMenuExample {
         }
         return dirs;
     }
-    public List&lt;GMenu.TreeEntry&gt; get_entries_flat (GMenu.TreeDirectory directory) {
-        var entries = new List&lt;GMenu.TreeEntry&gt; ();
+    public List<GMenu.TreeEntry> get_entries_flat (GMenu.TreeDirectory directory) {
+        var entries = new List<GMenu.TreeEntry> ();
         foreach (GMenu.TreeItem item in directory.get_contents ()) {
             switch (item.get_type ()) {
             case GMenu.TreeItemType.DIRECTORY:
@@ -38,33 +38,33 @@ vala-test:examples/gnome-desktop-and-menu.vala public class GMenuExample {
         try {
             info.launch (null, new AppLaunchContext ());
         } catch (Error error) {
-            stdout.printf (&quot;Error: %s\n&quot;, error.message);
+            stdout.printf ("Error: %s\n", error.message);
         }
     }
 }
 static int main (string[] args) {
     var sample = new GMenuExample ();
-    stdout.printf (&quot;\nGet all main directories:\n&quot;);
+    stdout.printf ("\nGet all main directories:\n");
     var directories = sample.get_main_directories ();
     foreach (var directory in directories) {
-        stdout.printf (&quot;%s\n&quot;, directory.get_name ());
+        stdout.printf ("%s\n", directory.get_name ());
     }
-    stdout.printf (&quot;\nGet all entries/directories for the first directory:\n&quot;);
+    stdout.printf ("\nGet all entries/directories for the first directory:\n");
     var entries = sample.get_entries_flat (directories.nth_data (0));
     foreach (var entry in entries) {
-        stdout.printf (&quot;%s\n&quot;, entry.get_name ());
+        stdout.printf ("%s\n", entry.get_name ());
     }
-    stdout.printf (&quot;\nGet desktop item for first menu entry via GIO and display\n&quot;);
-    stdout.printf (&quot;name, description and icon name:\n&quot;);
+    stdout.printf ("\nGet desktop item for first menu entry via GIO and display\n");
+    stdout.printf ("name, description and icon name:\n");
     var app_info = sample.get_desktop_app_info (entries.nth_data (0));
-    stdout.printf (&quot;Name: %s\n&quot;, app_info.get_name ());
-    stdout.printf (&quot;Comment: %s\n&quot;, app_info.get_description ());
-    stdout.printf (&quot;Exec: %s\n&quot;, app_info.get_commandline ());
-    stdout.printf (&quot;Icon: %s\n&quot;, app_info.get_icon ().to_string ());
+    stdout.printf ("Name: %s\n", app_info.get_name ());
+    stdout.printf ("Comment: %s\n", app_info.get_description ());
+    stdout.printf ("Exec: %s\n", app_info.get_commandline ());
+    stdout.printf ("Icon: %s\n", app_info.get_icon ().to_string ());
     return 0;
 }
 Compile and Run
-valac --pkg gio-unix-2.0 --pkg libgnome-menu -o gnomemenusample GnomeMenuSample.vala -X &quot;-DGMENU_I_KNOW_THIS_IS_UNSTABLE&quot;
+valac --pkg gio-unix-2.0 --pkg libgnome-menu -o gnomemenusample GnomeMenuSample.vala -X "-DGMENU_I_KNOW_THIS_IS_UNSTABLE"
 $ ./gnomemenusample Vala/Examples Projects/Vala/GnomeDesktopAndGMenuExample  (last edited 2013-11-22 16:48:31 by WilliamJonMcCann)
 Search:
 <input id="searchinput" type="text" name="value" value="" size="20"

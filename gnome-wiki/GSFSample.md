@@ -11,22 +11,22 @@ This sample shows usage of LibGSF to deflate a ZIP archive.  Requires Vala 0.8.0
         Gsf.InfileZip zipfile;
         Gsf.OutfileStdio folder;
         // load the ZIP file
-    try { file = new Gsf.InputStdio (&quot;myarchive.zip&quot;); }
-    catch { stderr.printf (&quot;File \&quot;myarchive.zip\&quot; not found&quot;);
+    try { file = new Gsf.InputStdio ("myarchive.zip"); }
+    catch { stderr.printf ("File \"myarchive.zip\" not found");
             return 1; }
         //
     try { zipfile = new Gsf.InfileZip (file); }
-    catch { stderr.printf (&quot;Not a ZIP file&quot;);
+    catch { stderr.printf ("Not a ZIP file");
             return 1; }
         // create the destination directory
-    try { folder = new Gsf.OutfileStdio (&quot;myarchive&quot;); }
-    catch { stderr.printf (&quot;Cannot write to current directory&quot;);
+    try { folder = new Gsf.OutfileStdio ("myarchive"); }
+    catch { stderr.printf ("Cannot write to current directory");
             return 1; }
         // get the number of root items in the archive
         // and iterate through them, writing each one
         // to the destination directory
     int num_items = zipfile.num_children ();
-    for (int i = 0; i &lt; num_items; i++)
+    for (int i = 0; i < num_items; i++)
     {
         var item = zipfile.child_by_index (i);
         var itemfile = Gsf.StructuredBlob.read (item);
@@ -35,7 +35,7 @@ This sample shows usage of LibGSF to deflate a ZIP archive.  Requires Vala 0.8.0
     return 0;
 }
 Compile and Run
-Put a zip archive named &quot;myarchive.zip&quot; in current folder and : $ valac --pkg libgsf-1 gsf-sample.vala
+Put a zip archive named "myarchive.zip" in current folder and : $ valac --pkg libgsf-1 gsf-sample.vala
 $ ./gsf-sample Vala/Examples Projects/Vala/GSFSample  (last edited 2013-11-22 16:48:26 by WilliamJonMcCann)
 Search:
 <input id="searchinput" type="text" name="value" value="" size="20"

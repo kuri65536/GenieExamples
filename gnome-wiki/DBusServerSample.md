@@ -19,51 +19,51 @@ Server
 vala-test:examples/gdbus-demo-server.vala /* Note: this attribute specifies the _interface_ name.  It
  * is called 'name =' for historical reasons.
  */
-[DBus (name = &quot;org.example.Demo&quot;)]
+[DBus (name = "org.example.Demo")]
 public class DemoServer : Object {
     private int counter;
     public int ping (string msg) {
-        stdout.printf (&quot;%s\n&quot;, msg);
+        stdout.printf ("%s\n", msg);
         return counter++;
     }
     public int ping_with_signal (string msg) {
-        stdout.printf (&quot;%s\n&quot;, msg);
+        stdout.printf ("%s\n", msg);
         pong(counter, msg);
         return counter++;
     }
     /* Including any parameter of type GLib.BusName won't be added to the
        interface and will return the dbus sender name (who is calling the method) */
     public int ping_with_sender (string msg, GLib.BusName sender) {
-        stdout.printf (&quot;%s, from: %s\n&quot;, msg, sender);
+        stdout.printf ("%s, from: %s\n", msg, sender);
         return counter++;
     }
     public void ping_error () throws Error {
-        throw new DemoError.SOME_ERROR (&quot;There was an error!&quot;);
+        throw new DemoError.SOME_ERROR ("There was an error!");
     }
     public signal void pong (int count, string msg);
 }
-[DBus (name = &quot;org.example.DemoError&quot;)]
+[DBus (name = "org.example.DemoError")]
 public errordomain DemoError
 {
     SOME_ERROR
 }
 void on_bus_aquired (DBusConnection conn) {
     try {
-        conn.register_object (&quot;/org/example/demo&quot;, new DemoServer ());
+        conn.register_object ("/org/example/demo", new DemoServer ());
     } catch (IOError e) {
-        stderr.printf (&quot;Could not register service\n&quot;);
+        stderr.printf ("Could not register service\n");
     }
 }
 void main () {
-    Bus.own_name (BusType.SESSION, &quot;org.example.Demo&quot;, BusNameOwnerFlags.NONE,
+    Bus.own_name (BusType.SESSION, "org.example.Demo", BusNameOwnerFlags.NONE,
                   on_bus_aquired,
-                  () =&gt; {},
-                  () =&gt; stderr.printf (&quot;Could not aquire name\n&quot;));
+                  () => {},
+                  () => stderr.printf ("Could not aquire name\n"));
     new MainLoop ().run ();
 }
 $ valac --pkg gio-2.0 gdbus-demo-server.vala
 Client
-The methods of the client interface must be defined with throws IOError. vala-test:examples/gdbus-demo-client.vala [DBus (name = &quot;org.example.Demo&quot;)]
+The methods of the client interface must be defined with throws IOError. vala-test:examples/gdbus-demo-client.vala [DBus (name = "org.example.Demo")]
 interface Demo : Object {
     public abstract int ping (string msg) throws IOError;
     public abstract int ping_with_sender (string msg) throws IOError;
@@ -76,21 +76,21 @@ void main () {
     /* Important: keep demo variable out of try/catch scope not lose signals! */
     Demo demo = null;
     try {
-        demo = Bus.get_proxy_sync (BusType.SESSION, &quot;org.example.Demo&quot;,
-                                                    &quot;/org/example/demo&quot;);
+        demo = Bus.get_proxy_sync (BusType.SESSION, "org.example.Demo",
+                                                    "/org/example/demo");
         /* Connecting to signal pong! */
-        demo.pong.connect((c, m) =&gt; {
-            stdout.printf (&quot;Got pong %d for msg '%s'\n&quot;, c, m);
+        demo.pong.connect((c, m) => {
+            stdout.printf ("Got pong %d for msg '%s'\n", c, m);
             loop.quit ();
         });
-        int reply = demo.ping (&quot;Hello from Vala&quot;);
-        stdout.printf (&quot;%d\n&quot;, reply);
-        reply = demo.ping_with_sender (&quot;Hello from Vala with sender&quot;);
-        stdout.printf (&quot;%d\n&quot;, reply);
-        reply = demo.ping_with_signal (&quot;Hello from Vala with signal&quot;);
-        stdout.printf (&quot;%d\n&quot;, reply);
+        int reply = demo.ping ("Hello from Vala");
+        stdout.printf ("%d\n", reply);
+        reply = demo.ping_with_sender ("Hello from Vala with sender");
+        stdout.printf ("%d\n", reply);
+        reply = demo.ping_with_signal ("Hello from Vala with signal");
+        stdout.printf ("%d\n", reply);
     } catch (IOError e) {
-        stderr.printf (&quot;%s\n&quot;, e.message);
+        stderr.printf ("%s\n", e.message);
     }
     loop.run();
 }
@@ -141,32 +141,32 @@ Type Table
    Array       
    ai maps to int[] 
    a{}       
-   GLib.HashTable&lt;,&gt; 
+   GLib.HashTable<,> 
    Dictionary  
-   a{sv} maps to HashTable&lt;string,&nbsp;Variant&gt; 
+   a{sv} maps to HashTable<string, Variant> 
    ()        
    a struct type 
    Struct      
    a(ii) maps to Foo[] where Foo might be defined as
-struct&nbsp;Foo&nbsp;{&nbsp;public&nbsp;int&nbsp;a;&nbsp;public&nbsp;int&nbsp;b&nbsp;};
+struct Foo { public int a; public int b };
 A struct representing a(tsav) might look like
-struct&nbsp;Bar&nbsp;{&nbsp;public&nbsp;uint64&nbsp;a;&nbsp;public&nbsp;string&nbsp;b;&nbsp;public&nbsp;Variant[]&nbsp;c;} 
+struct Bar { public uint64 a; public string b; public Variant[] c;} 
 Debugging D-Bus Applications
 D-Feet
 D-Feet is a graphical D-Bus debugger.  This is what our little D-Bus service looks like in D-Feet:  
 dbus-monitor
-Open a terminal and enter: $ dbus-monitorExcerpt from the output showing a property change notification: signal sender=:1.454 -&gt; dest=(null destination) serial=9 path=/org/example/demo; interface=org.freedesktop.DBus.Properties; member=PropertiesChanged
-   string &quot;org.example.Demo&quot;
+Open a terminal and enter: $ dbus-monitorExcerpt from the output showing a property change notification: signal sender=:1.454 -> dest=(null destination) serial=9 path=/org/example/demo; interface=org.freedesktop.DBus.Properties; member=PropertiesChanged
+   string "org.example.Demo"
    array [
       dict entry(
-         string &quot;pubprop&quot;
-         variant             string &quot;1018873421&quot;
+         string "pubprop"
+         variant             string "1018873421"
       )
    ]
    array [
    ]
 Service with D-Bus property change notifications
-This example will setup a D-Bus service that can send notifications on the change of properties. (example code partly by Faheem) The timeout will change the property every few seconds. The notifications can be visualized by the terminal program 'dbus-monitor' that comes with most distributions.  [DBus (name = &quot;org.example.Demo&quot;)]
+This example will setup a D-Bus service that can send notifications on the change of properties. (example code partly by Faheem) The timeout will change the property every few seconds. The notifications can be visualized by the terminal program 'dbus-monitor' that comes with most distributions.  [DBus (name = "org.example.Demo")]
 public class DemoServer : Object {
     public string pubprop { owned get; set; }
     private weak DBusConnection conn;
@@ -176,49 +176,49 @@ public class DemoServer : Object {
     }
     private void send_property_change (ParamSpec p) {
         var builder = new VariantBuilder (VariantType.ARRAY);
-        var invalid_builder = new VariantBuilder (new VariantType (&quot;as&quot;));
-        if (p.name == &quot;pubprop&quot;) {
+        var invalid_builder = new VariantBuilder (new VariantType ("as"));
+        if (p.name == "pubprop") {
             Variant i = pubprop;
-            builder.add (&quot;{sv}&quot;, &quot;pubprop&quot;, i);
+            builder.add ("{sv}", "pubprop", i);
         }
         try {
             conn.emit_signal (null, 
-                              &quot;/org/example/demo&quot;, 
-                              &quot;org.freedesktop.DBus.Properties&quot;, 
-                              &quot;PropertiesChanged&quot;, 
-                              new Variant (&quot;(sa{sv}as)&quot;, 
-                                           &quot;org.example.Demo&quot;, 
+                              "/org/example/demo", 
+                              "org.freedesktop.DBus.Properties", 
+                              "PropertiesChanged", 
+                              new Variant ("(sa{sv}as)", 
+                                           "org.example.Demo", 
                                            builder, 
                                            invalid_builder)
                               );
         } catch (Error e) {
-            stderr.printf (&quot;%s\n&quot;, e.message);
+            stderr.printf ("%s\n", e.message);
         }
     }
 }
 public class NotificationsTest : Object {
     private DemoServer dserver;
     public NotificationsTest () {
-        Bus.own_name (BusType.SESSION, &quot;org.example.Demo&quot;, BusNameOwnerFlags.NONE,
+        Bus.own_name (BusType.SESSION, "org.example.Demo", BusNameOwnerFlags.NONE,
                       on_bus_acquired, on_name_acquired, on_name_lost);
     }
     private void on_bus_acquired (DBusConnection conn) {
-        print (&quot;bus acquired\n&quot;);
+        print ("bus acquired\n");
         try {
             this.dserver = new DemoServer (conn);
-            conn.register_object (&quot;/org/example/demo&quot;, this.dserver);
+            conn.register_object ("/org/example/demo", this.dserver);
         } catch (IOError e) {
-            print (&quot;%s\n&quot;, e.message);
+            print ("%s\n", e.message);
         }
     }
     private void on_name_acquired () {
-        print (&quot;name acquired\n&quot;);
+        print ("name acquired\n");
     }  
     private void on_name_lost () {
-        print (&quot;name_lost\n&quot;);
+        print ("name_lost\n");
     }
     public void setup_timeout () {
-        Timeout.add_seconds (4, () =&gt; {
+        Timeout.add_seconds (4, () => {
             dserver.pubprop = Random.next_int ().to_string ();
             return true;
         });

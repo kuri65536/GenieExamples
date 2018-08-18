@@ -39,9 +39,9 @@ class MyCellRenderer : CellRenderer {
 }
 Gdk.Pixbuf open_image () {
     try {
-        return new Gdk.Pixbuf.from_file (&quot;/usr/share/pixmaps/firefox.png&quot;);
+        return new Gdk.Pixbuf.from_file ("/usr/share/pixmaps/firefox.png");
     } catch (Error e) {
-        error (&quot;%s&quot;, e.message);
+        error ("%s", e.message);
     }
 }
 int main (string[] args) {
@@ -52,14 +52,14 @@ int main (string[] args) {
     var renderer = new MyCellRenderer ();
     var col = new TreeViewColumn ();
     col.pack_start (renderer, true);
-    col.set_title (&quot;1st column&quot;);
-    col.add_attribute (renderer, &quot;icon&quot;, 0);
+    col.set_title ("1st column");
+    col.add_attribute (renderer, "icon", 0);
     TreeIter ti;
     tm.append (out ti);
     tv.append_column (col);
     var pixbuf = open_image ();
-    tm.set (ti, 0, pixbuf, 1, &quot;asd&quot;, -1); 
-    col.add_attribute (renderer, &quot;icon&quot;, 0);
+    tm.set (ti, 0, pixbuf, 1, "asd", -1); 
+    col.add_attribute (renderer, "icon", 0);
     var win = new Window ();
     win.set_default_size (400, 100);
     win.destroy.connect (Gtk.main_quit);

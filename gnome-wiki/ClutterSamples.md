@@ -207,6 +207,7 @@ void main (string[] args) {
 ```
 
 ```shell
+# (install required in Ubuntu 18.04): sudo apt install libclutter-1.0-dev
 $ valac --pkg=clutter-1.0 clutter-demo.vala
 $ ./clutter-demo 
 ```

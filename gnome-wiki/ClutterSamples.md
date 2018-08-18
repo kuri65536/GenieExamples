@@ -4,35 +4,39 @@
 ## Animated Actors
 
 ```genie
-using Clutter;
-class ClutterDemo {
-    private Stage stage;
-    private Actor[] rectangles;
-    const string[] colors = {
-        &quot;blanched almond&quot;,
-        &quot;OldLace&quot;,
-        &quot;MistyRose&quot;,
-        &quot;White&quot;,
-        &quot;LavenderBlush&quot;,
-        &quot;CornflowerBlue&quot;,
-        &quot;chartreuse&quot;,
-        &quot;chocolate&quot;,
-        &quot;light coral&quot;,
-        &quot;medium violet red&quot;,
-        &quot;LemonChiffon2&quot;,
-        &quot;RosyBrown3&quot;
-    };
-    public ClutterDemo () {
-        stage = new Stage();    
+[indent=4]
+uses Clutter
+
+class ClutterDemo
+    stage: Stage
+    rectangles: array of Actor
+    const colors: array of string = {
+        "blanched almond",
+        "OldLace",
+        "MistyRose",
+        "White",
+        "LavenderBlush",
+        "CornflowerBlue",
+        "chartreuse",
+        "chocolate",
+        "light coral",
+        "medium violet red",
+        "LemonChiffon2",
+        "RosyBrown3"
+    }
+
+    construct()
+        stage = new Stage()
         stage.set_size(512,512);
         stage.background_color = Color () { alpha = 255 };
-        rectangles = new Actor[colors.length];
+        rectangles = new array of Actor[colors.length]
         stage.hide.connect (Clutter.main_quit);
         create_rectangles ();
         stage.show ();
-    }
-    private void create_rectangles () {
-        for (int i = 0; i &lt; colors.length; i++) {
+
+    def create_rectangles()
+        var i = 0
+        while (i < colors.length)
             var r = new Actor();
             r.width = r.height = stage.height / colors.length;
             r.background_color = Color.from_string (colors[i]);
@@ -42,83 +46,82 @@ class ClutterDemo {
             r.y = i * r.height;
             stage.add_child (r);
             rectangles[i] = r;
-        }
-    }
-    public void start () {
-        var transitions = new PropertyTransition[rectangles.length];
-        for (int i = 0; i &lt; rectangles.length; i++) {
+            i += 1
+
+    def start()
+        var transitions = new array of PropertyTransition[rectangles.length]
+        var i = 0
+        while (i < rectangles.length)
             var transgroup = new TransitionGroup();
-            var transition = new PropertyTransition (&quot;x&quot;);
+            var transition = new PropertyTransition ("x");
             transition.set_to_value(stage.width/2 - rectangles[i].width/2);
             transition.set_duration(2000);
             transition.set_progress_mode (AnimationMode.LINEAR);
             transgroup.add_transition(transition);
-            transition = new PropertyTransition (&quot;rotation_angle_z&quot;);
+            transition = new PropertyTransition ("rotation_angle_z");
             transition.set_to_value(500.0);
             transition.set_duration(2000);
             transition.set_progress_mode (AnimationMode.LINEAR);
             transgroup.add_transition(transition);
             transgroup.set_duration(2000);
-            rectangles[i].add_transition(&quot;rectAnimation&quot;, transgroup);
+            rectangles[i].add_transition("rectAnimation", transgroup);
             transitions[i] = transition;
-        }
-        transitions[transitions.length - 1].completed.connect (() =&gt; {
-                var CONGRATS_EXPLODE_DURATION = 3000;
-                var text = new Text.full (&quot;Bitstream Vera Sans 40&quot;,
-                    &quot;Congratulations!&quot;,
-                    Color.from_string (&quot;white&quot;));
-                var point = Point.alloc();
-                point.init(0.5f, 0.5f);
-                text.pivot_point = point;
-                text.x = stage.width / 2 - text.width / 2;
-                text.y = -text.height;    // Off-stage
-                stage.add_child (text);
-                var transition = new PropertyTransition (&quot;y&quot;);
-                transition.set_to_value(stage.height/2 - text.height/2);
-                transition.set_duration(CONGRATS_EXPLODE_DURATION / 2);
+            i += 1
+
+        transitions[transitions.length - 1].completed += def (ptr)
+            var CONGRATS_EXPLODE_DURATION = 3000;
+            var text = new Text.full ("Bitstream Vera Sans 40",
+                "Congratulations!",
+                Color.from_string ("white"));
+            var point = Point.alloc();
+            point.init(0.5f, 0.5f);
+            text.pivot_point = point;
+            text.x = stage.width / 2 - text.width / 2;
+            text.y = -text.height;    // Off-stage
+            stage.add_child (text);
+            var transition = new PropertyTransition ("y");
+            transition.set_to_value(stage.height/2 - text.height/2);
+            transition.set_duration(CONGRATS_EXPLODE_DURATION / 2);
+            transition.set_progress_mode(AnimationMode.EASE_OUT_BOUNCE);
+            text.add_transition("rectAnimation", transition);
+            var j = 0
+            while (j < rectangles.length)
+                var transgroup = new TransitionGroup();
+                /* "x" property transition */
+                transition = new PropertyTransition("x");
+                transition.set_to_value(Random.next_double() * stage.width );
+                transition.set_duration(CONGRATS_EXPLODE_DURATION);
+                transgroup.add_transition(transition);
                 transition.set_progress_mode(AnimationMode.EASE_OUT_BOUNCE);
-                text.add_transition(&quot;rectAnimation&quot;, transition);
-                for (int i = 0; i &lt; rectangles.length; i++) {
-                    var transgroup = new TransitionGroup();
-                    /* &quot;x&quot; property transition */
-                    transition = new PropertyTransition(&quot;x&quot;);
-                    transition.set_to_value(Random.next_double() * stage.width );
-                    transition.set_duration(CONGRATS_EXPLODE_DURATION);
-                    transgroup.add_transition(transition);
-                    transition.set_progress_mode(AnimationMode.EASE_OUT_BOUNCE);
-                    /* &quot;y&quot; property transition */
-                    transition = new PropertyTransition(&quot;y&quot;);
-                    transition.set_to_value(Random.next_double() * stage.height/2 +
-                            stage.height/2);
-                    transition.set_duration(CONGRATS_EXPLODE_DURATION);
-                    transition.set_progress_mode(AnimationMode.EASE_OUT_BOUNCE);
-                    transgroup.add_transition(transition);
-                    /* &quot;opacity&quot; property transition */
-                    transition = new PropertyTransition(&quot;opacity&quot;);
-                    transition.set_to_value(0);
-                    transition.set_duration(CONGRATS_EXPLODE_DURATION );
-                    transition.set_progress_mode(AnimationMode.EASE_OUT_BOUNCE);
-                    transgroup.add_transition(transition);
-                    /* TransitionGroup duration seems to be set explicitely -
-                     * at least so large value as the longest duration among
-                     * included Transitions */
-                    transgroup.set_duration(CONGRATS_EXPLODE_DURATION);
-                    transgroup.delay = CONGRATS_EXPLODE_DURATION/3;
-                    rectangles[i].add_transition(&quot;transbox&quot;, transgroup);
-                }
-        });
-    }
-}
-int main (string[] args) {
-    if ( Clutter.init (ref args) &lt; 0) {
-        stderr.printf(&quot;Failed to initialize clutter\n&quot;);
-        return 1;
-    }
-    var demo = new ClutterDemo ();
-    demo.start ();
-    Clutter.main ();
-    return 0;
-}
+                /* "y" property transition */
+                transition = new PropertyTransition("y");
+                transition.set_to_value(Random.next_double() * stage.height/2 +
+                        stage.height/2);
+                transition.set_duration(CONGRATS_EXPLODE_DURATION);
+                transition.set_progress_mode(AnimationMode.EASE_OUT_BOUNCE);
+                transgroup.add_transition(transition);
+                /* "opacity" property transition */
+                transition = new PropertyTransition("opacity");
+                transition.set_to_value(0);
+                transition.set_duration(CONGRATS_EXPLODE_DURATION );
+                transition.set_progress_mode(AnimationMode.EASE_OUT_BOUNCE);
+                transgroup.add_transition(transition);
+                /* TransitionGroup duration seems to be set explicitely -
+                 * at least so large value as the longest duration among
+                 * included Transitions */
+                transgroup.set_duration(CONGRATS_EXPLODE_DURATION);
+                transgroup.delay = CONGRATS_EXPLODE_DURATION/3;
+                rectangles[j].add_transition("transbox", transgroup);
+                j += 1
+
+init
+    if Clutter.init(ref args) < 0
+        stderr.printf("Failed to initialize clutter\n")
+        return  // 1
+    var demo = new ClutterDemo ()
+    demo.start ()
+    Clutter.main ()
+    // TODO(shimoda): return 0; in init()
 ```
 
 
@@ -133,18 +136,18 @@ class ClutterDemo {
     private Stage stage;
     private Rectangle[] rectangles;
     const string[] colors = {
-        &quot;blanched almond&quot;,
-        &quot;OldLace&quot;,
-        &quot;MistyRose&quot;,
-        &quot;White&quot;,
-        &quot;LavenderBlush&quot;,
-        &quot;CornflowerBlue&quot;,
-        &quot;chartreuse&quot;,
-        &quot;chocolate&quot;,
-        &quot;light coral&quot;,
-        &quot;medium violet red&quot;,
-        &quot;LemonChiffon2&quot;,
-        &quot;RosyBrown3&quot;
+        "blanched almond",
+        "OldLace",
+        "MistyRose",
+        "White",
+        "LavenderBlush",
+        "CornflowerBlue",
+        "chartreuse",
+        "chocolate",
+        "light coral",
+        "medium violet red",
+        "LemonChiffon2",
+        "RosyBrown3"
     };
     public ClutterDemo () {
         stage = Stage.get_default ();
@@ -174,9 +177,9 @@ class ClutterDemo {
                                       rotation_angle_z: 500.0);
         }
         animations[animations.length - 1].completed.connect (() =&gt; {
-            var text = new Text.full (&quot;Bitstream Vera Sans 40&quot;,
-                                      &quot;Congratulations!&quot;,
-                                      Color.from_string (&quot;white&quot;));
+            var text = new Text.full ("Bitstream Vera Sans 40",
+                                      "Congratulations!",
+                                      Color.from_string ("white"));
             text.anchor_gravity = Gravity.CENTER;
             text.x = stage.width / 2;
             text.y = -text.height;    // Off-stage
@@ -204,7 +207,7 @@ void main (string[] args) {
 ```
 
 ```shell
-$ valac --pkg clutter-1.0 clutter-demo.vala
+$ valac --pkg=clutter-1.0 clutter-demo.vala
 $ ./clutter-demo 
 ```
 
@@ -222,7 +225,7 @@ int main (string[] args)
   Clutter.init (ref args);
   if (args.length != 2 &amp;&amp; args.length != 3)
     {
-      stderr.printf (&quot;usage: %s &lt;ply-file&gt; [texture]\n&quot;, args[0]);
+      stderr.printf ("usage: %s &lt;ply-file&gt; [texture]\n", args[0]);
       return 1;
     }
   var stage = Clutter.Stage.get_default ();
@@ -250,8 +253,8 @@ int main (string[] args)
       center_vertex.y = 0.0f;
       center_vertex.z = 0.0f;
       var anim = model.animate (Clutter.AnimationMode.LINEAR, 3000,
-                                &quot;rotation-angle-y&quot;, 360.0f,
-                                &quot;fixed::rotation-center-y&quot;, ref center_vertex);
+                                "rotation-angle-y", 360.0f,
+                                "fixed::rotation-center-y", ref center_vertex);
       anim.loop = true;
       stage.add_actor (model);
       /* Enable depth testing only for this actor */

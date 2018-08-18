@@ -1,57 +1,9 @@
-
-
-
-
-
-
-
-
 Projects/Vala/InputSamples - GNOME Wiki!
-
-
-
 <!--
 var search_hint = "Search";
 //-->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Projects/Vala/InputSamplesHomeRecentChangesScheduleLogin
-
-
-
-
-
-
-
-
 Vala Input Examples
-
 Reading a Single Line
 vala-test:examples/input-stdin-line.vala int main () {
     stdout.printf (&quot;Please enter your name: &quot;);
@@ -61,7 +13,6 @@ vala-test:examples/input-stdin-line.vala int main () {
     }
     return 0;
 }
-
 Reading From Standard Input (stdin)
 vala-test:examples/input-stdin.vala /*
  * We use the fact that char[] allocates space
@@ -80,7 +31,6 @@ string read_stdin () {
     }
     return input.str;
 }
-
 int main () {
     string name = read_stdin ();
     stdout.printf (&quot;\n-----\n%s\n&quot;, name);
@@ -117,43 +67,25 @@ $ valac character-input.vala
 $ ./character-input
 Scanf
 Useful for parsing text input into numbers vala-test:examples/input-scanf.vala public static void main() {
-
     float f;
     double d;
     int i;
     long l;
-
     stdout.printf(&quot;Enter a float   : &quot;);
     stdin.scanf(&quot;%f&quot;, out f);
-
     stdout.printf(&quot;Enter a double  : &quot;);
     stdin.scanf(&quot;%lf&quot;, out d);
-
     stdout.printf(&quot;Enter an integer: &quot;);
     stdin.scanf(&quot;%d&quot;, out i);
-
     stdout.printf(&quot;Enter a long    : &quot;);
     stdin.scanf(&quot;%ld&quot;, out l);
-
     stdout.printf(&quot;The numbers you entered\n&quot;);
     stdout.printf(&quot;Float  : %f\n&quot;,f);
     stdout.printf(&quot;Double : %lf\n&quot;,d);
     stdout.printf(&quot;Integer: %d\n&quot;,i);
     stdout.printf(&quot;Long   : %ld\n&quot;,l);
-
 }
 See the Wikipedia article on Scanf for more details. There is also a scanf function for strings.  Vala/Examples Projects/Vala/InputSamples  (last edited 2013-11-22 16:48:26 by WilliamJonMcCann)
-
-
-
-
-
-
-
-
-
-
-
 Search:
 <input id="searchinput" type="text" name="value" value="" size="20"
     onfocus="searchFocus(this)" onblur="searchBlur(this)"
@@ -162,9 +94,6 @@ Search:
     value="Titles" alt="Search Titles">
 <input id="fullsearch" name="fullsearch" type="submit"
     value="Text" alt="Search Full Text">
-
-
-
 <!--// Initialize search form
 var f = document.getElementById('searchform');
 f.getElementsByTagName('label')[0].style.display = 'none';
@@ -172,13 +101,6 @@ var e = document.getElementById('searchinput');
 searchChange(e);
 searchBlur(e);
 //-->
-
-
-
         Copyright &copy; 2005 -  The GNOME Project.
         Hosted by Red Hat.
-
   document.getElementById('current-year').innerHTML = new Date().getFullYear();
-
-
-

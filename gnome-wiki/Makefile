@@ -41,23 +41,17 @@ src := \
     MxSample.md \
     OpenGLSamples.md \
     Waiting.md \
-
 bin_examples := $(addprefix tmp/,$(subst .md,.exe,$(src)) \
                   NumberGuessing.exe)
-
 build: $(bin_examples)
-
 extract: ../tools/extract.gs
 	valac -o $@ ../tools/extract.gs --pkg gio-2.0
-
 tmp/%.exe: %.md extract
 	mkdir -p tmp
 	./extract 1 $< > $@.gs
 	valac -o $@ $@.gs $$(./extract --opt 1 $<)
-
 # special case, 2 examples in 1 file.
 NumberGuessing.exe: AdvancedSample.md
 	mkdir -p tmp
 	./extract 2 $< > $@.gs
 	valac -o $@ $@.gs $$(./extract --opt 2 $<)
-

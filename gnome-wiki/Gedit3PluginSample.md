@@ -1,62 +1,14 @@
-
-
-
-
-
-
-
-
 Projects/Vala/Gedit3PluginSample - GNOME Wiki!
-
-
-
 <!--
 var search_hint = "Search";
 //-->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Projects/Vala/Gedit3PluginSampleHomeRecentChangesScheduleLogin
-
-
-
-
-
-
-
-
 Gedit 3 Plugin Sample
 Required bindings are for: Gedit &gt;= 3.0 (gedit.vapi for gedit 3.0+ is automatically generated from upstream and usually distributed with gedit development packages) GtkSourceView &gt;= 3.0 (gtksourceview-3.0.vapi is automatically generated from upstream and distributed with Vala) PeasGtk &gt;=1.0 (libpeas-gtk-1.0.vapi is automatically generated from upstream and distributed with Vala) ...and Vala &gt;= 0.11 
 Source &amp; support files
 A Gedit plugin compiled from Vala/Genie source files is composed of just two files: a library (.so) and the plugin file definition (.plugin). Our example plugin will be contained in just one Vala soure file, so the directory listing at the start will be: $ ls
 gedit-3-example.plugin
 gedit-3-example-plugin.valaIn order to make the example really simple we decided to implement a very basic function: the plugin will just close an xml tag upon writing the '&gt;'. Eg. if you write &lt;test&gt; it will add the corresponding &lt;/test&gt; close tag. Source code for the file: gedit-3-example-plugin.vala using GLib;
-
 namespace GeditPluginExample
 {
         /*
@@ -68,7 +20,6 @@ namespace GeditPluginExample
                 {
                         GLib.Object ();
                 }
-
                 public Gedit.View view {
                          owned get; construct;
                 }
@@ -89,18 +40,15 @@ namespace GeditPluginExample
                                 Gedit.View view = (Gedit.View)sender;
                                 Gtk.TextBuffer buffer = view.get_buffer ();
                                 Gtk.TextIter end, start;
-
                                 buffer.get_iter_at_mark (out end, (Gtk.TextMark) buffer.get_insert ());
                                 if (end.backward_char ()) {
                                         start = end;
                                         if (start.backward_word_start ()) {
                                                 string tag = &quot;&lt;/%s&gt;&quot;.printf (buffer.get_text (start, end, false));
-
                                                 // add the closing tag
                                                 buffer.begin_user_action ();
                                                 buffer.insert_interactive_at_cursor (tag, -1, true);
                                                 buffer.end_user_action ();
-
                                                 // move cursor back
                                                 buffer.get_iter_at_mark (out end, (Gtk.TextMark) buffer.get_insert ());
                                                 end.backward_chars (tag.length);
@@ -111,7 +59,6 @@ namespace GeditPluginExample
                         return true;
                 }
         }
-
         /*
          * Plugin config dialog
          */
@@ -121,19 +68,16 @@ namespace GeditPluginExample
                 {
                         Object ();
                 }
-
                 public Gtk.Widget create_configure_widget () 
                 {
                         return new Gtk.Label (&quot; Gedit 3.0 Example Vala Plugin &quot;);
                 }
         }
 }
-
 [ModuleInit]
 public void peas_register_types (TypeModule module) 
 {
         var objmodule = module as Peas.ObjectModule;
-
         // Register my plugin extension
         objmodule.register_extension_type (typeof (Gedit.ViewActivatable), typeof (GeditPluginExample.View));
         // Register my config dialog
@@ -161,17 +105,6 @@ $ valac \
 $ cp libgedit-3-example-plugin.so gedit-3-example.plugin ~/.local/share/gedit/plugins/
 Running
 Start gedit 3 and enable the plugin from the edit -&gt; preference menu  Vala/Examples Projects/Vala/Gedit3PluginSample  (last edited 2016-10-07 14:33:53 by AlThomas)
-
-
-
-
-
-
-
-
-
-
-
 Search:
 <input id="searchinput" type="text" name="value" value="" size="20"
     onfocus="searchFocus(this)" onblur="searchBlur(this)"
@@ -180,9 +113,6 @@ Search:
     value="Titles" alt="Search Titles">
 <input id="fullsearch" name="fullsearch" type="submit"
     value="Text" alt="Search Full Text">
-
-
-
 <!--// Initialize search form
 var f = document.getElementById('searchform');
 f.getElementsByTagName('label')[0].style.display = 'none';
@@ -190,13 +120,6 @@ var e = document.getElementById('searchinput');
 searchChange(e);
 searchBlur(e);
 //-->
-
-
-
         Copyright &copy; 2005 -  The GNOME Project.
         Hosted by Red Hat.
-
   document.getElementById('current-year').innerHTML = new Date().getFullYear();
-
-
-

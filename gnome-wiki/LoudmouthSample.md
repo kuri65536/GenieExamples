@@ -1,55 +1,8 @@
-
-
-
-
-
-
-
-
 Projects/Vala/LoudmouthSample - GNOME Wiki!
-
-
-
 <!--
 var search_hint = "Search";
 //-->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Projects/Vala/LoudmouthSampleHomeRecentChangesScheduleLogin
-
-
-
-
-
-
-
-
 Loudmouth Synchronous Sample
 vala-test:examples/lm-send-sync.vala /*
  * Copyright (C) 2004 Imendio AB
@@ -70,7 +23,6 @@ vala-test:examples/lm-send-sync.vala /*
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
  */
-
 /*
  * Description:
  * A little program that let you send jabber messages to another person.
@@ -79,11 +31,8 @@ vala-test:examples/lm-send-sync.vala /*
  * Build instructions:
  * valac --pkg loudmouth-1.0 lm-send-sync.vala
  */
-
 using Lm;
-
 class LmSyncDemo {
-
     static string server = null;
     static string message = null;
     static string username = null;
@@ -91,7 +40,6 @@ class LmSyncDemo {
     static string recipient = null;
     static string resource;
     static uint port;
-
     const OptionEntry[] options = {
             { &quot;server&quot;, 's', 0, OptionArg.STRING, ref server, &quot;Server to connect to. You need to have a valid login on that server.&quot;, &quot;server.org&quot; },
             { &quot;username&quot;, 'u', 0, OptionArg.STRING, ref username, &quot;Username to used for the server you selected.&quot;, &quot;some_username&quot; },
@@ -102,11 +50,9 @@ class LmSyncDemo {
             { &quot;port&quot;, 'o', OptionFlags.OPTIONAL_ARG, OptionArg.INT, ref port, &quot;Port to use when connecting to selected server.&quot;, &quot;5222&quot; },
             { null }
         };
-
     static int main (string[] args) {
         resource = &quot;jabber-send&quot;;
         port = Connection.DEFAULT_PORT;
-
         try {
             var opt_context = new OptionContext (&quot;- Loudmouth Synchronous Sample&quot;);
             opt_context.set_help_enabled (true);
@@ -124,23 +70,17 @@ class LmSyncDemo {
             stdout.printf (&quot;Run '%s --help' to see a full list of available command line options.\n&quot;, args[0]);
             return 1;
         }
-
         var connection = new Connection (server);
-
         try {
             print (&quot;Connecting to %s\n&quot;, server);
             connection.open_and_block ();
-
             print (&quot;Authenticating as '%s' with '%s' and the resource '%s'\n&quot;,
                    username, password, resource);
             connection.authenticate_and_block (username, password, resource);
-
             var m = new Message (recipient, MessageType.MESSAGE);
             m.node.add_child (&quot;body&quot;, message);
-
             print (&quot;Sending message '%s' to %s\n&quot;, message, recipient);
             connection.send (m);
-
             print (&quot;Closing connection\n&quot;);
             connection.close ();
         } catch (GLib.Error e) {
@@ -155,10 +95,8 @@ class LmSyncDemo {
                 finally_close (connection);
             }
         }
-
         return 0;
     }
-
     static void finally_close (Connection connection) {
         try {
             connection.close ();
@@ -167,16 +105,13 @@ class LmSyncDemo {
         }
     }
 }
-
 Compile and run
 $ valac --pkg loudmouth-1.0 lm-send-sync.vala
 $ ./lm-send-sync -s jabber.org -u myusername -p mypassword -m &quot;message to send&quot; -t someone_else@jabber.org
 Loudmouth Asynchronous Sample
 vala-test:examples/lm-send-async.vala using Gtk;
 using Lm;
-
 class MainWindow : Window {
-
     private Label status;
     private Button dconnect;
     private Button send;
@@ -186,9 +121,7 @@ class MainWindow : Window {
     private Entry username;
     private Entry password;
     private Entry resource;
-
     private Connection cn;
-
     public MainWindow () {
         this.title = &quot;jabber-send&quot;;
         create_widgets ();
@@ -196,27 +129,22 @@ class MainWindow : Window {
         this.send.clicked.connect (send_message);
         this.dconnect.clicked.connect (do_connect);
     }
-
     private void create_widgets () {
         var hboxbut = new HBox (false, 5);
         status = new Label (&quot;&quot;);
         dconnect = new Button.with_label (&quot;Connect&quot;);
         send = new Button.with_label (&quot;Send Message&quot;);
-
         server = new Entry ();
         username = new Entry ();
         password = new Entry ();
         resource = new Entry ();
         recipient = new Entry ();
         message = new Entry ();
-
         send.sensitive = false;
         status.label = &quot;Disconnected&quot;;
         resource.text = &quot;jabber-send&quot;;
-
         hboxbut.add (dconnect);
         hboxbut.add (send);
-
         var vbox = new VBox (false, 5);
         vbox.pack_start (hbox (&quot;Server:&quot;, server), false, false, 0);
         vbox.pack_start (hbox (&quot;Username:&quot;, username), false, false, 0);
@@ -228,21 +156,18 @@ class MainWindow : Window {
         vbox.pack_start (hboxbut, false, false, 0);
         add (vbox);
     }
-
     private HBox hbox (string label, Widget w) {
         var box = new HBox (false, 5);
         box.pack_start (new Label.with_mnemonic (label), false, false, 5);
         box.pack_start (w, true, true, 5);
         return box;
     }
-
     private void on_quit () {
         if (cn != null) {
             do_disconnect ();
         }
         Gtk.main_quit ();
     }
-
     private void connected (Connection connection, bool success) {
         if (success) {
             status.label = &quot;Opened connection and authenticated&quot;;
@@ -255,11 +180,9 @@ class MainWindow : Window {
         }
         dconnect.sensitive = true;
     }
-
     private void send_message () {
         var m = new Message (recipient.text, Lm.MessageType.MESSAGE);
         m.node.add_child (&quot;body&quot;, message.text);
-
         try {
             cn.send (m);
             status.label = &quot;Message sent&quot;;
@@ -267,14 +190,12 @@ class MainWindow : Window {
             status.label = &quot;Error: &quot; + e.message;
         }
     }
-
     private void auth (Connection connection, bool success) {
         if (!success) {
             status.label = &quot;Connection failed&quot;;
             dconnect.sensitive = true;
             return;
         }
-
         status.label = &quot;Authenticating with &quot; + server.text;
         try {
             connection.authenticate (username.text, password.text,
@@ -283,7 +204,6 @@ class MainWindow : Window {
             status.label = &quot;Error: &quot; + e.message;
         }
     }
-
     private void do_connect () {
         if (cn != null &amp;&amp; cn.is_open ()) {
             try {
@@ -293,9 +213,7 @@ class MainWindow : Window {
                 return;
             }
         }
-
         cn = new Connection (server.text);
-
         try {
             cn.open (auth, null);
             status.label = &quot;Loading connection to &quot; + server.text;
@@ -304,7 +222,6 @@ class MainWindow : Window {
             status.label = &quot;Error: &quot; + e.message;
         }
     }
-
     private void do_disconnect () {
         try {
             cn.close ();
@@ -317,32 +234,17 @@ class MainWindow : Window {
             status.label = &quot;Error: &quot; + e.message;
         }
     }
-
     static int main (string[] args) {
         Gtk.init (ref args);
-
         var window = new MainWindow ();
         window.show_all ();
-
         Gtk.main ();
         return 0;
     }
 }
-
 Compile and run
 $ valac --pkg loudmouth-1.0 --pkg gtk+-2.0 lm-send-async.vala
 $ ./lm-send-async Vala/Examples Projects/Vala/LoudmouthSample  (last edited 2013-11-22 16:48:32 by WilliamJonMcCann)
-
-
-
-
-
-
-
-
-
-
-
 Search:
 <input id="searchinput" type="text" name="value" value="" size="20"
     onfocus="searchFocus(this)" onblur="searchBlur(this)"
@@ -351,9 +253,6 @@ Search:
     value="Titles" alt="Search Titles">
 <input id="fullsearch" name="fullsearch" type="submit"
     value="Text" alt="Search Full Text">
-
-
-
 <!--// Initialize search form
 var f = document.getElementById('searchform');
 f.getElementsByTagName('label')[0].style.display = 'none';
@@ -361,13 +260,6 @@ var e = document.getElementById('searchinput');
 searchChange(e);
 searchBlur(e);
 //-->
-
-
-
         Copyright &copy; 2005 -  The GNOME Project.
         Hosted by Red Hat.
-
   document.getElementById('current-year').innerHTML = new Date().getFullYear();
-
-
-

@@ -1,54 +1,8 @@
-
-
-
-
-
-
-
-
 Projects/Vala/GSLSample - GNOME Wiki!
-
-
-
 <!--
 var search_hint = "Search";
 //-->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Projects/Vala/GSLSampleHomeRecentChangesScheduleLogin
-
-
-
-
-
-
-
 Contents
 GNU Scientific Library - Vala Samples
 Statistics Sample
@@ -66,15 +20,12 @@ These samples are found in the reference manual of GSL and were rewritten for va
 Statistics Sample
 vala-test:examples/gsl-stats.vala using GLib;
 using Gsl;
-
 public class Test : GLib.Object
 {
         public static void main (string[] args)
         {
                 double mean, max, min;
-
                 double[] data = new double[] { 17.2, 18.1, 16.5, 18.3, 12.6 };
-
                 mean = Stats.mean (data, 1, data.length);
                 Stats.minmax (out min, out max, data, 1, data.length);
                 stdout.printf(&quot;promedio %g\n&quot;, mean);
@@ -82,11 +33,9 @@ public class Test : GLib.Object
                 stdout.printf(&quot;maximo %g\n&quot;, max);
         }
 }
-
 Special Functions Sample
 vala-test:examples/gsl-function.vala using GLib;
 using Gsl;
-
 public class Test : GLib.Object
 {
         public static void main (string[] args)
@@ -99,11 +48,9 @@ public class Test : GLib.Object
                 stdout.printf(&quot;exact   = %.18f\n&quot;, expected);
         }
 }
-
 Combination Sample
 vala-test:examples/gsl-combination.vala using GLib;
 using Gsl;
-
 public class Test : GLib.Object
 {
         public static void main (string[] args)
@@ -123,11 +70,9 @@ public class Test : GLib.Object
                 }
         }
 }
-
 Linear Algebra Sample
 vala-test:examples/gsl-linear-algebra.vala using GLib;
 using Gsl;
-
 public class Test : GLib.Object
 {
         public static void main (string[] args)
@@ -148,11 +93,9 @@ public class Test : GLib.Object
                 Vector.fprintf(stdout, x, &quot;%g&quot;);
         }
 }
-
 Eigen System Sample
 vala-test:examples/gsl-eigen-system.vala using GLib;
 using Gsl;
-
 public class Test : GLib.Object
 {
         public static void main (string[] args)
@@ -161,7 +104,6 @@ public class Test : GLib.Object
                                                                            1/2.0, 1/3.0, 1/4.0, 1/5.0,
                                                                            1/3.0, 1/4.0, 1/5.0, 1/6.0,
                                                                            1/4.0, 1/5.0, 1/6.0, 1/7.0 };
-
                 MatrixView m = MatrixView.array (data, 4, 4);
                 Vector eval = new Vector (4);
                 Matrix evec = new Matrix (4, 4);
@@ -178,11 +120,9 @@ public class Test : GLib.Object
                 }
         }
 }
-
 Random Number Generation Sample
 vala-test:examples/gsl-random.vala using GLib;
 using Gsl;
-
 public class RNGSample : GLib.Object
 {
         public static void main (string[] args)
@@ -200,11 +140,9 @@ public class RNGSample : GLib.Object
                 }
         }
 }
-
 Integration Sample
 vala-test:examples/gsl-integration.vala using GLib;
 using Gsl;
-
 public class IntegrationSample : GLib.Object
 {
         public static double f (double x, double* params)
@@ -220,7 +158,6 @@ public class IntegrationSample : GLib.Object
                 double expected = -4.0;
                 double alpha = 1.0;
                 Function F = Function () { function = f, params = &amp;alpha };
-
                 Integration.qags (&amp;F, 0, 1, 0, 1e-7, 1000, w, out integration_result, out error);
                 stdout.printf (&quot;result          = %.18f\n&quot;, integration_result);
                 stdout.printf (&quot;exact result    = %.18f\n&quot;, expected);
@@ -229,15 +166,12 @@ public class IntegrationSample : GLib.Object
                 stdout.printf (&quot;intervals = %i\n&quot;, (int)w.size);
         }
 }
-
 Monte Carlo Integration Sample
 vala-test:examples/gsl-monte-carlo-integration.vala using GLib;
 using Gsl;
-
 public class MonteSample : GLib.Object
 {
         static double exact = 1.3932039296856768591842462603255;
-
         static double g (double* k, size_t dim, void* params)
         {
                 double A = 1.0 / (Math.PI * Math.PI * Math.PI);
@@ -287,11 +221,9 @@ public class MonteSample : GLib.Object
                 }
         }
 }
-
 Multidimensional Root-Finding Sample
 vala-test:examples/gsl-multidimensional.vala using GLib;
 using Gsl;
-
 public class MultiRootSample : GLib.Object
 {
         struct RParams
@@ -365,11 +297,9 @@ public class MultiRootSample : GLib.Object
                 } while (status==Status.CONTINUE &amp;&amp; iter &lt; 1000);
         }
 }
-
 Nonlinear Least-Squares Fitting Sample
 vala-test:examples/gsl-least-squares-fitting.vala using GLib;
 using Gsl;
-
 public class FitSample
 {
         struct Data
@@ -455,7 +385,6 @@ public class FitSample
                         sigma[i] = 0.1;
                         stdout.printf (&quot;data: %u %g %g\n&quot;, i, y[i], sigma[i]);
                 }
-
                 T = (MultifitFdfsolverType*)MultifitFdfsolverTypes.lmsder;
                 s = new MultifitFdfsolver (T, n, p);
                 s.set (&amp;f, (Vector)(&amp;x.vector));
@@ -478,17 +407,6 @@ public class FitSample
         }
 }
  Vala/Examples Projects/Vala/GSLSample  (last edited 2013-11-22 16:48:25 by WilliamJonMcCann)
-
-
-
-
-
-
-
-
-
-
-
 Search:
 <input id="searchinput" type="text" name="value" value="" size="20"
     onfocus="searchFocus(this)" onblur="searchBlur(this)"
@@ -497,9 +415,6 @@ Search:
     value="Titles" alt="Search Titles">
 <input id="fullsearch" name="fullsearch" type="submit"
     value="Text" alt="Search Full Text">
-
-
-
 <!--// Initialize search form
 var f = document.getElementById('searchform');
 f.getElementsByTagName('label')[0].style.display = 'none';
@@ -507,13 +422,6 @@ var e = document.getElementById('searchinput');
 searchChange(e);
 searchBlur(e);
 //-->
-
-
-
         Copyright &copy; 2005 -  The GNOME Project.
         Hosted by Red Hat.
-
   document.getElementById('current-year').innerHTML = new Date().getFullYear();
-
-
-

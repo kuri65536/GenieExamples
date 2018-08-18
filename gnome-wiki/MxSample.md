@@ -1,51 +1,67 @@
-Projects/Vala/MxSample - GNOME Wiki!
-<!--
-var search_hint = "Search";
-//-->
-Projects/Vala/MxSampleHomeRecentChangesScheduleLogin
-Mx Toolkit
-Mx is a widget toolkit based on Clutter originally designed for the Moblin/MeeGo netbook experience, but evolved into an independent project. To compile these examples you have to install Mx 1.x. 
-Expander Demo
-vala-test:examples/mx-expander-demo.vala using Mx;
-int main (string[] args) {
+# Projects/Vala/MxSample - GNOME Wiki!
+
+# Mx Toolkit
+
+Mx is a widget toolkit based on Clutter originally designed for the Moblin/MeeGo
+netbook experience, but evolved into an independent project. To compile these
+examples you have to install Mx 1.x.
+
+## Expander Demo
+
+```genie
+// vala-test:examples/mx-expander-demo.vala
+[indent=4]
+uses Mx
+
+init
     var init_rc = Clutter.init (ref args);
-    if (init_rc != Clutter.InitError.SUCCESS) {
+    if init_rc != Clutter.InitError.SUCCESS
         stderr.printf("Clutter Init Error %i\n", init_rc);
-        return init_rc;
-    }
+        return  // init_rc;
+
     var stage = new Clutter.Stage ();
     stage.set_title ("Expander Demo");
     stage.set_size (640, 480);
     stage.user_resizable = true;
-    stage.delete_event.connect (() => {
+    stage.delete_event += def
         stdout.printf("Bye!\n");
         Clutter.main_quit();
         return false;
-    });
+
     var expander = new Mx.Expander ();
     expander.label = "Expander";
     stage.add_actor (expander);
     expander.set_position (10, 10);
-    expander.expand_complete.connect (() => {
+    expander.expand_complete += def
         stdout.printf ("Expand complete (%s)\n",
                        expander.expanded ? "open" : "closed");
-    });
+
     var scroll = new Mx.ScrollView ();
     expander.add_actor (scroll);
     scroll.set_size (320, 240);
     var grid = new Mx.Grid ();
     scroll.add_actor (grid);
-    for (var i = 1; i <= 50; i++) {
+    var i = 1
+    while i <= 50
         grid.add_actor (new Mx.Button.with_label (@"Button $i"));
-    }
+        i += 1
+
     stage.show ();
     Clutter.main ();
-    return 0;
-}
-$ valac --pkg mx-1.0 mx-expander-demo.vala
-$ ./mx-expander-demo 
-Widget Factory
-vala-test:examples/mx-widget-factory.vala using Mx;
+    // return 0;
+```
+
+```shell
+$ valac --pkg=mx-1.0 mx-expander-demo.vala
+$ ./mx-expander-demo
+```
+
+
+## Widget Factory
+
+```genie
+// vala-test:examples/mx-widget-factory.vala
+using Mx;
 Clutter.Actor create_main_content () {
     var table = new Table ();
     table.column_spacing = 24;
@@ -140,23 +156,12 @@ int main (string [] args) {
     app.run ();
     return 0;
 }
-$ valac --pkg mx-1.0 mx-widget-factory.vala
-$ ./mx-widget-factory  Vala/Examples Projects/Vala/MxSample  (last edited 2013-11-22 16:48:24 by WilliamJonMcCann)
-Search:
-<input id="searchinput" type="text" name="value" value="" size="20"
-    onfocus="searchFocus(this)" onblur="searchBlur(this)"
-    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
-<input id="titlesearch" name="titlesearch" type="submit"
-    value="Titles" alt="Search Titles">
-<input id="fullsearch" name="fullsearch" type="submit"
-    value="Text" alt="Search Full Text">
-<!--// Initialize search form
-var f = document.getElementById('searchform');
-f.getElementsByTagName('label')[0].style.display = 'none';
-var e = document.getElementById('searchinput');
-searchChange(e);
-searchBlur(e);
-//-->
-        Copyright &copy; 2005 -  The GNOME Project.
-        Hosted by Red Hat.
-  document.getElementById('current-year').innerHTML = new Date().getFullYear();
+```
+
+```shell
+$ valac --pkg=mx-1.0 mx-widget-factory.vala
+$ ./mx-widget-factory
+```
+
+Vala/Examples Projects/Vala/MxSample
+    (last edited 2013-11-22 16:48:24 by WilliamJonMcCann)

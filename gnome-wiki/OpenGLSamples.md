@@ -1,31 +1,41 @@
-Projects/Vala/OpenGLSamples - GNOME Wiki!
-<!--
-var search_hint = "Search";
-//-->
-Projects/Vala/OpenGLSamplesHomeRecentChangesScheduleLogin
+# Projects/Vala/OpenGLSamples - GNOME Wiki!
+
 Contents
-Vala OpenGL Samples
-Using GLFW
-Using GtkGLExt: Coloured Triangle
-Using GtkGLExt: Spotlight
-Using GLX: Coloured Triangle
-Using GLUT/FreeGLUT: Teapot 
-Vala OpenGL Samples
-You can find the OpenGL bindings for Vala on ../ExternalBindings 
-Using GLFW
-GLFW is a free, Open Source, multi-platform library for creating OpenGL contexts. vala-test:examples/opengl-glfw.vala using GLFW;
-using GL;
-int main () {
-    bool running = true;
+
+- Vala OpenGL Samples
+- Using GLFW
+- Using GtkGLExt: Coloured Triangle
+- Using GtkGLExt: Spotlight
+- Using GLX: Coloured Triangle
+- Using GLUT/FreeGLUT: Teapot
+
+
+## Vala OpenGL Samples
+
+You can find the OpenGL bindings for Vala on ../ExternalBindings
+
+
+## Using GLFW
+GLFW is a free, Open Source,
+multi-platform library for creating OpenGL contexts.
+
+```genie
+// vala-test:examples/opengl-glfw.vala
+[indent=4]
+uses GLFW
+uses GL
+
+init
+    var running = true
     // Initialize GLFW
     glfwInit ();
     // Open an OpenGL window (you can also try Mode.FULLSCREEN)
-    if (!glfwOpenWindow (640, 480, 0, 0, 0, 0, 0, 0, Mode.WINDOW)) {
+    if !glfwOpenWindow(640, 480, 0, 0, 0, 0, 0, 0, Mode.WINDOW)
         glfwTerminate ();
-        return 1;
-    }
+        return  // 1;
+
     // Main loop
-    while (running) {
+    while running
         // OpenGL rendering goes here...
         glClear (GL_COLOR_BUFFER_BIT);
         glBegin (GL_TRIANGLES);
@@ -36,16 +46,28 @@ int main () {
         // Swap front and back rendering buffers
         glfwSwapBuffers ();
         // Check if ESC key was pressed or window was closed
-        running = !glfwGetKey (Key.ESC) &amp;&amp; (bool) glfwGetWindowParam (WindowParam.OPENED);
-    }
+        running = !glfwGetKey(Key.ESC) and (bool)glfwGetWindowParam(WindowParam.OPENED)
+
     // Close window and terminate GLFW
     glfwTerminate ();
     // Exit program
-    return 0;
-}
-Compile with: $ valac --pkg gl --pkg libglfw glfw-sample.vala
-Using GtkGLExt: Coloured Triangle
-GtkGLExt adds OpenGL capabilities to GTK+ widgets. vala-test:examples/opengl-gtkglext.vala using Gtk;
+    // return 0;
+```
+
+### Compile with:
+
+```shell
+$ valac --pkg=gl --pkg=libglfw glfw-sample.vala
+```
+
+
+## Using GtkGLExt: Coloured Triangle
+
+GtkGLExt adds OpenGL capabilities to GTK+ widgets.
+
+```genie
+// vala-test:examples/opengl-gtkglext.vala
+using Gtk;
 using Gdk;
 using GL;
 class GtkGLExtSample : Gtk.Window {
@@ -107,9 +129,20 @@ void main (string[] args) {
     sample.show_all ();
     Gtk.main ();
 }
-Compile with: $ valac --pkg gtk+-2.0 --pkg gl --pkg gtkglext-1.0 gtkglext-sample.vala
-Using GtkGLExt: Spotlight
-Move the light with the arrow keys! vala-test:examples/opengl-gtkglext-spot.vala using Gtk;
+```
+
+### Compile with:
+
+```shell
+$ valac --pkg gtk+-2.0 --pkg gl --pkg gtkglext-1.0 gtkglext-sample.vala
+```
+
+
+## Using GtkGLExt: Spotlight
+Move the light with the arrow keys!
+
+```genie
+// vala-test:examples/opengl-gtkglext-spot.vala using Gtk;
 using Gdk;
 using GL;
 using GLU;
@@ -255,9 +288,19 @@ void main (string[] args) {
     sample.show_all ();
     Gtk.main ();
 }
-Compile with: $ valac --pkg gtk+-2.0 --pkg gl --pkg glu --pkg gtkglext-1.0 gtkglext-spot-sample.vala
-Using GLX: Coloured Triangle
-vala-test:examples/opengl-glx.vala using Gtk;
+```
+
+### Compile with:
+
+```shell
+$ valac --pkg gtk+-2.0 --pkg gl --pkg glu --pkg gtkglext-1.0 gtkglext-spot-sample.vala
+```
+
+
+## Using GLX: Coloured Triangle
+
+```genie
+// vala-test:examples/opengl-glx.vala using Gtk;
 using Gdk;
 using GLX;
 using GL;
@@ -324,9 +367,20 @@ void main (string[] args) {
     sample.show_all ();
     Gtk.main ();
 }
-Compile with: $ valac --pkg gtk+-2.0 --pkg gdk-x11-2.0 --pkg gl --pkg glx glx-sample.vala
-Using GLUT/FreeGLUT: Teapot
-WARNING: It is not finished at all, it works correctly vala-test:examples/opengl-glut.vala using GLib;
+```
+
+### Compile with:
+
+```shell
+$ valac --pkg gtk+-2.0 --pkg gdk-x11-2.0 --pkg gl --pkg glx glx-sample.vala
+```
+
+
+## Using GLUT/FreeGLUT: Teapot
+WARNING: It is not finished at all, it works correctly
+
+```genie
+// vala-test:examples/opengl-glut.vala using GLib;
 using GL;
 using GLU;
 using GLUT;
@@ -652,22 +706,13 @@ public class Example : Object {
                 glutMainLoop();
         }
 }
-Compile with: $ valac --pkg gl --pkg glu --pkg glut -X -lglut glut-sample.vala Vala/Examples Projects/Vala/OpenGLSamples  (last edited 2013-11-22 16:48:29 by WilliamJonMcCann)
-Search:
-<input id="searchinput" type="text" name="value" value="" size="20"
-    onfocus="searchFocus(this)" onblur="searchBlur(this)"
-    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
-<input id="titlesearch" name="titlesearch" type="submit"
-    value="Titles" alt="Search Titles">
-<input id="fullsearch" name="fullsearch" type="submit"
-    value="Text" alt="Search Full Text">
-<!--// Initialize search form
-var f = document.getElementById('searchform');
-f.getElementsByTagName('label')[0].style.display = 'none';
-var e = document.getElementById('searchinput');
-searchChange(e);
-searchBlur(e);
-//-->
-        Copyright &copy; 2005 -  The GNOME Project.
-        Hosted by Red Hat.
-  document.getElementById('current-year').innerHTML = new Date().getFullYear();
+```
+
+### Compile with:
+
+```shell
+$ valac --pkg gl --pkg glu --pkg glut -X -lglut glut-sample.vala
+```
+
+Vala/Examples Projects/Vala/OpenGLSamples
+    (last edited 2013-11-22 16:48:29 by WilliamJonMcCann)

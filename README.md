@@ -2,7 +2,7 @@
 genie clone codes of the vala examples from
 https://wiki.gnome.org/Projects/Vala/Examples and plus alpha.
 
-## Clone from [vala examples](https://wiki.gnome.org/Projects/Vala/Examples)
+## Clones from [vala examples](https://wiki.gnome.org/Projects/Vala/Examples)
 
 This page links to all the Genie examples available in this repository.
 

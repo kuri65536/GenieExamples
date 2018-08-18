@@ -1,41 +1,59 @@
-Projects/Vala/JsonSample - GNOME Wiki!
-<!--
-var search_hint = "Search";
-//-->
-Projects/Vala/JsonSampleHomeRecentChangesScheduleLogin
-Vala JSON Samples
-Gisgraphy Web Service
-This sample shows usage of json-glib combined with libsoup as a HTTP client. The sample uses the Gisgraphy web service as a source for a sample JSON document. Requires Vala >= 0.11.0 vala-test:examples/json-sample.vala void main () {
-    var uri = "http://services.gisgraphy.com/fulltext/fulltextsearch?q=%s&amp;format=JSON&amp;indent=true&amp;lang=en&amp;from=1&amp;to=10".printf ("asakusa");
+# Projects/Vala/JsonSample - GNOME Wiki!
+
+# Vala JSON Samples
+
+## Gisgraphy Web Service
+
+This sample shows usage of json-glib combined with libsoup as a HTTP client. The
+sample uses the Gisgraphy web service as a source for a sample JSON document.
+Requires Vala >= 0.11.0
+
+```genie
+// vala-test:examples/json-sample.vala
+[indent=4]
+init
+    var uri = "http://services.gisgraphy.com/fulltext/fulltextsearch?"
+    uri += "q=%s&format=JSON&indent=true&lang=en&from=1&to=10".printf("asakusa")
     var session = new Soup.Session ();
     var message = new Soup.Message ("GET", uri);
     session.send_message (message);
-    try {
+    try
         var parser = new Json.Parser ();
         parser.load_from_data ((string) message.response_body.flatten ().data, -1);
         var root_object = parser.get_root ().get_object ();
         var response = root_object.get_object_member ("response");
         var results = response.get_array_member ("docs");
-        int64 count = results.get_length ();
-        int64 total = response.get_int_member ("numFound");
+        var count = results.get_length ();
+        var total = response.get_int_member ("numFound");
         stdout.printf ("got %lld out of %lld results:\n\n", count, total);
-        foreach (var geonode in results.get_elements ()) {
+        for geonode in results.get_elements()
             var geoname = geonode.get_object ();
             stdout.printf ("%s\n%s\n%f\n%f\n\n",
                           geoname.get_string_member ("name"),
                           geoname.get_string_member ("country_name"),
                           geoname.get_double_member ("lng"),
                           geoname.get_double_member ("lat"));
-        }
-    } catch (Error e) {
+    except e: Error
         stderr.printf ("I guess something is not working...\n");
-    }
-}
-Compile and Run
-$ valac --thread --pkg libsoup-2.4 --pkg json-glib-1.0 json-sample.vala
+```
+
+### Compile and Run
+
+```shell
+$ valac --thread --pkg=libsoup-2.4 --pkg=json-glib-1.0 json-sample.vala
 $ ./jsonsample
-Glosbe translation API
-This sample uses libsoup and json-glib to translate text via the Glosbe API. Requires Vala >= 0.11.0 vala-test:examples/json-translator.vala string translate (string text, string input_language, string output_language) throws Error {
+```
+
+
+## Glosbe translation API
+
+This sample uses libsoup and json-glib to translate text via the Glosbe API.
+Requires Vala >= 0.11.0
+
+```genie
+// vala-test:examples/json-translator.vala
+string translate (string text, string input_language, string output_language) throws Error {
+
     string uri = "http://glosbe.com/gapi/translate";
     string full_uri = "%s?phrase=%s&amp;from=%s&amp;dest=%s&amp;format=json&amp;pretty=true".printf (uri,
                                  Soup.URI.encode (text, null),
@@ -61,11 +79,22 @@ void main () {
         stderr.printf ("I think something went wrong!\n");
     }
 }
-Compile and Run
+```
+
+### Compile and Run
+
+```shell
 $ valac --thread --pkg libsoup-2.4 --pkg json-glib-1.0 json-translator.vala
 $ ./json-translator
-Transmission RPC Interface
-This example generates a JSON request object which is send via HTTP to the transmission-daemon which in turn returns the torrent data as JSON. using Soup;
+```
+
+
+## Transmission RPC Interface
+This example generates a JSON request object which is send via HTTP to the
+transmission-daemon which in turn returns the torrent data as JSON.
+
+```genie
+using Soup;
 using Json;
 class Transmission {
    private SessionAsync session;
@@ -145,24 +174,14 @@ class Transmission {
       t.request_list();
    }
 }
-Compile and Run
+```
+
+### Compile and Run
+
+```shell
 $ valac --thread --pkg libsoup-2.4 --pkg json-glib-1.0 transmission-rpc.vala
-$ ./transmission-rpc Vala/Examples Projects/Vala/JsonSample  (last edited 2014-03-04 13:27:43 by StefanTalpalaru)
-Search:
-<input id="searchinput" type="text" name="value" value="" size="20"
-    onfocus="searchFocus(this)" onblur="searchBlur(this)"
-    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
-<input id="titlesearch" name="titlesearch" type="submit"
-    value="Titles" alt="Search Titles">
-<input id="fullsearch" name="fullsearch" type="submit"
-    value="Text" alt="Search Full Text">
-<!--// Initialize search form
-var f = document.getElementById('searchform');
-f.getElementsByTagName('label')[0].style.display = 'none';
-var e = document.getElementById('searchinput');
-searchChange(e);
-searchBlur(e);
-//-->
-        Copyright &copy; 2005 -  The GNOME Project.
-        Hosted by Red Hat.
-  document.getElementById('current-year').innerHTML = new Date().getFullYear();
+$ ./transmission-rpc
+```
+
+Vala/Examples Projects/Vala/JsonSample
+    (last edited 2014-03-04 13:27:43 by StefanTalpalaru)

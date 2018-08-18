@@ -1,27 +1,39 @@
-Projects/Vala/GTKSample - GNOME Wiki!
-<!--
-var search_hint = "Search";
-//-->
-Projects/Vala/GTKSampleHomeRecentChangesScheduleLogin
+# Projects/Vala/GTKSample - GNOME Wiki!
+
 Contents
-Vala GTK+ Examples
-Basic Sample
-Setting an Application Icon
-Synchronizing Widgets
-Toolbar, Scrollable Text View and File Chooser
-Creating a Dialog
-Loading User Interface from XML File
-Tips and Tricks
-TreeView with ListStore
-TreeView with TreeStore
-TreeView with CellRendererToggle
-Clipboard
-EntryCompletion with two cells 
-Vala GTK+ Examples
-Note:  These examples require GTK+ 3.x installed, e.g. Fedora >= 15: gtk3-devel openSUSE >= 11.4: gtk3-devel Ubuntu >= 11.04: libgtk-3-dev If you're still developing for GTK+ 2.x you can find examples on the GTK+ 2.x version of this page. 
-Basic Sample
-This sample demonstrates how to create a toplevel window, set its title, size and position, how to add a button to this window and how to connect signals with actions. vala-test:examples/gtk-hello.vala using Gtk;
-int main (string[] args) {
+
+- Vala GTK+ Examples
+- Basic Sample
+- Setting an Application Icon
+- Synchronizing Widgets
+- Toolbar, Scrollable Text View and File Chooser
+- Creating a Dialog
+- Loading User Interface from XML File
+- Tips and Tricks
+- TreeView with ListStore
+- TreeView with TreeStore
+- TreeView with CellRendererToggle
+- Clipboard
+- EntryCompletion with two cells
+
+
+## Vala GTK+ Examples
+Note:  These examples require GTK+ 3.x installed, e.g. Fedora >= 15: gtk3-devel
+openSUSE >= 11.4: gtk3-devel Ubuntu >= 11.04: libgtk-3-dev If you're still
+developing for GTK+ 2.x you can find examples on the GTK+ 2.x version of this
+page.
+
+
+## Basic Sample
+This sample demonstrates how to create a toplevel window, set its title, size
+and position, how to add a button to this window and how to connect signals with
+actions. vala-test:examples/gtk-hello.vala using Gtk;
+
+```genie
+[indent=4]
+uses Gtk
+
+init  // (string[] args) {
     Gtk.init (ref args);
     var window = new Window ();
     window.title = "First GTK+ Program";
@@ -30,29 +42,46 @@ int main (string[] args) {
     window.set_default_size (350, 70);
     window.destroy.connect (Gtk.main_quit);
     var button = new Button.with_label ("Click me!");
-    button.clicked.connect (() => {
+    button.clicked += def(btn)
         button.label = "Thank you";
-    });
     window.add (button);
     window.show_all ();
     Gtk.main ();
-    return 0;
-}
-All GTK+ classes are inside the Gtk namespace. You must initialize every GTK+ program with Gtk.init (). 
-Compile and Run
-$ valac --pkg gtk+-3.0 gtk-hello.vala
-$ ./gtk-hello 
-Setting an Application Icon
-try {
+    // TODO(shimoda): return 0; in init()
+```
+
+All GTK+ classes are inside the Gtk namespace. You must initialize every GTK+
+program with Gtk.init ().
+
+### Compile and Run
+
+```shell
+$ valac --pkg=gtk+-3.0 gtk-hello.vala
+$ ./gtk-hello
+```
+
+
+## Setting an Application Icon
+
+```
+try
     // Either directly from a file ...
     window.icon = new Gdk.Pixbuf.from_file ("my-app.png");
     // ... or from the theme
     window.icon = IconTheme.get_default ().load_icon ("my-app", 48, 0);
-} catch (Error e) {
+except e: Error
     stderr.printf ("Could not load application icon: %s\n", e.message);
-}
-Synchronizing Widgets
-You can use signals in order to synchronize the values of widgets. In this example a spin button and a horizontal scale will get interlocked. vala-test:examples/gtk-sync-sample.vala using Gtk;
+```
+
+
+## Synchronizing Widgets
+You can use signals in order to synchronize the values of widgets. In this
+example a spin button and a horizontal scale will get interlocked.
+
+```genie
+// vala-test:examples/gtk-sync-sample.vala
+uses Gtk
+
 public class SyncSample : Window {
     private SpinButton spin_box;
     private Scale slider;
@@ -84,10 +113,17 @@ public class SyncSample : Window {
         return 0;
     }
 }
-Compile and Run
+```
+
+### Compile and Run
+
+```shell
 $ valac --pkg gtk+-3.0 gtk-sync-sample.vala
-$ ./gtk-sync-sample 
-Toolbar, Scrollable Text View and File Chooser
+$ ./gtk-sync-sample
+```
+
+
+## Toolbar, Scrollable Text View and File Chooser
 A simple text file viewer: vala-test:examples/gtk-text-viewer.vala using Gtk;
 public class TextFileViewer : Window {
     private TextView text_view;
@@ -97,7 +133,7 @@ public class TextFileViewer : Window {
         set_default_size (400, 300);
         var toolbar = new Toolbar ();
         toolbar.get_style_context ().add_class (STYLE_CLASS_PRIMARY_TOOLBAR);
-        var open_icon = new Gtk.Image.from_icon_name ("document-open", 
+        var open_icon = new Gtk.Image.from_icon_name ("document-open",
             IconSize.SMALL_TOOLBAR);
         var open_button = new Gtk.ToolButton (open_icon, "Open");
         open_button.is_important = true;
@@ -142,9 +178,22 @@ public class TextFileViewer : Window {
         return 0;
     }
 }
-Compile and Run
+```
+
+### Compile and Run
+
+```shell
 $ valac --pkg gtk+-3.0 gtk-text-viewer.vala
-$ ./gtk-text-viewer If you want to reuse your file dialog setup or add additional functionality you can subclass FileChooserDialog. This one remembers the last folder: vala-test:examples/gtk-filechooser.vala using Gtk;
+$ ./gtk-text-viewer
+```
+
+If you want to reuse your file dialog setup or add additional functionality you
+can subclass FileChooserDialog. This one remembers the last folder:
+
+```
+// vala-test:examples/gtk-filechooser.vala
+uses Gtk
+
 public class OpenFileDialog : FileChooserDialog {
     private string last_folder;
     public OpenFileDialog () {
@@ -170,8 +219,16 @@ public class OpenFileDialog : FileChooserDialog {
         }
     }
 }
-Creating a Dialog
-This example demonstrates how to create a dialog by subclassing Dialog. vala-test:examples/gtk-search-dialog.vala using Gtk;
+```
+
+
+## Creating a Dialog
+This example demonstrates how to create a dialog by subclassing Dialog.
+
+```genie
+// vala-test:examples/gtk-search-dialog.vala
+uses Gtk
+
 public class SearchDialog : Dialog {
     private Entry search_entry;
     private CheckButton match_case;
@@ -246,11 +303,28 @@ int main (string[] args) {
     Gtk.main ();
     return 0;
 }
-Compile and Run
+```
+
+### Compile and Run
+
+```shell
 $ valac --pkg gtk+-3.0 gtk-search-dialog.vala
-$ ./gtk-search-dialog 
-Loading User Interface from XML File
-Instead of hand coding your application's user interface you can create it comfortably with a user interface designer such as Glade and save it as XML file. Your application can load the UI from this file at runtime with the help of the Gtk.Builder class. It can even connect all signals to their callback methods if you have declared them in Glade. Here's a sample UI file: sample.ui This example code works with the UI file linked above: vala-test:examples/gtk-builder-sample.vala using Gtk;
+$ ./gtk-search-dialog
+```
+
+
+### Loading User Interface from XML File
+Instead of hand coding your application's user interface you can create it
+comfortably with a user interface designer such as Glade and save it as XML
+file. Your application can load the UI from this file at runtime with the help
+of the Gtk.Builder class. It can even connect all signals to their callback
+methods if you have declared them in Glade. Here's a sample UI file: sample.ui
+This example code works with the UI file linked above:
+
+```genie
+// vala-test:examples/gtk-builder-sample.vala
+uses Gtk
+
 public void on_button1_clicked (Button source) {
     source.label = "Thank you!";
 }
@@ -275,10 +349,27 @@ int main (string[] args) {
     }
     return 0;
 }
-Compile and Run
-You have to add the package gmodule-2.0 so that auto-connection of signals will work: $ valac --pkg gtk+-3.0 --pkg gmodule-2.0 gtk-builder-sample.valaNote: If you don't make the callback methods public you will get method never used warnings at this point. $ ./gtk-builder-sample 
-Connecting callbacks
-If you declare the callback methods inside a class and/or namespace you have to prefix the callback method in Glade with the namespace/class name in lower case letters and with underscores. For example, Foo.MyBar.on_button_clicked would be foo_my_bar_on_button_clicked in Glade:  If you want the callback methods to be instance methods instead of static methods you have to annotate them with the [CCode(instance_pos=-1)] attribute and pass the instance to connect_signals(...) instead of null: using Gtk;
+```
+
+### Compile and Run
+You have to add the package gmodule-2.0 so that auto-connection of signals will
+work: $ valac --pkg gtk+-3.0 --pkg gmodule-2.0 gtk-builder-sample.valaNote: If
+you don't make the callback methods public you will get method never used
+warnings at this point. $ ./gtk-builder-sample
+
+
+## Connecting callbacks
+If you declare the callback methods inside a class and/or namespace you have to
+prefix the callback method in Glade with the namespace/class name in lower case
+letters and with underscores. For example, Foo.MyBar.on_button_clicked would be
+foo_my_bar_on_button_clicked in Glade:  If you want the callback methods to be
+instance methods instead of static methods you have to annotate them with the
+[CCode(instance_pos=-1)] attribute and pass the instance to connect_signals(...)
+instead of null:
+
+```
+using Gtk;
+
 namespace Foo {
     public class MyBar {
         [CCode (instance_pos = -1)]
@@ -295,7 +386,14 @@ namespace Foo {
         var object = new Foo.MyBar ();
         builder.connect_signals (object);
 // ...
-Attention: When using Gtk.Builder's signal auto-connection feature all handlers must have the full signatures of their corresponding signals, including the signal sender as first parameter. Otherwise you will get segmentation faults at runtime. On Windows you have to add G_MODULE_EXPORT to the callbacks otherwise signal handlers won't be found. Use [CCode (cname="G_MODULE_EXPORT callback_name")] as a workaround. (cf. Bug 541548) [CCode (cname = "G_MODULE_EXPORT on_button1_clicked")]
+Attention: When using Gtk.Builder's signal auto-connection feature all handlers
+must have the full signatures of their corresponding signals, including the
+signal sender as first parameter. Otherwise you will get segmentation faults at
+runtime. On Windows you have to add G_MODULE_EXPORT to the callbacks otherwise
+signal handlers won't be found. Use [CCode (cname="G_MODULE_EXPORT
+callback_name")] as a workaround. (cf. Bug 541548) [CCode (cname =
+"G_MODULE_EXPORT on_button1_clicked")]
+
 public void on_button1_clicked (Button source) {
     source.label = "Thank you!";
 }
@@ -303,10 +401,22 @@ public void on_button1_clicked (Button source) {
 public void on_button2_clicked (Button source) {
     source.label = "Thanks!";
 }
-Tips and Tricks
-gtkparasite allows you to inspect and modify your application's user interface at runtime. It's like Firebug for GTK+. Most distributions provide a package for gtkparasite. Launch with $ GTK_MODULES=gtkparasite appname. There's documentation and a screencast on the website. You can follow GTK+ and friends on Twitter: @gtktoolkit 
-TreeView with ListStore
-vala-test:examples/gtk-treeview-liststore.vala using Gtk;
+```
+
+
+## Tips and Tricks
+gtkparasite allows you to inspect and modify your application's user interface
+at runtime. It's like Firebug for GTK+. Most distributions provide a package for
+gtkparasite. Launch with $ GTK_MODULES=gtkparasite appname. There's
+documentation and a screencast on the website. You can follow GTK+ and friends
+on Twitter: @gtktoolkit
+
+
+## TreeView with ListStore
+
+```genie
+// vala-test:examples/gtk-treeview-liststore.vala
+uses Gtk
 public class TreeViewSample : Window {
     public TreeViewSample () {
         this.title = "TreeView Sample";
@@ -344,11 +454,19 @@ public class TreeViewSample : Window {
         return 0;
     }
 }
-Compile and Run
+```
+
+### Compile and Run
+
+```shell
 $ valac --pkg gtk+-3.0 gtk-treeview-liststore.vala
-$ ./gtk-treeview-liststore 
-TreeView with TreeStore
-vala-test:examples/gtk-treeview-treestore.vala using Gtk;
+$ ./gtk-treeview-liststore
+```
+
+
+## TreeView with TreeStore
+```genie
+// vala-test:examples/gtk-treeview-treestore.vala using Gtk;
 public class TreeViewSample : Window {
     public TreeViewSample () {
         this.title = "TreeView Sample";
@@ -396,10 +514,18 @@ public class TreeViewSample : Window {
         return 0;
     }
 }
-Compile and Run
+```
+
+### Compile and Run
+
+```shell
 $ valac --pkg gtk+-3.0 gtk-treeview-treestore.vala
-$ ./gtk-treeview-treestore 
-TreeView with CellRendererToggle
+$ ./gtk-treeview-treestore
+```
+
+
+### TreeView with CellRendererToggle
+```
 vala-test:examples/gtk-treeview-listsample.vala using Gtk;
 public class ListSample : Gtk.Window {
     private ListStore list_store;
@@ -446,11 +572,21 @@ void main (string[] args) {
     sample.show_all ();
     Gtk.main ();
 }
-Compile and run
+```
+
+### Compile and run
+```shell
 $ valac --pkg gtk+-3.0 gtk-treeview-listsample.vala
-$ ./gtk-treeview-listsample 
-Clipboard
-Basic example use of the clipboard: vala-test:examples/gtk-clipboard-sample.vala using Gtk;
+$ ./gtk-treeview-listsample
+```
+
+
+## Clipboard
+Basic example use of the clipboard: vala-test:examples/gtk-clipboard-sample.vala
+
+```genie
+using Gtk;
+
 int main (string[] args) {
     Gtk.init (ref args);
     var window = new Window ();
@@ -474,11 +610,22 @@ int main (string[] args) {
     Gtk.main ();
     return 0;
 }
-Compile and run
+```
+
+### Compile and run
+```shell
 $ valac --pkg gtk+-3.0 gtk-clipboard-sample.vala
-$ ./gtk-clipboard-sampleNote: copy some text before running.  
-EntryCompletion with two cells
-This example is based on http://www.valadoc.org/#!api=gtk+-3.0/Gtk.EntryCompletion but with two cells. public class Application : Gtk.Window {
+$ ./gtk-clipboard-sampleNote: copy some text before running.
+```
+
+
+## EntryCompletion with two cells
+This example is based on
+http://www.valadoc.org/#!api=gtk+-3.0/Gtk.EntryCompletion but with two cells.
+
+```genie
+public class Application : Gtk.Window {
+
         public Application () {
                 // Prepare Gtk.Window:
                 this.title = "My Gtk.EntryCompletion";
@@ -526,24 +673,14 @@ This example is based on http://www.valadoc.org/#!api=gtk+-3.0/Gtk.EntryCompleti
                 return 0;
         }
 }
-Compile and run
+```
+
+### Compile and run
+
+```shell
 $ valac --pkg gtk+-3.0 EntryCompletionExample2.vala -o EntryCompletionExample2.a
-$ ./EntryCompletionExample2.a  Vala/Examples Projects/Vala/GTKSample  (last edited 2016-09-24 22:47:41 by RonaldoNascimento)
-Search:
-<input id="searchinput" type="text" name="value" value="" size="20"
-    onfocus="searchFocus(this)" onblur="searchBlur(this)"
-    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
-<input id="titlesearch" name="titlesearch" type="submit"
-    value="Titles" alt="Search Titles">
-<input id="fullsearch" name="fullsearch" type="submit"
-    value="Text" alt="Search Full Text">
-<!--// Initialize search form
-var f = document.getElementById('searchform');
-f.getElementsByTagName('label')[0].style.display = 'none';
-var e = document.getElementById('searchinput');
-searchChange(e);
-searchBlur(e);
-//-->
-        Copyright &copy; 2005 -  The GNOME Project.
-        Hosted by Red Hat.
-  document.getElementById('current-year').innerHTML = new Date().getFullYear();
+$ ./EntryCompletionExample2.a
+```
+
+Vala/Examples Projects/Vala/GTKSample
+    (last edited 2016-09-24 22:47:41 by RonaldoNascimento)

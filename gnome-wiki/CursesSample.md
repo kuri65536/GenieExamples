@@ -2,8 +2,10 @@
 
 ```genie
 // vala-test:examples/curses.vala
-using Curses;
-int main (string[] args) {
+[indent=4]
+uses Curses
+
+init  // args: array of string
     /* Initialize Curses */
     initscr ();
     /* Initialize color mode and define a color pair */
@@ -12,17 +14,17 @@ int main (string[] args) {
     /* Create a window (height/lines, width/columns, y, x) */
     var win = new Window (LINES - 8, COLS - 8, 4, 4);
     win.bkgdset (COLOR_PAIR (1) | Attribute.BOLD);  // set background
-    win.addstr (&quot;Hello world!&quot;);   // write string
+    win.addstr ("Hello world!");   // write string
     win.clrtobot ();               // clear to bottom (does not move cursor)
     win.getch ();                  // read a character
     /* Reset the terminal mode */
     endwin ();
-    return 0;
-}
+    // TODO(shimoda): return 0; in init()
 ```
 
 ```shell
-$ valac --pkg curses -X -lncurses cursesdemo.vala
+# (install required in Ubuntu 18.04): sudo apt install libncurses-dev
+$ valac --pkg=curses -X -lncurses cursesdemo.vala
 $ ./cursesdemo Vala/Examples
 ```
 

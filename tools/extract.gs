@@ -41,11 +41,14 @@ def main_extract_opt(num: string, fname: string): int
 
 
 def opt_filter(line: string)
-    if not line.contains("--pkg")
-        return
-    for i in line.split(" ")
-        if i.has_prefix("--pkg")
-            print(i)
+    if line.contains("--pkg")
+        for i in line.split(" ")
+            if i == "-X"
+                print("-X")
+            if i.has_prefix("-l")
+                print(i)
+            if i.has_prefix("--pkg")
+                print(i)
 
 
 def main_extract(num: string, fname: string, key: string, cb: Eachline): int

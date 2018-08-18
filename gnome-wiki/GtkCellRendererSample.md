@@ -1,64 +1,66 @@
-Projects/Vala/GtkCellRendererSample - GNOME Wiki!
-<!--
-var search_hint = "Search";
-//-->
-Projects/Vala/GtkCellRendererSampleHomeRecentChangesScheduleLogin
-Vala Gtk+ CellRenderer Sample
-vala-test:examples/gtk-cell-renderer.vala using Gtk;
-class MyCellRenderer : CellRenderer {
+# Projects/Vala/GtkCellRendererSample - GNOME Wiki!
+# Vala Gtk+ CellRenderer Sample
+
+```genie
+// vala-test:examples/gtk-cell-renderer.vala
+[indent=4]
+uses Gtk
+
+class MyCellRenderer: CellRenderer
     /* icon property set by the tree column */
-    public Gdk.Pixbuf icon { get; set; }
-    public MyCellRenderer () {
+    icon: Gdk.Pixbuf
+
+    construct()
         GLib.Object ();
-    }
+
     /* get_size method, always request a 50x50 area */
-    public override void get_size (Widget widget, Gdk.Rectangle? cell_area,
-                                   out int x_offset, out int y_offset,
-                                   out int width, out int height)
-    {
+    def override get_size(widget: Widget, cell_area: Gdk.Rectangle?,
+                          out x_offset: int, out y_offset: int,
+                          out width: int, out height: int)
         x_offset = 0;
         y_offset = 0;
         width = 50;
         height = 50;
-    }
+
     /* render method */
-    public override void render (Cairo.Context ctx, Widget widget,
-                                 Gdk.Rectangle background_area,
-                                 Gdk.Rectangle cell_area,
-                                 CellRendererState flags)
-    {
+    def override render(ctx: Cairo.Context, widget: Widget,
+                        background_area: Gdk.Rectangle,
+                        cell_area: Gdk.Rectangle,
+                        flags: CellRendererState)
         Gdk.cairo_rectangle (ctx, background_area);
-        if (icon != null) {
+        if icon != null
             /* draw a pixbuf on a cairo context */
             Gdk.cairo_set_source_pixbuf (ctx, icon,
                                          background_area.x,
                                          background_area.y);
             ctx.fill ();
-        }
-    }
-}
-Gdk.Pixbuf open_image () {
-    try {
-        return new Gdk.Pixbuf.from_file ("/usr/share/pixmaps/firefox.png");
-    } catch (Error e) {
+        else
+            print("icon is null...")
+
+def open_image(): Gdk.Pixbuf
+    // var fname = "/usr/share/pixmaps/firefox.png"
+    // lubuntu 18.04
+    var fname = "/usr/share/icons/hicolor/48x48/apps/firefox.png"
+    try
+        return new Gdk.Pixbuf.from_file(fname)
+    except e: Error
         error ("%s", e.message);
-    }
-}
-int main (string[] args) {
+
+init  // (string[] args) {
     Gtk.init (ref args);
     var tv = new TreeView ();
-    var tm = new ListStore (2, typeof (Gdk.Pixbuf), typeof (string));
+    var tm = new Gtk.ListStore(2, typeof (Gdk.Pixbuf), typeof (string))
     tv.set_model (tm);
     var renderer = new MyCellRenderer ();
     var col = new TreeViewColumn ();
     col.pack_start (renderer, true);
     col.set_title ("1st column");
     col.add_attribute (renderer, "icon", 0);
-    TreeIter ti;
+    ti: TreeIter
     tm.append (out ti);
     tv.append_column (col);
     var pixbuf = open_image ();
-    tm.set (ti, 0, pixbuf, 1, "asd", -1); 
+    tm.set(ti, 0, pixbuf, 1, "asd", -1)
     col.add_attribute (renderer, "icon", 0);
     var win = new Window ();
     win.set_default_size (400, 100);
@@ -66,26 +68,15 @@ int main (string[] args) {
     win.add (tv);
     win.show_all ();
     Gtk.main ();
-    return 0;
-}
-Compile and Run
-$ valac --pkg gtk+-3.0 gtk-cell-renderer.vala
-$ ./gtk-cell-renderer Vala/Examples Projects/Vala/GtkCellRendererSample  (last edited 2013-11-22 16:48:32 by WilliamJonMcCann)
-Search:
-<input id="searchinput" type="text" name="value" value="" size="20"
-    onfocus="searchFocus(this)" onblur="searchBlur(this)"
-    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
-<input id="titlesearch" name="titlesearch" type="submit"
-    value="Titles" alt="Search Titles">
-<input id="fullsearch" name="fullsearch" type="submit"
-    value="Text" alt="Search Full Text">
-<!--// Initialize search form
-var f = document.getElementById('searchform');
-f.getElementsByTagName('label')[0].style.display = 'none';
-var e = document.getElementById('searchinput');
-searchChange(e);
-searchBlur(e);
-//-->
-        Copyright &copy; 2005 -  The GNOME Project.
-        Hosted by Red Hat.
-  document.getElementById('current-year').innerHTML = new Date().getFullYear();
+    // TODO(shimoda): return 0; in init()
+```
+
+### Compile and Run
+
+```shell
+$ valac --pkg=gtk+-3.0 gtk-cell-renderer.vala
+$ ./gtk-cell-renderer
+```
+
+Vala/Examples Projects/Vala/GtkCellRendererSample
+    (last edited 2013-11-22 16:48:32 by WilliamJonMcCann)

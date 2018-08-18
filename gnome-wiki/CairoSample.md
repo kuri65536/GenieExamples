@@ -11,111 +11,113 @@ Contents
 
 ```genie
 // vala-test:examples/cairo-sample.vala
-using Gtk;
-using Cairo;
+[indent=4]
+uses Gtk
+uses Cairo
 
-public class CairoSample : Gtk.Window {
-    private const int SIZE = 30;
-    public CairoSample () {
-        this.title = &quot;Cairo Vala Demo&quot;;
-        this.destroy.connect (Gtk.main_quit);
-        set_default_size (450, 550);
-        create_widgets ();
-    }
-    private void create_widgets () {
-        var drawing_area = new DrawingArea ();
-        drawing_area.draw.connect (on_draw);
-        add (drawing_area);
-    }
-    private bool on_draw (Widget da, Context ctx) {
-        ctx.set_source_rgb (0, 0, 0);
-        ctx.set_line_width (SIZE / 4);
-        ctx.set_tolerance (0.1);
-        ctx.set_line_join (LineJoin.ROUND);
-        ctx.set_dash (new double[] {SIZE / 4.0, SIZE / 4.0}, 0);
-        stroke_shapes (ctx, 0, 0);
-        ctx.set_dash (null, 0);
-        stroke_shapes (ctx, 0, 3 * SIZE);
-        ctx.set_line_join (LineJoin.BEVEL);
-        stroke_shapes (ctx, 0, 6 * SIZE);
-        ctx.set_line_join (LineJoin.MITER);
-        stroke_shapes(ctx, 0, 9 * SIZE);
-        fill_shapes (ctx, 0, 12 * SIZE);
-        ctx.set_line_join (LineJoin.BEVEL);
-        fill_shapes (ctx, 0, 15 * SIZE);
-        ctx.set_source_rgb (1, 0, 0);
-        stroke_shapes (ctx, 0, 15 * SIZE);
-        return true;
-    }
-    private void stroke_shapes (Context ctx, int x, int y) {
-        this.draw_shapes (ctx, x, y, ctx.stroke);
-    }
-    private void fill_shapes (Context ctx, int x, int y) {
-        this.draw_shapes (ctx, x, y, ctx.fill);
-    }
-    private delegate void DrawMethod ();
-    private void draw_shapes (Context ctx, int x, int y, DrawMethod draw_method) {
-        ctx.save ();
-        ctx.new_path ();
-        ctx.translate (x + SIZE, y + SIZE);
-        bowtie (ctx);
-        draw_method ();
-        ctx.new_path ();
-        ctx.translate (3 * SIZE, 0);
-        square (ctx);
-        draw_method ();
-        ctx.new_path ();
-        ctx.translate (3 * SIZE, 0);
-        triangle (ctx);
-        draw_method ();
-        ctx.new_path ();
-        ctx.translate (3 * SIZE, 0);
-        inf (ctx);
-        draw_method ();
-        ctx.restore();
-    }
-    private void triangle (Context ctx) {
-        ctx.move_to (SIZE, 0);
-        ctx.rel_line_to (SIZE, 2 * SIZE);
-        ctx.rel_line_to (-2 * SIZE, 0);
-        ctx.close_path ();
-    }
-    private void square (Context ctx) {
-        ctx.move_to (0, 0);
-        ctx.rel_line_to (2 * SIZE, 0);
-        ctx.rel_line_to (0, 2 * SIZE);
-        ctx.rel_line_to (-2 * SIZE, 0);
-        ctx.close_path ();
-    }
-    private void bowtie (Context ctx) {
-        ctx.move_to (0, 0);
-        ctx.rel_line_to (2 * SIZE, 2 * SIZE);
-        ctx.rel_line_to (-2 * SIZE, 0);
-        ctx.rel_line_to (2 * SIZE, -2 * SIZE);
-        ctx.close_path ();
-    }
-    private void inf (Context ctx) {
-        ctx.move_to (0, SIZE);
-        ctx.rel_curve_to (0, SIZE, SIZE, SIZE, 2 * SIZE, 0);
-        ctx.rel_curve_to (SIZE, -SIZE, 2 * SIZE, -SIZE, 2 * SIZE, 0);
-        ctx.rel_curve_to (0, SIZE, -SIZE, SIZE, -2 * SIZE, 0);
-        ctx.rel_curve_to (-SIZE, -SIZE, -2 * SIZE, -SIZE, -2 * SIZE, 0);
-        ctx.close_path ();
-    }
-    static int main (string[] args) {
-        Gtk.init (ref args);
-        var cairo_sample = new CairoSample ();
-        cairo_sample.show_all ();
-        Gtk.main ();
-        return 0;
-    }
-}
+class CairoSample: Gtk.Window
+    const SIZE: int = 30
+
+    construct()
+        this.title = "Cairo Vala Demo"
+        this.destroy.connect(Gtk.main_quit)
+        set_default_size(450, 550)
+        create_widgets()
+
+    def create_widgets()
+        var drawing_area = new DrawingArea ()
+        drawing_area.draw.connect(on_draw)
+        add(drawing_area)
+
+    def on_draw(da: Widget, ctx: Context): bool
+        ctx.set_source_rgb (0, 0, 0)
+        ctx.set_line_width (SIZE / 4)
+        ctx.set_tolerance (0.1)
+        ctx.set_line_join (LineJoin.ROUND)
+        pos: array of double = {SIZE / 4.0, SIZE / 4.0}
+        ctx.set_dash(pos, 0)
+        stroke_shapes (ctx, 0, 0)
+        ctx.set_dash (null, 0)
+        stroke_shapes (ctx, 0, 3 * SIZE)
+        ctx.set_line_join (LineJoin.BEVEL)
+        stroke_shapes (ctx, 0, 6 * SIZE)
+        ctx.set_line_join (LineJoin.MITER)
+        stroke_shapes(ctx, 0, 9 * SIZE)
+        fill_shapes (ctx, 0, 12 * SIZE)
+        ctx.set_line_join (LineJoin.BEVEL)
+        fill_shapes (ctx, 0, 15 * SIZE)
+        ctx.set_source_rgb (1, 0, 0)
+        stroke_shapes (ctx, 0, 15 * SIZE)
+        return true
+
+    def stroke_shapes(ctx: Context, x: int, y: int)
+        this.draw_shapes (ctx, x, y, ctx.stroke)
+
+    def fill_shapes(ctx: Context, x: int, y: int)
+        this.draw_shapes (ctx, x, y, ctx.fill)
+
+    delegate DrawMethod()
+
+    def draw_shapes(ctx: Context, x: int, y: int, draw_method: DrawMethod)
+        ctx.save ()
+        ctx.new_path ()
+        ctx.translate (x + SIZE, y + SIZE)
+        bowtie (ctx)
+        draw_method ()
+        ctx.new_path ()
+        ctx.translate (3 * SIZE, 0)
+        square (ctx)
+        draw_method ()
+        ctx.new_path ()
+        ctx.translate (3 * SIZE, 0)
+        triangle (ctx)
+        draw_method ()
+        ctx.new_path ()
+        ctx.translate (3 * SIZE, 0)
+        inf (ctx)
+        draw_method ()
+        ctx.restore()
+
+    def triangle(ctx: Context)
+        ctx.move_to (SIZE, 0)
+        ctx.rel_line_to (SIZE, 2 * SIZE)
+        ctx.rel_line_to (-2 * SIZE, 0)
+        ctx.close_path ()
+
+    def square(ctx: Context)
+        ctx.move_to (0, 0)
+        ctx.rel_line_to (2 * SIZE, 0)
+        ctx.rel_line_to (0, 2 * SIZE)
+        ctx.rel_line_to (-2 * SIZE, 0)
+        ctx.close_path ()
+
+    def bowtie(ctx: Context)
+        ctx.move_to (0, 0)
+        ctx.rel_line_to (2 * SIZE, 2 * SIZE)
+        ctx.rel_line_to (-2 * SIZE, 0)
+        ctx.rel_line_to (2 * SIZE, -2 * SIZE)
+        ctx.close_path ()
+
+    def inf(ctx: Context)
+        ctx.move_to (0, SIZE)
+        ctx.rel_curve_to (0, SIZE, SIZE, SIZE, 2 * SIZE, 0)
+        ctx.rel_curve_to (SIZE, -SIZE, 2 * SIZE, -SIZE, 2 * SIZE, 0)
+        ctx.rel_curve_to (0, SIZE, -SIZE, SIZE, -2 * SIZE, 0)
+        ctx.rel_curve_to (-SIZE, -SIZE, -2 * SIZE, -SIZE, -2 * SIZE, 0)
+        ctx.close_path ()
+
+init
+    Gtk.init (ref args)
+    var cairo_sample = new CairoSample ()
+    cairo_sample.show_all ()
+    Gtk.main ()
+    // TODO(shimoda): return 0 in init()
 ```
 
 ```shell
 Compile and Run
-$ valac --pkg gtk+-3.0 cairo-sample.vala
-$ ./cairo-sample 
+$ valac --pkg=gtk+-3.0 cairo-sample.vala
+$ ./cairo-sample
 ```
 
 
@@ -246,7 +248,7 @@ public class CairoThreadedExample : Gtk.Window {
             try {
                 thread_info = Thread.create&lt;void*&gt; (do_draw, true);
             } catch (Error e) {
-                stderr.printf (&quot;%s\n&quot;, e.message);
+                stderr.printf ("%s\n", e.message);
             }
         }
         // tell our window it is time to draw our animation.
@@ -287,7 +289,7 @@ using Cairo;
  * This example creates a clock with the following features:
  * Shaped window -- Window is unbordered and transparent outside the clock
  * Events are only registered for the window on the hour dots or on the center
- * dot. When the mouse is &quot;in&quot; the window (on one of the dots) it will turn
+ * dot. When the mouse is "in" the window (on one of the dots) it will turn
  * green.
  * This helps you understand where the events are actually being registered
  * Clicking allows you to drag the clock.
@@ -302,7 +304,7 @@ public class CairoShaped : Gtk.Window {
      * Just creating the window, setting things up
      */
     public CairoShaped () {
-        this.title = &quot;Cairo Vala Demo&quot;;
+        this.title = "Cairo Vala Demo";
         set_default_size (200, 200);
         // 'skip_taskbar_hint' determines whether the window gets an icon in
         // the taskbar / dock
@@ -475,7 +477,7 @@ using Cairo;
  * This example creates a clock with the following features:
  * Shaped window -- Window is unbordered and transparent outside the clock
  * Events are only registered for the window on the hour dots or on the center dot
- * When the mouse is &quot;in&quot; the window (on one of the dots) it will turn green
+ * When the mouse is "in" the window (on one of the dots) it will turn green
  *    This helps you understand where the events are actually being registered
  * Clicking allows you to drag the clock.
  * There is currently no code in place to close the window, you must kill the process manually.
@@ -501,7 +503,7 @@ public class CairoShaped : Gtk.Window {
          * Just creating the window, setting things up
          **/
         public CairoShaped () {
-                this.title = &quot;Cairo Vala Demo&quot;;
+                this.title = "Cairo Vala Demo";
                 this.destroy.connect (Gtk.main_quit);
                 // skip_taskbar_hint determines whether the window gets an icon in the taskbar / dock
                 skip_taskbar_hint = true;

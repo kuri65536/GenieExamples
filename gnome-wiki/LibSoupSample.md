@@ -1,17 +1,20 @@
-Projects/Vala/LibSoupSample - GNOME Wiki!
-<!--
-var search_hint = "Search";
-//-->
-Projects/Vala/LibSoupSampleHomeRecentChangesScheduleLogin
-Soup Examples
+# Projects/Vala/LibSoupSample - GNOME Wiki!
+
+# Soup Examples
+
 Requires Vala >= 0.11.0 
-Getting Twitter Status
-vala-test:examples/soup-twitter.vala using Soup;
-void main () {
+
+## Getting Twitter Status
+
+```genie
+// vala-test:examples/soup-twitter.vala
+[indent=4]
+uses Soup
+init
     // add your twitter username
-    string username = "gnome";
+    var username = "gnome";
     // format the URL to use the username as the filename
-    string url = "http://twitter.com/users/%s.xml".printf (username);
+    var url = "http://twitter.com/users/%s.xml".printf (username);
     stdout.printf ("Getting status for %s\n", username);
     // create an HTTP session to twitter
     var session = new Soup.Session ();
@@ -20,12 +23,20 @@ void main () {
     session.send_message (message);
     // output the XML result to stdout 
     stdout.write (message.response_body.data);
-}
-Compile and Run
-$ valac --pkg libsoup-2.4 --thread twitter.vala
+```
+
+### Compile and Run
+```shell
+$ valac --pkg=libsoup-2.4 --thread twitter.vala
 $ ./twitter
-A synchronous HTTP request
-vala-test:examples/soup-http-request.vala void main () {
+```
+
+
+## A synchronous HTTP request
+
+```genie
+// vala-test:examples/soup-http-request.vala
+void main () {
     var session = new Soup.Session ();
     var message = new Soup.Message ("GET", "http://club.developpez.com/outils/wiki/KitODTKitOOoDVP");
     /* see if we need HTTP auth */
@@ -45,17 +56,35 @@ vala-test:examples/soup-http-request.vala void main () {
                    message.response_body.length,
                    message.response_body.data);
 }
-Compile and Run
+```
+
+### Compile and Run
+
+```shell
 $ valac --pkg libsoup-2.4 --thread soup-sample.vala
-$ ./soup-sampleAn asynchronous request should look like this: /* queue an async request */
+$ ./soup-sample
+```
+
+An asynchronous request should look like this:
+
+```
+/* queue an async request */
 session.queue_message (message, (sess, mess) => {
     stdout.printf ("Message length: %lld\n%s\n",
                    mess.response_body.length,
                    mess.response_body.data);
 });
-Note that currently the closure cannot use any variables outside the callback scope. Bug 704176. 
-A simple server example
-vala-test:examples/soup-http-server.vala void default_handler (Soup.Server server, Soup.Message msg, string path,
+```
+
+Note that currently the closure cannot use any variables outside the callback
+scope. Bug 704176.
+
+
+## A simple server example
+
+```genie
+// vala-test:examples/soup-http-server.vala
+void default_handler (Soup.Server server, Soup.Message msg, string path,
                       GLib.HashTable? query, Soup.ClientContext client)
 {
     string response_text = """
@@ -81,11 +110,24 @@ void main () {
     server.add_handler ("/xml", xml_handler);
     server.run ();
 }
-Compile and Run
+```
+
+### Compile and Run
+
+```shell
 $ valac --pkg libsoup-2.4 --thread soup-server-example.vala
-$ ./soup-server-exampleTo try out run the server and in your browser go to http://localhost:8088/ and http://localhost:8088/xml/ 
-XMLRPC example of Wordpress.sayHello
-vala-test:examples/soup-xmlrpc-test-hello.vala using Soup;
+$ ./soup-server-example
+```
+
+To try out run the server and in your browser go to http://localhost:8088/ and
+http://localhost:8088/xml/
+
+
+## XMLRPC example of Wordpress.sayHello
+
+```genie
+// vala-test:examples/soup-xmlrpc-test-hello.vala
+using Soup;
 void main () {
     var message = XMLRPC.request_new ("http://kushaldas.wordpress.com/xmlrpc.php",
                                      "demo.sayHello");
@@ -99,11 +141,21 @@ void main () {
         stderr.printf ("Error while processing the response: %s\n", e.message);
     }
 }
-Compile and Run
+```
+
+### Compile and Run
+
+```shell
 $ valac --pkg libsoup-2.4 --thread soup-xmlrpc-test-hello.vala
 $ ./soup-xmlrpc-test-hello
-Another XMLRPC example of adding two numbers
-vala-test:examples/soup-xmlrpc-test-addnumbers.vala using Soup;
+```
+
+
+## Another XMLRPC example of adding two numbers
+
+```genie
+// vala-test:examples/soup-xmlrpc-test-addnumbers.vala
+using Soup;
 void main () {
     var message = XMLRPC.request_new ("http://kushaldas.wordpress.com/xmlrpc.php",
                                      "demo.addTwoNumbers",
@@ -119,24 +171,14 @@ void main () {
         stderr.printf ("Error while processing the response: %s\n", e.message);
     }
 }
-Compile and Run
-$ valac --pkg libsoup-2.4 --thread soup-xmlrpc-test-addnumbers.vala
-$ ./soup-xmlrpc-test-addnumbers Vala/Examples Projects/Vala/LibSoupSample  (last edited 2014-05-11 09:06:43 by AkshayShekher)
-Search:
-<input id="searchinput" type="text" name="value" value="" size="20"
-    onfocus="searchFocus(this)" onblur="searchBlur(this)"
-    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
-<input id="titlesearch" name="titlesearch" type="submit"
-    value="Titles" alt="Search Titles">
-<input id="fullsearch" name="fullsearch" type="submit"
-    value="Text" alt="Search Full Text">
-<!--// Initialize search form
-var f = document.getElementById('searchform');
-f.getElementsByTagName('label')[0].style.display = 'none';
-var e = document.getElementById('searchinput');
-searchChange(e);
-searchBlur(e);
-//-->
-        Copyright &copy; 2005 -  The GNOME Project.
-        Hosted by Red Hat.
-  document.getElementById('current-year').innerHTML = new Date().getFullYear();
+```
+
+### Compile and Run
+
+```shell
+$ valac --pkg=libsoup-2.4 --thread soup-xmlrpc-test-addnumbers.vala
+$ ./soup-xmlrpc-test-addnumbers
+```
+
+Vala/Examples Projects/Vala/LibSoupSample
+    (last edited 2014-05-11 09:06:43 by AkshayShekher)

@@ -1,12 +1,13 @@
-Projects/Vala/LoudmouthSample - GNOME Wiki!
-<!--
-var search_hint = "Search";
-//-->
-Projects/Vala/LoudmouthSampleHomeRecentChangesScheduleLogin
-Loudmouth Synchronous Sample
-vala-test:examples/lm-send-sync.vala /*
+# Projects/Vala/LoudmouthSample - GNOME Wiki!
+
+## Loudmouth Synchronous Sample
+
+```genie
+// vala-test:examples/lm-send-sync.vala
+/*
  * Copyright (C) 2004 Imendio AB
  * Copyright (C) 2009 Harley Laue <losinggeneration@gmail.com>
+ * Copyright (C) 2018 Shimoda kuri65536 _at_ hot mail _dot_ com
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -31,47 +32,48 @@ vala-test:examples/lm-send-sync.vala /*
  * Build instructions:
  * valac --pkg loudmouth-1.0 lm-send-sync.vala
  */
-using Lm;
-class LmSyncDemo {
-    static string server = null;
-    static string message = null;
-    static string username = null;
-    static string password = null;
-    static string recipient = null;
-    static string resource;
-    static uint port;
-    const OptionEntry[] options = {
-            { "server", 's', 0, OptionArg.STRING, ref server, "Server to connect to. You need to have a valid login on that server.", "server.org" },
-            { "username", 'u', 0, OptionArg.STRING, ref username, "Username to used for the server you selected.", "some_username" },
-            { "password", 'p', 0, OptionArg.STRING, ref password, "Password to use for entered username.", "some_password" },
-            { "recipient",'t', 0, OptionArg.STRING, ref recipient, "User to send message to.", "someone@server.org" },
-            { "message", 'm', 0, OptionArg.STRING, ref message, "Message to send to recipient.", "\"some message to send\"" },
-            { "resource", 'r', OptionFlags.OPTIONAL_ARG, OptionArg.STRING, ref resource, "Resource to use when connecting.", "jabber-send" },
-            { "port", 'o', OptionFlags.OPTIONAL_ARG, OptionArg.INT, ref port, "Port to use when connecting to selected server.", "5222" },
-            { null }
-        };
-    static int main (string[] args) {
+[indent=4]
+uses Lm
+
+class LmSyncDemo
+    server: static string = null
+    message: static string = null
+    username: static string = null
+    password: static string = null
+    recipient: static string = null
+    resource: static string
+    port: static uint
+    const options: array of OptionEntry = {
+        { "server", 's', 0, OptionArg.STRING, ref server, "Server to connect to. You need to have a valid login on that server.", "server.org" },
+        { "username", 'u', 0, OptionArg.STRING, ref username, "Username to used for the server you selected.", "some_username" },
+        { "password", 'p', 0, OptionArg.STRING, ref password, "Password to use for entered username.", "some_password" },
+        { "recipient",'t', 0, OptionArg.STRING, ref recipient, "User to send message to.", "someone@server.org" },
+        { "message", 'm', 0, OptionArg.STRING, ref message, "Message to send to recipient.", "\"some message to send\"" },
+        { "resource", 'r', OptionFlags.OPTIONAL_ARG, OptionArg.STRING, ref resource, "Resource to use when connecting.", "jabber-send" },
+        { "port", 'o', OptionFlags.OPTIONAL_ARG, OptionArg.INT, ref port, "Port to use when connecting to selected server.", "5222" },
+        { null }
+    }
+
+    def static run(args: array of string): int
         resource = "jabber-send";
         port = Connection.DEFAULT_PORT;
-        try {
+        try
             var opt_context = new OptionContext ("- Loudmouth Synchronous Sample");
             opt_context.set_help_enabled (true);
             opt_context.add_main_entries (options, null);
             opt_context.parse (ref args);
-            if (server == null || message == null || recipient == null
-                               || username == null || password == null)
-            {
+            if (server == null or message == null or recipient == null
+                               or username == null or password == null)
                 print ("You must provide at least username, password, server, recipient, and message\n");
                 print ("%s", opt_context.get_help (true, null));
                 return 1;
-            }
-        } catch (OptionError e) {
+        except e: OptionError
             stdout.printf ("%s\n", e.message);
             stdout.printf ("Run '%s --help' to see a full list of available command line options.\n", args[0]);
             return 1;
-        }
+
         var connection = new Connection (server);
-        try {
+        try
             print ("Connecting to %s\n", server);
             connection.open_and_block ();
             print ("Authenticating as '%s' with '%s' and the resource '%s'\n",
@@ -83,33 +85,41 @@ class LmSyncDemo {
             connection.send (m);
             print ("Closing connection\n");
             connection.close ();
-        } catch (GLib.Error e) {
+        except e: GLib.Error
             stderr.printf ("Error: %s\n", e.message);
             return 1;
-        } finally {
+        finally
             /* This will become a lot easier with RAII support in
                Loudmouth 1.5.x. You won't need to manually close the connection
                and the whole 'finally' block will become unnecessary, since
                the connection will get closed by its destructor if it's open. */
-            if (connection.is_open ()) {
+            if connection.is_open()
                 finally_close (connection);
-            }
-        }
         return 0;
-    }
-    static void finally_close (Connection connection) {
-        try {
+
+    def static finally_close(connection: Connection)
+        try
             connection.close ();
-        } catch (GLib.Error e) {
+        except e: GLib.Error
             error ("Can't close connection.");
-        }
-    }
-}
-Compile and run
-$ valac --pkg loudmouth-1.0 lm-send-sync.vala
+
+init
+    LmSyncDemo.run(args)
+```
+
+### Compile and run
+
+```shell
+$ valac --pkg=loudmouth-1.0 lm-send-sync.vala
 $ ./lm-send-sync -s jabber.org -u myusername -p mypassword -m "message to send" -t someone_else@jabber.org
-Loudmouth Asynchronous Sample
-vala-test:examples/lm-send-async.vala using Gtk;
+```
+
+
+## Loudmouth Asynchronous Sample
+
+```genie
+// vala-test:examples/lm-send-async.vala
+using Gtk;
 using Lm;
 class MainWindow : Window {
     private Label status;
@@ -242,24 +252,15 @@ class MainWindow : Window {
         return 0;
     }
 }
-Compile and run
-$ valac --pkg loudmouth-1.0 --pkg gtk+-2.0 lm-send-async.vala
-$ ./lm-send-async Vala/Examples Projects/Vala/LoudmouthSample  (last edited 2013-11-22 16:48:32 by WilliamJonMcCann)
-Search:
-<input id="searchinput" type="text" name="value" value="" size="20"
-    onfocus="searchFocus(this)" onblur="searchBlur(this)"
-    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
-<input id="titlesearch" name="titlesearch" type="submit"
-    value="Titles" alt="Search Titles">
-<input id="fullsearch" name="fullsearch" type="submit"
-    value="Text" alt="Search Full Text">
-<!--// Initialize search form
-var f = document.getElementById('searchform');
-f.getElementsByTagName('label')[0].style.display = 'none';
-var e = document.getElementById('searchinput');
-searchChange(e);
-searchBlur(e);
-//-->
-        Copyright &copy; 2005 -  The GNOME Project.
-        Hosted by Red Hat.
-  document.getElementById('current-year').innerHTML = new Date().getFullYear();
+```
+
+### Compile and run
+
+```shell
+$ valac --pkg=loudmouth-1.0 --pkg=gtk+-2.0 lm-send-async.vala
+$ ./lm-send-async
+```
+
+Vala/Examples Projects/Vala/LoudmouthSample
+    (last edited 2013-11-22 16:48:32 by WilliamJonMcCann)
+

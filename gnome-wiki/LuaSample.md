@@ -6,17 +6,17 @@ Projects/Vala/LuaSampleHomeRecentChangesScheduleLogin
 Lua Sample
 vala-test:examples/lua-test.vala using Lua;
 static int my_func (LuaVM vm) {
-    stdout.printf (&quot;Vala Code From Lua Code! (%f)\n&quot;, vm.to_number (1));
+    stdout.printf ("Vala Code From Lua Code! (%f)\n", vm.to_number (1));
     return 1;
 }
 static int main (string[] args) {
-    string code = &quot;&quot;&quot;
-            print &quot;Lua Code From Vala Code!&quot;
+    string code = """
+            print "Lua Code From Vala Code!"
             my_func(33)
-        &quot;&quot;&quot;;
+        """;
     var vm = new LuaVM ();
     vm.open_libs ();
-    vm.register (&quot;my_func&quot;, my_func);
+    vm.register ("my_func", my_func);
     vm.do_string (code);
     return 0;
 }
@@ -32,27 +32,27 @@ static int main () {
     vm.open_libs ();
     // Create a Lua table with name 'foo'
     vm.new_table ();
-    for (int i = 1; i &lt;= 5; i++) {
+    for (int i = 1; i <= 5; i++) {
         vm.push_number (i);         // Push the table index
         vm.push_number (i * 2);     // Push the cell value
         vm.raw_set (-3);            // Stores the pair in the table
     }
-    vm.set_global (&quot;foo&quot;);
+    vm.set_global ("foo");
     // Ask Lua to run our little script
-    vm.do_string (&quot;&quot;&quot;
+    vm.do_string ("""
         -- Receives a table, returns the sum of its components.
-        io.write(&quot;The table the script received has:\n&quot;);
+        io.write("The table the script received has:\n");
         x = 0
         for i = 1, #foo do
           print(i, foo[i])
           x = x + foo[i]
         end
-        io.write(&quot;Returning data back to C\n&quot;);
+        io.write("Returning data back to C\n");
         return x
-    &quot;&quot;&quot;);
+    """);
     // Get the returned value at the top of the stack (index -1)
     var sum = vm.to_number (-1);
-    stdout.printf (&quot;Script returned: %.0f\n&quot;, sum);
+    stdout.printf ("Script returned: %.0f\n", sum);
     vm.pop (1);  // Take the returned value out of the stack
     return 0;
 }

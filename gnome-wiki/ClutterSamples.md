@@ -158,7 +158,7 @@ class ClutterDemo {
         stage.show_all ();
     }
     private void create_rectangles () {
-        for (int i = 0; i &lt; colors.length; i++) {
+        for (int i = 0; i < colors.length; i++) {
             var r = new Rectangle ();
             r.width = r.height = stage.height / colors.length;
             r.color = Color.from_string (colors[i]);
@@ -170,13 +170,13 @@ class ClutterDemo {
     }
     public void start () {
         var animations = new Animation[rectangles.length];
-        for (int i = 0; i &lt; rectangles.length; i++) {
+        for (int i = 0; i < rectangles.length; i++) {
             animations[i] = rectangles[i].animate (
                                       AnimationMode.LINEAR, 5000,
                                       x: stage.width / 2,
                                       rotation_angle_z: 500.0);
         }
-        animations[animations.length - 1].completed.connect (() =&gt; {
+        animations[animations.length - 1].completed.connect (() => {
             var text = new Text.full ("Bitstream Vera Sans 40",
                                       "Congratulations!",
                                       Color.from_string ("white"));
@@ -186,7 +186,7 @@ class ClutterDemo {
             stage.add_actor (text);
             text.animate (AnimationMode.EASE_OUT_BOUNCE, 3000,
                           y: stage.height / 2);
-            for (int i = 0; i &lt; rectangles.length; i++) {
+            for (int i = 0; i < rectangles.length; i++) {
                 rectangles[i].animate (
                         AnimationMode.EASE_OUT_BOUNCE, 3000,
                         x: Random.next_double () * stage.width,
@@ -226,14 +226,14 @@ int main (string[] args)
   Clutter.init (ref args);
   if (args.length != 2 &amp;&amp; args.length != 3)
     {
-      stderr.printf ("usage: %s &lt;ply-file&gt; [texture]\n", args[0]);
+      stderr.printf ("usage: %s <ply-file> [texture]\n", args[0]);
       return 1;
     }
   var stage = Clutter.Stage.get_default ();
   try
     {
       var model = new Mash.Model.from_file (Mash.DataFlags.NONE, args[1]);
-      if (args.length &gt; 2)
+      if (args.length > 2)
         {
           try
             {
@@ -259,8 +259,8 @@ int main (string[] args)
       anim.loop = true;
       stage.add_actor (model);
       /* Enable depth testing only for this actor */
-      model.paint.connect (() =&gt; { Cogl.set_depth_test_enabled (true); });
-      model.paint.connect_after (() =&gt; { Cogl.set_depth_test_enabled (false); });
+      model.paint.connect (() => { Cogl.set_depth_test_enabled (true); });
+      model.paint.connect_after (() => { Cogl.set_depth_test_enabled (false); });
     }
   catch (Error e)
   {

@@ -5,7 +5,7 @@ var search_hint = "Search";
 Projects/Vala/GStreamerSamplesHomeRecentChangesScheduleLogin
 Vala GStreamer Samples
 GstDiscoverer
-Requires Vala &gt;= 0.10.2 vala-test:examples/gstreamer-discoverer.vala /* GStreamer
+Requires Vala >= 0.10.2 vala-test:examples/gstreamer-discoverer.vala /* GStreamer
  * Copyright (C) 2009 Collabora Multimedia
  *
  * This library is free software; you can redistribute it and/or
@@ -39,25 +39,25 @@ struct Globals {
         static bool verbose;
         static uint64 timeout;
         public static const OptionEntry[] options = {
-                { &quot;async&quot;, 'a', 0, OptionArg.NONE, ref Globals.asynch,
-                        &quot;Run asynchronously&quot;, null },
-                {&quot;silent&quot;, 's', 0, OptionArg.NONE, ref Globals.silent,
-                        &quot;Don't output the information structure&quot;, null},
-                {&quot;verbose&quot;, 'v', 0, OptionArg.NONE, ref Globals.verbose,
-                        &quot;Verbose properties&quot;, null},
-                { &quot;timeout&quot;, 't', 0, OptionArg.INT, ref Globals.timeout,
-                        &quot;Specify timeout (in seconds, default 10)&quot;, &quot;T&quot; },
+                { "async", 'a', 0, OptionArg.NONE, ref Globals.asynch,
+                        "Run asynchronously", null },
+                {"silent", 's', 0, OptionArg.NONE, ref Globals.silent,
+                        "Don't output the information structure", null},
+                {"verbose", 'v', 0, OptionArg.NONE, ref Globals.verbose,
+                        "Verbose properties", null},
+                { "timeout", 't', 0, OptionArg.INT, ref Globals.timeout,
+                        "Specify timeout (in seconds, default 10)", "T" },
                 { null }
         };
 }
 private void init()
 {
-        Globals._INFORMATION_QUARK      = Quark.from_string(&quot;information&quot;);
-        Globals._STREAMS_QUARK          = Quark.from_string(&quot;streams&quot;);
-        Globals._CAPS_QUARK             = Quark.from_string(&quot;caps&quot;);
-        Globals._TAGS_QUARK             = Quark.from_string(&quot;tags&quot;);
-        Globals._STREAM_TYPE_QUARK      = Quark.from_string(&quot;stream-type&quot;);
-        Globals._DURATION_QUARK         = Quark.from_string(&quot;duration&quot;);
+        Globals._INFORMATION_QUARK      = Quark.from_string("information");
+        Globals._STREAMS_QUARK          = Quark.from_string("streams");
+        Globals._CAPS_QUARK             = Quark.from_string("caps");
+        Globals._TAGS_QUARK             = Quark.from_string("tags");
+        Globals._STREAM_TYPE_QUARK      = Quark.from_string("stream-type");
+        Globals._DURATION_QUARK         = Quark.from_string("duration");
 }
 static string
 gst_stream_audio_information_to_string(Gst.DiscovererAudioInfo info)
@@ -65,36 +65,36 @@ gst_stream_audio_information_to_string(Gst.DiscovererAudioInfo info)
         StringBuilder s = new StringBuilder();
         if (info == null)
                 return (string)null;
-        s.append_printf (&quot;%*s&quot;, 2*Globals.tab, &quot; &quot;);
-        s.append_printf (&quot;Codec:\n&quot;);
-        s.append_printf (&quot;%*s&quot;, 2*Globals.tab, &quot; &quot;);
-        s.append_printf (&quot;  %s\n&quot;, info.get_caps().to_string());
-        s.append_printf (&quot;%*s&quot;, 2*Globals.tab, &quot; &quot;);
-        s.append_printf (&quot;Additional info:\n&quot;);
-        s.append_printf (&quot;%*s&quot;, 2*Globals.tab, &quot; &quot;);
+        s.append_printf ("%*s", 2*Globals.tab, " ");
+        s.append_printf ("Codec:\n");
+        s.append_printf ("%*s", 2*Globals.tab, " ");
+        s.append_printf ("  %s\n", info.get_caps().to_string());
+        s.append_printf ("%*s", 2*Globals.tab, " ");
+        s.append_printf ("Additional info:\n");
+        s.append_printf ("%*s", 2*Globals.tab, " ");
         if (info.get_misc() != null) {
-                s.append_printf (&quot;  %s\n&quot;, info.get_misc().to_string());
+                s.append_printf ("  %s\n", info.get_misc().to_string());
         } else {
-                s.append_printf (&quot;  None\n&quot;);
+                s.append_printf ("  None\n");
         }
-        s.append_printf (&quot;%*s&quot;, 2*Globals.tab, &quot; &quot;);
-        s.append_printf (&quot;Channels: %u\n&quot;, info.get_channels());
-        s.append_printf (&quot;%*s&quot;, 2*Globals.tab, &quot; &quot;);
-        s.append_printf (&quot;Sample rate: %u\n&quot;, info.get_sample_rate());
-        s.append_printf (&quot;%*s&quot;, 2*Globals.tab, &quot; &quot;);
-        s.append_printf (&quot;Depth: %u\n&quot;, info.get_depth());
-        s.append_printf (&quot;%*s&quot;, 2*Globals.tab, &quot; &quot;);
-        s.append_printf (&quot;Bitrate: %u\n&quot;, info.get_bitrate());
-        s.append_printf (&quot;%*s&quot;, 2*Globals.tab, &quot; &quot;);
-        s.append_printf (&quot;Max bitrate: %u\n&quot;, info.get_max_bitrate());
-        s.append_printf (&quot;%*s&quot;, 2*Globals.tab, &quot; &quot;);
-        s.append_printf (&quot;Tags:\n&quot;);
-        s.append_printf (&quot;%*s&quot;, 2*Globals.tab, &quot; &quot;);
+        s.append_printf ("%*s", 2*Globals.tab, " ");
+        s.append_printf ("Channels: %u\n", info.get_channels());
+        s.append_printf ("%*s", 2*Globals.tab, " ");
+        s.append_printf ("Sample rate: %u\n", info.get_sample_rate());
+        s.append_printf ("%*s", 2*Globals.tab, " ");
+        s.append_printf ("Depth: %u\n", info.get_depth());
+        s.append_printf ("%*s", 2*Globals.tab, " ");
+        s.append_printf ("Bitrate: %u\n", info.get_bitrate());
+        s.append_printf ("%*s", 2*Globals.tab, " ");
+        s.append_printf ("Max bitrate: %u\n", info.get_max_bitrate());
+        s.append_printf ("%*s", 2*Globals.tab, " ");
+        s.append_printf ("Tags:\n");
+        s.append_printf ("%*s", 2*Globals.tab, " ");
         if (info.get_tags() != null) {
-                s.append_printf (&quot;  %s\n&quot;,
+                s.append_printf ("  %s\n",
                         ((Gst.Structure)info.get_tags()).to_string());
         } else {
-                s.append_printf (&quot;  None\n&quot;);
+                s.append_printf ("  None\n");
         }
         return s.str;
 }
@@ -104,54 +104,54 @@ gst_stream_video_information_to_string (Gst.DiscovererVideoInfo info)
         StringBuilder s = new StringBuilder();
         if (info == null)
                 return (string)null;
-        s.append_printf (&quot;%*s&quot;, 2*Globals.tab, &quot; &quot;);
-        s.append_printf (&quot;Codec:\n&quot;);
-        s.append_printf (&quot;%*s&quot;, 2*Globals.tab, &quot; &quot;);
-        s.append_printf (&quot;  %s\n&quot;, info.get_caps().to_string());
-        s.append_printf (&quot;%*s&quot;, 2*Globals.tab, &quot; &quot;);
-        s.append_printf (&quot;Additional info:\n&quot;);
-        s.append_printf (&quot;%*s&quot;, 2*Globals.tab, &quot; &quot;);
+        s.append_printf ("%*s", 2*Globals.tab, " ");
+        s.append_printf ("Codec:\n");
+        s.append_printf ("%*s", 2*Globals.tab, " ");
+        s.append_printf ("  %s\n", info.get_caps().to_string());
+        s.append_printf ("%*s", 2*Globals.tab, " ");
+        s.append_printf ("Additional info:\n");
+        s.append_printf ("%*s", 2*Globals.tab, " ");
         if (info.get_misc() != null) {
-                s.append_printf (&quot;  %s\n&quot;, info.get_misc().to_string());
+                s.append_printf ("  %s\n", info.get_misc().to_string());
         } else {
-                s.append_printf (&quot;  None\n&quot;);
+                s.append_printf ("  None\n");
         }
-        s.append_printf (&quot;%*s&quot;, 2*Globals.tab, &quot; &quot;);
-        s.append_printf (&quot;Width: %u\n&quot;, info.get_width());
-        s.append_printf (&quot;%*s&quot;, 2*Globals.tab, &quot; &quot;);
-        s.append_printf (&quot;Height: %u\n&quot;, info.get_height());
-        s.append_printf (&quot;%*s&quot;, 2*Globals.tab, &quot; &quot;);
-        s.append_printf (&quot;Depth: %u\n&quot;, info.get_depth());
-        s.append_printf (&quot;%*s&quot;, 2*Globals.tab, &quot; &quot;);
-        s.append_printf (&quot;Frame rate: %u/%u\n&quot;,
+        s.append_printf ("%*s", 2*Globals.tab, " ");
+        s.append_printf ("Width: %u\n", info.get_width());
+        s.append_printf ("%*s", 2*Globals.tab, " ");
+        s.append_printf ("Height: %u\n", info.get_height());
+        s.append_printf ("%*s", 2*Globals.tab, " ");
+        s.append_printf ("Depth: %u\n", info.get_depth());
+        s.append_printf ("%*s", 2*Globals.tab, " ");
+        s.append_printf ("Frame rate: %u/%u\n",
                 info.get_framerate_num(),
                 info.get_framerate_denom());
-        s.append_printf (&quot;%*s&quot;, 2*Globals.tab, &quot; &quot;);
-        s.append_printf (&quot;Pixel aspect ratio: %u/%u\n&quot;,
+        s.append_printf ("%*s", 2*Globals.tab, " ");
+        s.append_printf ("Pixel aspect ratio: %u/%u\n",
                 info.get_par_num(),
                 info.get_par_denom());
-        s.append_printf (&quot;%*s&quot;, 2*Globals.tab, &quot; &quot;);
-        s.append_printf (&quot;Interlaced: %s\n&quot;,
-                        info.is_interlaced() ? &quot;true&quot; : &quot;false&quot;);
-        s.append_printf (&quot;%*s&quot;, 2*Globals.tab, &quot; &quot;);
-        s.append_printf (&quot;Bitrate: %u\n&quot;, info.get_bitrate());
-        s.append_printf (&quot;%*s&quot;, 2*Globals.tab, &quot; &quot;);
-        s.append_printf (&quot;Max bitrate: %u\n&quot;, info.get_max_bitrate());
-        s.append_printf (&quot;%*s&quot;, 2*Globals.tab, &quot; &quot;);
-        s.append_printf (&quot;Tags:\n&quot;);
-        s.append_printf (&quot;%*s&quot;, 2*Globals.tab, &quot; &quot;);
+        s.append_printf ("%*s", 2*Globals.tab, " ");
+        s.append_printf ("Interlaced: %s\n",
+                        info.is_interlaced() ? "true" : "false");
+        s.append_printf ("%*s", 2*Globals.tab, " ");
+        s.append_printf ("Bitrate: %u\n", info.get_bitrate());
+        s.append_printf ("%*s", 2*Globals.tab, " ");
+        s.append_printf ("Max bitrate: %u\n", info.get_max_bitrate());
+        s.append_printf ("%*s", 2*Globals.tab, " ");
+        s.append_printf ("Tags:\n");
+        s.append_printf ("%*s", 2*Globals.tab, " ");
         if (info.get_tags() != null) {
-                s.append_printf (&quot;  %s\n&quot;,
+                s.append_printf ("  %s\n",
                         ((Gst.Structure)info.get_tags()).to_string());
         } else {
-                s.append_printf (&quot;  None\n&quot;);
+                s.append_printf ("  None\n");
         }
         return s.str;
 }
 private void print_tabs()
 {
-        for (int i = 0; i &lt; 2*Globals.tab; i++)
-                stdout.printf(&quot; &quot;);
+        for (int i = 0; i < 2*Globals.tab; i++)
+                stdout.printf(" ");
 }
 private void print_stream_info(DiscovererStreamInfo info)
 {
@@ -163,26 +163,26 @@ private void print_stream_info(DiscovererStreamInfo info)
                         desc = info.get_caps().to_string();
         }
         print_tabs();
-        stdout.printf(&quot;%s: %s\n&quot;, info.get_stream_type_nick(),
+        stdout.printf("%s: %s\n", info.get_stream_type_nick(),
                 desc);
         if (desc != null)
                 free(desc);
         if (Globals.verbose) {
                 if (info is DiscovererAudioInfo) {
                         Globals.tab++;
-                        stdout.printf(&quot;%s&quot;,
+                        stdout.printf("%s",
                                 gst_stream_audio_information_to_string(
                                         (DiscovererAudioInfo)info));
                         Globals.tab--;
                 } else if (info is DiscovererVideoInfo) {
                         Globals.tab++;
-                        stdout.printf(&quot;%s&quot;,
+                        stdout.printf("%s",
                                 gst_stream_video_information_to_string(
                                         (DiscovererVideoInfo)info));
                         Globals.tab--;
                 }
         }
-        stdout.printf(&quot;\n&quot;);
+        stdout.printf("\n");
 }
 private void print_topology(DiscovererStreamInfo info)
 {
@@ -192,9 +192,9 @@ private void print_topology(DiscovererStreamInfo info)
                 print_topology(info.get_next());
                 Globals.tab--;
         } else if (info is DiscovererContainerInfo) {
-                GLib.List&lt;DiscovererStreamInfo&gt; l =
-                        (GLib.List&lt;DiscovererStreamInfo&gt;)((DiscovererContainerInfo)info).get_streams();
-                unowned GLib.List&lt;DiscovererStreamInfo&gt; t;
+                GLib.List<DiscovererStreamInfo> l =
+                        (GLib.List<DiscovererStreamInfo>)((DiscovererContainerInfo)info).get_streams();
+                unowned GLib.List<DiscovererStreamInfo> t;
                 for (t = l; t != null; t = t.next) {
                         Globals.tab++;
                         print_topology(t.data);
@@ -209,20 +209,20 @@ private void print_list(Gst.DiscovererInfo info)
 }
 private void print_info(Gst.DiscovererInfo info)
 {
-        stdout.printf(&quot;Done discovering %s\n&quot;, info.get_uri());
+        stdout.printf("Done discovering %s\n", info.get_uri());
         if (info != null) {
-                stdout.printf (&quot;\nTopology:\n&quot;);
+                stdout.printf ("\nTopology:\n");
                 print_topology(info.get_stream_info());
                 if (!Globals.silent) {
-                        stdout.printf(&quot;\nStream list:\n&quot;);
+                        stdout.printf("\nStream list:\n");
                         print_list(info);
-                        stdout.printf(&quot;\nDuration:\n&quot;);
+                        stdout.printf("\nDuration:\n");
                         print_tabs();
-                        stdout.printf(Gst.TIME_FORMAT + &quot;\n&quot;,
+                        stdout.printf(Gst.TIME_FORMAT + "\n",
                                         info.get_duration().args());
                 }
         }
-        stdout.printf(&quot;\n&quot;);
+        stdout.printf("\n");
 }
 private void on_discovered(Gst.DiscovererInfo info, GLib.Error err)
 {
@@ -255,7 +255,7 @@ static void process_file (string filename)
                 try {
                         uri = GLib.Filename.to_uri(path);
                 } catch (Error e) {
-                        stdout.printf(&quot;Couldn't convert filename to URI:%s\n&quot;,
+                        stdout.printf("Couldn't convert filename to URI:%s\n",
                                       e.message);
                         return;
                 }
@@ -266,18 +266,18 @@ static void process_file (string filename)
                 Globals.d.discover_uri_async(uri);
         } else {
                 DiscovererInfo info;
-                stdout.printf(&quot;Analyzing %s\n&quot;, uri);
+                stdout.printf("Analyzing %s\n", uri);
                 try {
                         info = Globals.d.discover_uri(uri);
                         print_info(info);
                 } catch (Error e) {
-                        stderr.printf(&quot;Error: %s\n&quot;, e.message);
+                        stderr.printf("Error: %s\n", e.message);
                 }
         }
 }
 private bool run()
 {
-        for (int i = 1; i &lt; Globals.args.length; i++) {
+        for (int i = 1; i < Globals.args.length; i++) {
                 process_file(Globals.args[i]);
         }
         return false;
@@ -285,21 +285,21 @@ private bool run()
 public int main(string[] argv)
 {
         MainLoop loop = new MainLoop(null, false);
-        OptionContext ctx = new OptionContext(&quot;- discover files with GstDiscoverer using Vala bindings&quot;);
+        OptionContext ctx = new OptionContext("- discover files with GstDiscoverer using Vala bindings");
         Globals.timeout = 10;
         Globals.asynch = false;
         Globals.tab = 1;
         ctx.add_main_entries(Globals.options, null);
         ctx.add_group(Gst.init_get_option_group());
-        if (argv.length &lt; 2) {
-                stderr.printf(&quot;Error: you need to specify at least 1 URI\n&quot;);
+        if (argv.length < 2) {
+                stderr.printf("Error: you need to specify at least 1 URI\n");
                 return -1;
         }
         init();
         try {
                 ctx.parse(ref argv);
         } catch (Error e) {
-                stderr.printf(&quot;Error initializing: %s\n&quot;, e.message);
+                stderr.printf("Error initializing: %s\n", e.message);
         }
         Globals.d = new Discoverer((ClockTime)(Globals.timeout*Gst.SECOND));
         Globals.args = argv;
@@ -316,7 +316,7 @@ public int main(string[] argv)
         return 0;
 }
 $ valac --pkg gstreamer-pbutils-0.10 gstreamer-discoverer.vala
-$ ./gstreamer-discoverer &lt;uris&gt; Vala/Examples Projects/Vala/GStreamerSamples  (last edited 2013-11-22 16:48:29 by WilliamJonMcCann)
+$ ./gstreamer-discoverer <uris> Vala/Examples Projects/Vala/GStreamerSamples  (last edited 2013-11-22 16:48:29 by WilliamJonMcCann)
 Search:
 <input id="searchinput" type="text" name="value" value="" size="20"
     onfocus="searchFocus(this)" onblur="searchBlur(this)"

@@ -18,20 +18,20 @@ TreeView with CellRendererToggle
 Clipboard
 EntryCompletion with two cells 
 Vala GTK+ Examples
-Note:  These examples require GTK+ 3.x installed, e.g. Fedora &gt;= 15: gtk3-devel openSUSE &gt;= 11.4: gtk3-devel Ubuntu &gt;= 11.04: libgtk-3-dev If you're still developing for GTK+ 2.x you can find examples on the GTK+ 2.x version of this page. 
+Note:  These examples require GTK+ 3.x installed, e.g. Fedora >= 15: gtk3-devel openSUSE >= 11.4: gtk3-devel Ubuntu >= 11.04: libgtk-3-dev If you're still developing for GTK+ 2.x you can find examples on the GTK+ 2.x version of this page. 
 Basic Sample
 This sample demonstrates how to create a toplevel window, set its title, size and position, how to add a button to this window and how to connect signals with actions. vala-test:examples/gtk-hello.vala using Gtk;
 int main (string[] args) {
     Gtk.init (ref args);
     var window = new Window ();
-    window.title = &quot;First GTK+ Program&quot;;
+    window.title = "First GTK+ Program";
     window.border_width = 10;
     window.window_position = WindowPosition.CENTER;
     window.set_default_size (350, 70);
     window.destroy.connect (Gtk.main_quit);
-    var button = new Button.with_label (&quot;Click me!&quot;);
-    button.clicked.connect (() =&gt; {
-        button.label = &quot;Thank you&quot;;
+    var button = new Button.with_label ("Click me!");
+    button.clicked.connect (() => {
+        button.label = "Thank you";
     });
     window.add (button);
     window.show_all ();
@@ -45,11 +45,11 @@ $ ./gtk-hello
 Setting an Application Icon
 try {
     // Either directly from a file ...
-    window.icon = new Gdk.Pixbuf.from_file (&quot;my-app.png&quot;);
+    window.icon = new Gdk.Pixbuf.from_file ("my-app.png");
     // ... or from the theme
-    window.icon = IconTheme.get_default ().load_icon (&quot;my-app&quot;, 48, 0);
+    window.icon = IconTheme.get_default ().load_icon ("my-app", 48, 0);
 } catch (Error e) {
-    stderr.printf (&quot;Could not load application icon: %s\n&quot;, e.message);
+    stderr.printf ("Could not load application icon: %s\n", e.message);
 }
 Synchronizing Widgets
 You can use signals in order to synchronize the values of widgets. In this example a spin button and a horizontal scale will get interlocked. vala-test:examples/gtk-sync-sample.vala using Gtk;
@@ -57,16 +57,16 @@ public class SyncSample : Window {
     private SpinButton spin_box;
     private Scale slider;
     public SyncSample () {
-        this.title = &quot;Enter your age&quot;;
+        this.title = "Enter your age";
         this.window_position = WindowPosition.CENTER;
         this.destroy.connect (Gtk.main_quit);
         set_default_size (300, 20);
         spin_box = new SpinButton.with_range (0, 130, 1);
         slider = new Scale.with_range (Orientation.HORIZONTAL, 0, 130, 1);
-        spin_box.adjustment.value_changed.connect (() =&gt; {
+        spin_box.adjustment.value_changed.connect (() => {
             slider.adjustment.value = spin_box.adjustment.value;
         });
-        slider.adjustment.value_changed.connect (() =&gt; {
+        slider.adjustment.value_changed.connect (() => {
             spin_box.adjustment.value = slider.adjustment.value;
         });
         spin_box.adjustment.value = 35;
@@ -92,14 +92,14 @@ A simple text file viewer: vala-test:examples/gtk-text-viewer.vala using Gtk;
 public class TextFileViewer : Window {
     private TextView text_view;
     public TextFileViewer () {
-        this.title = &quot;Text File Viewer&quot;;
+        this.title = "Text File Viewer";
         this.window_position = WindowPosition.CENTER;
         set_default_size (400, 300);
         var toolbar = new Toolbar ();
         toolbar.get_style_context ().add_class (STYLE_CLASS_PRIMARY_TOOLBAR);
-        var open_icon = new Gtk.Image.from_icon_name (&quot;document-open&quot;, 
+        var open_icon = new Gtk.Image.from_icon_name ("document-open", 
             IconSize.SMALL_TOOLBAR);
-        var open_button = new Gtk.ToolButton (open_icon, &quot;Open&quot;);
+        var open_button = new Gtk.ToolButton (open_icon, "Open");
         open_button.is_important = true;
         toolbar.add (open_button);
         open_button.clicked.connect (on_open_clicked);
@@ -115,10 +115,10 @@ public class TextFileViewer : Window {
         add (vbox);
     }
     private void on_open_clicked () {
-        var file_chooser = new FileChooserDialog (&quot;Open File&quot;, this,
+        var file_chooser = new FileChooserDialog ("Open File", this,
                                       FileChooserAction.OPEN,
-                                      &quot;_Cancel&quot;, ResponseType.CANCEL,
-                                      &quot;_Open&quot;, ResponseType.ACCEPT);
+                                      "_Cancel", ResponseType.CANCEL,
+                                      "_Open", ResponseType.ACCEPT);
         if (file_chooser.run () == ResponseType.ACCEPT) {
             open_file (file_chooser.get_filename ());
         }
@@ -130,7 +130,7 @@ public class TextFileViewer : Window {
             FileUtils.get_contents (filename, out text);
             this.text_view.buffer.text = text;
         } catch (Error e) {
-            stderr.printf (&quot;Error: %s\n&quot;, e.message);
+            stderr.printf ("Error: %s\n", e.message);
         }
     }
     public static int main (string[] args) {
@@ -148,7 +148,7 @@ $ ./gtk-text-viewer If you want to reuse your file dialog setup or add additiona
 public class OpenFileDialog : FileChooserDialog {
     private string last_folder;
     public OpenFileDialog () {
-        this.title = &quot;Open File&quot;;
+        this.title = "Open File";
         this.action = FileChooserAction.OPEN;
         add_button (Stock.CANCEL, ResponseType.CANCEL);
         add_button (Stock.OPEN, ResponseType.ACCEPT);
@@ -166,7 +166,7 @@ public class OpenFileDialog : FileChooserDialog {
         Gtk.init (ref args);
         var ofd = new OpenFileDialog ();
         if (ofd.run () == ResponseType.OK) {
-            stdout.printf (&quot;filename = %s\n&quot;.printf (ofd.get_filename ()));
+            stdout.printf ("filename = %s\n".printf (ofd.get_filename ()));
         }
     }
 }
@@ -180,7 +180,7 @@ public class SearchDialog : Dialog {
     public signal void find_next (string text, bool case_sensitivity);
     public signal void find_previous (string text, bool case_sensitivity);
     public SearchDialog () {
-        this.title = &quot;Find&quot;;
+        this.title = "Find";
         this.border_width = 5;
         set_default_size (350, 100);
         create_widgets ();
@@ -189,10 +189,10 @@ public class SearchDialog : Dialog {
     private void create_widgets () {
         // Create and setup widgets
         this.search_entry = new Entry ();
-        var search_label = new Label.with_mnemonic (&quot;_Search for:&quot;);
+        var search_label = new Label.with_mnemonic ("_Search for:");
         search_label.mnemonic_widget = this.search_entry;
-        this.match_case = new CheckButton.with_mnemonic (&quot;_Match case&quot;);
-        this.find_backwards = new CheckButton.with_mnemonic (&quot;Find _backwards&quot;);
+        this.match_case = new CheckButton.with_mnemonic ("_Match case");
+        this.find_backwards = new CheckButton.with_mnemonic ("Find _backwards");
         // Layout widgets
         var hbox = new Box (Orientation.HORIZONTAL, 20);
         hbox.pack_start (search_label, false, true, 0);
@@ -210,8 +210,8 @@ public class SearchDialog : Dialog {
         show_all ();
     }
     private void connect_signals () {
-        this.search_entry.changed.connect (() =&gt; {
-            this.find_button.sensitive = (this.search_entry.text != &quot;&quot;);
+        this.search_entry.changed.connect (() => {
+            this.find_button.sensitive = (this.search_entry.text != "");
         });
         this.response.connect (on_response);
     }
@@ -252,10 +252,10 @@ $ ./gtk-search-dialog
 Loading User Interface from XML File
 Instead of hand coding your application's user interface you can create it comfortably with a user interface designer such as Glade and save it as XML file. Your application can load the UI from this file at runtime with the help of the Gtk.Builder class. It can even connect all signals to their callback methods if you have declared them in Glade. Here's a sample UI file: sample.ui This example code works with the UI file linked above: vala-test:examples/gtk-builder-sample.vala using Gtk;
 public void on_button1_clicked (Button source) {
-    source.label = &quot;Thank you!&quot;;
+    source.label = "Thank you!";
 }
 public void on_button2_clicked (Button source) {
-    source.label = &quot;Thanks!&quot;;
+    source.label = "Thanks!";
 }
 int main (string[] args) {
     Gtk.init (ref args);
@@ -264,13 +264,13 @@ int main (string[] args) {
         // Type type = typeof(Foo.BarEntry);
         // assert(type != 0);
         var builder = new Builder ();
-        builder.add_from_file (&quot;sample.ui&quot;);
+        builder.add_from_file ("sample.ui");
         builder.connect_signals (null);
-        var window = builder.get_object (&quot;window&quot;) as Window;
+        var window = builder.get_object ("window") as Window;
         window.show_all ();
         Gtk.main ();
     } catch (Error e) {
-        stderr.printf (&quot;Could not load UI: %s\n&quot;, e.message);
+        stderr.printf ("Could not load UI: %s\n", e.message);
         return 1;
     }
     return 0;
@@ -283,11 +283,11 @@ namespace Foo {
     public class MyBar {
         [CCode (instance_pos = -1)]
         public void on_button1_clicked (Button source) {
-            source.label = &quot;Thank you!&quot;;
+            source.label = "Thank you!";
         }
         [CCode (instance_pos = -1)]
         public void on_button2_clicked (Button source) {
-            source.label = &quot;Thanks!&quot;;
+            source.label = "Thanks!";
         }
     }
 }
@@ -295,21 +295,21 @@ namespace Foo {
         var object = new Foo.MyBar ();
         builder.connect_signals (object);
 // ...
-Attention: When using Gtk.Builder's signal auto-connection feature all handlers must have the full signatures of their corresponding signals, including the signal sender as first parameter. Otherwise you will get segmentation faults at runtime. On Windows you have to add G_MODULE_EXPORT to the callbacks otherwise signal handlers won't be found. Use [CCode (cname=&quot;G_MODULE_EXPORT callback_name&quot;)] as a workaround. (cf. Bug 541548) [CCode (cname = &quot;G_MODULE_EXPORT on_button1_clicked&quot;)]
+Attention: When using Gtk.Builder's signal auto-connection feature all handlers must have the full signatures of their corresponding signals, including the signal sender as first parameter. Otherwise you will get segmentation faults at runtime. On Windows you have to add G_MODULE_EXPORT to the callbacks otherwise signal handlers won't be found. Use [CCode (cname="G_MODULE_EXPORT callback_name")] as a workaround. (cf. Bug 541548) [CCode (cname = "G_MODULE_EXPORT on_button1_clicked")]
 public void on_button1_clicked (Button source) {
-    source.label = &quot;Thank you!&quot;;
+    source.label = "Thank you!";
 }
-[CCode (cname = &quot;G_MODULE_EXPORT on_button2_clicked&quot;)]
+[CCode (cname = "G_MODULE_EXPORT on_button2_clicked")]
 public void on_button2_clicked (Button source) {
-    source.label = &quot;Thanks!&quot;;
+    source.label = "Thanks!";
 }
 Tips and Tricks
-gtkparasite allows you to inspect and modify your application's user interface at runtime. It's like Firebug for GTK+. Most distributions provide a package for gtkparasite. Launch with $&nbsp;GTK_MODULES=gtkparasite&nbsp;appname. There's documentation and a screencast on the website. You can follow GTK+ and friends on Twitter: @gtktoolkit 
+gtkparasite allows you to inspect and modify your application's user interface at runtime. It's like Firebug for GTK+. Most distributions provide a package for gtkparasite. Launch with $ GTK_MODULES=gtkparasite appname. There's documentation and a screencast on the website. You can follow GTK+ and friends on Twitter: @gtktoolkit 
 TreeView with ListStore
 vala-test:examples/gtk-treeview-liststore.vala using Gtk;
 public class TreeViewSample : Window {
     public TreeViewSample () {
-        this.title = &quot;TreeView Sample&quot;;
+        this.title = "TreeView Sample";
         set_default_size (250, 100);
         var view = new TreeView ();
         setup_treeview (view);
@@ -325,16 +325,16 @@ public class TreeViewSample : Window {
         var listmodel = new ListStore (4, typeof (string), typeof (string),
                                           typeof (string), typeof (string));
         view.set_model (listmodel);
-        view.insert_column_with_attributes (-1, &quot;Account Name&quot;, new CellRendererText (), &quot;text&quot;, 0);
-        view.insert_column_with_attributes (-1, &quot;Type&quot;, new CellRendererText (), &quot;text&quot;, 1);
+        view.insert_column_with_attributes (-1, "Account Name", new CellRendererText (), "text", 0);
+        view.insert_column_with_attributes (-1, "Type", new CellRendererText (), "text", 1);
         var cell = new CellRendererText ();
-        cell.set (&quot;foreground_set&quot;, true);
-        view.insert_column_with_attributes (-1, &quot;Balance&quot;, cell, &quot;text&quot;, 2, &quot;foreground&quot;, 3);
+        cell.set ("foreground_set", true);
+        view.insert_column_with_attributes (-1, "Balance", cell, "text", 2, "foreground", 3);
         TreeIter iter;
         listmodel.append (out iter);
-        listmodel.set (iter, 0, &quot;My Visacard&quot;, 1, &quot;card&quot;, 2, &quot;102,10&quot;, 3, &quot;red&quot;);
+        listmodel.set (iter, 0, "My Visacard", 1, "card", 2, "102,10", 3, "red");
         listmodel.append (out iter);
-        listmodel.set (iter, 0, &quot;My Mastercard&quot;, 1, &quot;card&quot;, 2, &quot;10,20&quot;, 3, &quot;red&quot;);
+        listmodel.set (iter, 0, "My Mastercard", 1, "card", 2, "10,20", 3, "red");
     }
     public static int main (string[] args) {
         Gtk.init (ref args);
@@ -351,7 +351,7 @@ TreeView with TreeStore
 vala-test:examples/gtk-treeview-treestore.vala using Gtk;
 public class TreeViewSample : Window {
     public TreeViewSample () {
-        this.title = &quot;TreeView Sample&quot;;
+        this.title = "TreeView Sample";
         set_default_size (250, 100);
         var view = new TreeView ();
         setup_treeview (view);
@@ -361,31 +361,31 @@ public class TreeViewSample : Window {
     private void setup_treeview (TreeView view) {
         var store = new TreeStore (2, typeof (string), typeof (string));
         view.set_model (store);
-        view.insert_column_with_attributes (-1, &quot;Product&quot;, new CellRendererText (), &quot;text&quot;, 0, null);
-        view.insert_column_with_attributes (-1, &quot;Price&quot;, new CellRendererText (), &quot;text&quot;, 1, null);
+        view.insert_column_with_attributes (-1, "Product", new CellRendererText (), "text", 0, null);
+        view.insert_column_with_attributes (-1, "Price", new CellRendererText (), "text", 1, null);
         TreeIter root;
         TreeIter category_iter;
         TreeIter product_iter;
         store.append (out root, null);
-        store.set (root, 0, &quot;All Products&quot;, -1);
+        store.set (root, 0, "All Products", -1);
         store.append (out category_iter, root);
-        store.set (category_iter, 0, &quot;Books&quot;, -1);
+        store.set (category_iter, 0, "Books", -1);
         store.append (out product_iter, category_iter);
-        store.set (product_iter, 0, &quot;Moby Dick&quot;, 1, &quot;$10.36&quot;, -1);
+        store.set (product_iter, 0, "Moby Dick", 1, "$10.36", -1);
         store.append (out product_iter, category_iter);
-        store.set (product_iter, 0, &quot;Heart of Darkness&quot;, 1, &quot;$4.99&quot;, -1);
+        store.set (product_iter, 0, "Heart of Darkness", 1, "$4.99", -1);
         store.append (out product_iter, category_iter);
-        store.set (product_iter, 0, &quot;Ulysses&quot;, 1, &quot;$26.09&quot;, -1);
+        store.set (product_iter, 0, "Ulysses", 1, "$26.09", -1);
         store.append (out product_iter, category_iter);
-        store.set (product_iter, 0, &quot;Effective Vala&quot;, 1, &quot;$38.99&quot;, -1);
+        store.set (product_iter, 0, "Effective Vala", 1, "$38.99", -1);
         store.append (out category_iter, root);
-        store.set (category_iter, 0, &quot;Films&quot;, -1);
+        store.set (category_iter, 0, "Films", -1);
         store.append (out product_iter, category_iter);
-        store.set (product_iter, 0, &quot;Amores Perros&quot;, 1, &quot;$7.99&quot;, -1);
+        store.set (product_iter, 0, "Amores Perros", 1, "$7.99", -1);
         store.append (out product_iter, category_iter);
-        store.set (product_iter, 0, &quot;Twin Peaks&quot;, 1, &quot;$14.99&quot;, -1);
+        store.set (product_iter, 0, "Twin Peaks", 1, "$14.99", -1);
         store.append (out product_iter, category_iter);
-        store.set (product_iter, 0, &quot;Vertigo&quot;, 1, &quot;$20.49&quot;, -1);
+        store.set (product_iter, 0, "Vertigo", 1, "$20.49", -1);
         view.expand_all ();
     }
     public static int main (string[] args) {
@@ -410,13 +410,13 @@ public class ListSample : Gtk.Window {
         N_COLUMNS
     }
     public ListSample () {
-        this.title = &quot;List Sample&quot;;
+        this.title = "List Sample";
         this.destroy.connect (Gtk.main_quit);
         set_size_request (200, 200);
         list_store = new ListStore (Columns.N_COLUMNS, typeof (bool), typeof (string));
         tree_view = new TreeView.with_model (list_store);
         var toggle = new CellRendererToggle ();
-        toggle.toggled.connect ((toggle, path) =&gt; {
+        toggle.toggled.connect ((toggle, path) => {
             var tree_path = new TreePath.from_string (path);
             TreeIter iter;
             list_store.get_iter (out iter, tree_path);
@@ -424,19 +424,19 @@ public class ListSample : Gtk.Window {
         });
         var column = new TreeViewColumn ();
         column.pack_start (toggle, false);
-        column.add_attribute (toggle, &quot;active&quot;, Columns.TOGGLE);
+        column.add_attribute (toggle, "active", Columns.TOGGLE);
         tree_view.append_column (column);
         var text = new CellRendererText ();
         column = new TreeViewColumn ();
         column.pack_start (text, true);
-        column.add_attribute (text, &quot;text&quot;, Columns.TEXT);
+        column.add_attribute (text, "text", Columns.TEXT);
         tree_view.append_column (column);
         tree_view.set_headers_visible (false);
         TreeIter iter;
         list_store.append (out iter);
-        list_store.set (iter, Columns.TOGGLE, true, Columns.TEXT, &quot;item 1&quot;);
+        list_store.set (iter, Columns.TOGGLE, true, Columns.TEXT, "item 1");
         list_store.append (out iter);
-        list_store.set (iter, Columns.TOGGLE, false, Columns.TEXT, &quot;item 2&quot;);
+        list_store.set (iter, Columns.TOGGLE, false, Columns.TEXT, "item 2");
         add (tree_view);
     }
 }
@@ -454,7 +454,7 @@ Basic example use of the clipboard: vala-test:examples/gtk-clipboard-sample.vala
 int main (string[] args) {
     Gtk.init (ref args);
     var window = new Window ();
-    window.title = &quot;Clipboard&quot;;
+    window.title = "Clipboard";
     window.border_width = 10;
     window.set_default_size (300, 20);
     window.destroy.connect (Gtk.main_quit);
@@ -465,9 +465,9 @@ int main (string[] args) {
     var clipboard = Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
     // Get text from clipboard
     string text = clipboard.wait_for_text ();
-    entry.text = text ?? &quot;&quot;;
+    entry.text = text ?? "";
     // If the user types something ...
-    entry.changed.connect (() =&gt; {
+    entry.changed.connect (() => {
         // Set text to clipboard
         clipboard.set_text (entry.text, -1);
     });
@@ -481,7 +481,7 @@ EntryCompletion with two cells
 This example is based on http://www.valadoc.org/#!api=gtk+-3.0/Gtk.EntryCompletion but with two cells. public class Application : Gtk.Window {
         public Application () {
                 // Prepare Gtk.Window:
-                this.title = &quot;My Gtk.EntryCompletion&quot;;
+                this.title = "My Gtk.EntryCompletion";
                 this.window_position = Gtk.WindowPosition.CENTER;
                 this.destroy.connect (Gtk.main_quit);
                 this.set_default_size (350, 70);
@@ -497,26 +497,26 @@ This example is based on http://www.valadoc.org/#!api=gtk+-3.0/Gtk.EntryCompleti
                 completion.set_text_column (0);
                 var cell = new Gtk.CellRendererText ();
                 completion.pack_start(cell, false);
-                completion.add_attribute(cell, &quot;text&quot;, 1);
+                completion.add_attribute(cell, "text", 1);
                 Gtk.TreeIter iter;
                 list_store.append (out iter);
-                list_store.set (iter, 0, &quot;Burgenland&quot;, 1, &quot;Austria&quot;);
+                list_store.set (iter, 0, "Burgenland", 1, "Austria");
                 list_store.append (out iter);
-                list_store.set (iter, 0, &quot;Berlin&quot;, 1, &quot;Germany&quot;);
+                list_store.set (iter, 0, "Berlin", 1, "Germany");
                 list_store.append (out iter);
-                list_store.set (iter, 0, &quot;Lower Austria&quot;, 1, &quot;Austria&quot;);
+                list_store.set (iter, 0, "Lower Austria", 1, "Austria");
                 list_store.append (out iter);
-                list_store.set (iter, 0, &quot;Upper Austria&quot;, 1, &quot;Austria&quot;);
+                list_store.set (iter, 0, "Upper Austria", 1, "Austria");
                 list_store.append (out iter);
-                list_store.set (iter, 0, &quot;Salzburg&quot;, 1, &quot;Austria&quot;);
+                list_store.set (iter, 0, "Salzburg", 1, "Austria");
                 list_store.append (out iter);
-                list_store.set (iter, 0, &quot;Styria&quot;, 1, &quot;Austria&quot;);
+                list_store.set (iter, 0, "Styria", 1, "Austria");
                 list_store.append (out iter);
-                list_store.set (iter, 0, &quot;Tehran&quot;, 1, &quot;Iran&quot;);
+                list_store.set (iter, 0, "Tehran", 1, "Iran");
                 list_store.append (out iter);
-                list_store.set (iter, 0, &quot;Vorarlberg&quot;, 1, &quot;Austria&quot;);
+                list_store.set (iter, 0, "Vorarlberg", 1, "Austria");
                 list_store.append (out iter);
-                list_store.set (iter, 0, &quot;Vienna&quot;, 1, &quot;Austria&quot;);
+                list_store.set (iter, 0, "Vienna", 1, "Austria");
         }
         public static int main (string[] args) {
                 Gtk.init (ref args);

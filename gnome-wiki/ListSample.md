@@ -5,18 +5,18 @@ var search_hint = "Search";
 Projects/Vala/ListSampleHomeRecentChangesScheduleLogin
 Vala List Example
 This sample uses the List class from GLib.  There is also various container classes in libgee, which are often easier to use or more powerful. See ../GeeSamples vala-test:examples/list.vala int main (string[] args) {
-    var list = new List&lt;string&gt; ();
-    list.append (&quot;one&quot;);
-    list.append (&quot;two&quot;);
-    list.append (&quot;three&quot;);
-    stdout.printf (&quot;list.length () = %u\n&quot;, list.length ());
+    var list = new List<string> ();
+    list.append ("one");
+    list.append ("two");
+    list.append ("three");
+    stdout.printf ("list.length () = %u\n", list.length ());
     // Traditional iteration
-    for (int i = 0; i &lt; list.length (); i++) {
-        stdout.printf (&quot;%s\n&quot;, list.nth_data (i));
+    for (int i = 0; i < list.length (); i++) {
+        stdout.printf ("%s\n", list.nth_data (i));
     }
     // Comfortable iteration
     foreach (string element in list) {
-        stdout.printf (&quot;%s\n&quot;, element);
+        stdout.printf ("%s\n", element);
     }
     return 0;
 }

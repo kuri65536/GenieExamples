@@ -6,7 +6,7 @@ Projects/Vala/LoudmouthSampleHomeRecentChangesScheduleLogin
 Loudmouth Synchronous Sample
 vala-test:examples/lm-send-sync.vala /*
  * Copyright (C) 2004 Imendio AB
- * Copyright (C) 2009 Harley Laue &lt;losinggeneration@gmail.com&gt;
+ * Copyright (C) 2009 Harley Laue <losinggeneration@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -41,50 +41,50 @@ class LmSyncDemo {
     static string resource;
     static uint port;
     const OptionEntry[] options = {
-            { &quot;server&quot;, 's', 0, OptionArg.STRING, ref server, &quot;Server to connect to. You need to have a valid login on that server.&quot;, &quot;server.org&quot; },
-            { &quot;username&quot;, 'u', 0, OptionArg.STRING, ref username, &quot;Username to used for the server you selected.&quot;, &quot;some_username&quot; },
-            { &quot;password&quot;, 'p', 0, OptionArg.STRING, ref password, &quot;Password to use for entered username.&quot;, &quot;some_password&quot; },
-            { &quot;recipient&quot;,'t', 0, OptionArg.STRING, ref recipient, &quot;User to send message to.&quot;, &quot;someone@server.org&quot; },
-            { &quot;message&quot;, 'm', 0, OptionArg.STRING, ref message, &quot;Message to send to recipient.&quot;, &quot;\&quot;some message to send\&quot;&quot; },
-            { &quot;resource&quot;, 'r', OptionFlags.OPTIONAL_ARG, OptionArg.STRING, ref resource, &quot;Resource to use when connecting.&quot;, &quot;jabber-send&quot; },
-            { &quot;port&quot;, 'o', OptionFlags.OPTIONAL_ARG, OptionArg.INT, ref port, &quot;Port to use when connecting to selected server.&quot;, &quot;5222&quot; },
+            { "server", 's', 0, OptionArg.STRING, ref server, "Server to connect to. You need to have a valid login on that server.", "server.org" },
+            { "username", 'u', 0, OptionArg.STRING, ref username, "Username to used for the server you selected.", "some_username" },
+            { "password", 'p', 0, OptionArg.STRING, ref password, "Password to use for entered username.", "some_password" },
+            { "recipient",'t', 0, OptionArg.STRING, ref recipient, "User to send message to.", "someone@server.org" },
+            { "message", 'm', 0, OptionArg.STRING, ref message, "Message to send to recipient.", "\"some message to send\"" },
+            { "resource", 'r', OptionFlags.OPTIONAL_ARG, OptionArg.STRING, ref resource, "Resource to use when connecting.", "jabber-send" },
+            { "port", 'o', OptionFlags.OPTIONAL_ARG, OptionArg.INT, ref port, "Port to use when connecting to selected server.", "5222" },
             { null }
         };
     static int main (string[] args) {
-        resource = &quot;jabber-send&quot;;
+        resource = "jabber-send";
         port = Connection.DEFAULT_PORT;
         try {
-            var opt_context = new OptionContext (&quot;- Loudmouth Synchronous Sample&quot;);
+            var opt_context = new OptionContext ("- Loudmouth Synchronous Sample");
             opt_context.set_help_enabled (true);
             opt_context.add_main_entries (options, null);
             opt_context.parse (ref args);
             if (server == null || message == null || recipient == null
                                || username == null || password == null)
             {
-                print (&quot;You must provide at least username, password, server, recipient, and message\n&quot;);
-                print (&quot;%s&quot;, opt_context.get_help (true, null));
+                print ("You must provide at least username, password, server, recipient, and message\n");
+                print ("%s", opt_context.get_help (true, null));
                 return 1;
             }
         } catch (OptionError e) {
-            stdout.printf (&quot;%s\n&quot;, e.message);
-            stdout.printf (&quot;Run '%s --help' to see a full list of available command line options.\n&quot;, args[0]);
+            stdout.printf ("%s\n", e.message);
+            stdout.printf ("Run '%s --help' to see a full list of available command line options.\n", args[0]);
             return 1;
         }
         var connection = new Connection (server);
         try {
-            print (&quot;Connecting to %s\n&quot;, server);
+            print ("Connecting to %s\n", server);
             connection.open_and_block ();
-            print (&quot;Authenticating as '%s' with '%s' and the resource '%s'\n&quot;,
+            print ("Authenticating as '%s' with '%s' and the resource '%s'\n",
                    username, password, resource);
             connection.authenticate_and_block (username, password, resource);
             var m = new Message (recipient, MessageType.MESSAGE);
-            m.node.add_child (&quot;body&quot;, message);
-            print (&quot;Sending message '%s' to %s\n&quot;, message, recipient);
+            m.node.add_child ("body", message);
+            print ("Sending message '%s' to %s\n", message, recipient);
             connection.send (m);
-            print (&quot;Closing connection\n&quot;);
+            print ("Closing connection\n");
             connection.close ();
         } catch (GLib.Error e) {
-            stderr.printf (&quot;Error: %s\n&quot;, e.message);
+            stderr.printf ("Error: %s\n", e.message);
             return 1;
         } finally {
             /* This will become a lot easier with RAII support in
@@ -101,13 +101,13 @@ class LmSyncDemo {
         try {
             connection.close ();
         } catch (GLib.Error e) {
-            error (&quot;Can't close connection.&quot;);
+            error ("Can't close connection.");
         }
     }
 }
 Compile and run
 $ valac --pkg loudmouth-1.0 lm-send-sync.vala
-$ ./lm-send-sync -s jabber.org -u myusername -p mypassword -m &quot;message to send&quot; -t someone_else@jabber.org
+$ ./lm-send-sync -s jabber.org -u myusername -p mypassword -m "message to send" -t someone_else@jabber.org
 Loudmouth Asynchronous Sample
 vala-test:examples/lm-send-async.vala using Gtk;
 using Lm;
@@ -123,7 +123,7 @@ class MainWindow : Window {
     private Entry resource;
     private Connection cn;
     public MainWindow () {
-        this.title = &quot;jabber-send&quot;;
+        this.title = "jabber-send";
         create_widgets ();
         this.destroy.connect (on_quit);
         this.send.clicked.connect (send_message);
@@ -131,9 +131,9 @@ class MainWindow : Window {
     }
     private void create_widgets () {
         var hboxbut = new HBox (false, 5);
-        status = new Label (&quot;&quot;);
-        dconnect = new Button.with_label (&quot;Connect&quot;);
-        send = new Button.with_label (&quot;Send Message&quot;);
+        status = new Label ("");
+        dconnect = new Button.with_label ("Connect");
+        send = new Button.with_label ("Send Message");
         server = new Entry ();
         username = new Entry ();
         password = new Entry ();
@@ -141,17 +141,17 @@ class MainWindow : Window {
         recipient = new Entry ();
         message = new Entry ();
         send.sensitive = false;
-        status.label = &quot;Disconnected&quot;;
-        resource.text = &quot;jabber-send&quot;;
+        status.label = "Disconnected";
+        resource.text = "jabber-send";
         hboxbut.add (dconnect);
         hboxbut.add (send);
         var vbox = new VBox (false, 5);
-        vbox.pack_start (hbox (&quot;Server:&quot;, server), false, false, 0);
-        vbox.pack_start (hbox (&quot;Username:&quot;, username), false, false, 0);
-        vbox.pack_start (hbox (&quot;Password:&quot;, password), false, false, 0);
-        vbox.pack_start (hbox (&quot;Resource:&quot;, resource), false, false, 0);
-        vbox.pack_start (hbox (&quot;Recipient:&quot;, recipient), false, false, 0);
-        vbox.pack_start (hbox (&quot;Message:&quot;, message), false, false, 0);
+        vbox.pack_start (hbox ("Server:", server), false, false, 0);
+        vbox.pack_start (hbox ("Username:", username), false, false, 0);
+        vbox.pack_start (hbox ("Password:", password), false, false, 0);
+        vbox.pack_start (hbox ("Resource:", resource), false, false, 0);
+        vbox.pack_start (hbox ("Recipient:", recipient), false, false, 0);
+        vbox.pack_start (hbox ("Message:", message), false, false, 0);
         vbox.pack_start (status, true, true, 0);
         vbox.pack_start (hboxbut, false, false, 0);
         add (vbox);
@@ -170,38 +170,38 @@ class MainWindow : Window {
     }
     private void connected (Connection connection, bool success) {
         if (success) {
-            status.label = &quot;Opened connection and authenticated&quot;;
-            dconnect.label = &quot;Disconnect&quot;;
+            status.label = "Opened connection and authenticated";
+            dconnect.label = "Disconnect";
             dconnect.clicked.disconnect (do_connect);
             dconnect.clicked.connect (do_disconnect);
             send.sensitive = true;
         } else {
-            status.label = &quot;Authentication failed&quot;;
+            status.label = "Authentication failed";
         }
         dconnect.sensitive = true;
     }
     private void send_message () {
         var m = new Message (recipient.text, Lm.MessageType.MESSAGE);
-        m.node.add_child (&quot;body&quot;, message.text);
+        m.node.add_child ("body", message.text);
         try {
             cn.send (m);
-            status.label = &quot;Message sent&quot;;
+            status.label = "Message sent";
         } catch (GLib.Error e) {
-            status.label = &quot;Error: &quot; + e.message;
+            status.label = "Error: " + e.message;
         }
     }
     private void auth (Connection connection, bool success) {
         if (!success) {
-            status.label = &quot;Connection failed&quot;;
+            status.label = "Connection failed";
             dconnect.sensitive = true;
             return;
         }
-        status.label = &quot;Authenticating with &quot; + server.text;
+        status.label = "Authenticating with " + server.text;
         try {
             connection.authenticate (username.text, password.text,
                                      resource.text, connected, null);
         } catch (GLib.Error e) {
-            status.label = &quot;Error: &quot; + e.message;
+            status.label = "Error: " + e.message;
         }
     }
     private void do_connect () {
@@ -209,29 +209,29 @@ class MainWindow : Window {
             try {
                 cn.close ();
             } catch (GLib.Error e) {
-                status.label = &quot;Error: &quot; + e.message;
+                status.label = "Error: " + e.message;
                 return;
             }
         }
         cn = new Connection (server.text);
         try {
             cn.open (auth, null);
-            status.label = &quot;Loading connection to &quot; + server.text;
+            status.label = "Loading connection to " + server.text;
             dconnect.sensitive = false;
         } catch (GLib.Error e) {
-            status.label = &quot;Error: &quot; + e.message;
+            status.label = "Error: " + e.message;
         }
     }
     private void do_disconnect () {
         try {
             cn.close ();
-            status.label = &quot;Disconnected&quot;;
+            status.label = "Disconnected";
             dconnect.clicked.disconnect (do_disconnect);
             dconnect.clicked.connect (do_connect);
-            dconnect.label = &quot;Connect&quot;;
+            dconnect.label = "Connect";
             send.sensitive = false;
         } catch (GLib.Error e) {
-            status.label = &quot;Error: &quot; + e.message;
+            status.label = "Error: " + e.message;
         }
     }
     static int main (string[] args) {

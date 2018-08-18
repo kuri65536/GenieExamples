@@ -139,7 +139,7 @@ public class CairoThreadedExample : Gtk.Window {
     private int oldh;
     private int currently_drawing;
     private int i_draw;
-    private unowned Thread&lt;void*&gt; thread_info;
+    private unowned Thread<void*> thread_info;
     private bool first_execution = true;
     public CairoThreadedExample () {
         // constructor chain up
@@ -173,10 +173,10 @@ public class CairoThreadedExample : Gtk.Window {
             // This keeps ugly uninitialized pixmaps from being painted upon
             // resize
             int minw = oldw, minh = oldh;
-            if (event.width &lt; minw) {
+            if (event.width < minw) {
                 minw = event.width;
             }
-            if (event.height &lt; minh) {
+            if (event.height < minh) {
                 minh = event.height;
             }
             var cr = Gdk.cairo_create (tmppixmap);
@@ -216,8 +216,8 @@ public class CairoThreadedExample : Gtk.Window {
         cr.set_source_rgb (0.9, 0.9, 0.9);
         cr.paint ();
         // let's just redraw lots of times to use a lot of proc power
-        for (int k = 0; k &lt; 100; k++) {
-            for (int j = 0; j &lt; 1000; j++) {
+        for (int k = 0; k < 100; k++) {
+            for (int j = 0; j < 1000; j++) {
                 cr.set_source_rgb ((double) j / 1000.0, (double) j / 1000.0,
                              1.0 - (double) j / 1000.0);
                 cr.move_to (i_draw, j / 2); 
@@ -246,7 +246,7 @@ public class CairoThreadedExample : Gtk.Window {
                 thread_info.join ();
             }
             try {
-                thread_info = Thread.create&lt;void*&gt; (do_draw, true);
+                thread_info = Thread.create<void*> (do_draw, true);
             } catch (Error e) {
                 stderr.printf ("%s\n", e.message);
             }
@@ -320,17 +320,17 @@ public class CairoShaped : Gtk.Window {
         add_events (Gdk.EventMask.LEAVE_NOTIFY_MASK);
         // Connecting some events, 'queue_draw()' redraws the window.
         // 'begin_move_drag()' sets up the window drag
-        this.enter_notify_event.connect (() =&gt; {
+        this.enter_notify_event.connect (() => {
             this.inside = true;
             queue_draw ();
             return true;
         });
-        this.leave_notify_event.connect (() =&gt; {
+        this.leave_notify_event.connect (() => {
             this.inside = false;
             queue_draw ();
             return true;
         });
-        this.button_press_event.connect ((e) =&gt; {
+        this.button_press_event.connect ((e) => {
             begin_move_drag ((int) e.button, (int) e.x_root, (int) e.y_root, e.time);
             return true;
         });
@@ -375,7 +375,7 @@ public class CairoShaped : Gtk.Window {
             ctx.set_source_rgba (c (226), c (119), c (214), 0.8);
         }
         // Draw the 12 hour dots.
-        for (int i = 0; i &lt; 12; i++) {
+        for (int i = 0; i < 12; i++) {
             ctx.arc (100 + 90.0 * Math.cos (2.0 * 3.14 * (i / 12.0)),
                      100 + 90.0 * Math.sin (2.0 * 3.14 * (i / 12.0)),
                      5, 0, 2.0 * 3.14);
@@ -432,7 +432,7 @@ public class CairoShaped : Gtk.Window {
         pmcr.arc (100, 100, 10, 0, 2.0 * 3.14);
         pmcr.fill ();
         pmcr.stroke ();
-        for (int i = 0; i &lt; 12; i++) {
+        for (int i = 0; i < 12; i++) {
             pmcr.arc (100 + 90.0 * Math.cos (2.0 * 3.14 * (i / 12.0)),
                       100 + 90.0 * Math.sin (2.0 * 3.14 * (i / 12.0)),
                       5, 0, 2.0 * 3.14);
@@ -452,7 +452,7 @@ public class CairoShaped : Gtk.Window {
         var cairo_sample = new CairoShaped ();
         cairo_sample.show_all ();
         // Just a timeout to update once a second.
-        Timeout.add_seconds (1, () =&gt; {
+        Timeout.add_seconds (1, () => {
             cairo_sample.queue_draw ();
             return true;
         });
@@ -516,7 +516,7 @@ public class CairoShaped : Gtk.Window {
                 this.hour_y = new double[12];
                 this.highlighted = -1;
                 this.off_light = new bool[12];
-                for(int i = 0; i &lt; off_light.length;  i++) {
+                for(int i = 0; i < off_light.length;  i++) {
                         off_light[i] = false;
                 }
                 // We need to register which events we are interested in
@@ -557,7 +557,7 @@ public class CairoShaped : Gtk.Window {
                 if(e.button == 2) {
                         destroy();
                 } else {
-                        if(highlighted &gt;= 0) {
+                        if(highlighted >= 0) {
                                 off_light[highlighted] = !off_light[highlighted];
                         }
                         begin_move_drag((int) e.button, (int) e.x_root, (int) e.y_root, e.time);
@@ -588,8 +588,8 @@ public class CairoShaped : Gtk.Window {
                 int width;
                 int height;
                 get_size(out width, out height);
-                width &gt;&gt;= 1;
-                height &gt;&gt;= 1;
+                width >>= 1;
+                height >>= 1;
                 radius = width;
                 grad_in = new Cairo.Pattern.radial(width,height,0,width,height,radius);
                 grad_in.add_color_stop_rgba(0.0, c(10), c(190), c(10), 1.0);
@@ -616,10 +616,10 @@ public class CairoShaped : Gtk.Window {
                 pmcr.set_source_rgba(0,0,0,1);
                 // Here we copy the motions to draw the middle dots and the hour dots.
                 // This is mostly to demonstrate that you can make this any shape you want.
-                pmcr.arc(width &gt;&gt; 1, height &gt;&gt; 1, width / 20.0, 0, 2.0*3.14);
+                pmcr.arc(width >> 1, height >> 1, width / 20.0, 0, 2.0*3.14);
                 pmcr.fill();
                 pmcr.stroke();
-                for(int i = 0; i &lt; 12; i++) {
+                for(int i = 0; i < 12; i++) {
                         pmcr.arc(hour_x[i],hour_y[i],width / 40.0,0,2.0 * 3.14);
                         pmcr.fill();
                         pmcr.stroke();
@@ -630,17 +630,17 @@ public class CairoShaped : Gtk.Window {
                 int width;
                 int height;
                 get_size(out width, out height);
-                width &gt;&gt;= 1;
-                height &gt;&gt;= 1;
-                for(int i = 0; i &lt; 12; i++) {
+                width >>= 1;
+                height >>= 1;
+                for(int i = 0; i < 12; i++) {
                         hour_x[i] = width + 0.9 * width * Math.cos(2.0 * 3.14 * (i/12.0));
                         hour_y[i] = height + 0.9 * height * Math.sin(2.0 * 3.14 * (i/12.0));
                 }
         }
         private void find_highlight() {
                 double rad = radius/ 20.0;
-                for(int i = 0; i &lt; 12; i++) {
-                        if((Math.fabs(hour_x[i] - cur_x) &lt;= rad + 2) &amp;&amp; (Math.fabs(hour_y[i] - cur_y) &lt;= rad + 2)) {
+                for(int i = 0; i < 12; i++) {
+                        if((Math.fabs(hour_x[i] - cur_x) <= rad + 2) &amp;&amp; (Math.fabs(hour_y[i] - cur_y) <= rad + 2)) {
                                 highlighted = i;
                                 return;
                         }
@@ -683,7 +683,7 @@ public class CairoShaped : Gtk.Window {
                 }
                 double rad = radius / 20.0;
                 // Draw the 12 hour dots.
-                for(int i = 0; i &lt; 12; i++) {
+                for(int i = 0; i < 12; i++) {
                         double x = hour_x[i];
                         double y = hour_y[i];
                         if(i == highlighted) {
@@ -745,7 +745,7 @@ public class CairoShaped : Gtk.Window {
                 var cairo_sample = new CairoShaped ();
                 cairo_sample.show_all ();
                 // Just a timeout to update once a second.
-                Timeout.add_seconds(1,()=&gt;{cairo_sample.queue_draw();return true;});
+                Timeout.add_seconds(1,()=>{cairo_sample.queue_draw();return true;});
                 Gtk.main ();
                 return 0;
         }

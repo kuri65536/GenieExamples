@@ -6,10 +6,10 @@ Projects/Vala/InputSamplesHomeRecentChangesScheduleLogin
 Vala Input Examples
 Reading a Single Line
 vala-test:examples/input-stdin-line.vala int main () {
-    stdout.printf (&quot;Please enter your name: &quot;);
+    stdout.printf ("Please enter your name: ");
     string? name = stdin.read_line ();
     if (name != null) {
-        stdout.printf (&quot;Hello, %s!\n&quot;, name);
+        stdout.printf ("Hello, %s!\n", name);
     }
     return 0;
 }
@@ -18,7 +18,7 @@ vala-test:examples/input-stdin.vala /*
  * We use the fact that char[] allocates space
  * and that FileStream.gets takes a char[] but returns a string!
  *
- * Note that stdin.gets uses the &quot;safe&quot; fgets(), not the unsafe gets()
+ * Note that stdin.gets uses the "safe" fgets(), not the unsafe gets()
  */
 string read_stdin () {
     var input = new StringBuilder ();
@@ -33,7 +33,7 @@ string read_stdin () {
 }
 int main () {
     string name = read_stdin ();
-    stdout.printf (&quot;\n-----\n%s\n&quot;, name);
+    stdout.printf ("\n-----\n%s\n", name);
     return 0;
 }
 $ valac stdin-input.vala
@@ -41,9 +41,9 @@ $ ./stdin-input
 Using GNU Readline
 A comfortable way of handling user input is GNU Readline: vala-test:examples/input-readline.vala void main () {
     while (true) {
-        var name = Readline.readline (&quot;Please enter your name: &quot;);
-        if (name != null &amp;&amp; name != &quot;&quot;) {
-            stdout.printf (&quot;Hello, %s\n&quot;, name);
+        var name = Readline.readline ("Please enter your name: ");
+        if (name != null &amp;&amp; name != "") {
+            stdout.printf ("Hello, %s\n", name);
             Readline.History.add (name);
         } else {
             break;
@@ -55,11 +55,11 @@ $ ./readline-sample
 Character Input
 vala-test:examples/input-character.vala public static void main (string[] args) {
     int c = 0;
-    stdout.printf (&quot;Type something and press enter. Type '0' to quit\n&quot;);
+    stdout.printf ("Type something and press enter. Type '0' to quit\n");
     do {
         c = stdin.getc ();
-        if (c &gt; 10) {
-            stdout.printf (&quot;%c (%d)\n&quot;, c, c);
+        if (c > 10) {
+            stdout.printf ("%c (%d)\n", c, c);
         }
     } while (c != '0');
 }
@@ -71,19 +71,19 @@ Useful for parsing text input into numbers vala-test:examples/input-scanf.vala p
     double d;
     int i;
     long l;
-    stdout.printf(&quot;Enter a float   : &quot;);
-    stdin.scanf(&quot;%f&quot;, out f);
-    stdout.printf(&quot;Enter a double  : &quot;);
-    stdin.scanf(&quot;%lf&quot;, out d);
-    stdout.printf(&quot;Enter an integer: &quot;);
-    stdin.scanf(&quot;%d&quot;, out i);
-    stdout.printf(&quot;Enter a long    : &quot;);
-    stdin.scanf(&quot;%ld&quot;, out l);
-    stdout.printf(&quot;The numbers you entered\n&quot;);
-    stdout.printf(&quot;Float  : %f\n&quot;,f);
-    stdout.printf(&quot;Double : %lf\n&quot;,d);
-    stdout.printf(&quot;Integer: %d\n&quot;,i);
-    stdout.printf(&quot;Long   : %ld\n&quot;,l);
+    stdout.printf("Enter a float   : ");
+    stdin.scanf("%f", out f);
+    stdout.printf("Enter a double  : ");
+    stdin.scanf("%lf", out d);
+    stdout.printf("Enter an integer: ");
+    stdin.scanf("%d", out i);
+    stdout.printf("Enter a long    : ");
+    stdin.scanf("%ld", out l);
+    stdout.printf("The numbers you entered\n");
+    stdout.printf("Float  : %f\n",f);
+    stdout.printf("Double : %lf\n",d);
+    stdout.printf("Integer: %d\n",i);
+    stdout.printf("Long   : %ld\n",l);
 }
 See the Wikipedia article on Scanf for more details. There is also a scanf function for strings.  Vala/Examples Projects/Vala/InputSamples  (last edited 2013-11-22 16:48:26 by WilliamJonMcCann)
 Search:

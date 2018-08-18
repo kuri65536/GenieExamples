@@ -4,11 +4,11 @@ var search_hint = "Search";
 //-->
 Projects/Vala/Gedit3PluginSampleHomeRecentChangesScheduleLogin
 Gedit 3 Plugin Sample
-Required bindings are for: Gedit &gt;= 3.0 (gedit.vapi for gedit 3.0+ is automatically generated from upstream and usually distributed with gedit development packages) GtkSourceView &gt;= 3.0 (gtksourceview-3.0.vapi is automatically generated from upstream and distributed with Vala) PeasGtk &gt;=1.0 (libpeas-gtk-1.0.vapi is automatically generated from upstream and distributed with Vala) ...and Vala &gt;= 0.11 
+Required bindings are for: Gedit >= 3.0 (gedit.vapi for gedit 3.0+ is automatically generated from upstream and usually distributed with gedit development packages) GtkSourceView >= 3.0 (gtksourceview-3.0.vapi is automatically generated from upstream and distributed with Vala) PeasGtk >=1.0 (libpeas-gtk-1.0.vapi is automatically generated from upstream and distributed with Vala) ...and Vala >= 0.11 
 Source &amp; support files
 A Gedit plugin compiled from Vala/Genie source files is composed of just two files: a library (.so) and the plugin file definition (.plugin). Our example plugin will be contained in just one Vala soure file, so the directory listing at the start will be: $ ls
 gedit-3-example.plugin
-gedit-3-example-plugin.valaIn order to make the example really simple we decided to implement a very basic function: the plugin will just close an xml tag upon writing the '&gt;'. Eg. if you write &lt;test&gt; it will add the corresponding &lt;/test&gt; close tag. Source code for the file: gedit-3-example-plugin.vala using GLib;
+gedit-3-example-plugin.valaIn order to make the example really simple we decided to implement a very basic function: the plugin will just close an xml tag upon writing the '>'. Eg. if you write <test> it will add the corresponding </test> close tag. Source code for the file: gedit-3-example-plugin.vala using GLib;
 namespace GeditPluginExample
 {
         /*
@@ -25,17 +25,17 @@ namespace GeditPluginExample
                 }
                 public void activate ()
                 {
-                        print (&quot;View: activated\n&quot;);
+                        print ("View: activated\n");
                         view.key_release_event.connect (this.on_key_release);
                 }
                 public void deactivate ()
                 {
-                        print (&quot;View: deactivated\n&quot;);
+                        print ("View: deactivated\n");
                         view.key_release_event.disconnect (this.on_key_release);
                 }
                 private bool on_key_release (Gtk.Widget sender, Gdk.EventKey event)
                 {
-                        if (event.str == &quot;&gt;&quot;) {
+                        if (event.str == ">") {
                                 // Close the tag
                                 Gedit.View view = (Gedit.View)sender;
                                 Gtk.TextBuffer buffer = view.get_buffer ();
@@ -44,7 +44,7 @@ namespace GeditPluginExample
                                 if (end.backward_char ()) {
                                         start = end;
                                         if (start.backward_word_start ()) {
-                                                string tag = &quot;&lt;/%s&gt;&quot;.printf (buffer.get_text (start, end, false));
+                                                string tag = "</%s>".printf (buffer.get_text (start, end, false));
                                                 // add the closing tag
                                                 buffer.begin_user_action ();
                                                 buffer.insert_interactive_at_cursor (tag, -1, true);
@@ -70,7 +70,7 @@ namespace GeditPluginExample
                 }
                 public Gtk.Widget create_configure_widget () 
                 {
-                        return new Gtk.Label (&quot; Gedit 3.0 Example Vala Plugin &quot;);
+                        return new Gtk.Label (" Gedit 3.0 Example Vala Plugin ");
                 }
         }
 }
@@ -88,7 +88,7 @@ Module=gedit-3-example-plugin.so
 IAge=2
 Name=Vala Example Plugin
 Description=A simple Vala Example Plugin
-Authors=Andrea Del Signore &lt;sejerpz@tin.it&gt;
+Authors=Andrea Del Signore <sejerpz@tin.it>
 Copyright=Copyright © 2011 Andrea Del Signore
 Website=http://wiki.gnome.org/Projects/Vala/Gedit3PluginSample
 Compiling &amp; Installing
@@ -104,7 +104,7 @@ $ valac \
     --output libgedit-3-example-plugin.so
 $ cp libgedit-3-example-plugin.so gedit-3-example.plugin ~/.local/share/gedit/plugins/
 Running
-Start gedit 3 and enable the plugin from the edit -&gt; preference menu  Vala/Examples Projects/Vala/Gedit3PluginSample  (last edited 2016-10-07 14:33:53 by AlThomas)
+Start gedit 3 and enable the plugin from the edit -> preference menu  Vala/Examples Projects/Vala/Gedit3PluginSample  (last edited 2016-10-07 14:33:53 by AlThomas)
 Search:
 <input id="searchinput" type="text" name="value" value="" size="20"
     onfocus="searchFocus(this)" onblur="searchBlur(this)"

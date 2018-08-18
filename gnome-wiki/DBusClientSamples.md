@@ -11,9 +11,9 @@ Skype status client
 Waiting for a service to become available (outdated example)
 Generating a vala interface from an existing DBus interface 
 Vala D-Bus Client Examples
-These examples require Vala &gt;= 0.9.2 and GLib/GIO &gt;= 2.26 Rules for writing Vala D-Bus interfaces: annotate the interface with [DBus&nbsp;(name&nbsp;=&nbsp;&quot;...&quot;)] convert DBusCamelCaseNames to vala_lower_case_names add throws&nbsp;IOError to each interface method 
+These examples require Vala >= 0.9.2 and GLib/GIO >= 2.26 Rules for writing Vala D-Bus interfaces: annotate the interface with [DBus (name = "...")] convert DBusCamelCaseNames to vala_lower_case_names add throws IOError to each interface method 
 BlueZ - Bluetooth Discovery
-vala-test:examples/dbus-bluez.vala [DBus (name = &quot;org.bluez.Adapter&quot;)]
+vala-test:examples/dbus-bluez.vala [DBus (name = "org.bluez.Adapter")]
 interface Bluez : Object {
     public signal void discovery_started ();
     public signal void discovery_completed ();
@@ -23,24 +23,24 @@ interface Bluez : Object {
 }
 MainLoop loop;
 void on_remote_device_found (string address, uint klass, int rssi) {
-    stdout.printf (&quot;Remote device found (%s, %u, %d)\n&quot;,
+    stdout.printf ("Remote device found (%s, %u, %d)\n",
                    address, klass, rssi);
 }
 void on_discovery_started () {
-    stdout.printf (&quot;Discovery started\n&quot;);
+    stdout.printf ("Discovery started\n");
 }
 void on_remote_name_updated (string address, string name) {
-    stdout.printf (&quot;Remote name updated (%s, %s)\n&quot;, address, name);
+    stdout.printf ("Remote name updated (%s, %s)\n", address, name);
 }
 void on_discovery_completed () {
-    stdout.printf (&quot;Discovery completed\n&quot;);
+    stdout.printf ("Discovery completed\n");
     loop.quit ();
 }
 int main () {
     Bluez bluez;
     try {
-        bluez = Bus.get_proxy_sync (BusType.SYSTEM, &quot;org.bluez&quot;,
-                                                          &quot;/org/bluez/hci0&quot;);
+        bluez = Bus.get_proxy_sync (BusType.SYSTEM, "org.bluez",
+                                                          "/org/bluez/hci0");
         // Connect to D-Bus signals
         bluez.remote_device_found.connect (on_remote_device_found);
         bluez.discovery_started.connect (on_discovery_started);
@@ -49,7 +49,7 @@ int main () {
         // Async D-Bus call
         bluez.discover_devices ();
     } catch (IOError e) {
-        stderr.printf (&quot;%s\n&quot;, e.message);
+        stderr.printf ("%s\n", e.message);
         return 1;
     }
     loop = new MainLoop ();
@@ -60,7 +60,7 @@ Compile and Run
 $ valac --pkg gio-2.0 dbus-bluez.vala
 $ ./dbus-bluez
 Purple - Instant Messaging
-vala-test:examples/dbus-purple.vala [DBus (name = &quot;im.pidgin.purple.PurpleInterface&quot;)]
+vala-test:examples/dbus-purple.vala [DBus (name = "im.pidgin.purple.PurpleInterface")]
 interface Purple : Object {
     public signal void received_im_msg (int account, string sender, string msg,
                                         int conv, uint flags);
@@ -70,20 +70,20 @@ interface Purple : Object {
 int main () {
     try {
         Purple purple = Bus.get_proxy_sync (BusType.SESSION,
-                                            &quot;im.pidgin.purple.PurpleService&quot;,
-                                            &quot;/im/pidgin/purple/PurpleObject&quot;);
+                                            "im.pidgin.purple.PurpleService",
+                                            "/im/pidgin/purple/PurpleObject");
         var accounts = purple.purple_accounts_get_all_active ();
         foreach (int account in accounts) {
             string username = purple.purple_account_get_username (account);
-            stdout.printf (&quot;Account %s\n&quot;, username);
+            stdout.printf ("Account %s\n", username);
         }
-        purple.received_im_msg.connect ((account, sender, msg) =&gt; {
-            stdout.printf (@&quot;Message received $sender: $msg\n&quot;);
+        purple.received_im_msg.connect ((account, sender, msg) => {
+            stdout.printf (@"Message received $sender: $msg\n");
         });
         var loop = new MainLoop ();
         loop.run ();
     } catch (IOError e) {
-        stderr.printf (&quot;%s\n&quot;, e.message);
+        stderr.printf ("%s\n", e.message);
         return 1;
     }
     return 0;
@@ -92,7 +92,7 @@ Compile and Run
 $ valac --pkg gio-2.0 dbus-purple.vala
 $ ./dbus-purple
 Skype status client
-vala-test:examples/dbus-skype.vala [DBus (name = &quot;com.Skype.API&quot;)]
+vala-test:examples/dbus-skype.vala [DBus (name = "com.Skype.API")]
 interface Skype : Object {
     public abstract string invoke (string cmd) throws IOError;
 }
@@ -102,25 +102,25 @@ string send (Skype skype, string cmd) throws IOError {
 void send_check (Skype skype, string cmd, string expected) throws IOError {
     string actual = send (skype, cmd);
     if (actual != expected) {
-        stderr.printf (&quot;Bad result '%s', expected '%s'\n&quot;, actual, expected);
+        stderr.printf ("Bad result '%s', expected '%s'\n", actual, expected);
     }
 }
 int main (string[] args) {
     try {
         Skype skype = Bus.get_proxy_sync (BusType.SESSION,
-                                          &quot;com.Skype.API&quot;, &quot;/com/Skype&quot;);
-        send_check (skype, &quot;NAME skype-status-client&quot;, &quot;OK&quot;);
-        send_check (skype, &quot;PROTOCOL 2&quot;, &quot;PROTOCOL 2&quot;);
+                                          "com.Skype.API", "/com/Skype");
+        send_check (skype, "NAME skype-status-client", "OK");
+        send_check (skype, "PROTOCOL 2", "PROTOCOL 2");
         // if no arguments given, show current status, otherwise update
         // status to first argument
-        if (args.length &lt; 2) {
-            stdout.printf (&quot;%s\n&quot;, send (skype, &quot;GET USERSTATUS&quot;));
+        if (args.length < 2) {
+            stdout.printf ("%s\n", send (skype, "GET USERSTATUS"));
         } else {
             // possible statuses: ONLINE OFFLINE SKYPEME AWAY NA DND INVISIBLE
-            send_check (skype, &quot;SET USERSTATUS &quot; + args[1], &quot;USERSTATUS &quot; + args[1]);
+            send_check (skype, "SET USERSTATUS " + args[1], "USERSTATUS " + args[1]);
         }
     } catch (IOError e) {
-        stderr.printf (&quot;%s\n&quot;, e.message);
+        stderr.printf ("%s\n", e.message);
         return 1;
     }
     return 0;

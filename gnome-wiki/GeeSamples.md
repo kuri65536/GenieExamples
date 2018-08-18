@@ -13,7 +13,7 @@ Implementing your own Iterable Vala Home Vala Collections: libgeeYou should inst
 List Example
 vala-test:examples/gee-list.vala using Gee;
 void main () {
-    var list = new ArrayList&lt;int&gt; ();
+    var list = new ArrayList<int> ();
     list.add (1);
     list.add (2);
     list.add (5);
@@ -21,24 +21,24 @@ void main () {
     list.insert (2, 3);
     list.remove_at (3);
     foreach (int i in list) {
-        stdout.printf (&quot;%d\n&quot;, i);
+        stdout.printf ("%d\n", i);
     }
     list[2] = 10;                       // same as list.set (2, 10)
-    stdout.printf (&quot;%d\n&quot;, list[2]);    // same as list.get (2)
+    stdout.printf ("%d\n", list[2]);    // same as list.get (2)
 }
 Compile and Run
 $ valac --pkg gee-0.8 gee-list.vala
-$ ./gee-listYou can use any type fitting into the size of a pointer (e.g. int, bool, reference types) directly as generic type argument: &lt;bool&gt;, &lt;int&gt;, &lt;string&gt;, &lt;MyObject&gt;. Other types must be &quot;boxed&quot; by appending a question mark: &lt;float?&gt;, &lt;double?&gt;, &lt;MyStruct?&gt;.  The compiler will tell you this if necessary. 
+$ ./gee-listYou can use any type fitting into the size of a pointer (e.g. int, bool, reference types) directly as generic type argument: <bool>, <int>, <string>, <MyObject>. Other types must be "boxed" by appending a question mark: <float?>, <double?>, <MyStruct?>.  The compiler will tell you this if necessary. 
 Set Example
 Sets are unordered and do not contain duplicate elements. vala-test:examples/gee-set.vala using Gee;
 void main () {
-    var my_set = new HashSet&lt;string&gt; ();
-    my_set.add (&quot;one&quot;);
-    my_set.add (&quot;two&quot;);
-    my_set.add (&quot;three&quot;);
-    my_set.add (&quot;two&quot;);         // will not be added because it's a duplicate
+    var my_set = new HashSet<string> ();
+    my_set.add ("one");
+    my_set.add ("two");
+    my_set.add ("three");
+    my_set.add ("two");         // will not be added because it's a duplicate
     foreach (string s in my_set) {
-        stdout.printf (&quot;%s\n&quot;, s);
+        stdout.printf ("%s\n", s);
     }
 }
 Compile and Run
@@ -47,52 +47,52 @@ $ ./gee-set
 Map Example
 Maps work like a dictionary. They store key - value pairs. vala-test:examples/gee-map.vala using Gee;
 void main () {
-    var map = new HashMap&lt;string, int&gt; ();
+    var map = new HashMap<string, int> ();
     // Setting values
-    map.set (&quot;one&quot;, 1);
-    map.set (&quot;two&quot;, 2);
-    map.set (&quot;three&quot;, 3);
-    map[&quot;four&quot;] = 4;            // same as map.set (&quot;four&quot;, 4)
-    map[&quot;five&quot;] = 5;
+    map.set ("one", 1);
+    map.set ("two", 2);
+    map.set ("three", 3);
+    map["four"] = 4;            // same as map.set ("four", 4)
+    map["five"] = 5;
     // Getting values
-    int a = map.get (&quot;four&quot;);
-    int b = map[&quot;four&quot;];        // same as map.get (&quot;four&quot;)
+    int a = map.get ("four");
+    int b = map["four"];        // same as map.get ("four")
     assert (a == b);
     // Iteration
-    stdout.printf (&quot;Iterating over entries\n&quot;);
+    stdout.printf ("Iterating over entries\n");
     foreach (var entry in map.entries) {
-        stdout.printf (&quot;%s =&gt; %d\n&quot;, entry.key, entry.value);
+        stdout.printf ("%s => %d\n", entry.key, entry.value);
     }
-    stdout.printf (&quot;Iterating over keys only\n&quot;);
+    stdout.printf ("Iterating over keys only\n");
     foreach (string key in map.keys) {
-        stdout.printf (&quot;%s\n&quot;, key);
+        stdout.printf ("%s\n", key);
     }
-    stdout.printf (&quot;Iterating over values only\n&quot;);
+    stdout.printf ("Iterating over values only\n");
     foreach (int value in map.values) {
-        stdout.printf (&quot;%d\n&quot;, value);
+        stdout.printf ("%d\n", value);
     }
-    stdout.printf (&quot;Iterating via 'for' statement\n&quot;);
+    stdout.printf ("Iterating via 'for' statement\n");
     var it = map.map_iterator ();
     for (var has_next = it.next (); has_next; has_next = it.next ()) {
-        stdout.printf (&quot;%d\n&quot;, it.get_value ());
+        stdout.printf ("%d\n", it.get_value ());
     }
 }
 Compile and Run
 $ valac --pkg gee-0.8 gee-map.vala
 $ ./gee-map
 Syntactic Sugar
-There's syntactic sugar for testing if a collection contains an element: if (&quot;three&quot; in my_set) {    // same as my_set.contains (&quot;three&quot;)
-    stdout.printf (&quot;heureka\n&quot;);
+There's syntactic sugar for testing if a collection contains an element: if ("three" in my_set) {    // same as my_set.contains ("three")
+    stdout.printf ("heureka\n");
 }
 Customizing the equality function
 bool same_book (Book a, Book b) {
     return a.isbn == b.isbn;
 }
 // ...
-var books = new Gee.ArrayList&lt;Book&gt; ((EqualFunc) same_book);
+var books = new Gee.ArrayList<Book> ((EqualFunc) same_book);
 Implementing your own Iterable
 You will have to implement two interfaces: Iterable with an iterator () method and an element_type property as well as an Iterator. vala-test:examples/gee-iterable.vala using Gee;
-class RangeIterator : Object, Iterator&lt;int&gt; {
+class RangeIterator : Object, Iterator<int> {
     private Range range;
     private int current;
     public RangeIterator (Range range) {
@@ -107,7 +107,7 @@ class RangeIterator : Object, Iterator&lt;int&gt; {
         return true;
     }
     public bool has_next () {
-        return this.current &lt; this.range.to;
+        return this.current < this.range.to;
     }
     public bool first () {
         this.current = range.from;
@@ -123,29 +123,29 @@ class RangeIterator : Object, Iterator&lt;int&gt; {
         assert_not_reached ();
     }
 }
-public class Range : Object, Iterable&lt;int&gt; {
+public class Range : Object, Iterable<int> {
     public int from { get; private set; }
     public int to { get; private set; }
     public Range (int from, int to) {
-        assert (from &lt; to);
+        assert (from < to);
         this.from = from;
         this.to = to;
     }
     public Type element_type {
         get { return typeof (int); }
     }
-    public Iterator&lt;int&gt; iterator () {
+    public Iterator<int> iterator () {
         return new RangeIterator (this);
     }
 }
 void main () {
     foreach (int i in new Range (10, 20)) {
-        stdout.printf (&quot;%d\n&quot;, i);
+        stdout.printf ("%d\n", i);
     }
 }
 Compile and Run
 $ valac --pkg gee-0.8 iterable.vala
-$ ./iterableYou could even add an each () method for Ruby or Groovy style iteration. public class Range : Object, Iterable&lt;int&gt; {
+$ ./iterableYou could even add an each () method for Ruby or Groovy style iteration. public class Range : Object, Iterable<int> {
     // ... (as above)
     public delegate void RangeEachFunc (int i);
     public void each (RangeEachFunc each_func) {
@@ -156,8 +156,8 @@ $ ./iterableYou could even add an each () method for Ruby or Groovy style iterat
 }
 void main () {
     // Pass an anonymous function as parameter
-    new Range (10, 20).each ((i) =&gt; {
-        stdout.printf (&quot;%d\n&quot;, i);
+    new Range (10, 20).each ((i) => {
+        stdout.printf ("%d\n", i);
     });
 }
  Vala/Examples Projects/Vala/GeeSamples  (last edited 2016-08-09 15:55:57 by AlThomas)

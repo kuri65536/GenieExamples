@@ -28,9 +28,9 @@ public class Test : GLib.Object
                 double[] data = new double[] { 17.2, 18.1, 16.5, 18.3, 12.6 };
                 mean = Stats.mean (data, 1, data.length);
                 Stats.minmax (out min, out max, data, 1, data.length);
-                stdout.printf(&quot;promedio %g\n&quot;, mean);
-                stdout.printf(&quot;minimo %g\n&quot;, min);
-                stdout.printf(&quot;maximo %g\n&quot;, max);
+                stdout.printf("promedio %g\n", mean);
+                stdout.printf("minimo %g\n", min);
+                stdout.printf("maximo %g\n", max);
         }
 }
 Special Functions Sample
@@ -44,8 +44,8 @@ public class Test : GLib.Object
                 Result res;
                 double expected = -0.17759677131433830434739701;
                 Bessel.J0_e (x, out res);
-                stdout.printf(&quot;J0(5.0) = %.18f\n+/- %.18f\n&quot;, res.val, res.err);
-                stdout.printf(&quot;exact   = %.18f\n&quot;, expected);
+                stdout.printf("J0(5.0) = %.18f\n+/- %.18f\n", res.val, res.err);
+                stdout.printf("exact   = %.18f\n", expected);
         }
 }
 Combination Sample
@@ -57,15 +57,15 @@ public class Test : GLib.Object
         {
                 Combination c;
                 size_t i;
-                stdout.printf(&quot;All subsets of {0,1,2,3} by size:\n&quot;);
-                for (i=0; i&lt;=4; i++)
+                stdout.printf("All subsets of {0,1,2,3} by size:\n");
+                for (i=0; i<=4; i++)
                 {
                         c = new Combination.with_zeros (4, i);
                         do
                         {
-                                stdout.printf (&quot;{&quot;);
-                                Combination.fprintf (stdout, c, &quot; %u&quot;);
-                                stdout.printf (&quot; }\n&quot;);
+                                stdout.printf ("{");
+                                Combination.fprintf (stdout, c, " %u");
+                                stdout.printf (" }\n");
                         } while (c.next() == Status.SUCCESS);
                 }
         }
@@ -89,8 +89,8 @@ public class Test : GLib.Object
                 Permutation p = new Permutation (4);
                 LinAlg.LU_decomp ((Matrix)(&amp;m.matrix), p, out s);
                 LinAlg.LU_solve ((Matrix)(&amp;m.matrix), p, (Vector)(&amp;b.vector), x);
-                stdout.printf(&quot;x = \n&quot;);
-                Vector.fprintf(stdout, x, &quot;%g&quot;);
+                stdout.printf("x = \n");
+                Vector.fprintf(stdout, x, "%g");
         }
 }
 Eigen System Sample
@@ -110,13 +110,13 @@ public class Test : GLib.Object
                 EigenSymmvWorkspace w = new EigenSymmvWorkspace (4);
                 w.init ((Matrix)(&amp;m.matrix), eval, evec);
                 EigenSort.symmv_sort (eval, evec, EigenSortType.ABS_ASC);
-                for (int i=0; i&lt;4; i++)
+                for (int i=0; i<4; i++)
                 {
                         double eval_i = eval.get (i);
                         VectorView evec_i = evec.column (i);
-                        stdout.printf(&quot;eigenvalue = %g\n&quot;, eval_i);
-                        stdout.printf(&quot;eigenvector = \n&quot;);
-                        Vector.fprintf(stdout, (Vector)(&amp;evec_i.vector), &quot;%g&quot;);
+                        stdout.printf("eigenvalue = %g\n", eval_i);
+                        stdout.printf("eigenvector = \n");
+                        Vector.fprintf(stdout, (Vector)(&amp;evec_i.vector), "%g");
                 }
         }
 }
@@ -133,10 +133,10 @@ public class RNGSample : GLib.Object
                 RNG.env_setup ();
                 T = (RNGType*)RNGTypes.default;
                 r = new RNG (T);
-                for (i=0; i&lt;n; i++)
+                for (i=0; i<n; i++)
                 {
                         double u = r.uniform ();
-                        stdout.printf (&quot;%d %.5f\n&quot;, i, u);
+                        stdout.printf ("%d %.5f\n", i, u);
                 }
         }
 }
@@ -159,11 +159,11 @@ public class IntegrationSample : GLib.Object
                 double alpha = 1.0;
                 Function F = Function () { function = f, params = &amp;alpha };
                 Integration.qags (&amp;F, 0, 1, 0, 1e-7, 1000, w, out integration_result, out error);
-                stdout.printf (&quot;result          = %.18f\n&quot;, integration_result);
-                stdout.printf (&quot;exact result    = %.18f\n&quot;, expected);
-                stdout.printf (&quot;extimated error = %.18f\n&quot;, error);
-                stdout.printf (&quot;actual error    = %.18f\n&quot;, integration_result - expected);
-                stdout.printf (&quot;intervals = %i\n&quot;, (int)w.size);
+                stdout.printf ("result          = %.18f\n", integration_result);
+                stdout.printf ("exact result    = %.18f\n", expected);
+                stdout.printf ("extimated error = %.18f\n", error);
+                stdout.printf ("actual error    = %.18f\n", integration_result - expected);
+                stdout.printf ("intervals = %i\n", (int)w.size);
         }
 }
 Monte Carlo Integration Sample
@@ -179,11 +179,11 @@ public class MonteSample : GLib.Object
         }
         static void display_results (string title, double result, double error)
         {
-                stdout.printf (&quot;%s ==================\n&quot;, title);
-                stdout.printf (&quot;result = % .6f\n&quot;, result);
-                stdout.printf (&quot;sigma  = % .6f\n&quot;, error);
-                stdout.printf (&quot;exact  = % .6f\n&quot;, exact);
-                stdout.printf (&quot;error  = % .6f = %.1g sigma\n&quot;, result - exact, Math.fabs (result-exact)/error);
+                stdout.printf ("%s ==================\n", title);
+                stdout.printf ("result = % .6f\n", result);
+                stdout.printf ("sigma  = % .6f\n", error);
+                stdout.printf ("exact  = % .6f\n", exact);
+                stdout.printf ("error  = % .6f = %.1g sigma\n", result - exact, Math.fabs (result-exact)/error);
         }
         public static void main (string[] args)
         {
@@ -200,24 +200,24 @@ public class MonteSample : GLib.Object
                 {
                         MontePlainState s = new MontePlainState (3);
                         MontePlainState.integrate (&amp;G, xl, xu, 3, calls, r, s, out res, out err);
-                        display_results (&quot;plain&quot;, res, err);
+                        display_results ("plain", res, err);
                 }
                 {
                         MonteMiserState s = new MonteMiserState (3);
                         MonteMiserState.integrate (&amp;G, xl, xu, 3, calls, r, s, out res, out err);
-                        display_results (&quot;miser&quot;, res, err);
+                        display_results ("miser", res, err);
                 }
                 {
                         MonteVegasState s = new MonteVegasState (3);
                         MonteVegasState.integrate (&amp;G, xl, xu, 3, 10000, r, s, out res, out err);
-                        display_results (&quot;vegas warm_up&quot;, res, err);
-                        stdout.printf (&quot;converging...\n&quot;);
+                        display_results ("vegas warm_up", res, err);
+                        stdout.printf ("converging...\n");
                         do
                         {
                                 MonteVegasState.integrate (&amp;G, xl, xu, 3, calls/5, r, s, out res, out err);
-                                stdout.printf (&quot;result = % .6f sigma = % .6f chisq/dof = %.1f\n&quot;, res, err, s.chisq);
-                        } while (Math.fabs (s.chisq - 1.0) &gt; 0.5 );
-                        display_results (&quot;vegas final&quot;, res, err);
+                                stdout.printf ("result = % .6f sigma = % .6f chisq/dof = %.1f\n", res, err, s.chisq);
+                        } while (Math.fabs (s.chisq - 1.0) > 0.5 );
+                        display_results ("vegas final", res, err);
                 }
         }
 }
@@ -233,8 +233,8 @@ public class MultiRootSample : GLib.Object
         }
         static int rosenbrock_f (Vector x, void* params, Vector f)
         {
-                double a = ((RParams*)params)-&gt;a;
-                double b = ((RParams*)params)-&gt;b;
+                double a = ((RParams*)params)->a;
+                double b = ((RParams*)params)->b;
                 double x0 = x.get (0);
                 double x1 = x.get (1);
                 double y0 = a*(1-x0);
@@ -245,8 +245,8 @@ public class MultiRootSample : GLib.Object
         }
         static int rosenbrock_df (Vector x, void* params, Matrix J)
         {
-                double a = ((RParams*)params)-&gt;a;
-                double b = ((RParams*)params)-&gt;b;
+                double a = ((RParams*)params)->a;
+                double b = ((RParams*)params)->b;
                 double x0 = x.get (0);
                 //double x1 = x.get (1);
                 double df00 = -a;
@@ -267,7 +267,7 @@ public class MultiRootSample : GLib.Object
         }
         static void print_state (size_t iter, MultirootFdfsolver s)
         {
-                stdout.printf (&quot;iter = %3u x = % .3f % .3f f(x) = % .3e % .3e\n&quot;, (uint)iter, s.x.get (0), s.x.get (1), s.f.get (0), s.f.get (1));
+                stdout.printf ("iter = %3u x = % .3f % .3f f(x) = % .3e % .3e\n", (uint)iter, s.x.get (0), s.x.get (1), s.f.get (0), s.f.get (1));
         }
         public static void main (string[] args)
         {
@@ -294,7 +294,7 @@ public class MultiRootSample : GLib.Object
                         if ((bool)status)
                                 break;
                         status = MultirootTest.residual (s.f, 1.0e-7);
-                } while (status==Status.CONTINUE &amp;&amp; iter &lt; 1000);
+                } while (status==Status.CONTINUE &amp;&amp; iter < 1000);
         }
 }
 Nonlinear Least-Squares Fitting Sample
@@ -310,14 +310,14 @@ public class FitSample
         }
         static int expb_f (Vector x, void* data, Vector f)
         {
-                size_t n = ((Data*)data)-&gt;n;
-                double* y = ((Data*)data)-&gt;y;
-                double* sigma = ((Data*)data)-&gt;sigma;
+                size_t n = ((Data*)data)->n;
+                double* y = ((Data*)data)->y;
+                double* sigma = ((Data*)data)->sigma;
                 double A = x.get (0);
                 double lambda = x.get (1);
                 double b = x.get (2);
                 size_t i;
-                for (i = 0; i &lt; n; i++)
+                for (i = 0; i < n; i++)
                 {
                         /* Model Yi = A * exp(-lambda * i) + b */
                         double t = i;
@@ -328,12 +328,12 @@ public class FitSample
         }
         static int expb_df (Vector x, void* data, Matrix J)
         {
-                size_t n = ((Data*)data)-&gt;n;
-                double* sigma = ((Data*)data)-&gt;sigma;
+                size_t n = ((Data*)data)->n;
+                double* sigma = ((Data*)data)->sigma;
                 double A = x.get (0);
                 double lambda = x.get (1);
                 size_t i;
-                for (i = 0; i &lt; n; i++)
+                for (i = 0; i < n; i++)
                 {
                         /* Jacobian matrix J(i,j) = dfi / dxj, */
                         /* where fi = (Yi - yi)/sigma[i],        */
@@ -356,7 +356,7 @@ public class FitSample
         }
         static void print_state (size_t iter, MultifitFdfsolver s)
         {
-                stdout.printf (&quot;iter: %3u x = % 15.8f % 15.8f % 15.8f\n&quot;, (uint)iter, s.x.get (0), s.x.get (1), s.x.get (2));
+                stdout.printf ("iter: %3u x = % 15.8f % 15.8f % 15.8f\n", (uint)iter, s.x.get (0), s.x.get (1), s.x.get (2));
         }
         public static void main (string[] args)
         {
@@ -378,12 +378,12 @@ public class FitSample
                 type = (RNGType*)RNGTypes.default;
                 r = new RNG (type);
                 MultifitFunctionFdf f = MultifitFunctionFdf () { f = expb_f, df = expb_df, fdf = expb_fdf, n = n, p = p, params = &amp;d };
-                for (i = 0; i &lt; n; i++)
+                for (i = 0; i < n; i++)
                 {
                         double t = i;
                         y[i] = 1.0 + 5 * Math.exp (-0.1 * t) + Randist.gaussian (r, 0.1);
                         sigma[i] = 0.1;
-                        stdout.printf (&quot;data: %u %g %g\n&quot;, i, y[i], sigma[i]);
+                        stdout.printf ("data: %u %g %g\n", i, y[i], sigma[i]);
                 }
                 T = (MultifitFdfsolverType*)MultifitFdfsolverTypes.lmsder;
                 s = new MultifitFdfsolver (T, n, p);
@@ -393,17 +393,17 @@ public class FitSample
                 {
                         iter++;
                         status = s.iterate ();
-                        stdout.printf (&quot;status = %s\n&quot;, Gsl.Error.strerror (status));
+                        stdout.printf ("status = %s\n", Gsl.Error.strerror (status));
                         print_state (iter, s);
                         if ((bool)status)
                                 break;
                         status = MultifitTest.delta (s.dx, s.x, 1e-4, 1e-4);
-                } while (status == Status.CONTINUE &amp;&amp; iter &lt; 500);
+                } while (status == Status.CONTINUE &amp;&amp; iter < 500);
                 Multifit.covar ((Matrix)(s.J), 0.0, covar);
-                stdout.printf (&quot;A      = %.5f\n&quot;, s.x.get (0));
-                stdout.printf (&quot;lambda = %.5f\n&quot;, s.x.get (1));
-                stdout.printf (&quot;b      = %.5f\n&quot;, s.x.get (2));
-                stdout.printf (&quot;status = %s\n&quot;, Gsl.Error.strerror (status));
+                stdout.printf ("A      = %.5f\n", s.x.get (0));
+                stdout.printf ("lambda = %.5f\n", s.x.get (1));
+                stdout.printf ("b      = %.5f\n", s.x.get (2));
+                stdout.printf ("status = %s\n", Gsl.Error.strerror (status));
         }
 }
  Vala/Examples Projects/Vala/GSLSample  (last edited 2013-11-22 16:48:25 by WilliamJonMcCann)

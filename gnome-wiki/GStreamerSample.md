@@ -1,11 +1,11 @@
-Projects/Vala/GStreamerSample - GNOME Wiki!
-<!--
-var search_hint = "Search";
-//-->
-Projects/Vala/GStreamerSampleHomeRecentChangesScheduleLogin
-Vala GStreamer Audio Example
-vala-test:examples/gstreamer-square-beep.vala using Gst;
-void main (string[] args) {
+# Projects/Vala/GStreamerSample - GNOME Wiki!
+# Vala GStreamer Audio Example
+
+```genie
+// vala-test:examples/gstreamer-square-beep.vala
+[indent=4]
+uses Gst
+init  // (string[] args) {
     // Initializing GStreamer
     Gst.init (ref args);
     // Creating pipeline and elements
@@ -22,15 +22,29 @@ void main (string[] args) {
     pipeline.set_state (State.PLAYING);
     // Creating and starting a GLib main loop
     new MainLoop ().run ();
-}
-Tip: You can also declare a GStreamer Element as dynamic and set its properties directly:     dynamic Element src = ElementFactory.make ("audiotestsrc", "my_src");
-    // ...
-    src.wave = 1;
-Compile and Run
-$ valac --pkg gstreamer-0.10 gst-squarebeep.vala
+```
+
+Tip: You can also declare a GStreamer Element as dynamic and set its properties directly:
+
+```
+dynamic Element src = ElementFactory.make ("audiotestsrc", "my_src");
+// ...
+src.wave = 1;
+```
+
+### Compile and Run
+
+```shell
+$ valac --pkg=gstreamer-0.10 gst-squarebeep.vala
 $ ./gst-squarebeep
-Vala GStreamer Audio Stream Example
-vala-test:examples/gstreamer-audio-player.vala using Gst;
+```
+
+### Vala GStreamer Audio Stream Example
+
+```genie
+// vala-test:examples/gstreamer-audio-player.vala
+using Gst;
+
 public class StreamPlayer {
     private MainLoop loop = new MainLoop ();
     private void foreach_tag (Gst.TagList list, string tag) {
@@ -93,10 +107,17 @@ int main (string[] args) {
     player.play (args.length > 1 ? args[1] : DEFAULT_STREAM);
     return 0;
 }
-Compile and Run
+```
+
+### Compile and Run
+
+```shell
 $ valac --pkg gstreamer-1.0 gst-play-stream.vala
 $ ./gst-play-stream
-Vala GStreamer Video Example
+```
+
+
+## Vala GStreamer Video Example
 Requires gtk+-3.0 and gstreamer-1.0 (with gstreamer1.0-plugins-bad >= 1.7.91 for 'gtksink' element) vala-test:examples/gstreamer-videotest.vala using Gtk;
 using Gst;
 public class VideoSample : Window {

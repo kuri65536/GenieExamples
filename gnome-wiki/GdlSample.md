@@ -1,15 +1,18 @@
-Projects/Vala/GdlSample - GNOME Wiki!
-<!--
-var search_hint = "Search";
-//-->
-Projects/Vala/GdlSampleHomeRecentChangesScheduleLogin
-Vala GDL example
-GDL provides docking widgets for GTK+ (often used for IDEs). vala-test:examples/gdl-sample.vala using Gtk;
-using Gdl;
-class MainWindow : Window {
-    private DockMaster master;
-    private DockLayout layout;
-    private void save_layout_cb () {
+# Projects/Vala/GdlSample - GNOME Wiki!
+# Vala GDL example
+
+GDL provides docking widgets for GTK+ (often used for IDEs).
+
+```genie
+// vala-test:examples/gdl-sample.vala
+[indent=4]
+uses Gtk
+uses Gdl
+
+class MainWindow: Window
+    master: DockMaster
+    layout: DockLayout
+    def save_layout_cb()
         var dialog = new Dialog.with_buttons ("New Layout", null,
                                               DialogFlags.MODAL |
                                               DialogFlags.DESTROY_WITH_PARENT,
@@ -24,42 +27,36 @@ class MainWindow : Window {
         hbox.pack_start (entry, true, true, 0);
         hbox.show_all ();
         var response = dialog.run ();
-        if (response == ResponseType.OK) {
+        if response == ResponseType.OK
             this.layout.save_layout (entry.text);
-        }
         dialog.destroy ();
-    }
-    private void button_dump_cb () {
-        try {
+
+    def button_dump_cb()
+        try
             /* Dump XML tree. */
             this.layout.save_to_file ("layout.xml");
             Process.spawn_command_line_async ("cat layout.xml");
-        } catch (Error e) {
+        except e: Error
             stderr.printf ("%s\n", e.message);
-        }
-    }
-    private RadioButton create_style_button (Box box,
-                                             RadioButton? group,
-                                             SwitcherStyle style,
-                                             string style_text)
-    {
+
+    def create_style_button(box: Box,
+                            group: RadioButton?,
+                            style: SwitcherStyle,
+                            style_text: string): RadioButton
         var button = new RadioButton.with_label_from_widget (group, style_text);
         button.show ();
         button.active = (this.master.switcher_style == style);
-        button.toggled.connect (() => {
-            if (button.active) {
+        button.toggled += def(btn)
+            if button.active
                 this.master.switcher_style = style;
-            }
-        });
         box.pack_start (button, false, false, 0);
         return button;
-    }
-    private Widget create_styles_item (Dock dock) {
+
+    def create_styles_item(dock: Dock): Widget
         var vbox = new Box (Orientation.VERTICAL, 0);
         vbox.show ();
-        RadioButton group;
-        group = create_style_button (vbox, null, SwitcherStyle.ICON,
-                                     "Only icon");
+        var group = create_style_button(vbox, null, SwitcherStyle.ICON,
+                                        "Only icon");
         group = create_style_button (vbox, group, SwitcherStyle.TEXT,
                                      "Only text");
         group = create_style_button (vbox, group, SwitcherStyle.BOTH,
@@ -69,17 +66,17 @@ class MainWindow : Window {
         group = create_style_button (vbox, group, SwitcherStyle.TABS,
                                      "Notebook tabs");
         return vbox;
-    }
-    private Widget create_item (string button_title) {
+
+    def create_item(button_title: string): Widget
         var vbox = new Box (Orientation.VERTICAL, 0);
         vbox.show ();
         var button = new Button.with_label (button_title);
         button.show ();
         vbox.pack_start (button, true, true, 0);
         return vbox;
-    }
+
     /* creates a simple widget with a textbox inside */
-    private Widget create_text_item () {
+    def create_text_item(): Widget
         var vbox = new Box (Orientation.VERTICAL, 0);
         vbox.show ();
         var scroll = new ScrolledWindow (null, null);
@@ -92,8 +89,8 @@ class MainWindow : Window {
         text.show ();
         scroll.add (text);
         return vbox;
-    }
-    public MainWindow () {
+
+    construct()
         this.destroy.connect (Gtk.main_quit);
         this.title = "Docking widget test";
         set_default_size (400, 400);
@@ -131,7 +128,7 @@ class MainWindow : Window {
         item3.add (create_item ("Button 3"));
         dock.add_item (item3, DockPlacement.BOTTOM);
         item3.show ();
-        var items = new DockItem[4];
+        var items = new array of DockItem[4]
         items[0] = new DockItem.with_stock ("Item #4", "Item #4",
                                             Stock.JUSTIFY_FILL,
                                             DockItemBehavior.NORMAL |
@@ -139,14 +136,16 @@ class MainWindow : Window {
         items[0].add (create_text_item ());
         items[0].show ();
         dock.add_item (items[0], DockPlacement.BOTTOM);
-        for (int i = 1; i < 3; i++) {
-            string name = "Item #%d".printf (i + 4);
+        var i = 1
+        while i < 3
+            var name = "Item #%d".printf(i + 4)
             items[i] = new DockItem.with_stock (name, name, Stock.NEW,
                                                 DockItemBehavior.NORMAL);
             items[i].add (create_text_item ());
             items[i].show ();
             items[0].dock (items[i], DockPlacement.CENTER, 0);
-        }
+            i += 1
+
         /* tests: manually dock and move around some of the items */
         item3.dock_to (item1, DockPlacement.TOP, -1);
         item2.dock_to (item3, DockPlacement.RIGHT, -1);
@@ -164,32 +163,21 @@ class MainWindow : Window {
         new DockPlaceholder ("ph2", dock, DockPlacement.BOTTOM, false);
         new DockPlaceholder ("ph3", dock, DockPlacement.LEFT, false);
         new DockPlaceholder ("ph4", dock, DockPlacement.RIGHT, false);
-    }
-}
-void main (string[] args) {
+
+init  // (string[] args) {
     Gtk.init (ref args);
     var win = new MainWindow ();
     win.show_all ();
     Gtk.main ();
-}
-Compile and Run
-$ valac --pkg gdl-3.0 gdl-sample.vala
-$ ./gdl-sample  Vala/Examples Projects/Vala/GdlSample  (last edited 2013-11-22 16:48:27 by WilliamJonMcCann)
-Search:
-<input id="searchinput" type="text" name="value" value="" size="20"
-    onfocus="searchFocus(this)" onblur="searchBlur(this)"
-    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
-<input id="titlesearch" name="titlesearch" type="submit"
-    value="Titles" alt="Search Titles">
-<input id="fullsearch" name="fullsearch" type="submit"
-    value="Text" alt="Search Full Text">
-<!--// Initialize search form
-var f = document.getElementById('searchform');
-f.getElementsByTagName('label')[0].style.display = 'none';
-var e = document.getElementById('searchinput');
-searchChange(e);
-searchBlur(e);
-//-->
-        Copyright &copy; 2005 -  The GNOME Project.
-        Hosted by Red Hat.
-  document.getElementById('current-year').innerHTML = new Date().getFullYear();
+```
+
+### Compile and Run
+
+```shell
+$ valac --pkg=gdl-3.0 gdl-sample.vala
+$ ./gdl-sample
+```
+
+Vala/Examples Projects/Vala/GdlSample
+    (last edited 2013-11-22 16:48:27 by WilliamJonMcCann)
+

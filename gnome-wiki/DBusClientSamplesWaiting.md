@@ -1,29 +1,40 @@
-Projects/Vala/DBusClientSamples/Waiting - GNOME Wiki!
-<!--
-var search_hint = "Search";
-//-->
-Projects/Vala/DBusClientSamples/WaitingHomeRecentChangesScheduleLogin
+# Projects/Vala/DBusClientSamples/Waiting - GNOME Wiki!
+
 Waiting for a DBus service to become available (outdated example)
-About
-Sometimes you want to wait for a service to become available, then as soon as you see it appearing immediately start using it. And letting go of it as soon as the service disappears. You do this by listening for NameOwnerChanged, and initially by checking out the list using ListNames. This sample is based on the spec being proposed at Evolution/Metadata vala-test:examples/dbus-client-waiting.vala using DBus;
+
+## About
+Sometimes you want to wait for a service to become available, then as soon as
+you see it appearing immediately start using it. And letting go of it as soon as
+the service disappears. You do this by listening for NameOwnerChanged, and
+initially by checking out the list using ListNames. This sample is based on the
+spec being proposed at Evolution/Metadata
+
+```genie
+// vala-test:examples/dbus-client-waiting.vala
+[indent=4]
+uses DBus
+
 // [DBus (name = "org.gnome.evolution.metadata.Manager")]
 // public interface Manager : GLib.Object {
 //    public abstract void Register (DBus.ObjectPath registrar_path, uint last_checkout);
 // }
 [DBus (name = "org.gnome.evolution.metadata.Registrar")]
-public class Registrar: GLib.Object {
-    public void Set (string subject, string[] predicates, string[] values) {
+class Registrar: GLib.Object
+    def Set(subject: string, predicates: array of string,
+            values: array of string) raises GLib.Error
         print ("set: %s\n", subject);
-    }
-    public void Cleanup () {
+
+    def Cleanup() raises GLib.Error
         print ("cleanup\n");
-    }
-    public void SetMany (string[] subjects, string[][] predicates, string[][] values) {
-        uint len = subjects.length;
-        uint i;
+
+    def SetMany(subjects: array of string,
+                predicates: array of string,  // TODO: string[][],
+                values: array of string) raises GLib.Error  // TODO: string[][]
+        var len = subjects.length
+        var i = 0
         print ("setmany: %d\n", subjects.length);
-        for (i = 0; i < len; i++) {
-                message ("setmany: " + subjects[i]);
+        while i < len
+            message ("setmany: " + subjects[i]);
 //
 //              There's a bug in Vala that makes lengths of inner arrays of a 
 //              stacked array being wrong (apparently the inner array is no 
@@ -34,32 +45,33 @@ public class Registrar: GLib.Object {
 //              uint y;
 //
 //              for (y = 0; y < plen; y++) {
-//                      if (predicates[i][y] != null &amp;&amp; values[i][y] != null) {
+//                      if (predicates[i][y] != null && values[i][y] != null) {
 //                              print ("\t%s=%s\n", predicates[i][y], values[i][y]);
 //                      }
 //              }
-        }
-   }
-    public void UnsetMany (string[] subjects) {
+
+    def UnsetMany(subjects: array of string) raises GLib.Error
         print ("unsetmany %d\n", subjects.length);
-    }
-    public void Unset (string subject) {
+
+    def Unset(subject: string) raises GLib.Error
         message ("unset: %s\n" + subject);
-    }
-}
-public class MyApplication : GLib.Object {
-    public uint stored_time;
-    private DBus.Connection conn;
-    private Registrar registrar;
-    private dynamic DBus.Object bus;
-    private void on_reply (GLib.Error e) {
-    }
-    private void deactivate () {
+
+
+class MyApplication: GLib.Object
+    stored_time: uint
+    conn: DBus.Connection
+    registrar: Registrar
+    bus: dynamic DBus.Object
+
+    def on_reply(e: GLib.Error)
+        pass
+
+    def deactivate()
         registrar = null;
-    }
-    private void activate () {
-        dynamic DBus.Object obj;
-        DBus.ObjectPath path;
+
+    def activate()
+        obj: DBus.Object  // vala: dynamic
+        path: DBus.ObjectPath
         registrar = new Registrar ();
         conn = DBus.Bus.get (DBus.BusType .SESSION);
         path = new DBus.ObjectPath ("/my/application/evolution_registrar");
@@ -67,38 +79,35 @@ public class MyApplication : GLib.Object {
                                "/org/gnome/evolution/metadata/Manager",
                                "org.gnome.evolution.metadata.Manager");
         conn.register_object (path, registrar);
-        try {
-                obj.Register (path, stored_time, on_reply);
-        } catch (GLib.Error e) {
-                message ("Can't register: %s", e.message);
-        }
-    }
-    private void on_name_owner_changed (DBus.Object sender, string name, string old_owner, string new_owner) {
-        if (name == "org.gnome.evolution") {
-                if (new_owner != "" &amp;&amp; old_owner == "")
-                        activate ();
-                if (old_owner != "" &amp;&amp; new_owner == "")
-                        deactivate ();
-        }
-    }
-    private void list_names_reply_cb (string[] names, GLib.Error e) {
-        foreach (string name in names) {
-                if (name == "org.gnome.evolution") {
-                        activate();
-                        break;
-                }
-        }
-    }
-    private bool on_ready () {
-        try {
-                print ("...\n");
-                bus.list_names (list_names_reply_cb);
-        } catch (GLib.Error e) {
-                message ("Can't list: %s", e.message);
-        }
+        try
+            obj.Register (path, stored_time, on_reply);
+        except e: GLib.Error
+            message ("Can't register: %s", e.message);
+
+    def on_name_owner_changed(sender: DBus.Object, name: string,
+                              old_owner: string,
+                              new_owner: string)
+        if name == "org.gnome.evolution"
+            if new_owner != "" and old_owner == ""
+                activate ();
+            if old_owner != "" and new_owner == ""
+                deactivate ();
+
+    def list_names_reply_cb(names: array of string, e: GLib.Error)
+        for name in names
+            if name == "org.gnome.evolution"
+                activate();
+                break;
+
+    def on_ready(): bool
+        try
+            print ("...\n");
+            bus.list_names (list_names_reply_cb);
+        except e: GLib.Error
+            message ("Can't list: %s", e.message);
         return false;
-    }
-    public void setup (uint stored_time) throws DBus.Error, GLib.Error {
+
+    def setup(stored_time: uint) raises DBus.Error, GLib.Error
         this.stored_time = stored_time;
         conn = DBus.Bus.get (DBus.BusType. SESSION);
         bus = conn.get_object ("org.freedesktop.DBus",
@@ -106,47 +115,34 @@ public class MyApplication : GLib.Object {
                                "org.freedesktop.DBus");
         bus.NameOwnerChanged += on_name_owner_changed;
         Idle.add (on_ready);
-    }
-    static int main (string[] args) {
-        var loop = new MainLoop (null, false);
-        var app = new MyApplication ();
-        try {
-            uint a = 0;
-            if (args.length > 1)
-                a = (uint) args[1].to_ulong();
-            else
-                a = 0;
-            app.setup (a);
-        } catch (DBus.Error e) {
-            stderr.printf ("Failed to initialise");
-            return 1;
-        } catch {
-            stderr.printf ("Dynamic method failure");
-            return 1;
-        }
-        loop.run ();
-        return 0;
-    }
-}
-Compile and Run
-$ valac --pkg dbus-glib-1 -o dbussample DBusSample.vala
+
+init  // (string[] args) {
+    var loop = new MainLoop (null, false);
+    var app = new MyApplication ();
+    try
+        var a = (uint)0
+        if args.length > 1
+            a = (uint) args[1].to_ulong();
+        else
+            a = 0;
+        app.setup (a);
+    except e: DBus.Error
+        stderr.printf ("Failed to initialise");
+        return  // 1;
+    except
+        stderr.printf ("Dynamic method failure");
+        return  // 1;
+    loop.run ();
+```
+
+
+### Compile and Run
+
+```shell
+$ valac --pkg=dbus-glib-1 -o dbussample DBusSample.vala
 $ ./dbussample
-... Vala/Examples Projects/Vala/DBusClientSamples/Waiting  (last edited 2013-11-22 16:48:31 by WilliamJonMcCann)
-Search:
-<input id="searchinput" type="text" name="value" value="" size="20"
-    onfocus="searchFocus(this)" onblur="searchBlur(this)"
-    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
-<input id="titlesearch" name="titlesearch" type="submit"
-    value="Titles" alt="Search Titles">
-<input id="fullsearch" name="fullsearch" type="submit"
-    value="Text" alt="Search Full Text">
-<!--// Initialize search form
-var f = document.getElementById('searchform');
-f.getElementsByTagName('label')[0].style.display = 'none';
-var e = document.getElementById('searchinput');
-searchChange(e);
-searchBlur(e);
-//-->
-        Copyright &copy; 2005 -  The GNOME Project.
-        Hosted by Red Hat.
-  document.getElementById('current-year').innerHTML = new Date().getFullYear();
+...
+```
+
+Vala/Examples Projects/Vala/DBusClientSamples/Waiting
+    (last edited 2013-11-22 16:48:31 by WilliamJonMcCann)

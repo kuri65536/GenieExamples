@@ -14,6 +14,7 @@ src := \
     CursesSample.md \
     CustomWidgetSamples.md \
     DBusClientSamples.md \
+    DBusClientSamplesWaiting.md \
     DBusServerSample.md \
     DBusServerSamplePassingObjects.md \
     DragAndDropSample.md \
@@ -40,7 +41,6 @@ src := \
     LuaSample.md \
     MxSample.md \
     OpenGLSamples.md \
-    Waiting.md \
 
 bin_examples := $(addprefix tmp/,$(subst .md,.exe,$(src)) \
                   NumberGuessing.exe)

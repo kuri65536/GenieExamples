@@ -44,48 +44,41 @@ $ ./advancedsample
 Requires at least Vala 0.7.5 (for stdin.read_line () support)
 
 ```genie
-public class NumberGuessing {
+[indent=4]
+class NumberGuessing
+    min: int
+    max: int
 
-    private int min;
-    private int max;
-
-    public NumberGuessing (int min, int max) {
+    construct(min: int, max: int)
         this.min = min;
         this.max = max;
-    }
 
-    public void start () {
-        int try_count = 0;
-        int number = Random.int_range (min, max);
+    def start()
+        var try_count = 0;
+        var number = Random.int_range (min, max);
 
         stdout.printf ("Welcome to Number Guessing!\n\n");
         stdout.printf ("I have thought up a number between %d and %d\n", min, max);
         stdout.printf ("which you have to guess now. Don't worry, I will\n");
         stdout.printf ("give you some hints.\n\n");
 
-        while (true) {
+        while (true)
             try_count++;
 
             stdout.printf ("Try #%d\n", try_count);
             stdout.printf ("Please enter a number between %d and %d: ", min, max);
-            int input = int.parse (stdin.read_line ());
+            var input = int.parse(stdin.read_line())
 
-            if (number == input) {
+            if number == input
                 stdout.printf ("Congratulations! You win.\n");
                 break;
-            } else {
+            else
                 stdout.printf ("Wrong. The wanted number is %s than %d.\n",
                                number > input ? "greater" : "less", input);
-            }
-        }
-    }
 
-    public static int main (string[] args) {
-        var game = new NumberGuessing (1, 100);
-        game.start ();
-        return 0;
-    }
-}
+init  // string[] args) {
+    var game = new NumberGuessing(1, 100)
+    game.start()
 ```
 
 

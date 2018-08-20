@@ -72,46 +72,60 @@ This illustrates an async method which starts a background thread to do processi
  * Vala 0.16 is the minimum version required
  */
 
-def async do_calc_in_bg(double val): double throws ThreadError
-    SourceFunc callback = do_calc_in_bg.callback;
-    double[] output = new double[1];
+class AsyncSample2
+    __loop: MainLoop
+    output: array of double
+    callback: SourceFunc
 
-    // Hold reference to closure to keep it from being freed whilst
-    // thread is active.
-    ThreadFunc<bool> run = () =>
-    new Thread<bool>("thread-example", run);
+    def async do_calc_in_bg(val: double): double raises ThreadError
+        this.callback = do_calc_in_bg.callback
+        this.output = new array of double[1]
 
-    // Wait for background thread to schedule our callback
-    yield
-    return output[0]
+        // Hold reference to closure to keep it from being freed whilst
+        // thread is active.
+        // run: ThreadFunc of bool = caller
+        new Thread of bool("thread-example", run)
 
-def run()
-    // Perform a dummy slow calculation.
-    // (Insert real-life time-consuming algorithm here.)
-    double result = 0
-    var a = 0.0
-    while a < 100000000.0
-        result += val * a
-        a += 1.0
+        // Wait for background thread to schedule our callback
+        yield
+        return output[0]
 
-    // Pass back result and schedule callback
-    output[0] = result
-    Idle.add((owned) callback)
-    return true
+    def run(): bool
+        // Perform a dummy slow calculation.
+        // (Insert real-life time-consuming algorithm here.)
+        var result = 0.0
+        var a = 0.0
+        while a < 100000000.0
+            result += a
+            a += 1.0
+
+        // Pass back result and schedule callback
+        output[0] = result
+        Idle.add((owned) callback)
+        return true
+
+    def start(_loop: MainLoop)
+        this.__loop = _loop
+        do_calc_in_bg.begin(0.001, callback_finish)
+
+    def callback_finish(obj: Object?, res: AsyncResult)
+        try
+            var result = do_calc_in_bg.end(res)
+            stderr.printf(@"Result: $result\n");
+        except e: ThreadError
+            var msg = e.message
+            stderr.printf(@"Thread error: $msg\n");
+        this.__loop.quit();
 
 init
     var loop = new MainLoop()
-    do_calc_in_bg.begin(0.001, (obj, res) => {
-            try {
-                double result = do_calc_in_bg.end(res);
-                stderr.printf(@"Result: $result\n");
-            } catch (ThreadError e) {
-                string msg = e.message;
-                stderr.printf(@"Thread error: $msg\n");
-            }
-            loop.quit();
-        });
-    loop.run();
+    var smp = new AsyncSample2()
+    smp.start(loop)
+    loop.run()
+```
+
+```shell
+$ valac --pkg=gio-2.0 example.vala
 ```
 
 ## Generator example

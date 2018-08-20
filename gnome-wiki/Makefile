@@ -6,7 +6,7 @@
 # You can obtain one at https://mozilla.org/MPL/2.0/.
 src := \
     AdvancedSample.md:1-2 \
-    AsyncSamples.md \
+    AsyncSamples.md:1-2-3-4-5 \
     BasicSample.md \
     CairoSample.md \
     CharacterSample.md \

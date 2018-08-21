@@ -184,32 +184,31 @@ $ valac --pkg=gio-2.0 example.vala
 
 
 ## Async sleep example
-This is a version of the venerable sleep() function which allows the main loop to continue iterating, and therefore will not block the UI:
+This is a version of the venerable sleep() function which allows the main loop
+to continue iterating, and therefore will not block the UI:
 
 ```genie
 // Build with: valac --pkg=gio-2.0 example.vala
+[indent=4]
+class AsyncSample4
+    loop: MainLoop
 
-public async void nap (uint interval, int priority = GLib.Priority.DEFAULT) {
-  GLib.Timeout.add (interval, () => {
-      nap.callback ();
-      return false;
-    }, priority);
-  yield;
-}
+    def async nap(interval: uint, priority: int = GLib.Priority.DEFAULT)
+        GLib.Timeout.add(interval, nap.callback, priority)
+        yield;
 
-private async void do_stuff () {
-  yield nap (1000);
-}
+    def async do_stuff()
+        yield nap(1000)
 
-private static int main (string[] args) {
-  GLib.MainLoop loop = new GLib.MainLoop ();
-  do_stuff.begin ((obj, async_res) => {
-      loop.quit ();
-    });
-  loop.run ();
+    def on_quit(obj: Object?, res: AsyncResult)
+        loop.quit ();
 
-  return 0;
-}
+init  // (string[] args) {
+    var loop = new GLib.MainLoop ();
+    var smp = new AsyncSample4()
+    smp.loop = loop
+    smp.do_stuff.begin(smp.on_quit)
+    loop.run()
 ```
 
 ```shell
@@ -224,22 +223,25 @@ $ valac --pkg=gio-2.0 example.vala
 // Build with: valac --pkg=gio-2.0 example.vala
 [indent=4]
 class Test.Async: Object
+    loop: MainLoop
+
     def async say(sentence: string): string
         GLib.Idle.add(this.say.callback)
         yield
         return sentence
 
+    def on_quit(obj: Object?, res: AsyncResult)
+        var sentence = this.say.end(res);
+        print("%s\n", sentence);
+        loop.quit();
+
+
 init  // args[]
     var myasync = new Test.Async()
-    GLib.MainLoop mainloop = new GLib.MainLoop()
-    myasync.say.begin("helloworld",
-                      (obj, res) => {
-                          string sentence = myasync.say.end(res);
-                          print("%s\n", sentence);
-                          mainloop.quit();
-                      })
+    var mainloop = new GLib.MainLoop()
+    myasync.loop = mainloop
+    myasync.say.begin("helloworld", myasync.on_quit)
     mainloop.run()
-    return 0
 ```
 
 ```shell

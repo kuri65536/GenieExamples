@@ -48,7 +48,7 @@ Math functions are inside the Math namespace.
 [indent=4]
 init
     stdout.printf("Please enter the radius of a circle: ")
-    double radius = double.parse (stdin.read_line ())
+    var radius = double.parse(stdin.read_line())
     stdout.printf("Circumference: %g\n", 2 * Math.PI * radius)
 
     stdout.printf("sin(pi/2) = %g\n", Math.sin (Math.PI / 2))
@@ -104,7 +104,7 @@ init
         FileUtils.get_contents(filename, out read)
 
         stdout.printf("The content of file '%s' is:\n%s\n", filename, read)
-    except (e: FileError e)
+    except e: FileError
         stderr.printf("%s\n", e.message)
 ```
 
@@ -127,7 +127,7 @@ init
         Process.spawn_command_line_sync("ls", out standard_output,
                                               out standard_error,
                                               out exit_status)
-    except (e: SpawnError)
+    except e: SpawnError
         stderr.printf("%s\n", e.message)
 ```
 
@@ -162,13 +162,16 @@ class BasicSample: Object
     def run()
         stdout.printf("Hello World\n")
 
-init
-    var sample = new BasicSample()
-    sample.run()
-    // TODO(shimoda): return 0
+    init
+        var sample = new BasicSample()
+        sample.run()
+        // TODO(shimoda): return 0
 ```
 
-In this case main must be declared static.
+_In this case main must be declared static._
+
+### Note in genie
+- init can't handle command line arguments (vala can this feature)
 
 
 Vala/Examples Projects/Vala/BasicSample

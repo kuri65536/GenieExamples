@@ -132,58 +132,56 @@ $ valac --pkg=gio-2.0 example.vala
 This is based on Luca Bruno's Generator.  It illustrates using async methods to emulate a generator style of iterator coding.  Note that this runs fine without a main loop. // Build with: valac --pkg=gio-2.0 example.vala
 
 ```genie
-abstract class Generator<G> {
-    private bool consumed;
-    private unowned G value;
-    private SourceFunc callback;
+[indent=4]
+class abstract Generator of G
+    consumed: bool
+    value: unowned G
+    callback: SourceFunc
 
-    public Generator () {
+    construct()
         helper.begin ();
-    }
 
-    private async void helper () {
+    def async helper()
         yield generate ();
         consumed = true;
-    }
 
-    protected abstract async void generate ();
+    def abstract async generate()
 
-    protected async void feed (G value) {
+    def async feed(value: G)
         this.value = value;
         this.callback = feed.callback;
         yield;
-    }
 
-    public bool next () {
+    def next(): bool
         return !consumed;
-    }
 
-    public G get () {
+    def get(): G
         var result = value;
         callback ();
         return result;
-    }
 
-    public Generator<G> iterator () {
+    def iterator(): Generator of G
         return this;
-    }
-}
 
-class IntGenerator : Generator<int> {
-    protected override async void generate () {
-        for (int i=0; i < 10; i++) {
-             if (i%2 ==0) yield feed (i);
-        }
-    }
-}
+class IntGenerator: Generator of int
+    def override async generate()
+        var i = 0
+        while (i < 10)
+            if (i % 2 ==0)
+                yield feed(i)
+            i += 1
 
-void main(string[] args) {
+init  // (string[] args) {
     var gen = new IntGenerator();
 
-    foreach (var item in gen)
+    for item in gen
         stdout.printf(@"Result: $item\n");
-}
 ```
+
+```shell
+$ valac --pkg=gio-2.0 example.vala
+```
+
 
 ## Async sleep example
 This is a version of the venerable sleep() function which allows the main loop to continue iterating, and therefore will not block the UI:
@@ -214,6 +212,11 @@ private static int main (string[] args) {
 }
 ```
 
+```shell
+$ valac --pkg=gio-2.0 example.vala
+```
+
+
 ## Simple Example
 
 ```genie
@@ -237,6 +240,10 @@ init  // args[]
                       })
     mainloop.run()
     return 0
+```
+
+```shell
+$ valac --pkg=gio-2.0 example.vala
 ```
 
 from Vala/Examples Projects/Vala/AsyncSamples

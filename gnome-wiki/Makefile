@@ -8,7 +8,7 @@ src := \
     AdvancedSample.md:1-2 \
     AsyncSamples.md:1-2-3-4-5 \
     BasicSample.md:1-2-3-4-5-6-7-8 \
-    CairoSample.md \
+    CairoSample.md:1-2-3-4 \
     CharacterSample.md \
     ClutterSamples.md \
     CursesSample.md \

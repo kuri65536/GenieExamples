@@ -166,6 +166,9 @@ class BasicSample: Object
         var sample = new BasicSample()
         sample.run()
         // TODO(shimoda): return 0
+
+init
+    pass
 ```
 
 _In this case main must be declared static._

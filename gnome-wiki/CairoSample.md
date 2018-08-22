@@ -122,26 +122,30 @@ $ ./cairo-sample
 
 
 ## Multi-threaded Animation with Cairo and GTK+
-This multi-threaded animation is a port of this example to Vala. It demontrates the usage of Cairo
-drawing in a seperate thread and is making use of GTK+ thread awareness. Every step in this
-example is explained on cairographics.org. (Note for future editors of this example: Please the
-leave the function names so that they still match the original example and the original
-description from cairographics.org! This will make it easier to understand.)
+This multi-threaded animation is a port of this example to Vala. It demontrates
+the usage of Cairo drawing in a seperate thread and is making use of GTK+ thread
+awareness. Every step in this example is explained on cairographics.org. (Note
+for future editors of this example: Please the leave the function names so that
+they still match the original example and the original description from
+cairographics.org! This will make it easier to understand.)
 vala-test:examples/cairo-threaded.vala
 
 ```genie
-using Gtk;
-using Gdk;
-public class CairoThreadedExample : Gtk.Window {
+[indent=4]
+uses Gtk
+uses Gdk
+
+class CairoThreadedExample: Gtk.Window
     // the global pixmap that will serve as our buffer
-    private Gdk.Pixmap pixmap;
-    private int oldw;
-    private int oldh;
-    private int currently_drawing;
-    private int i_draw;
-    private unowned Thread<void*> thread_info;
-    private bool first_execution = true;
-    public CairoThreadedExample () {
+    pixmap: Gdk.Pixmap
+    oldw: int
+    oldh: int
+    currently_drawing: int
+    i_draw: int
+    thread_info: unowned Thread of void*
+    first_execution: bool = true
+
+    construct()
         // constructor chain up
         GLib.Object (type: Gtk.WindowType.TOPLEVEL);
         // set_window size
@@ -159,50 +163,54 @@ public class CairoThreadedExample : Gtk.Window {
         this.destroy.connect (Gtk.main_quit);
         this.expose_event.connect (on_window_expose_event);
         this.configure_event.connect (on_window_configure_event);
-    }
-    public void run () {
+
+    def run()
         // Timeout repeatedly calls closure every 100 ms after it returned true
-        Timeout.add (100, timer_exe);
-    }
-    private bool on_window_configure_event (Gtk.Widget sender, Gdk.EventConfigure event) {
-        // make our selves a properly sized pixmap if our window has been resized
-        if (oldw != event.width || oldh != event.height) {
+        Gtk.Timeout.add(100, timer_exe);
+
+    def on_window_configure_event(sender: Gtk.Widget,
+                                  event: Gdk.EventConfigure): bool
+        // make our selves a properly sized pixmap
+        // if our window has been resized
+        if oldw != event.width or oldh != event.height
             // create our new pixmap with the correct size.
             var tmppixmap = new Gdk.Pixmap (this.window, event.width, event.height, -1);
             // copy the contents of the old pixmap to the new pixmap.
             // This keeps ugly uninitialized pixmaps from being painted upon
             // resize
-            int minw = oldw, minh = oldh;
-            if (event.width < minw) {
+            var minw = oldw
+            var minh = oldh
+            if event.width < minw
                 minw = event.width;
-            }
-            if (event.height < minh) {
+
+            if event.height < minh
                 minh = event.height;
-            }
-            var cr = Gdk.cairo_create (tmppixmap);
+
+            var cr = Gdk.cairo_create(tmppixmap);
             Gdk.cairo_set_source_pixmap (cr, pixmap, 0, 0);
             cr.rectangle (0, 0, minw, minh);
             cr.fill ();
             // we're done with our old pixmap, so we can get rid of it and
             // replace it with our properly-sized one.
             pixmap = tmppixmap;
-        }
+
         oldw = event.width;
         oldh = event.height;
         return true;
-    }
-    private bool on_window_expose_event (Gtk.Widget da, Gdk.EventExpose event) {
+
+    def on_window_expose_event (da: Gtk.Widget, event: Gdk.EventExpose): bool
         var cr = Gdk.cairo_create (da.window);
         Gdk.cairo_set_source_pixmap (cr, pixmap, event.area.x, event.area.y);
         // Only copy the area that was exposed.
         cr.rectangle (event.area.x, event.area.y, event.area.width, event.area.height);
         cr.fill ();
         return true;
-    }
+
     // do_draw will be executed in a separate thread whenever we would like to
     // update our animation
-    private void* do_draw () {
-        int width, height;
+    def do_draw(): void*
+        width: int
+        height: int
         currently_drawing = 1;
         Gdk.threads_enter ();
         pixmap.get_size (out width, out height);
@@ -216,15 +224,19 @@ public class CairoThreadedExample : Gtk.Window {
         cr.set_source_rgb (0.9, 0.9, 0.9);
         cr.paint ();
         // let's just redraw lots of times to use a lot of proc power
-        for (int k = 0; k < 100; k++) {
-            for (int j = 0; j < 1000; j++) {
+        var k = 0
+        while k < 100
+            var j = 0
+            while j < 1000
                 cr.set_source_rgb ((double) j / 1000.0, (double) j / 1000.0,
                              1.0 - (double) j / 1000.0);
-                cr.move_to (i_draw, j / 2); 
+                cr.move_to (i_draw, j / 2);
                 cr.line_to (i_draw + 100, j / 2);
                 cr.stroke ();
-            }
-        }
+                j += 1
+            k += 1
+
+
         // When dealing with gdkPixmap's, we need to make sure not to
         // access them from outside Gtk.main().
         Gdk.threads_enter ();
@@ -234,48 +246,52 @@ public class CairoThreadedExample : Gtk.Window {
         Gdk.threads_leave ();
         currently_drawing = 0;
         return null;
-    }
-    private bool timer_exe () {
+
+    def timer_exe(): bool
         // use a safe function to get the value of currently_drawing so
         // we don't run into the usual multithreading issues
-        int drawing_status = AtomicInt.get (ref currently_drawing);
-        // if we are not currently drawing anything, launch a thread to 
+        var drawing_status = AtomicInt.get (ref currently_drawing);
+        // if we are not currently drawing anything, launch a thread to
         // update our pixmap
-        if (drawing_status == 0) {
-            if (first_execution != true) {
+        if drawing_status == 0
+            if first_execution != true
                 thread_info.join ();
-            }
-            try {
-                thread_info = Thread.create<void*> (do_draw, true);
-            } catch (Error e) {
+
+            try
+                thread_info = Thread.create of void* (do_draw, true);
+            except e: Error
                 stderr.printf ("%s\n", e.message);
-            }
-        }
+
+
         // tell our window it is time to draw our animation.
-        int width, height;
+        width: int
+        height: int
         pixmap.get_size (out width, out height);
         queue_draw_area (0, 0, width, height);
         first_execution = false;
         return true;
-    }
-    static int main (string[] args){
-        Gdk.threads_init ();
-        Gdk.threads_enter ();
-        Gtk.init (ref args);
-        var window = new CairoThreadedExample ();
-        window.run ();
-        Gtk.main ();
-        Gdk.threads_leave ();
-        return 0;
-    }
-}
+
+init  // string[] args
+    Gdk.threads_init ();
+    Gdk.threads_enter ();
+    Gtk.init (ref args);
+    var window = new CairoThreadedExample ();
+    window.run ();
+    Gtk.main ();
+    Gdk.threads_leave ();
 ```
 
 ```shell
 Compile and Run
-$ valac --pkg gtk+-2.0 --thread cairo-threaded.vala
+$ valac --pkg=gtk+-2.0 --thread cairo-threaded.vala
 $ ./cairo-threaded
 ```
+
+### note
+- in my ubuntu 18.04, gdk-2.0.vapi has invalid declaration of Pixmap.get_size:
+    `get_size(width, height)`, so I appended out keyword like this:
+    `get_size(out width, out height)`, then compile had be passed.
+    (but finnaly I got the c compile error of dependencie to gtk.h)
 
 
 ## Shaped Window Example
@@ -283,8 +299,10 @@ Code adapted from this Python example. First example uses Gtk2, second using Gtk
 vala-test:examples/cairo-shaped.vala
 
 ```genie
-using Gtk;
-using Cairo;
+[indent=4]
+uses Gtk
+uses Cairo
+
 /**
  * This example creates a clock with the following features:
  * Shaped window -- Window is unbordered and transparent outside the clock
@@ -292,18 +310,19 @@ using Cairo;
  * dot. When the mouse is "in" the window (on one of the dots) it will turn
  * green.
  * This helps you understand where the events are actually being registered
- * Clicking allows you to drag the clock.
+ * Clicking allows you to drag the clock..
  * There is currently no code in place to close the window, you must kill the
  * process manually. A Composited environment is required. The python code I
  * copied this from includes checks for this. In my laziness I left them out.
  */
 public class CairoShaped : Gtk.Window {
     // Are we inside the window?
-    private bool inside = false;
+    bool inside = false;
+
     /**
      * Just creating the window, setting things up
      */
-    public CairoShaped () {
+    construct()
         this.title = "Cairo Vala Demo";
         set_default_size (200, 200);
         // 'skip_taskbar_hint' determines whether the window gets an icon in
@@ -320,28 +339,25 @@ public class CairoShaped : Gtk.Window {
         add_events (Gdk.EventMask.LEAVE_NOTIFY_MASK);
         // Connecting some events, 'queue_draw()' redraws the window.
         // 'begin_move_drag()' sets up the window drag
-        this.enter_notify_event.connect (() => {
+        this.enter_notify_event += def()
             this.inside = true;
             queue_draw ();
             return true;
-        });
-        this.leave_notify_event.connect (() => {
+        this.leave_notify_event += def()
             this.inside = false;
             queue_draw ();
             return true;
-        });
-        this.button_press_event.connect ((e) => {
+        this.button_press_event += def(e)
             begin_move_drag ((int) e.button, (int) e.x_root, (int) e.y_root, e.time);
             return true;
-        });
         // The expose event is what is called when we need to draw the window
         this.expose_event.connect (on_expose);
         this.destroy.connect (Gtk.main_quit);
-    }
+
     /**
      * Actual drawing takes place within this method
      */
-    private bool on_expose (Widget da, Gdk.EventExpose event) {
+    def on_expose(da: Widget, event: Gdk.EventExpose): bool
         // Get a cairo context for our window
         var ctx = Gdk.cairo_create (da.window);
         // This makes the current color transparent (a = 0.0)
@@ -354,34 +370,36 @@ public class CairoShaped : Gtk.Window {
         // This creates a radial gradient. c() is just a helper method to
         // convert from 0 - 255 scale to 0.0 - 1.0 scale.
         var p = new Cairo.Pattern.radial (100, 100, 0, 100, 100, 100);
-        if (inside) {
+        if inside
             p.add_color_stop_rgba (0.0, c (10), c (190), c (10), 1.0);
             p.add_color_stop_rgba (0.8, c (10), c (190), c (10), 0.7);
             p.add_color_stop_rgba (1.0, c (10), c (190), c (10), 0.5);
-        } else {
+        else
             p.add_color_stop_rgba (0.0, c (10), c (10), c (190), 1.0);
             p.add_color_stop_rgba (0.8, c (10), c (10), c (190), 0.7);
             p.add_color_stop_rgba (1.0, c (10), c (10), c (190), 0.5);
-        }
+
         // Set the gradient as our source and paint a circle.
         ctx.set_source (p);
         ctx.arc (100, 100, radius, 0, 2.0 * 3.14);
         ctx.fill ();
         ctx.stroke ();
         // This chooses the color for the hour dots
-        if (inside) {
+        if inside
             ctx.set_source_rgba (0.0, 0.2, 0.6, 0.8);
-        } else {
+        else
             ctx.set_source_rgba (c (226), c (119), c (214), 0.8);
-        }
+
         // Draw the 12 hour dots.
-        for (int i = 0; i < 12; i++) {
+        var i = 0
+        while (i < 12)
             ctx.arc (100 + 90.0 * Math.cos (2.0 * 3.14 * (i / 12.0)),
                      100 + 90.0 * Math.sin (2.0 * 3.14 * (i / 12.0)),
                      5, 0, 2.0 * 3.14);
             ctx.fill ();
             ctx.stroke ();
-        }
+            i += 1
+
         // This is the math to draw the hands.
         // Nothing overly useful in this section
         ctx.move_to (100, 100);
@@ -432,34 +450,32 @@ public class CairoShaped : Gtk.Window {
         pmcr.arc (100, 100, 10, 0, 2.0 * 3.14);
         pmcr.fill ();
         pmcr.stroke ();
-        for (int i = 0; i < 12; i++) {
+        i = 0
+        while i < 12
             pmcr.arc (100 + 90.0 * Math.cos (2.0 * 3.14 * (i / 12.0)),
                       100 + 90.0 * Math.sin (2.0 * 3.14 * (i / 12.0)),
                       5, 0, 2.0 * 3.14);
             pmcr.fill ();
             pmcr.stroke ();
-        }
+
         // This sets the mask. Note that we have to cast to a Gdk.Bitmap*,
         // it won't compile without that bit.
         input_shape_combine_mask ((Gdk.Bitmap*) px, 0, 0);
         return true;
-    }
-    private double c (int val) {
+
+    def c(val: int): double
         return val / 255.0;
-    }
-    static int main (string[] args) {
-        Gtk.init (ref args);
-        var cairo_sample = new CairoShaped ();
-        cairo_sample.show_all ();
-        // Just a timeout to update once a second.
-        Timeout.add_seconds (1, () => {
-            cairo_sample.queue_draw ();
-            return true;
-        });
-        Gtk.main ();
-        return 0;
-    }
-}
+
+init  // string[] args) {
+    Gtk.init (ref args);
+    var cairo_sample = new CairoShaped ();
+    cairo_sample.show_all ();
+    // Just a timeout to update once a second.
+    Timeout.add_seconds (1, () => {
+        cairo_sample.queue_draw ();
+        return true;
+    });
+    Gtk.main ();
 ```
 
 ```shell
@@ -486,19 +502,19 @@ using Cairo;
  **/
 public class CairoShaped : Gtk.Window {
         // Are we inside the window?
-        private bool inside;
-        private double cur_x;
-        private double cur_y;
-        private bool size_valid;
-        private bool pos_valid;
-        private Pattern grad_in;
-        private Pattern grad_out;
-        private Surface event_mask;
-        private int highlighted;
-        private bool[] off_light;
-        private double[] hour_x;
-        private double[] hour_y;
-        private double radius;
+        bool inside;
+        double cur_x;
+        double cur_y;
+        bool size_valid;
+        bool pos_valid;
+        Pattern grad_in;
+        Pattern grad_out;
+        Surface event_mask;
+        int highlighted;
+        bool[] off_light;
+        double[] hour_x;
+        double[] hour_y;
+        double radius;
         /**
          * Just creating the window, setting things up
          **/
@@ -518,7 +534,7 @@ public class CairoShaped : Gtk.Window {
                 this.off_light = new bool[12];
                 for(int i = 0; i < off_light.length;  i++) {
                         off_light[i] = false;
-                }
+
                 // We need to register which events we are interested in
                 add_events(Gdk.EventMask.BUTTON_PRESS_MASK);
                 add_events(Gdk.EventMask.ENTER_NOTIFY_MASK);
@@ -536,7 +552,7 @@ public class CairoShaped : Gtk.Window {
                 set_visual(screen.get_rgba_visual());
                 // The expose event is what is called when we need to draw the window
                 draw.connect(on_expose);
-        }
+
         public bool mouse_entered(Gdk.EventCrossing e) {
                 cur_x = e.x;
                 cur_y = e.y;
@@ -544,7 +560,7 @@ public class CairoShaped : Gtk.Window {
                 pos_valid = false;
                 queue_draw();
                 return true;
-        }
+
         public bool mouse_left(Gdk.EventCrossing e) {
                 cur_x = -100;
                 cur_y = -100;
@@ -552,18 +568,18 @@ public class CairoShaped : Gtk.Window {
                 pos_valid = false;
                 queue_draw();
                 return true;
-        }
+
         public bool button_pressed(Gdk.EventButton e) {
                 if(e.button == 2) {
                         destroy();
                 } else {
                         if(highlighted >= 0) {
                                 off_light[highlighted] = !off_light[highlighted];
-                        }
+
                         begin_move_drag((int) e.button, (int) e.x_root, (int) e.y_root, e.time);
-                }
+
                 return true;
-        }
+
         public bool scrolled(Gdk.EventScroll e) {
                 int width;
                 int height;
@@ -581,10 +597,10 @@ public class CairoShaped : Gtk.Window {
                         move(x+2, y+2);
                         size_valid = false;
                         queue_draw();
-                }
+
                 return true;
-        }
-        private void create_gradients() {
+
+        void create_gradients() {
                 int width;
                 int height;
                 get_size(out width, out height);
@@ -599,8 +615,8 @@ public class CairoShaped : Gtk.Window {
                 grad_out.add_color_stop_rgba(0.0, c(10), c(10), c(190), 1.0);
                 grad_out.add_color_stop_rgba(0.8, c(10), c(10), c(190), 0.7);
                 grad_out.add_color_stop_rgba(1.0, c(10), c(10), c(190), 0.5);
-        }
-        private void create_mask() {
+
+        void create_mask() {
                 int width;
                 int height;
                 get_size(out width, out height);
@@ -623,10 +639,10 @@ public class CairoShaped : Gtk.Window {
                         pmcr.arc(hour_x[i],hour_y[i],width / 40.0,0,2.0 * 3.14);
                         pmcr.fill();
                         pmcr.stroke();
-                }
+
                 input_shape_combine_region(Gdk.cairo_region_create_from_surface(event_mask));
-        }
-        private void locate_dots() {
+
+        void locate_dots() {
                 int width;
                 int height;
                 get_size(out width, out height);
@@ -635,32 +651,32 @@ public class CairoShaped : Gtk.Window {
                 for(int i = 0; i < 12; i++) {
                         hour_x[i] = width + 0.9 * width * Math.cos(2.0 * 3.14 * (i/12.0));
                         hour_y[i] = height + 0.9 * height * Math.sin(2.0 * 3.14 * (i/12.0));
-                }
-        }
-        private void find_highlight() {
+
+
+        void find_highlight() {
                 double rad = radius/ 20.0;
                 for(int i = 0; i < 12; i++) {
                         if((Math.fabs(hour_x[i] - cur_x) <= rad + 2) &amp;&amp; (Math.fabs(hour_y[i] - cur_y) <= rad + 2)) {
                                 highlighted = i;
                                 return;
-                        }
-                }
+
+
                 highlighted = -1;
-        }
+
         /**
          * Actual drawing takes place within this method
          **/
-        private bool on_expose (Context ctx) {
+        bool on_expose (Context ctx) {
                 if(!size_valid) {
                         create_gradients();
                         locate_dots();
                         create_mask();
                         size_valid = true;
-                }
+
                 if(!pos_valid) {
                         find_highlight();
                         pos_valid = true;
-                }
+
                 // This makes the current color transparent (a = 0.0)
                 ctx.set_source_rgba(1.0,1.0,1.0,0.0);
                 // Paint the entire window transparent to start with.
@@ -671,7 +687,7 @@ public class CairoShaped : Gtk.Window {
                         ctx.set_source(grad_in);
                 } else {
                         ctx.set_source(grad_out);
-                }
+
                 ctx.arc(radius, radius, radius, 0, 2.0*3.14);
                 ctx.fill();
                 ctx.stroke();
@@ -680,7 +696,7 @@ public class CairoShaped : Gtk.Window {
                         ctx.set_source_rgba(0.0,0.2,0.6,0.8);
                 } else {
                         ctx.set_source_rgba(c(226), c(119), c(214), 0.8);
-                }
+
                 double rad = radius / 20.0;
                 // Draw the 12 hour dots.
                 for(int i = 0; i < 12; i++) {
@@ -704,8 +720,8 @@ public class CairoShaped : Gtk.Window {
                                 ctx.arc(x,y,rad,0,2.0 * 3.14);
                                 ctx.fill();
                                 ctx.stroke();
-                        }
-                }
+
+
                 // This is the math to draw the hands.
                 // Nothing overly useful in this section
                 ctx.move_to(radius, radius);
@@ -736,10 +752,10 @@ public class CairoShaped : Gtk.Window {
                 ctx.fill();
                 ctx.stroke();
                 return true;
-        }
-        private double c(int val) {
+
+        double c(int val) {
                 return val / 255.0;
-        }
+
         static int main (string[] args) {
                 Gtk.init (ref args);
                 var cairo_sample = new CairoShaped ();
@@ -748,8 +764,8 @@ public class CairoShaped : Gtk.Window {
                 Timeout.add_seconds(1,()=>{cairo_sample.queue_draw();return true;});
                 Gtk.main ();
                 return 0;
-        }
-}
+
+
 ```
 
 ```shell

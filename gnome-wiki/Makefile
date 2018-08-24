@@ -4,13 +4,16 @@
 # This Source Code Form is subject to the terms of the Mozilla Public License,
 # v.2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at https://mozilla.org/MPL/2.0/.
+
+# disabled: CairoSample.md:2-3, by gtk+-2.0 dependencies.
+
 src := \
     AdvancedSample.md:1-2 \
     AsyncSamples.md:1-2-3-4-5 \
     BasicSample.md:1-2-3-4-5-6-7-8 \
-    CairoSample.md:1-2-3-4 \
-    CharacterSample.md \
-    ClutterSamples.md \
+    CairoSample.md:1-4 \
+    CharacterSample.md:1 \
+    ClutterSamples.md:1-2-3 \
     CursesSample.md \
     CustomWidgetSamples.md \
     DBusClientSamples.md \
@@ -69,7 +72,6 @@ extract: ../tools/extract.gs
 	valac -o $@ ../tools/extract.gs --pkg gio-2.0
 
 %.md:
-	
 
 # .gs -> .md
 # arguments: abc-1.exe, abc.md, 1

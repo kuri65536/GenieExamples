@@ -5,6 +5,7 @@ Contents
 - Vala Cairo Example
 - Multi-threaded Animation with Cairo and GTK+
 - Shaped Window Example
+- Shaped Window Example (gtk+-3.0)
 
 
 ## Vala Cairo Example
@@ -300,8 +301,8 @@ $ ./cairo-threaded
 
 
 ## Shaped Window Example
-Code adapted from this Python example. First example uses Gtk2, second using Gtk3
-vala-test:examples/cairo-shaped.vala
+Code adapted from this Python example. First example uses Gtk2, second using
+Gtk3 vala-test:examples/cairo-shaped.vala
 
 ```genie
 [indent=4]
@@ -490,6 +491,7 @@ $ valac --pkg=gtk+-2.0 --pkg=cairo --pkg=gdk-2.0 cairo-shaped.vala
 $ ./cairo-shaped
 ```
 
+## Shaped Window Example (gtk3)
 
 ```genie
 // vala-test:examples/cairo-shaped.vala

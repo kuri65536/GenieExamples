@@ -17,7 +17,7 @@ src := \
     ClutterSamples.md:1-2 \
     CursesSample.md:1 \
     CustomWidgetSamples.md:1-2 \
-    DBusClientSamples.md \
+    DBusClientSamples.md:1-2-3 \
     DBusClientSamplesWaiting.md \
     DBusServerSample.md \
     DBusServerSamplePassingObjects.md \

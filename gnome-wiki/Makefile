@@ -6,6 +6,7 @@
 # You can obtain one at https://mozilla.org/MPL/2.0/.
 
 # disabled: CairoSample.md:2-3, by gtk+-2.0 dependencies.
+# disabled: ClutterSample.md:3, by mash-0.1 dependencies.
 
 src := \
     AdvancedSample.md:1-2 \
@@ -13,9 +14,9 @@ src := \
     BasicSample.md:1-2-3-4-5-6-7-8 \
     CairoSample.md:1-4 \
     CharacterSample.md:1 \
-    ClutterSamples.md:1-2-3 \
-    CursesSample.md \
-    CustomWidgetSamples.md \
+    ClutterSamples.md:1-2 \
+    CursesSample.md:1 \
+    CustomWidgetSamples.md:1-2 \
     DBusClientSamples.md \
     DBusClientSamplesWaiting.md \
     DBusServerSample.md \

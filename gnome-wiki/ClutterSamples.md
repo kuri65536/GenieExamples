@@ -275,10 +275,8 @@ Fetch a sample model: TheMonkey.ply.
 The compilation command is a bit hard-coded due to missing features
 in the Vala GIR parser:
 
-`$ valac --pkg=atk --pkg=clutter-1.0 --pkg=Mash-0.1 \
-
 ```shell
-$ valac --pkg=atk --pkg=clutter-1.0
+$ valac --pkg=atk --pkg=clutter-1.0 --pkg=Mash-0.1 \
     mash-demo.vala -X -I/usr/include/mash-0.1 -X -lmash-0.1
 $ ./mash-demo TheMonkey.ply
 ```

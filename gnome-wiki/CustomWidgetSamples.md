@@ -276,7 +276,7 @@ init  // string[] args
 
 ```shell
 $ valac --pkg=gtk+-3.0 -X -lm eggclock.vala
-$ ./eggclockNote: You can drag around the minute hand.  
+$ ./eggclockNote: You can drag around the minute hand.
 ```
 
 
@@ -291,17 +291,21 @@ $ ./eggclockNote: You can drag around the minute hand.
  * and do realizing, sizing and drawing. Originally based on widget.py in PyGTK
  * and ported to GTK+ 3
  */
-public class ValaWidget : Widget {
-    private const string TEXT = "Hello World!";
-    private const int BORDER_WIDTH = 10;
-    private Pango.Layout layout;
-    construct {
+[indent=4]
+uses Gtk
+
+class ValaWidget: Widget
+    const TEXT: string = "Hello World!"
+    const BORDER_WIDTH: int = 10
+    layout: Pango.Layout
+
+    construct()
         this.layout = create_pango_layout (TEXT);
         set_has_window (false);
-    }
-    public override bool draw (Cairo.Context cr) {
-        int width = get_allocated_width ();
-        int height = get_allocated_height ();
+
+    def override draw(cr: Cairo.Context): bool
+        var width = get_allocated_width ();
+        var height = get_allocated_height ();
         cr.set_source_rgba (0.5, 0.5, 0.5, 1);
         cr.rectangle (BORDER_WIDTH, BORDER_WIDTH,
                       width - 2 * BORDER_WIDTH,
@@ -310,28 +314,27 @@ public class ValaWidget : Widget {
         cr.set_line_join (Cairo.LineJoin.ROUND);
         cr.stroke ();
         // And draw the text in the middle of the allocated space
-        int fontw, fonth;
+        fontw, fonth: int
         this.layout.get_pixel_size (out fontw, out fonth);
         cr.move_to ((width - fontw) / 2,
                     (height - fonth) / 2);
         Pango.cairo_update_layout (cr, this.layout);
         Pango.cairo_show_layout (cr, this.layout);
         return true;
-    }
+
     /*
      * This method gets called by Gtk+ when the actual size is known
      * and the widget is told how much space could actually be allocated.
      * It is called every time the widget size changes, for example when the
      * user resizes the window.
      */
-    public override void size_allocate (Gtk.Allocation allocation) {
+    def override size_allocate(allocation: Gtk.Allocation)
         // The base method will save the allocation and move/resize the
         // widget's GDK window if the widget is already realized.
-        base.size_allocate (allocation);
+        super.size_allocate(allocation)
         // Move/resize other realized windows if necessary
-    }
-}
-int main (string[] args) {
+
+init  // (string[] args) {
     Gtk.init (ref args);
     var win = new Gtk.Window ();
     win.set_size_request (200,200);
@@ -344,14 +347,12 @@ int main (string[] args) {
     frame.add (widget);
     win.show_all ();
     Gtk.main ();
-    return 0;
-}
 ```
 
 ### Compile and Run
 
 ```shell
-$ valac --pkg gtk+-3.0 valawidget.vala
+$ valac --pkg=gtk+-3.0 valawidget.vala
 $ ./valawidget
 ```
 

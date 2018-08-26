@@ -14,10 +14,11 @@ spec being proposed at Evolution/Metadata
 [indent=4]
 uses DBus
 
-// [DBus (name = "org.gnome.evolution.metadata.Manager")]
-// public interface Manager : GLib.Object {
-//    public abstract void Register (DBus.ObjectPath registrar_path, uint last_checkout);
-// }
+[DBus (name = "org.gnome.evolution.metadata.Manager")]
+interface Manager: GLib.Object
+    def abstract Register(registrar_path: DBus.ObjectPath, last_checkout: uint)
+
+
 [DBus (name = "org.gnome.evolution.metadata.Registrar")]
 class Registrar: GLib.Object
     def Set(subject: string, predicates: array of string,
@@ -70,7 +71,7 @@ class MyApplication: GLib.Object
         registrar = null;
 
     def activate()
-        obj: DBus.Object  // vala: dynamic
+        obj: Manager  // DBus.Object  // vala: dynamic
         path: DBus.ObjectPath
         registrar = new Registrar ();
         conn = DBus.Bus.get (DBus.BusType .SESSION);

@@ -7,6 +7,7 @@
 
 # disabled: CairoSample.md:2-3, by gtk+-2.0 dependencies.
 # disabled: ClutterSample.md:3, by mash-0.1 dependencies.
+# disabled: DBusClientSamplesWaiting.md:1 by string[][]
 
 src := \
     AdvancedSample.md:1-2 \
@@ -18,8 +19,7 @@ src := \
     CursesSample.md:1 \
     CustomWidgetSamples.md:1-2 \
     DBusClientSamples.md:1-2-3 \
-    DBusClientSamplesWaiting.md \
-    DBusServerSample.md \
+    DBusServerSample.md:1-2-3 \
     DBusServerSamplePassingObjects.md \
     DragAndDropSample.md \
     GIOCompressionSample.md \

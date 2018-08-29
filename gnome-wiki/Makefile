@@ -22,11 +22,11 @@ src := \
     CustomWidgetSamples.md:1-2 \
     DBusClientSamples.md:1-2-3 \
     DBusServerSample.md:1-2-3 \
-    DragAndDropSample.md \
+    DragAndDropSample.md:1 \
     GIOCompressionSample.md \
     GIONetworkingSample.md \
     GIOSamples.md \
-    GSFSample.md \
+    GSFSample.md:1 \
     GSLSample.md \
     GSettingsSample.md \
     GStreamerSample.md \

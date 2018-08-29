@@ -8,6 +8,8 @@
 # disabled: CairoSample.md:2-3, by gtk+-2.0 dependencies.
 # disabled: ClutterSample.md:3, by mash-0.1 dependencies.
 # disabled: DBusClientSamplesWaiting.md:1 by string[][]
+# disabled: DBusServerSamplePassingObjects.md:1-2-3 old?
+# disabled: GeeSamples.md:4 can't compile by Gee.Traverse.
 
 src := \
     AdvancedSample.md:1-2 \
@@ -20,7 +22,6 @@ src := \
     CustomWidgetSamples.md:1-2 \
     DBusClientSamples.md:1-2-3 \
     DBusServerSample.md:1-2-3 \
-    DBusServerSamplePassingObjects.md \
     DragAndDropSample.md \
     GIOCompressionSample.md \
     GIONetworkingSample.md \
@@ -33,7 +34,7 @@ src := \
     GTKSample.md \
     GdlSample.md \
     Gedit3PluginSample.md \
-    GeeSamples.md \
+    GeeSamples.md:1-2-3 \
     GnomeDesktopAndGMenuExample.md \
     GtkCellRendererSample.md \
     InputSamples.md \

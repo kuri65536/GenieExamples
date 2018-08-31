@@ -11,7 +11,8 @@
 # disabled: DBusServerSamplePassingObjects.md:1-2-3 old?
 # disabled: GeeSamples.md:4 can't compile by Gee.Traverse.
 # disabled: GSLSample.md:1-2-3-4-5-6-7-8-9-10 by gsl dependencies.
-# disabled: GStreamerSample.md:1-2-3
+# disabled: GStreamerSample.md:1-2-3 by gstreamer dependencies
+# disabled: GStreamerSample.md:4 by gstreamer and gtk-2.0 dependencies
 
 src := \
     AdvancedSample.md:1-2 \
@@ -30,8 +31,7 @@ src := \
     GIOSamples.md \
     GSFSample.md:1 \
     GSettingsSample.md:1 \
-    GStreamerSample.md:2-3 \
-    GStreamerSamples.md \
+    GStreamerSample.md \
     GTKSample.md \
     GdlSample.md \
     Gedit3PluginSample.md \

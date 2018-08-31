@@ -24,7 +24,8 @@ init  // (string[] args) {
     new MainLoop ().run ();
 ```
 
-Tip: You can also declare a GStreamer Element as dynamic and set its properties directly:
+Tip: You can also declare a GStreamer Element as dynamic and set its properties
+directly:
 
 ```
 dynamic Element src = ElementFactory.make ("audiotestsrc", "my_src");
@@ -39,130 +40,141 @@ $ valac --pkg=gstreamer-0.10 gst-squarebeep.vala
 $ ./gst-squarebeep
 ```
 
-### Vala GStreamer Audio Stream Example
+
+## Vala GStreamer Audio Stream Example
 
 ```genie
 // vala-test:examples/gstreamer-audio-player.vala
-using Gst;
+[indent=4]
+uses Gst
 
-public class StreamPlayer {
-    private MainLoop loop = new MainLoop ();
-    private void foreach_tag (Gst.TagList list, string tag) {
-        switch (tag) {
-        case "title":
-            string tag_string;
-            list.get_string (tag, out tag_string);
-            stdout.printf ("tag: %s = %s\n", tag, tag_string);
-            break;
-        default:
-            break;
-        }
-    }
-    private bool bus_callback (Gst.Bus bus, Gst.Message message) {
-        switch (message.type) {
-        case MessageType.ERROR:
-            GLib.Error err;
-            string debug;
-            message.parse_error (out err, out debug);
-            stdout.printf ("Error: %s\n", err.message);
-            loop.quit ();
-            break;
-        case MessageType.EOS:
-            stdout.printf ("end of stream\n");
-            break;
-        case MessageType.STATE_CHANGED:
-            Gst.State oldstate;
-            Gst.State newstate;
-            Gst.State pending;
-            message.parse_state_changed (out oldstate, out newstate,
-                                         out pending);
-            stdout.printf ("state changed: %s->%s:%s\n",
-                           oldstate.to_string (), newstate.to_string (),
-                           pending.to_string ());
-            break;
-        case MessageType.TAG:
-            Gst.TagList tag_list;
-            stdout.printf ("taglist found\n");
-            message.parse_tag (out tag_list);
-            tag_list.foreach ((TagForeachFunc) foreach_tag);
-            break;
-        default:
-            break;
-        }
+class StreamPlayer
+    loop: MainLoop = new MainLoop()
+
+    def foreach_tag(@list: Gst.TagList, tag: string)
+        case tag
+            when "title"
+                tag_string: string
+                @list.get_string (tag, out tag_string);
+                stdout.printf ("tag: %s = %s\n", tag, tag_string);
+                break;
+            default
+                break;
+
+    def bus_callback(bus: Gst.Bus, message: Gst.Message): bool
+        case message.type
+            when MessageType.ERROR
+                err: GLib.Error
+                debug: string
+                message.parse_error (out err, out debug);
+                stdout.printf ("Error: %s\n", err.message);
+                loop.quit ();
+            when MessageType.EOS
+                stdout.printf ("end of stream\n");
+            when MessageType.STATE_CHANGED
+                oldstate: Gst.State
+                newstate: Gst.State
+                pending: Gst.State
+                message.parse_state_changed (out oldstate, out newstate,
+                                             out pending);
+                stdout.printf ("state changed: %s->%s:%s\n",
+                               oldstate.to_string (), newstate.to_string (),
+                               pending.to_string ());
+            when MessageType.TAG
+                tag_list: Gst.TagList
+                stdout.printf ("taglist found\n");
+                message.parse_tag (out tag_list);
+                tag_list.foreach ((TagForeachFunc) foreach_tag);
+            default
+                pass
         return true;
-    }
-    public void play (string stream) {
-        dynamic Element play = ElementFactory.make ("playbin", "play");
+
+    def play(stream: string)
+        play: dynamic Element = ElementFactory.make ("playbin", "play");
         play.uri = stream;
-        Bus bus = play.get_bus ();
+        bus: Bus = play.get_bus ();
         bus.add_watch (0, bus_callback);
         play.set_state (State.PLAYING);
         loop.run ();
-    }
-}
-const string DEFAULT_STREAM = "http://streamer-dtc-aa02.somafm.com:80/stream/1018";
-int main (string[] args) {
+
+const DEFAULT_STREAM: string = \
+    "http://streamer-dtc-aa02.somafm.com:80/stream/1018"
+
+init  // (string[] args) {
     Gst.init (ref args);
     var player = new StreamPlayer ();
     player.play (args.length > 1 ? args[1] : DEFAULT_STREAM);
-    return 0;
-}
 ```
 
 ### Compile and Run
 
 ```shell
-$ valac --pkg gstreamer-1.0 gst-play-stream.vala
+$ valac --pkg=gstreamer-1.0 gst-play-stream.vala
 $ ./gst-play-stream
 ```
 
 
 ## Vala GStreamer Video Example
-Requires gtk+-3.0 and gstreamer-1.0 (with gstreamer1.0-plugins-bad >= 1.7.91 for 'gtksink' element) vala-test:examples/gstreamer-videotest.vala using Gtk;
-using Gst;
-public class VideoSample : Window {
-        Element playbin;
-        construct {
-                Widget video_area;
-                playbin = ElementFactory.make ("playbin", "bin");
-                playbin["uri"] = "http://www.w3schools.com/html/mov_bbb.mp4";
-                var gtksink = ElementFactory.make ("gtksink", "sink");
-                gtksink.get ("widget", out video_area);
-                playbin["video-sink"] = gtksink;
-                var vbox = new Box (Gtk.Orientation.VERTICAL, 0);
-                vbox.pack_start (video_area);
-                var play_button = new Button.from_icon_name ("media-playback-start", Gtk.IconSize.BUTTON);
-                play_button.clicked.connect (on_play);
-                var stop_button = new Button.from_icon_name ("media-playback-stop", Gtk.IconSize.BUTTON);
-                stop_button.clicked.connect (on_stop);
-                var quit_button = new Button.from_icon_name ("application-exit", Gtk.IconSize.BUTTON);
-                quit_button.clicked.connect (Gtk.main_quit);
-                var bb = new ButtonBox (Orientation.HORIZONTAL);
-                bb.add (play_button);
-                bb.add (stop_button);
-                bb.add (quit_button);
-                vbox.pack_start (bb, false);
-                add (vbox);
-        }
-        void on_play() {
-                playbin.set_state (Gst.State.PLAYING);
-        }
-        void on_stop() {
-                playbin.set_state (Gst.State.READY);
-        }
-        public static int main (string[] args) {
-                Gst.init (ref args);
-                Gtk.init (ref args);
-                var sample = new VideoSample ();
-                sample.show_all ();
-                Gtk.main ();
-                return 0;
-        }
-}
-Compile and Run
-$ valac --pkg gtk+-3.0 --pkg gstreamer-1.0 gst-videotest.vala
+Requires gtk+-3.0 and gstreamer-1.0 (with gstreamer1.0-plugins-bad >= 1.7.91 for
+'gtksink' element)
+
+```genie
+// vala-test:examples/gstreamer-videotest.vala
+[indent=4]
+uses Gtk
+uses Gst
+
+class VideoSample: Window
+    playbin: Element
+
+    construct()
+        video_area: Widget
+        playbin = ElementFactory.make ("playbin", "bin");
+        playbin["uri"] = "http://www.w3schools.com/html/mov_bbb.mp4";
+        var gtksink = ElementFactory.make ("gtksink", "sink");
+        gtksink.get ("widget", out video_area);
+        playbin["video-sink"] = gtksink;
+        var vbox = new Box (Gtk.Orientation.VERTICAL, 0);
+        vbox.pack_start (video_area);
+        var play_button = new Button.from_icon_name ("media-playback-start", Gtk.IconSize.BUTTON);
+        play_button.clicked.connect (on_play);
+        var stop_button = new Button.from_icon_name ("media-playback-stop", Gtk.IconSize.BUTTON);
+        stop_button.clicked.connect (on_stop);
+        var quit_button = new Button.from_icon_name ("application-exit", Gtk.IconSize.BUTTON);
+        quit_button.clicked.connect (Gtk.main_quit);
+        var bb = new ButtonBox (Orientation.HORIZONTAL);
+        bb.add (play_button);
+        bb.add (stop_button);
+        bb.add (quit_button);
+        vbox.pack_start (bb, false);
+        add (vbox);
+
+    def on_play()
+        playbin.set_state (Gst.State.PLAYING);
+
+    def on_stop()
+        playbin.set_state (Gst.State.READY);
+
+init  // atic int main (string[] args) {
+    Gst.init (ref args);
+    Gtk.init (ref args);
+    var sample = new VideoSample ();
+    sample.show_all ();
+    Gtk.main ();
+    return 0;
+```
+
+### Compile and Run
+
+```shell
+$ valac --pkg=gtk+-3.0 --pkg=gstreamer-1.0 gst-videotest.vala
 $ ./gst-videotest
-Vala Gstreamer-PocketSphinx Example
+```
+
+
+## Vala Gstreamer-PocketSphinx Example
+
+```genie
 //# Copyright (c) 2008 Carnegie Mellon University.
 //#
 //# You may modify and redistribute this file under the same terms as
@@ -295,25 +307,14 @@ void main(string[] args) {
     Gst.init(ref args);
     var app = new DemoApp();
     Gtk.main();
-}
-Compile and run
-valac --pkg gstreamer-0.10 --pkg gtk+-2.0 shpinx_livedemo.vala
-./sphinx_livedemo Vala/Examples Projects/Vala/GStreamerSample  (last edited 2016-04-14 10:36:32 by YannickInizan)
-Search:
-<input id="searchinput" type="text" name="value" value="" size="20"
-    onfocus="searchFocus(this)" onblur="searchBlur(this)"
-    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
-<input id="titlesearch" name="titlesearch" type="submit"
-    value="Titles" alt="Search Titles">
-<input id="fullsearch" name="fullsearch" type="submit"
-    value="Text" alt="Search Full Text">
-<!--// Initialize search form
-var f = document.getElementById('searchform');
-f.getElementsByTagName('label')[0].style.display = 'none';
-var e = document.getElementById('searchinput');
-searchChange(e);
-searchBlur(e);
-//-->
-        Copyright &copy; 2005 -  The GNOME Project.
-        Hosted by Red Hat.
-  document.getElementById('current-year').innerHTML = new Date().getFullYear();
+```
+
+### Compile and run
+
+```shell
+$ valac --pkg=gstreamer-0.10 --pkg=gtk+-2.0 sphinx_livedemo.vala
+$ ./sphinx_livedemo
+```
+
+Vala/Examples Projects/Vala/GStreamerSample
+    (last edited 2016-04-14 10:36:32 by YannickInizan)

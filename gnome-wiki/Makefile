@@ -41,7 +41,7 @@ src := \
     GtkCellRendererSample.md \
     InputSamples.md \
     IoChannelsSample.md \
-    JsonSample.md \
+    JsonSample.md:1-2-3 \
     LibSoupSample.md \
     ListSample.md:1 \
     LoudmouthSample.md \

@@ -10,6 +10,8 @@
 # disabled: DBusClientSamplesWaiting.md:1 by string[][]
 # disabled: DBusServerSamplePassingObjects.md:1-2-3 old?
 # disabled: GeeSamples.md:4 can't compile by Gee.Traverse.
+# disabled: GSLSample.md:1-2-3-4-5-6-7-8-9-10 by gsl dependencies.
+# disabled: GStreamerSample.md:1-2-3
 
 src := \
     AdvancedSample.md:1-2 \
@@ -27,9 +29,8 @@ src := \
     GIONetworkingSample.md \
     GIOSamples.md \
     GSFSample.md:1 \
-    GSLSample.md \
-    GSettingsSample.md \
-    GStreamerSample.md \
+    GSettingsSample.md:1 \
+    GStreamerSample.md:2-3 \
     GStreamerSamples.md \
     GTKSample.md \
     GdlSample.md \

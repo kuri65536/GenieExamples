@@ -102,8 +102,8 @@ init
                                         0.14, 0.30, 0.97, 0.66,
                                         0.51, 0.13, 0.19, 0.85};
     var b_data = new array of double = {1.0, 2.0, 3.0, 4.0};
-    var m = MatrixView.array (a_data, 4, 4);  // can't do this in genie keyword
-    var b = VectorView.array (b_data);  // can't do this in genie keyword
+    var m = MatrixView.@array(a_data, 4, 4)
+    var b = VectorView.@array(b_data)
     var x = new Vector (4);
     s: int
     var p = new Permutation (4);
@@ -129,7 +129,7 @@ init
                                       1/2.0, 1/3.0, 1/4.0, 1/5.0,
                                       1/3.0, 1/4.0, 1/5.0, 1/6.0,
                                       1/4.0, 1/5.0, 1/6.0, 1/7.0};
-    var m = MatrixView.array(data, 4, 4);  // can't do this in vala keyword
+    var m = MatrixView.@array(data, 4, 4)
     var eval = new Vector (4);
     var evec = new Matrix (4, 4);
     var w = new EigenSymmvWorkspace(4)

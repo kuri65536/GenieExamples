@@ -80,45 +80,44 @@ example a spin button and a horizontal scale will get interlocked.
 
 ```genie
 // vala-test:examples/gtk-sync-sample.vala
+[indent=4]
 uses Gtk
 
-public class SyncSample : Window {
-    private SpinButton spin_box;
-    private Scale slider;
-    public SyncSample () {
+class SyncSample: Window
+    spin_box: SpinButton
+    slider: Scale
+
+    construct()
         this.title = "Enter your age";
         this.window_position = WindowPosition.CENTER;
         this.destroy.connect (Gtk.main_quit);
         set_default_size (300, 20);
         spin_box = new SpinButton.with_range (0, 130, 1);
         slider = new Scale.with_range (Orientation.HORIZONTAL, 0, 130, 1);
-        spin_box.adjustment.value_changed.connect (() => {
+        spin_box.adjustment.value_changed += def()
             slider.adjustment.value = spin_box.adjustment.value;
-        });
-        slider.adjustment.value_changed.connect (() => {
+
+        slider.adjustment.value_changed += def()
             spin_box.adjustment.value = slider.adjustment.value;
-        });
+
         spin_box.adjustment.value = 35;
         var hbox = new Box (Orientation.HORIZONTAL, 5);
         hbox.homogeneous = true;
         hbox.add (spin_box);
         hbox.add (slider);
         add (hbox);
-    }
-    public static int main (string[] args) {
-        Gtk.init (ref args);
-        var window = new SyncSample ();
-        window.show_all ();
-        Gtk.main ();
-        return 0;
-    }
-}
+
+init  // atic int main (string[] args) {
+    Gtk.init (ref args);
+    var window = new SyncSample ();
+    window.show_all ();
+    Gtk.main ();
 ```
 
 ### Compile and Run
 
 ```shell
-$ valac --pkg gtk+-3.0 gtk-sync-sample.vala
+$ valac --pkg=gtk+-3.0 gtk-sync-sample.vala
 $ ./gtk-sync-sample
 ```
 
@@ -127,7 +126,8 @@ $ ./gtk-sync-sample
 A simple text file viewer: vala-test:examples/gtk-text-viewer.vala using Gtk;
 public class TextFileViewer : Window {
     private TextView text_view;
-    public TextFileViewer () {
+
+    construct()
         this.title = "Text File Viewer";
         this.window_position = WindowPosition.CENTER;
         set_default_size (400, 300);
@@ -183,7 +183,7 @@ public class TextFileViewer : Window {
 ### Compile and Run
 
 ```shell
-$ valac --pkg gtk+-3.0 gtk-text-viewer.vala
+$ valac --pkg=gtk+-3.0 gtk-text-viewer.vala
 $ ./gtk-text-viewer
 ```
 
@@ -221,29 +221,39 @@ public class OpenFileDialog : FileChooserDialog {
 }
 ```
 
+### Compile and Run
+
+```shell
+$ valac --pkg=gtk+-3.0 gtk-text-viewer.vala
+$ ./gtk-text-viewer
+```
+
 
 ## Creating a Dialog
 This example demonstrates how to create a dialog by subclassing Dialog.
 
 ```genie
 // vala-test:examples/gtk-search-dialog.vala
+[indent=4]
 uses Gtk
 
-public class SearchDialog : Dialog {
-    private Entry search_entry;
-    private CheckButton match_case;
-    private CheckButton find_backwards;
-    private Widget find_button;
-    public signal void find_next (string text, bool case_sensitivity);
-    public signal void find_previous (string text, bool case_sensitivity);
-    public SearchDialog () {
+class SearchDialog: Dialog
+    search_entry: Entry
+    match_case: CheckButton
+    find_backwards: CheckButton
+    find_button: Widget
+
+    event find_next(text: string, case_sensitivity: bool)
+    event find_previous (text: string, case_sensitivity: bool)
+
+    construct()
         this.title = "Find";
         this.border_width = 5;
         set_default_size (350, 100);
         create_widgets ();
         connect_signals ();
-    }
-    private void create_widgets () {
+
+    def create_widgets()
         // Create and setup widgets
         this.search_entry = new Entry ();
         var search_label = new Label.with_mnemonic ("_Search for:");
@@ -265,50 +275,42 @@ public class SearchDialog : Dialog {
         this.find_button = add_button (Stock.FIND, ResponseType.APPLY);
         this.find_button.sensitive = false;
         show_all ();
-    }
-    private void connect_signals () {
-        this.search_entry.changed.connect (() => {
+
+    def connect_signals()
+        this.search_entry.changed += def()
             this.find_button.sensitive = (this.search_entry.text != "");
-        });
         this.response.connect (on_response);
-    }
-    private void on_response (Dialog source, int response_id) {
-        switch (response_id) {
-        case ResponseType.HELP:
-            // show_help ();
-            break;
-        case ResponseType.APPLY:
-            on_find_clicked ();
-            break;
-        case ResponseType.CLOSE:
-            destroy ();
-            break;
-        }
-    }
-    private void on_find_clicked () {
-        string text = this.search_entry.text;
-        bool cs = this.match_case.active;
-        if (this.find_backwards.active) {
+
+    def on_response (source: Dialog, response_id: int)
+        case response_id
+            when ResponseType.HELP
+                // show_help ();
+                pass
+            when ResponseType.APPLY
+                on_find_clicked ();
+            when ResponseType.CLOSE
+                destroy ();
+
+    def on_find_clicked()
+        var text = this.search_entry.text
+        var cs = this.match_case.active
+        if this.find_backwards.active
             find_previous (text, cs);
-        } else {
+        else
             find_next (text, cs);
-        }
-    }
-}
-int main (string[] args) {
+
+init  // (string[] args) {
     Gtk.init (ref args);
     var dialog = new SearchDialog ();
     dialog.destroy.connect (Gtk.main_quit);
     dialog.show ();
     Gtk.main ();
-    return 0;
-}
 ```
 
 ### Compile and Run
 
 ```shell
-$ valac --pkg gtk+-3.0 gtk-search-dialog.vala
+$ valac --pkg=gtk+-3.0 gtk-search-dialog.vala
 $ ./gtk-search-dialog
 ```
 
@@ -323,17 +325,18 @@ This example code works with the UI file linked above:
 
 ```genie
 // vala-test:examples/gtk-builder-sample.vala
+[indent=4]
 uses Gtk
 
-public void on_button1_clicked (Button source) {
+def on_button1_clicked(source: Button)
     source.label = "Thank you!";
-}
-public void on_button2_clicked (Button source) {
+
+def on_button2_clicked(source: Button)
     source.label = "Thanks!";
-}
-int main (string[] args) {
+
+init  // (string[] args) {
     Gtk.init (ref args);
-    try {
+    try
         // If the UI contains custom widgets, their types must've been instantiated once
         // Type type = typeof(Foo.BarEntry);
         // assert(type != 0);
@@ -343,19 +346,20 @@ int main (string[] args) {
         var window = builder.get_object ("window") as Window;
         window.show_all ();
         Gtk.main ();
-    } catch (Error e) {
+    except e: Error
         stderr.printf ("Could not load UI: %s\n", e.message);
-        return 1;
-    }
-    return 0;
-}
 ```
 
 ### Compile and Run
 You have to add the package gmodule-2.0 so that auto-connection of signals will
-work: $ valac --pkg gtk+-3.0 --pkg gmodule-2.0 gtk-builder-sample.valaNote: If
-you don't make the callback methods public you will get method never used
-warnings at this point. $ ./gtk-builder-sample
+work:
+
+```shell
+$ valac --pkg=gtk+-3.0 --pkg=gmodule-2.0 gtk-builder-sample.vala
+Note: If you don't make the callback methods public
+you will get method never used warnings at this point.
+$ ./gtk-builder-sample
+```
 
 
 ## Connecting callbacks
@@ -386,14 +390,18 @@ namespace Foo {
         var object = new Foo.MyBar ();
         builder.connect_signals (object);
 // ...
+```
+
 Attention: When using Gtk.Builder's signal auto-connection feature all handlers
 must have the full signatures of their corresponding signals, including the
 signal sender as first parameter. Otherwise you will get segmentation faults at
 runtime. On Windows you have to add G_MODULE_EXPORT to the callbacks otherwise
-signal handlers won't be found. Use [CCode (cname="G_MODULE_EXPORT
-callback_name")] as a workaround. (cf. Bug 541548) [CCode (cname =
-"G_MODULE_EXPORT on_button1_clicked")]
+signal handlers won't be found. Use
+`[CCode (cname="G_MODULE_EXPORT callback_name")]` as a workaround.
+(cf. Bug 541548)
 
+```
+[CCode (cname = "G_MODULE_EXPORT on_button1_clicked")]
 public void on_button1_clicked (Button source) {
     source.label = "Thank you!";
 }
@@ -407,7 +415,7 @@ public void on_button2_clicked (Button source) {
 ## Tips and Tricks
 gtkparasite allows you to inspect and modify your application's user interface
 at runtime. It's like Firebug for GTK+. Most distributions provide a package for
-gtkparasite. Launch with $ GTK_MODULES=gtkparasite appname. There's
+gtkparasite. Launch with `$ GTK_MODULES=gtkparasite appname`. There's
 documentation and a screencast on the website. You can follow GTK+ and friends
 on Twitter: @gtktoolkit
 
@@ -416,50 +424,49 @@ on Twitter: @gtktoolkit
 
 ```genie
 // vala-test:examples/gtk-treeview-liststore.vala
+[indent=4]
 uses Gtk
-public class TreeViewSample : Window {
-    public TreeViewSample () {
+
+class TreeViewSample: Window
+    construct()
         this.title = "TreeView Sample";
         set_default_size (250, 100);
         var view = new TreeView ();
         setup_treeview (view);
         add (view);
         this.destroy.connect (Gtk.main_quit);
-    }
-    private void setup_treeview (TreeView view) {
+
+    def setup_treeview(view: TreeView)
         /*
          * Use ListStore to hold accountname, accounttype, balance and
          * color attribute. For more info on how TreeView works take a
          * look at the GTK+ API.
          */
-        var listmodel = new ListStore (4, typeof (string), typeof (string),
-                                          typeof (string), typeof (string));
+        var listmodel = new Gtk.ListStore(4, typeof(string), typeof(string),
+                                          typeof(string), typeof(string))
         view.set_model (listmodel);
         view.insert_column_with_attributes (-1, "Account Name", new CellRendererText (), "text", 0);
         view.insert_column_with_attributes (-1, "Type", new CellRendererText (), "text", 1);
         var cell = new CellRendererText ();
         cell.set ("foreground_set", true);
         view.insert_column_with_attributes (-1, "Balance", cell, "text", 2, "foreground", 3);
-        TreeIter iter;
+        iter: TreeIter
         listmodel.append (out iter);
         listmodel.set (iter, 0, "My Visacard", 1, "card", 2, "102,10", 3, "red");
         listmodel.append (out iter);
         listmodel.set (iter, 0, "My Mastercard", 1, "card", 2, "10,20", 3, "red");
-    }
-    public static int main (string[] args) {
-        Gtk.init (ref args);
-        var sample = new TreeViewSample ();
-        sample.show_all ();
-        Gtk.main ();
-        return 0;
-    }
-}
+
+init  // c static int main (string[] args) {
+    Gtk.init (ref args);
+    var sample = new TreeViewSample ();
+    sample.show_all ();
+    Gtk.main ();
 ```
 
 ### Compile and Run
 
 ```shell
-$ valac --pkg gtk+-3.0 gtk-treeview-liststore.vala
+$ valac --pkg=gtk+-3.0 gtk-treeview-liststore.vala
 $ ./gtk-treeview-liststore
 ```
 
@@ -467,23 +474,26 @@ $ ./gtk-treeview-liststore
 ## TreeView with TreeStore
 ```genie
 // vala-test:examples/gtk-treeview-treestore.vala using Gtk;
-public class TreeViewSample : Window {
-    public TreeViewSample () {
+[indent=4]
+uses Gtk
+
+class TreeViewSample: Window
+    construct()
         this.title = "TreeView Sample";
         set_default_size (250, 100);
         var view = new TreeView ();
         setup_treeview (view);
         add (view);
         this.destroy.connect (Gtk.main_quit);
-    }
-    private void setup_treeview (TreeView view) {
+
+    def setup_treeview(view: TreeView)
         var store = new TreeStore (2, typeof (string), typeof (string));
         view.set_model (store);
         view.insert_column_with_attributes (-1, "Product", new CellRendererText (), "text", 0, null);
         view.insert_column_with_attributes (-1, "Price", new CellRendererText (), "text", 1, null);
-        TreeIter root;
-        TreeIter category_iter;
-        TreeIter product_iter;
+        root: TreeIter;
+        category_iter: TreeIter
+        product_iter: TreeIter
         store.append (out root, null);
         store.set (root, 0, "All Products", -1);
         store.append (out category_iter, root);
@@ -505,21 +515,18 @@ public class TreeViewSample : Window {
         store.append (out product_iter, category_iter);
         store.set (product_iter, 0, "Vertigo", 1, "$20.49", -1);
         view.expand_all ();
-    }
-    public static int main (string[] args) {
-        Gtk.init (ref args);
-        var sample = new TreeViewSample ();
-        sample.show_all ();
-        Gtk.main ();
-        return 0;
-    }
-}
+
+init  // c static int main (string[] args) {
+    Gtk.init (ref args);
+    var sample = new TreeViewSample ();
+    sample.show_all ();
+    Gtk.main ();
 ```
 
 ### Compile and Run
 
 ```shell
-$ valac --pkg gtk+-3.0 gtk-treeview-treestore.vala
+$ valac --pkg=gtk+-3.0 gtk-treeview-treestore.vala
 $ ./gtk-treeview-treestore
 ```
 
@@ -576,7 +583,7 @@ void main (string[] args) {
 
 ### Compile and run
 ```shell
-$ valac --pkg gtk+-3.0 gtk-treeview-listsample.vala
+$ valac --pkg=gtk+-3.0 gtk-treeview-listsample.vala
 $ ./gtk-treeview-listsample
 ```
 
@@ -585,9 +592,10 @@ $ ./gtk-treeview-listsample
 Basic example use of the clipboard: vala-test:examples/gtk-clipboard-sample.vala
 
 ```genie
-using Gtk;
+[indent=4]
+uses Gtk
 
-int main (string[] args) {
+init  // (string[] args) {
     Gtk.init (ref args);
     var window = new Window ();
     window.title = "Clipboard";
@@ -600,21 +608,20 @@ int main (string[] args) {
     var display = window.get_display ();
     var clipboard = Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
     // Get text from clipboard
-    string text = clipboard.wait_for_text ();
-    entry.text = text ?? "";
+    var text = clipboard.wait_for_text()
+    if text == null
+        text = "";
+    entry.text = text
     // If the user types something ...
-    entry.changed.connect (() => {
+    entry.changed += def()
         // Set text to clipboard
         clipboard.set_text (entry.text, -1);
-    });
     Gtk.main ();
-    return 0;
-}
 ```
 
 ### Compile and run
 ```shell
-$ valac --pkg gtk+-3.0 gtk-clipboard-sample.vala
+$ valac --pkg=gtk+-3.0 gtk-clipboard-sample.vala
 $ ./gtk-clipboard-sampleNote: copy some text before running.
 ```
 
@@ -624,61 +631,59 @@ This example is based on
 http://www.valadoc.org/#!api=gtk+-3.0/Gtk.EntryCompletion but with two cells.
 
 ```genie
-public class Application : Gtk.Window {
+[indent=4]
 
-        public Application () {
-                // Prepare Gtk.Window:
-                this.title = "My Gtk.EntryCompletion";
-                this.window_position = Gtk.WindowPosition.CENTER;
-                this.destroy.connect (Gtk.main_quit);
-                this.set_default_size (350, 70);
-                // The Entry:
-                Gtk.Entry entry = new Gtk.Entry ();
-                this.add (entry);
-                // The EntryCompletion:
-                Gtk.EntryCompletion completion = new Gtk.EntryCompletion ();
-                entry.set_completion (completion);
-                // Create, fill &amp; register a ListStore:
-                Gtk.ListStore list_store = new Gtk.ListStore (2, typeof (string), typeof (string));
-                completion.set_model (list_store);
-                completion.set_text_column (0);
-                var cell = new Gtk.CellRendererText ();
-                completion.pack_start(cell, false);
-                completion.add_attribute(cell, "text", 1);
-                Gtk.TreeIter iter;
-                list_store.append (out iter);
-                list_store.set (iter, 0, "Burgenland", 1, "Austria");
-                list_store.append (out iter);
-                list_store.set (iter, 0, "Berlin", 1, "Germany");
-                list_store.append (out iter);
-                list_store.set (iter, 0, "Lower Austria", 1, "Austria");
-                list_store.append (out iter);
-                list_store.set (iter, 0, "Upper Austria", 1, "Austria");
-                list_store.append (out iter);
-                list_store.set (iter, 0, "Salzburg", 1, "Austria");
-                list_store.append (out iter);
-                list_store.set (iter, 0, "Styria", 1, "Austria");
-                list_store.append (out iter);
-                list_store.set (iter, 0, "Tehran", 1, "Iran");
-                list_store.append (out iter);
-                list_store.set (iter, 0, "Vorarlberg", 1, "Austria");
-                list_store.append (out iter);
-                list_store.set (iter, 0, "Vienna", 1, "Austria");
-        }
-        public static int main (string[] args) {
-                Gtk.init (ref args);
-                Application app = new Application ();
-                app.show_all ();
-                Gtk.main ();
-                return 0;
-        }
-}
+class Application: Gtk.Window
+    construct()
+        // Prepare Gtk.Window:
+        this.title = "My Gtk.EntryCompletion";
+        this.window_position = Gtk.WindowPosition.CENTER;
+        this.destroy.connect (Gtk.main_quit);
+        this.set_default_size (350, 70);
+        // The Entry:
+        var entry = new Gtk.Entry ();
+        this.add (entry);
+        // The EntryCompletion:
+        var completion = new Gtk.EntryCompletion()
+        entry.set_completion (completion);
+        // Create, fill &amp; register a ListStore:
+        var list_store = new Gtk.ListStore(2, typeof(string), typeof(string))
+        completion.set_model (list_store);
+        completion.set_text_column (0);
+        var cell = new Gtk.CellRendererText()
+        completion.pack_start(cell, false);
+        completion.add_attribute(cell, "text", 1);
+        iter: Gtk.TreeIter
+        list_store.append (out iter);
+        list_store.set (iter, 0, "Burgenland", 1, "Austria");
+        list_store.append (out iter);
+        list_store.set (iter, 0, "Berlin", 1, "Germany");
+        list_store.append (out iter);
+        list_store.set (iter, 0, "Lower Austria", 1, "Austria");
+        list_store.append (out iter);
+        list_store.set (iter, 0, "Upper Austria", 1, "Austria");
+        list_store.append (out iter);
+        list_store.set (iter, 0, "Salzburg", 1, "Austria");
+        list_store.append (out iter);
+        list_store.set (iter, 0, "Styria", 1, "Austria");
+        list_store.append (out iter);
+        list_store.set (iter, 0, "Tehran", 1, "Iran");
+        list_store.append (out iter);
+        list_store.set (iter, 0, "Vorarlberg", 1, "Austria");
+        list_store.append (out iter);
+        list_store.set (iter, 0, "Vienna", 1, "Austria");
+
+init  // atic int main (string[] args) {
+    Gtk.init (ref args);
+    var app = new Application ();
+    app.show_all ();
+    Gtk.main ();
 ```
 
 ### Compile and run
 
 ```shell
-$ valac --pkg gtk+-3.0 EntryCompletionExample2.vala -o EntryCompletionExample2.a
+$ valac --pkg=gtk+-3.0 EntryCompletionExample2.vala -o EntryCompletionExample2.a
 $ ./EntryCompletionExample2.a
 ```
 

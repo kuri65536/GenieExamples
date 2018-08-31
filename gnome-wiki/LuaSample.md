@@ -46,17 +46,20 @@ Based on Simple Lua Api Example from lua-users.org.
 
 ```genie
 // vala-test:examples/lua-table.vala
+[indent=4]
+
 uses Lua
-static int main () {
+init  // t main () {
     var vm = new LuaVM ();
     vm.open_libs ();
     // Create a Lua table with name 'foo'
     vm.new_table ();
-    for (int i = 1; i <= 5; i++) {
+    var i = 1
+    while i <= 5
         vm.push_number (i);         // Push the table index
         vm.push_number (i * 2);     // Push the cell value
         vm.raw_set (-3);            // Stores the pair in the table
-    }
+        i += 1
     vm.set_global ("foo");
     // Ask Lua to run our little script
     vm.do_string ("""
@@ -74,12 +77,10 @@ static int main () {
     var sum = vm.to_number (-1);
     stdout.printf ("Script returned: %.0f\n", sum);
     vm.pop (1);  // Take the returned value out of the stack
-    return 0;
-}
 ```
 
 ```shell
-$ valac --pkg lua simplesample.vala -o simplesample
+$ valac --pkg=lua simplesample.vala -o simplesample
 $ ./simplesample
 ```
 

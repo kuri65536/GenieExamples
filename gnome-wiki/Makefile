@@ -13,6 +13,7 @@
 # disabled: GSLSample.md:1-2-3-4-5-6-7-8-9-10 by gsl dependencies.
 # disabled: GStreamerSample.md:1-2-3 by gstreamer dependencies
 # disabled: GStreamerSample.md:4 by gstreamer and gtk-2.0 dependencies
+# disabled: GStreamerSamples.md:1 by dependencies
 
 src := \
     AdvancedSample.md:1-2 \
@@ -31,8 +32,7 @@ src := \
     GIOSamples.md \
     GSFSample.md:1 \
     GSettingsSample.md:1 \
-    GStreamerSample.md \
-    GTKSample.md \
+    GTKSample.md:1-2-3-4-5-6-7-8 \
     GdlSample.md \
     Gedit3PluginSample.md \
     GeeSamples.md:1-2-3 \

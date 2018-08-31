@@ -15,6 +15,11 @@ init
     // return 0;
 ```
 
+```shell
+$ valac stdin-input.vala
+$ ./stdin-input
+```
+
 ## Reading From Standard Input (stdin)
 
 ```genie
@@ -25,22 +30,19 @@ init
  *
  * Note that stdin.gets uses the "safe" fgets(), not the unsafe gets()
  */
-string read_stdin () {
+[indent=4]
+def read_stdin(): string
     var input = new StringBuilder ();
-    var buffer = new char[1024];
-    while (!stdin.eof ()) {
-        string read_chunk = stdin.gets (buffer);
-        if (read_chunk != null) {
+    var buffer = new array of char[1024];
+    while !stdin.eof()
+        var read_chunk = stdin.gets(buffer)
+        if read_chunk != null
             input.append (read_chunk);
-        }
-    }
     return input.str;
-}
-int main () {
-    string name = read_stdin ();
+
+init  // () {
+    var name = read_stdin()
     stdout.printf ("\n-----\n%s\n", name);
-    return 0;
-}
 ```
 
 ```shell
@@ -54,21 +56,21 @@ A comfortable way of handling user input is GNU Readline:
 
 ```genie
 // vala-test:examples/input-readline.vala
-void main () {
-    while (true) {
+[indent=4]
+uses Readline
+
+init  //  () {
+    while true
         var name = Readline.readline ("Please enter your name: ");
-        if (name != null &amp;&amp; name != "") {
+        if name != null and name != ""
             stdout.printf ("Hello, %s\n", name);
             Readline.History.add (name);
-        } else {
+        else
             break;
-        }
-    }
-}
 ```
 
 ```shell
-$ valac readline-sample.vala --pkg readline -X -lreadline
+$ valac readline-sample.vala --pkg=readline -X -lreadline
 $ ./readline-sample
 ```
 
@@ -77,16 +79,15 @@ $ ./readline-sample
 
 ```genie
 // vala-test:examples/input-character.vala
-public static void main (string[] args) {
-    int c = 0;
+[indent=4]
+init  // atic void main (string[] args) {
+    var c = 0
     stdout.printf ("Type something and press enter. Type '0' to quit\n");
-    do {
+    do
         c = stdin.getc ();
-        if (c > 10) {
+        if c > 10
             stdout.printf ("%c (%d)\n", c, c);
-        }
-    } while (c != '0');
-}
+    while c != '0'
 ```
 
 ```shell
@@ -100,11 +101,12 @@ Useful for parsing text input into numbers vala-test:
 
 ```genie
 // examples/input-scanf.vala
-public static void main() {
-    float f;
-    double d;
-    int i;
-    long l;
+[indent=4]
+init  // atic void main() {
+    f: float
+    d: double
+    i: int
+    l: long
     stdout.printf("Enter a float   : ");
     stdin.scanf("%f", out f);
     stdout.printf("Enter a double  : ");
@@ -118,7 +120,6 @@ public static void main() {
     stdout.printf("Double : %lf\n",d);
     stdout.printf("Integer: %d\n",i);
     stdout.printf("Long   : %ld\n",l);
-}
 ```
 
 See the Wikipedia article on Scanf for more details. There is also a scanf

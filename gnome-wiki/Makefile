@@ -9,6 +9,7 @@
 # disabled: ClutterSample.md:3, by mash-0.1 dependencies.
 # disabled: DBusClientSamplesWaiting.md:1 by string[][]
 # disabled: DBusServerSamplePassingObjects.md:1-2-3 old?
+# disabled: GdlSample.md:1 by gdl dependencies.
 # disabled: GeeSamples.md:4 can't compile by Gee.Traverse.
 # disabled: GSLSample.md:1-2-3-4-5-6-7-8-9-10 by gsl dependencies.
 # disabled: GStreamerSample.md:1-2-3 by gstreamer dependencies
@@ -34,12 +35,11 @@ src := \
     GSFSample.md:1 \
     GSettingsSample.md:1 \
     GTKSample.md:1-2-3-4-5-6-7-8 \
-    GdlSample.md \
     Gedit3PluginSample.md \
     GeeSamples.md:1-2-3 \
     GnomeDesktopAndGMenuExample.md \
     GtkCellRendererSample.md \
-    InputSamples.md \
+    InputSamples.md:1-2-3-4-5 \
     IoChannelsSample.md \
     JsonSample.md:1-2-3 \
     LibSoupSample.md \

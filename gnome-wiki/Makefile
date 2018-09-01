@@ -60,7 +60,7 @@ src := \
     StringSample.md \
     TestSample.md \
     TiffSample.md \
-    TimeSample.md \
+    TimeSample.md:1 \
     TypeModuleSample.md \
     USBSample.md \
     ValueSample.md:1 \

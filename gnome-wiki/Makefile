@@ -57,7 +57,7 @@ src := \
     PropertiesSample.md:1-2 \
     SDLSample.md \
     SqliteSample.md \
-    StringSample.md \
+    StringSample.md:1-2-3-4-5 \
     TestSample.md:1-2 \
     TiffSample.md \
     TimeSample.md:1 \

@@ -53,7 +53,7 @@ src := \
     LibSoupSample.md:1-2-3-4-5 \
     ListSample.md:1 \
     PangoCairoSample.md \
-    PopplerSample.md \
+    PopplerSample.md:1 \
     PropertiesSample.md:1-2 \
     SDLSample.md \
     SharedLibSample.md \

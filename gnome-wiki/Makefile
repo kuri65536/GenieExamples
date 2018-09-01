@@ -54,7 +54,7 @@ src := \
     ListSample.md:1 \
     PangoCairoSample.md \
     PopplerSample.md \
-    PropertiesSample.md \
+    PropertiesSample.md:1-2 \
     SDLSample.md \
     SharedLibSample.md \
     SqliteSample.md \

@@ -58,7 +58,7 @@ src := \
     SDLSample.md \
     SqliteSample.md \
     StringSample.md \
-    TestSample.md \
+    TestSample.md:1-2 \
     TiffSample.md \
     TimeSample.md:1 \
     TypeModuleSample.md \

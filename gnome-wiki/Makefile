@@ -16,6 +16,7 @@
 # disabled: GStreamerSample.md:4 by gstreamer and gtk-2.0 dependencies
 # disabled: GStreamerSamples.md:1 by dependencies
 # disabled: LuaSample.md:1-2 by dependencies for lua-dev.
+# disabled: LoudmouthSample.md:1-2 by dependencies gtk-2.0
 
 src := \
     AdvancedSample.md:1-2 \
@@ -44,7 +45,6 @@ src := \
     JsonSample.md:1-2-3 \
     LibSoupSample.md:1-2-3-4-5 \
     ListSample.md:1 \
-    LoudmouthSample.md \
     MxSample.md \
     OpenGLSamples.md \
 

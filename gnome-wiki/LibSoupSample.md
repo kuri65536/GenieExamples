@@ -36,32 +36,33 @@ $ ./twitter
 
 ```genie
 // vala-test:examples/soup-http-request.vala
-void main () {
-    var session = new Soup.Session ();
-    var message = new Soup.Message ("GET", "http://club.developpez.com/outils/wiki/KitODTKitOOoDVP");
+[indent=4]
+
+def f(name: string, value: string)
+    stdout.printf ("Name: %s -> Value: %s\n", name, value);
+
+init  //  () {
+    var session = new Soup.Session()
+    var message = new Soup.Message(
+        "GET", "http://club.developpez.com/outils/wiki/KitODTKitOOoDVP")
     /* see if we need HTTP auth */
-    session.authenticate.connect ((sess, msg, auth, retrying) => {
-        if (!retrying) {
+    session.authenticate += def(sess, msg, auth, retrying)
+        if !retrying
             stdout.printf ("Authentication required\n");
             // it isn't the real IDs ;)
             auth.authenticate ("user", "password");
-        }
-    });
     /* send a sync request */
     session.send_message (message);
-    message.response_headers.foreach ((name, val) => {
-        stdout.printf ("Name: %s -> Value: %s\n", name, val);
-    });
+    message.response_headers.foreach(f)
     stdout.printf ("Message length: %lld\n%s\n",
                    message.response_body.length,
                    message.response_body.data);
-}
 ```
 
 ### Compile and Run
 
 ```shell
-$ valac --pkg libsoup-2.4 --thread soup-sample.vala
+$ valac --pkg=libsoup-2.4 --thread soup-sample.vala
 $ ./soup-sample
 ```
 
@@ -84,10 +85,11 @@ scope. Bug 704176.
 
 ```genie
 // vala-test:examples/soup-http-server.vala
-void default_handler (Soup.Server server, Soup.Message msg, string path,
-                      GLib.HashTable? query, Soup.ClientContext client)
-{
-    string response_text = """
+[indent=4]
+
+def default_handler(server: Soup.Server, msg: Soup.Message, path: string,
+                    query: GLib.HashTable?, client: Soup.ClientContext)
+    response_text: string = """
         <html>
           <body>
             <p>Current location: %s</p>
@@ -96,26 +98,24 @@ void default_handler (Soup.Server server, Soup.Message msg, string path,
         </html>""".printf (path);
     msg.set_response ("text/html", Soup.MemoryUse.COPY,
                       response_text.data);
-}
-void xml_handler (Soup.Server server, Soup.Message msg, string path,
-                  GLib.HashTable? query, Soup.ClientContext client)
-{
-    string response_text = "<node><subnode>test</subnode></node>";
+
+def xml_handler(server: Soup.Server, msg: Soup.Message, path: string,
+                query: GLib.HashTable?, client: Soup.ClientContext)
+    var response_text = "<node><subnode>test</subnode></node>"
     msg.set_response ("text/xml", Soup.MemoryUse.COPY,
                       response_text.data);
-}
-void main () {
+
+init  //  () {
     var server = new Soup.Server (Soup.SERVER_PORT, 8088);
     server.add_handler ("/", default_handler);
     server.add_handler ("/xml", xml_handler);
     server.run ();
-}
 ```
 
 ### Compile and Run
 
 ```shell
-$ valac --pkg libsoup-2.4 --thread soup-server-example.vala
+$ valac --pkg=libsoup-2.4 --thread soup-server-example.vala
 $ ./soup-server-example
 ```
 
@@ -127,26 +127,27 @@ http://localhost:8088/xml/
 
 ```genie
 // vala-test:examples/soup-xmlrpc-test-hello.vala
-using Soup;
-void main () {
+[indent=4]
+uses Soup
+
+init  //  () {
     var message = XMLRPC.request_new ("http://kushaldas.wordpress.com/xmlrpc.php",
                                      "demo.sayHello");
     var session = new Session ();
     session.send_message (message);
-    try {
-        Value v;
-        XMLRPC.parse_method_response ((string) message.response_body.flatten ().data, -1, out v);
+    try
+        v: Value
+        XMLRPC.parse_method_response(
+            (string)message.response_body.flatten().data, -1, out v);
         stdout.printf ("Got: %s\n", (string) v);
-    } catch (Error e) {
+    except e: Error
         stderr.printf ("Error while processing the response: %s\n", e.message);
-    }
-}
 ```
 
 ### Compile and Run
 
 ```shell
-$ valac --pkg libsoup-2.4 --thread soup-xmlrpc-test-hello.vala
+$ valac --pkg=libsoup-2.4 --thread soup-xmlrpc-test-hello.vala
 $ ./soup-xmlrpc-test-hello
 ```
 
@@ -155,22 +156,23 @@ $ ./soup-xmlrpc-test-hello
 
 ```genie
 // vala-test:examples/soup-xmlrpc-test-addnumbers.vala
-using Soup;
-void main () {
-    var message = XMLRPC.request_new ("http://kushaldas.wordpress.com/xmlrpc.php",
+[indent=4]
+uses Soup
+
+init  //  () {
+    var message = XMLRPC.request_new(
+        "http://kushaldas.wordpress.com/xmlrpc.php",
                                      "demo.addTwoNumbers",
                                      typeof (int), 20,
                                      typeof (int), 30);
     var session = new Session ();
     session.send_message (message);
-    try {
-        Value v;
+    try
+        v: Value
         XMLRPC.parse_method_response ((string) message.response_body.flatten ().data, -1, out v);
         stdout.printf ("Result: %d\n", (int) v);
-    } catch (Error e) {
+    except e: Error
         stderr.printf ("Error while processing the response: %s\n", e.message);
-    }
-}
 ```
 
 ### Compile and Run

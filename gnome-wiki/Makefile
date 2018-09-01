@@ -38,11 +38,11 @@ src := \
     Gedit3PluginSample.md \
     GeeSamples.md:1-2-3 \
     GnomeDesktopAndGMenuExample.md \
-    GtkCellRendererSample.md \
+    GtkCellRendererSample.md:1 \
     InputSamples.md:1-2-3-4-5 \
     IoChannelsSample.md \
     JsonSample.md:1-2-3 \
-    LibSoupSample.md \
+    LibSoupSample.md:1-2-3-4-5 \
     ListSample.md:1 \
     LoudmouthSample.md \
     MxSample.md \

@@ -56,7 +56,6 @@ src := \
     PangoCairoSample.md \
     PropertiesSample.md:1-2 \
     SDLSample.md \
-    SharedLibSample.md \
     SqliteSample.md \
     StringSample.md \
     TestSample.md \
@@ -91,7 +90,7 @@ func1 = $(foreach i,$(subst -, ,$(word 2,$(1))), \
 bin_examples := $(foreach i,$(src),$(call func1,$(subst :, ,$(i))))
 bin_examples := $(addprefix tmp/,$(bin_examples))
 
-build: $(bin_examples)
+build: $(bin_examples) tmp/valatest.exe
 
 extract := ./extract
 
@@ -135,4 +134,19 @@ tmp/%.exe: tmp/%.gs $(extract)
 	mkdir -p tmp
 	n=$(word 2,$(subst -, ,$(subst .gs,,$<))); \
 	valac -o $@ $@.gs $$(./extract --opt $$n $<)
+
+# SharedLibSample
+tmp/test_shared.gs: SharedLibSample.md $(extract)
+	$(extract) 1 $(filter %.md,$^) > $@
+
+tmp/test_shared.so: tmp/test_shared.gs
+	valac --library=test_shared -H test_shared.h $< \
+	    -X -fPIC -X -shared -o $@
+
+tmp/main.gs: SharedLibSample.md $(extract)
+	$(extract) 2 $(filter %.md,$^) > $@
+
+tmp/valatest.exe: tmp/main.gs tmp/test_shared.so
+	valac test_shared.vapi tmp/main.gs -X tmp/test_shared.so -X -I. -o $@
+
 

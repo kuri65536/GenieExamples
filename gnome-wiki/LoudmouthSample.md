@@ -119,27 +119,30 @@ $ ./lm-send-sync -s jabber.org -u myusername -p mypassword -m "message to send" 
 
 ```genie
 // vala-test:examples/lm-send-async.vala
-using Gtk;
-using Lm;
-class MainWindow : Window {
-    private Label status;
-    private Button dconnect;
-    private Button send;
-    private Entry server;
-    private Entry message;
-    private Entry recipient;
-    private Entry username;
-    private Entry password;
-    private Entry resource;
-    private Connection cn;
-    public MainWindow () {
+[indent=4]
+uses Gtk
+uses Lm
+
+class MainWindow: Window
+    status: Label
+    dconnect: Button
+    send: Button
+    server: Entry
+    message: Entry
+    recipient: Entry
+    username: Entry
+    password: Entry
+    resource: Entry
+    cn: Connection
+
+    construct()
         this.title = "jabber-send";
         create_widgets ();
         this.destroy.connect (on_quit);
         this.send.clicked.connect (send_message);
         this.dconnect.clicked.connect (do_connect);
-    }
-    private void create_widgets () {
+
+    def create_widgets()
         var hboxbut = new HBox (false, 5);
         status = new Label ("");
         dconnect = new Button.with_label ("Connect");
@@ -165,93 +168,81 @@ class MainWindow : Window {
         vbox.pack_start (status, true, true, 0);
         vbox.pack_start (hboxbut, false, false, 0);
         add (vbox);
-    }
-    private HBox hbox (string label, Widget w) {
+
+    def hbox(label: string, w: Widget): HBox
         var box = new HBox (false, 5);
         box.pack_start (new Label.with_mnemonic (label), false, false, 5);
         box.pack_start (w, true, true, 5);
         return box;
-    }
-    private void on_quit () {
-        if (cn != null) {
+
+    def on_quit()
+        if cn != null
             do_disconnect ();
-        }
         Gtk.main_quit ();
-    }
-    private void connected (Connection connection, bool success) {
-        if (success) {
+
+    def connected(connection: Connection, success: bool)
+        if success
             status.label = "Opened connection and authenticated";
             dconnect.label = "Disconnect";
             dconnect.clicked.disconnect (do_connect);
             dconnect.clicked.connect (do_disconnect);
             send.sensitive = true;
-        } else {
+        else
             status.label = "Authentication failed";
-        }
         dconnect.sensitive = true;
-    }
-    private void send_message () {
+
+    def send_message()
         var m = new Message (recipient.text, Lm.MessageType.MESSAGE);
         m.node.add_child ("body", message.text);
-        try {
+        try
             cn.send (m);
             status.label = "Message sent";
-        } catch (GLib.Error e) {
+        except e: GLib.Error
             status.label = "Error: " + e.message;
-        }
-    }
-    private void auth (Connection connection, bool success) {
-        if (!success) {
+
+    def auth(connection: Connection, success: bool)
+        if !success
             status.label = "Connection failed";
             dconnect.sensitive = true;
             return;
-        }
         status.label = "Authenticating with " + server.text;
-        try {
+        try
             connection.authenticate (username.text, password.text,
                                      resource.text, connected, null);
-        } catch (GLib.Error e) {
+        except e: GLib.Error
             status.label = "Error: " + e.message;
-        }
-    }
-    private void do_connect () {
-        if (cn != null &amp;&amp; cn.is_open ()) {
-            try {
+
+    def do_connect()
+        if cn != null and cn.is_open()
+            try
                 cn.close ();
-            } catch (GLib.Error e) {
+            except e: GLib.Error
                 status.label = "Error: " + e.message;
                 return;
-            }
-        }
         cn = new Connection (server.text);
-        try {
+        try
             cn.open (auth, null);
             status.label = "Loading connection to " + server.text;
             dconnect.sensitive = false;
-        } catch (GLib.Error e) {
+        except e: GLib.Error
             status.label = "Error: " + e.message;
-        }
-    }
-    private void do_disconnect () {
-        try {
+
+    def do_disconnect()
+        try
             cn.close ();
             status.label = "Disconnected";
             dconnect.clicked.disconnect (do_disconnect);
             dconnect.clicked.connect (do_connect);
             dconnect.label = "Connect";
             send.sensitive = false;
-        } catch (GLib.Error e) {
+        except e: GLib.Error
             status.label = "Error: " + e.message;
-        }
-    }
-    static int main (string[] args) {
-        Gtk.init (ref args);
-        var window = new MainWindow ();
-        window.show_all ();
-        Gtk.main ();
-        return 0;
-    }
-}
+
+init  // c int main (string[] args) {
+    Gtk.init (ref args);
+    var window = new MainWindow ();
+    window.show_all ();
+    Gtk.main ();
 ```
 
 ### Compile and run

@@ -19,6 +19,7 @@
 # disabled: LuaSample.md:1-2 by dependencies for lua-dev.
 # disabled: LoudmouthSample.md:1-2 by dependencies gtk-2.0
 # disabled: MxSample.md:1-2 by dependencies mx-dev
+# disabled: PopplerSample.md:1 by dependencies poppler-dev
 
 # can't compile
 # GeeSamples.md:4 can't compile by Gee.Traverse.
@@ -53,7 +54,6 @@ src := \
     LibSoupSample.md:1-2-3-4-5 \
     ListSample.md:1 \
     PangoCairoSample.md \
-    PopplerSample.md:1 \
     PropertiesSample.md:1-2 \
     SDLSample.md \
     SharedLibSample.md \
@@ -64,7 +64,7 @@ src := \
     TimeSample.md \
     TypeModuleSample.md \
     USBSample.md \
-    ValueSample.md \
+    ValueSample.md:1 \
     WebKitSample.md \
     Win32CrossBuildSample.md \
     XmlSample.md \

@@ -24,6 +24,7 @@
 # GeeSamples.md:4 can't compile by Gee.Traverse.
 # Gedit3PluginSample.md:1 by gedit.vapi
 # OpenGLSamples.md:1-2-3-4 by gl.vapi libglfw.vapi glx.vapi glu.vapi glut.vapi
+# GnomeDesktopAndGMenuExample.md \
 
 src := \
     AdvancedSample.md:1-2 \
@@ -32,6 +33,7 @@ src := \
     CairoSample.md:1-4 \
     CharacterSample.md:1 \
     ClutterSamples.md:1-2 \
+    ConditionalCompilationSample.md:1 \
     CursesSample.md:1 \
     CustomWidgetSamples.md:1-2 \
     DBusClientSamples.md:1-2-3 \
@@ -41,15 +43,32 @@ src := \
     GIONetworkingSample.md:1 \
     GIOSamples.md:1 \
     GSettingsSample.md:1 \
+    GStreamerSamples.md \
     GTKSample.md:1-2-3-4-5-6-7-8 \
     GeeSamples.md:1-2-3 \
-    GnomeDesktopAndGMenuExample.md \
     GtkCellRendererSample.md:1 \
     InputSamples.md:1-2-3-4-5 \
     IoChannelsSample.md:1 \
     JsonSample.md:1-2-3 \
     LibSoupSample.md:1-2-3-4-5 \
-    ListSample.md:1
+    ListSample.md:1 \
+    PangoCairoSample.md \
+    PopplerSample.md \
+    PropertiesSample.md \
+    SDLSample.md \
+    SharedLibSample.md \
+    SqliteSample.md \
+    StringSample.md \
+    TestSample.md \
+    TiffSample.md \
+    TimeSample.md \
+    TypeModuleSample.md \
+    USBSample.md \
+    ValueSample.md \
+    WebKitSample.md \
+    Win32CrossBuildSample.md \
+    XmlSample.md \
+
 
 # ver.1: extract the first `genie` block
 ifeq (x,x1)

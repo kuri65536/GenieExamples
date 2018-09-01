@@ -61,8 +61,10 @@ $ ./mx-expander-demo
 
 ```genie
 // vala-test:examples/mx-widget-factory.vala
-using Mx;
-Clutter.Actor create_main_content () {
+[indent=4]
+uses Mx
+
+def create_main_content(): Clutter.Actor
     var table = new Table ();
     table.column_spacing = 24;
     table.row_spacing = 24;
@@ -90,9 +92,8 @@ Clutter.Actor create_main_content () {
     /* slider */
     var slider = new Slider ();
     table.add_actor_with_properties (slider, 1, 2, "y-fill", false);
-    slider.notify["value"].connect (() => {
+    slider.notify["value"] += def()
         progressbar.progress = slider.value;
-    });
     /* path bar */
     var pathbar = new PathBar ();
     pathbar.push ("");
@@ -125,8 +126,8 @@ Clutter.Actor create_main_content () {
     var frame = new Frame ();
     frame.child = table;
     return frame;
-}
-int main (string [] args) {
+
+init  // (string [] args) {
     var app = new Mx.Application (ref args, "Widget Factory", 0);
     var window = app.create_window ();
     window.clutter_stage.set_size (500, 300);
@@ -135,9 +136,8 @@ int main (string [] args) {
     toolbar.add_actor (hbox);
     var button = new Button.with_label ("Click me");
     button.tooltip_text = "Please click this button!";
-    button.clicked.connect (() => {
+    button.clicked += def()
         button.label = "Thank you!";
-    });
     var combo = new ComboBox ();
     combo.append_text ("Africa");
     combo.append_text ("Antarctica");
@@ -147,15 +147,12 @@ int main (string [] args) {
     combo.append_text ("North America");
     combo.append_text ("South America");
     combo.index = 0;
-    combo.notify["index"].connect (() => {
+    combo.notify["index"] += def()
         stdout.printf ("Selected continent: %s\n", combo.active_text);
-    });
     hbox.add (button, combo);
     window.child = create_main_content ();
     window.clutter_stage.show ();
     app.run ();
-    return 0;
-}
 ```
 
 ```shell

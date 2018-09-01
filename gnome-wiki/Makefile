@@ -5,12 +5,13 @@
 # v.2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at https://mozilla.org/MPL/2.0/.
 
+# can't link
 # disabled: CairoSample.md:2-3, by gtk+-2.0 dependencies.
 # disabled: ClutterSample.md:3, by mash-0.1 dependencies.
 # disabled: DBusClientSamplesWaiting.md:1 by string[][]
 # disabled: DBusServerSamplePassingObjects.md:1-2-3 old?
 # disabled: GdlSample.md:1 by gdl dependencies.
-# disabled: GeeSamples.md:4 can't compile by Gee.Traverse.
+# disabled: GSFSample.md:1 by dependencie
 # disabled: GSLSample.md:1-2-3-4-5-6-7-8-9-10 by gsl dependencies.
 # disabled: GStreamerSample.md:1-2-3 by gstreamer dependencies
 # disabled: GStreamerSample.md:4 by gstreamer and gtk-2.0 dependencies
@@ -18,6 +19,11 @@
 # disabled: LuaSample.md:1-2 by dependencies for lua-dev.
 # disabled: LoudmouthSample.md:1-2 by dependencies gtk-2.0
 # disabled: MxSample.md:1-2 by dependencies mx-dev
+
+# can't compile
+# GeeSamples.md:4 can't compile by Gee.Traverse.
+# Gedit3PluginSample.md:1 by gedit.vapi
+# OpenGLSamples.md:1-2-3-4 by gl.vapi libglfw.vapi glx.vapi glu.vapi glut.vapi
 
 src := \
     AdvancedSample.md:1-2 \
@@ -31,22 +37,19 @@ src := \
     DBusClientSamples.md:1-2-3 \
     DBusServerSample.md:1-2-3 \
     DragAndDropSample.md:1 \
-    GIOCompressionSample.md \
-    GIONetworkingSample.md \
-    GIOSamples.md \
-    GSFSample.md:1 \
+    GIOCompressionSample.md:1 \
+    GIONetworkingSample.md:1 \
+    GIOSamples.md:1 \
     GSettingsSample.md:1 \
     GTKSample.md:1-2-3-4-5-6-7-8 \
-    Gedit3PluginSample.md \
     GeeSamples.md:1-2-3 \
     GnomeDesktopAndGMenuExample.md \
     GtkCellRendererSample.md:1 \
     InputSamples.md:1-2-3-4-5 \
-    IoChannelsSample.md \
+    IoChannelsSample.md:1 \
     JsonSample.md:1-2-3 \
     LibSoupSample.md:1-2-3-4-5 \
-    ListSample.md:1 \
-    OpenGLSamples.md \
+    ListSample.md:1
 
 # ver.1: extract the first `genie` block
 ifeq (x,x1)
@@ -71,7 +74,9 @@ bin_examples := $(addprefix tmp/,$(bin_examples))
 
 build: $(bin_examples)
 
-extract: ../tools/extract.gs
+extract := ./extract
+
+$(extract): ../tools/extract.gs
 	valac -o $@ ../tools/extract.gs --pkg gio-2.0
 
 %.md:
@@ -107,7 +112,7 @@ $(foreach i,$(bin_examples),$(eval $(call exe_template, \
     $(call fn_md,$(i)) \
   )))
 
-tmp/%.exe: tmp/%.gs extract
+tmp/%.exe: tmp/%.gs $(extract)
 	mkdir -p tmp
 	n=$(word 2,$(subst -, ,$(subst .gs,,$<))); \
 	valac -o $@ $@.gs $$(./extract --opt $$n $<)

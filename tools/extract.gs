@@ -45,6 +45,8 @@ def opt_filter(line: string)
         for i in line.split(" ")
             if i == "-X"
                 print("-X")
+            if i.has_suffix(".vapi")
+                print(i)
             if i.has_prefix("-l")
                 print(i)
             if i.has_prefix("--pkg")

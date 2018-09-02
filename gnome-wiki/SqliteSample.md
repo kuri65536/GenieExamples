@@ -53,6 +53,12 @@ class SqliteSample: GLib.Object
 
 ### Compile and Run
 
+- prerequiste on Ubuntu 18.04
+
+```
+$ apt install libsqlite3-dev
+```
+
 ```shell
 $ valac --pkg=sqlite3 -o sqlitesample SqliteSample.gs
 $ ./sqlitesample

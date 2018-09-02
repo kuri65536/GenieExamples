@@ -46,7 +46,7 @@ src := \
     DragAndDropSample.md:1 \
     GIOCompressionSample.md:1 \
     GIONetworkingSample.md:1 \
-    GIOSamples.md:1 \
+    GIOSamples.md:1-2-3-4-5-6-7 \
     GSettingsSample.md:1 \
     GStreamerSamples.md \
     GTKSample.md:1-2-3-4-5-6-7-8 \

@@ -57,6 +57,7 @@ src := \
     ListSample.md:1 \
     PangoCairoSample.md \
     PropertiesSample.md:1-2 \
+    PulseAudioSamples.md:1 \
     SDLSample.md \
     SqliteSample.md \
     StringSample.md:1-2-3-4-5 \

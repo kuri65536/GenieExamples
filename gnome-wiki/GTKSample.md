@@ -584,7 +584,6 @@ init  //  (string[] args) {
     var sample = new ListSample ();
     sample.show_all ();
     Gtk.main ();
-}
 ```
 
 ### Compile and run

@@ -46,13 +46,14 @@ $ ./gio-network-client
 ```genie
 // vala-test:examples/gio-network-client-async.vala
 [indent=4]
-class AsyncDemo {
-    private MainLoop loop;
-    public AsyncDemo (MainLoop loop) {
+class AsyncDemo
+    loop: MainLoop
+
+    construct(loop: MainLoop)
         this.loop = loop;
-    }
-    public async void http_request () throws Error {
-        try {
+
+    def async http_request() raises Error
+        try
             var resolver = Resolver.get_default ();
             var addresses = yield resolver.lookup_by_name_async ("www.google.com");
             var address = addresses.nth_data (0);
@@ -70,24 +71,21 @@ class AsyncDemo {
             var input = new DataInputStream (conn.input_stream);
             message = input.read_line (null).strip ();
             print ("(async) received status line: %s\n", message);
-        } catch (Error e) {
+        except e: Error
             stderr.printf ("%s\n", e.message);
-        }
         this.loop.quit ();
-    }
-}
-void main () {
+
+init
     var loop = new MainLoop ();
     var demo = new AsyncDemo (loop);
     demo.http_request.begin ();
     loop.run ();
-}
 ```
 
 ### Compile and Run
 
 ```shell
-$ valac --pkg gio-2.0 gio-network-client-async.gs
+$ valac --pkg=gio-2.0 gio-network-client-async.gs
 $ ./gio-network-client-async
 ```
 
@@ -96,14 +94,15 @@ $ ./gio-network-client-async
 
 ```genie
 // vala-test:examples/gio-server.vala
-void process_request (InputStream input, OutputStream output) throws Error {
+[indent=4]
+def process_request(input: InputStream, output: OutputStream) raises Error
     var data_in = new DataInputStream (input);
-    string line;
-    while ((line = data_in.read_line (null)) != null) {
+    line: string
+    while (line = data_in.read_line (null)) != null
         stdout.printf ("%s\n", line);
-        if (line.strip () == "") break;
-    }
-    string content = "<html><h1>Hello from Vala server</h1></html>";
+        if line.strip() == ""
+            break;
+    var content = "<html><h1>Hello from Vala server</h1></html>"
     var header = new StringBuilder ();
     header.append ("HTTP/1.0 200 OK\r\n");
     header.append ("Content-Type: text/html\r\n");
@@ -111,27 +110,23 @@ void process_request (InputStream input, OutputStream output) throws Error {
     output.write (header.str.data);
     output.write (content.data);
     output.flush ();
-}
-int main () {
-    try {
+
+init
+    try
         var service = new SocketService ();
         service.add_inet_port (8080, null);
         service.start ();
-        while (true) {
+        while true
             var conn = service.accept (null);
             process_request (conn.input_stream, conn.output_stream);
-        }
-    } catch (Error e) {
+    except e: Error
         stderr.printf ("%s\n", e.message);
-    }
-    return 0;
-}
 ```
 
 ### Compile and Run
 
 ```shell
-$ valac --pkg gio-2.0 gio-server.gs
+$ valac --pkg=gio-2.0 gio-server.gs
 $ ./gio-server
 ```
 
@@ -141,39 +136,37 @@ Enter http://localhost:8080/ in your browser address bar.
 ## Asynchronous Server Example
 
 ```genie
-bool on_incoming_connection (SocketConnection conn) {
+[indent=4]
+def on_incoming_connection(conn: SocketConnection): bool
     stdout.printf ("Got incoming connection\n");
     // Process the request asynchronously
     process_request.begin (conn);
     return true;
-}
-async void process_request (SocketConnection conn) {
-    try {
+
+def async process_request(conn: SocketConnection)
+    try
         var dis = new DataInputStream (conn.input_stream);
         var dos = new DataOutputStream (conn.output_stream);
-        string req = yield dis.read_line_async (Priority.HIGH_IDLE);
+        var req = yield dis.read_line_async (Priority.HIGH_IDLE);
         dos.put_string ("Got: %s\n".printf (req));
-    } catch (Error e) {
+    except e: Error
         stderr.printf ("%s\n", e.message);
-    }
-}
-void main () {
-    try {
+
+init
+    try
         var srv = new SocketService ();
         srv.add_inet_port (3333, null);
         srv.incoming.connect (on_incoming_connection);
         srv.start ();
         new MainLoop ().run ();
-    } catch (Error e) {
+    except e: Error
         stderr.printf ("%s\n", e.message);
-    }
-}
 ```
 
 ### Compile and Run
 
-```genie
-$ valac --pkg gio-2.0 gio-server-async.gs
+```shell
+$ valac --pkg=gio-2.0 gio-server-async.gs
 $ ./gio-server-async
 ```
 
@@ -189,40 +182,37 @@ $ echo "blub" | nc localhost 3333
 
 ```genie
 // vala-test:examples/gio-udp-demo.vala
-int main () {
-    try {
+[indent=4]
+def cb(s: Socket, cond: IOCondition): bool
+    try
+        var buffer = new array of uint8[4096]
+        var read = (size_t)s.receive(buffer)
+        buffer[read] = 0; // null-terminate string
+        print ("Got %ld bytes of data: %s", (long) read, (string) buffer);
+    except e: Error
+        stderr.printf (e.message);
+    return true;
+
+init
+    try
         var socket = new Socket (SocketFamily.IPV4,
-                                 SocketType.DATAGRAM, 
+                                 SocketType.DATAGRAM,
                                  SocketProtocol.UDP);
         var sa = new InetSocketAddress (new InetAddress.loopback (SocketFamily.IPV4),
                                         3333);
         socket.bind (sa, true);
         var source = socket.create_source (IOCondition.IN);
-        source.set_callback ((s, cond) => {
-            try {
-                uint8 buffer[4096];
-                size_t read = s.receive (buffer);
-                buffer[read] = 0; // null-terminate string
-                print ("Got %ld bytes of data: %s", (long) read, (string) buffer);
-            } catch (Error e) {
-                stderr.printf (e.message);
-            }
-            return true;
-        });
+        source.set_callback(cb)
         source.attach (MainContext.default ());
         new MainLoop ().run ();
-    } catch (Error e) {
+    except e: Error
         stderr.printf (e.message);
-        return 1;
-    }
-    return 0;
-}
 ```
 
 ### Compile and Run
 
 ```shell
-$ valac --pkg gio-2.0 gio-udp-demo.gs
+$ valac --pkg=gio-2.0 gio-udp-demo.gs
 $ ./gio-udp-demoSend
 ```
 

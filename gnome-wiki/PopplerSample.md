@@ -68,6 +68,12 @@ init  //ic static int main (string[] args) {
 
 ### Compile and Run
 
+- prerequiste on Ubuntu 18.04
+
+```
+$ apt install libpoppler-glib-dev
+```
+
 ```shell
 $ valac --pkg=poppler-glib --pkg=gtk+-3.0 -o popplersample PopplerSample.gs
 $ ./popplersample /full/path/to/some.pdf

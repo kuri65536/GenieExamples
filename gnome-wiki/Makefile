@@ -7,24 +7,23 @@
 
 # can't link
 # disabled: CairoSample.md:2-3, by gtk+-2.0 dependencies.
-# disabled: ClutterSample.md:3, by mash-0.1 dependencies.
-# disabled: DBusClientSamplesWaiting.md:1 by string[][]
+# disabled: ClutterSample.md:3, by mash-0.1 dependencies. -> not in ubuntu repo
 # disabled: DBusServerSamplePassingObjects.md:1-2-3 old?
 # disabled: GdlSample.md:1 by gdl dependencies.
-# disabled: GSFSample.md:1 by dependencie
+# disabled: GSFSample.md:1 by dependencie. -> not in ubuntu repo
 # disabled: GStreamerSample.md:1-2-3 by gstreamer dependencies
 # disabled: GStreamerSample.md:4 by gstreamer and gtk-2.0 dependencies
 # disabled: GStreamerSamples.md:1 by dependencies
 # disabled: LuaSample.md:1-2 by dependencies for lua-dev.
 # disabled: LoudmouthSample.md:1-2 by dependencies gtk-2.0
 # disabled: MxSample.md:1-2 by dependencies mx-dev
-# disabled: PopplerSample.md:1 by dependencies poppler-dev
 # disabled: TiffSample.md:1 dependencies libtiff
 # disabled: WebKitSample.md:1 dependencies gtk-2.0
 # disabled: PulseAudioSamples.md:1 by dependencies gtk-2.0 and pulse-audio
 # disabled: SqliteSample.md:1-2 by dependencies sqlite3
 
 # can't compile
+# DBusClientSamplesWaiting.md:1 by string[][]
 # GeeSamples.md:4 can't compile by Gee.Traverse.
 # Gedit3PluginSample.md:1 by gedit.vapi
 # OpenGLSamples.md:1-2-3-4 by gl.vapi libglfw.vapi glx.vapi glu.vapi glut.vapi
@@ -48,7 +47,6 @@ src := \
     GIOSamples.md:1-2-3-4-5-6-7 \
     GSLSample.md:1-2-3-4-5-6-7-8-9-10 \
     GSettingsSample.md:1 \
-    GStreamerSamples.md \
     GTKSample.md:1-2-3-4-5-6-7-8-9-10 \
     GeeSamples.md:1-2-3 \
     GtkCellRendererSample.md:1 \
@@ -58,6 +56,7 @@ src := \
     LibSoupSample.md:1-2-3-4-5 \
     ListSample.md:1 \
     PangoCairoSample.md:1-2 \
+    PopplerSample.md:1 \
     PropertiesSample.md:1-2 \
     SDLSample.md:1-2 \
     StringSample.md:1-2-3-4-5 \

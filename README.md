@@ -9,7 +9,7 @@ This page links to all the Genie examples available in this repository.
 you can build them in gnome-wiki directory:
 
 ```
-$ git cloen this-repository
+$ git clone this-repository
 $ cd GenieExamples/gnome-wiki
 $ make
 ```

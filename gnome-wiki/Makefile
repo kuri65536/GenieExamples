@@ -45,11 +45,11 @@ src := \
     DBusServerSample.md:1-2-3 \
     DragAndDropSample.md:1 \
     GIOCompressionSample.md:1 \
-    GIONetworkingSample.md:1 \
+    GIONetworkingSample.md:1-2-3-4-5 \
     GIOSamples.md:1-2-3-4-5-6-7 \
     GSettingsSample.md:1 \
     GStreamerSamples.md \
-    GTKSample.md:1-2-3-4-5-6-7-8 \
+    GTKSample.md:1-2-3-4-5-6-7-8-9-10 \
     GeeSamples.md:1-2-3 \
     GtkCellRendererSample.md:1 \
     InputSamples.md:1-2-3-4-5 \

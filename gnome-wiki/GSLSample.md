@@ -23,6 +23,13 @@ vala.  Compile all the examples with:
 $ valac sample.gs --pkg=gsl
 ```
 
+and prerequiste on Ubuntu 18.04
+
+```
+$ apt install libgsl-dev
+```
+
+
 ## Statistics Sample
 
 ```genie
@@ -441,7 +448,8 @@ init  // atic void main (string[] args)
             break;
         status = MultifitTest.delta (s.dx, s.x, 1.0e-4, 1.0e-4);
     while status == Status.CONTINUE && iter < 500;
-    Multifit.covar ((Matrix)(s.J), 0.0, covar);
+    // TODO: can't build with error: gsl_multifit_fdfsolver `s` not have J.
+    // Multifit.covar ((Matrix)(s.J), 0.0, covar);
     stdout.printf ("A      = %.5f\n", s.x.get (0));
     stdout.printf ("lambda = %.5f\n", s.x.get (1));
     stdout.printf ("b      = %.5f\n", s.x.get (2));

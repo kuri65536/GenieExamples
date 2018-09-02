@@ -16,11 +16,12 @@
 # disabled: GStreamerSamples.md:1 by dependencies
 # disabled: LuaSample.md:1-2 by dependencies for lua-dev.
 # disabled: LoudmouthSample.md:1-2 by dependencies gtk-2.0
-# disabled: MxSample.md:1-2 by dependencies mx-dev
-# disabled: TiffSample.md:1 dependencies libtiff
 # disabled: WebKitSample.md:1 dependencies gtk-2.0
 # disabled: PulseAudioSamples.md:1 by dependencies gtk-2.0 and pulse-audio
 # disabled: SqliteSample.md:1-2 by dependencies sqlite3
+
+# can't build: libmx-dev provides mx-2.0 on Ubuntu 18.04
+# disabled: MxSample.md:1-2 by dependencies libmx-dev
 
 # can't compile
 # DBusClientSamplesWaiting.md:1 by string[][]
@@ -62,6 +63,7 @@ src := \
     StringSample.md:1-2-3-4-5 \
     TestSample.md:1-2 \
     ThreadingSamples.md:1-2-3-4 \
+    TiffSample.md:1 \
     TimeSample.md:1 \
     TypeModuleSample.md:2 \
     USBSample.md:1 \

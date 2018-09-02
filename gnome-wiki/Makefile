@@ -65,7 +65,7 @@ src := \
     TypeModuleSample.md:2 \
     USBSample.md:1 \
     ValueSample.md:1 \
-    WebKitSample.md \
+    WebKitSample.md:1 \
     Win32CrossBuildSample.md \
     XmlSample.md \
 

@@ -6,33 +6,34 @@ Requires Vala >= 0.11.0
 
 ```genie
 // vala-test:examples/webkit-sample.vala
-using Gtk;
-using WebKit;
+[indent=4]
+uses Gtk
+uses WebKit
 
-public class ValaBrowser : Window {
-    private const string TITLE = "Vala Browser";
-    private const string HOME_URL = "http://acid3.acidtests.org/";
-    private const string DEFAULT_PROTOCOL = "http";
-    private Regex protocol_regex;
-    private Entry url_bar;
-    private WebView web_view;
-    private Label status_bar;
-    private ToolButton back_button;
-    private ToolButton forward_button;
-    private ToolButton reload_button;
-    public ValaBrowser () {
+class ValaBrowser: Window
+    const TITLE: string = "Vala Browser"
+    const HOME_URL: string = "http://acid3.acidtests.org/"
+    const DEFAULT_PROTOCOL: string = "http"
+    protocol_regex: Regex
+    url_bar: Entry
+    web_view: WebView
+    status_bar: Label
+    back_button: ToolButton
+    forward_button: ToolButton
+    reload_button: ToolButton
+
+    construct()
         this.title = ValaBrowser.TITLE;
         set_default_size (800, 600);
-        try {
+        try
             this.protocol_regex = new Regex (".*://.*");
-        } catch (RegexError e) {
+        except e: RegexError
             critical ("%s", e.message);
-        }
         create_widgets ();
         connect_signals ();
         this.url_bar.grab_focus ();
-    }
-    private void create_widgets () {
+
+    def create_widgets()
         var toolbar = new Toolbar ();
         this.back_button = new ToolButton.from_stock (Stock.GO_BACK);
         this.forward_button = new ToolButton.from_stock (Stock.GO_FORWARD);
@@ -53,44 +54,38 @@ public class ValaBrowser : Window {
         vbox.add (scrolled_window);
         vbox.pack_start (this.status_bar, false, true, 0);
         add (vbox);
-    }
-    private void connect_signals () {
+
+    def connect_signals()
         this.destroy.connect (Gtk.main_quit);
         this.url_bar.activate.connect (on_activate);
-        this.web_view.title_changed.connect ((source, frame, title) => {
+        this.web_view.title_changed += def(source, frame, title)
             this.title = "%s - %s".printf (title, ValaBrowser.TITLE);
-        });
-        this.web_view.load_committed.connect ((source, frame) => {
+        this.web_view.load_committed += def(source, frame)
             this.url_bar.text = frame.get_uri ();
             update_buttons ();
-        });
         this.back_button.clicked.connect (this.web_view.go_back);
         this.forward_button.clicked.connect (this.web_view.go_forward);
         this.reload_button.clicked.connect (this.web_view.reload);
-    }
-    private void update_buttons () {
+
+    def update_buttons()
         this.back_button.sensitive = this.web_view.can_go_back ();
         this.forward_button.sensitive = this.web_view.can_go_forward ();
-    }
-    private void on_activate () {
+
+    def on_activate()
         var url = this.url_bar.text;
-        if (!this.protocol_regex.match (url)) {
+        if !this.protocol_regex.match(url)
             url = "%s://%s".printf (ValaBrowser.DEFAULT_PROTOCOL, url);
-        }
         this.web_view.open (url);
-    }
-    public void start () {
+
+    def start()
         show_all ();
         this.web_view.open (ValaBrowser.HOME_URL);
-    }
-    public static int main (string[] args) {
-        Gtk.init (ref args);
-        var browser = new ValaBrowser ();
-        browser.start ();
-        Gtk.main ();
-        return 0;
-    }
-}
+
+init  // atic int main (string[] args) {
+    Gtk.init (ref args);
+    var browser = new ValaBrowser ();
+    browser.start ();
+    Gtk.main ();
 ```
 
 ### Compile and Run
@@ -98,7 +93,7 @@ Currently, Vala doesn't come with bindings for WebKitGTK+ 3.0. To compile it
 with WebKitGTK+ 1.0, you'll have to also use GTK+ 2.0, like this:
 
 ```shell
-$ valac --pkg gtk+-2.0 --pkg webkit-1.0 --thread webkit-sample.vala
+$ valac --pkg=gtk+-2.0 --pkg=webkit-1.0 --thread webkit-sample.vala
 $ ./webkit-sample
 ```
 

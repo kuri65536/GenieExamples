@@ -27,9 +27,10 @@ page.
 ## Basic Sample
 This sample demonstrates how to create a toplevel window, set its title, size
 and position, how to add a button to this window and how to connect signals with
-actions. vala-test:examples/gtk-hello.vala using Gtk;
+actions.
 
 ```genie
+// vala-test:examples/gtk-hello.vala
 [indent=4]
 uses Gtk
 
@@ -56,7 +57,7 @@ program with Gtk.init ().
 ### Compile and Run
 
 ```shell
-$ valac --pkg=gtk+-3.0 gtk-hello.vala
+$ valac --pkg=gtk+-3.0 gtk-hello.gs
 $ ./gtk-hello
 ```
 
@@ -117,13 +118,17 @@ init  // atic int main (string[] args) {
 ### Compile and Run
 
 ```shell
-$ valac --pkg=gtk+-3.0 gtk-sync-sample.vala
+$ valac --pkg=gtk+-3.0 gtk-sync-sample.gs
 $ ./gtk-sync-sample
 ```
 
 
 ## Toolbar, Scrollable Text View and File Chooser
-A simple text file viewer: vala-test:examples/gtk-text-viewer.vala using Gtk;
+A simple text file viewer:
+
+```genie
+// vala-test:examples/gtk-text-viewer.vala
+using Gtk;
 public class TextFileViewer : Window {
     private TextView text_view;
 
@@ -183,7 +188,7 @@ public class TextFileViewer : Window {
 ### Compile and Run
 
 ```shell
-$ valac --pkg=gtk+-3.0 gtk-text-viewer.vala
+$ valac --pkg=gtk+-3.0 gtk-text-viewer.gs
 $ ./gtk-text-viewer
 ```
 
@@ -224,7 +229,7 @@ public class OpenFileDialog : FileChooserDialog {
 ### Compile and Run
 
 ```shell
-$ valac --pkg=gtk+-3.0 gtk-text-viewer.vala
+$ valac --pkg=gtk+-3.0 gtk-text-viewer.gs
 $ ./gtk-text-viewer
 ```
 
@@ -310,7 +315,7 @@ init  // (string[] args) {
 ### Compile and Run
 
 ```shell
-$ valac --pkg=gtk+-3.0 gtk-search-dialog.vala
+$ valac --pkg=gtk+-3.0 gtk-search-dialog.gs
 $ ./gtk-search-dialog
 ```
 
@@ -355,7 +360,7 @@ You have to add the package gmodule-2.0 so that auto-connection of signals will
 work:
 
 ```shell
-$ valac --pkg=gtk+-3.0 --pkg=gmodule-2.0 gtk-builder-sample.vala
+$ valac --pkg=gtk+-3.0 --pkg=gmodule-2.0 gtk-builder-sample.gs
 Note: If you don't make the callback methods public
 you will get method never used warnings at this point.
 $ ./gtk-builder-sample
@@ -466,7 +471,7 @@ init  // c static int main (string[] args) {
 ### Compile and Run
 
 ```shell
-$ valac --pkg=gtk+-3.0 gtk-treeview-liststore.vala
+$ valac --pkg=gtk+-3.0 gtk-treeview-liststore.gs
 $ ./gtk-treeview-liststore
 ```
 
@@ -526,14 +531,17 @@ init  // c static int main (string[] args) {
 ### Compile and Run
 
 ```shell
-$ valac --pkg=gtk+-3.0 gtk-treeview-treestore.vala
+$ valac --pkg=gtk+-3.0 gtk-treeview-treestore.gs
 $ ./gtk-treeview-treestore
 ```
 
 
 ### TreeView with CellRendererToggle
-```
-vala-test:examples/gtk-treeview-listsample.vala using Gtk;
+
+```genie
+// vala-test:examples/gtk-treeview-listsample.vala
+using Gtk;
+
 public class ListSample : Gtk.Window {
     private ListStore list_store;
     private TreeView tree_view;
@@ -583,15 +591,16 @@ void main (string[] args) {
 
 ### Compile and run
 ```shell
-$ valac --pkg=gtk+-3.0 gtk-treeview-listsample.vala
+$ valac --pkg=gtk+-3.0 gtk-treeview-listsample.gs
 $ ./gtk-treeview-listsample
 ```
 
 
 ## Clipboard
-Basic example use of the clipboard: vala-test:examples/gtk-clipboard-sample.vala
+Basic example use of the clipboard:
 
 ```genie
+// vala-test:examples/gtk-clipboard-sample.vala
 [indent=4]
 uses Gtk
 
@@ -621,7 +630,7 @@ init  // (string[] args) {
 
 ### Compile and run
 ```shell
-$ valac --pkg=gtk+-3.0 gtk-clipboard-sample.vala
+$ valac --pkg=gtk+-3.0 gtk-clipboard-sample.gs
 $ ./gtk-clipboard-sampleNote: copy some text before running.
 ```
 
@@ -683,7 +692,7 @@ init  // atic int main (string[] args) {
 ### Compile and run
 
 ```shell
-$ valac --pkg=gtk+-3.0 EntryCompletionExample2.vala -o EntryCompletionExample2.a
+$ valac --pkg=gtk+-3.0 EntryCompletionExample2.gs -o EntryCompletionExample2.a
 $ ./EntryCompletionExample2.a
 ```
 

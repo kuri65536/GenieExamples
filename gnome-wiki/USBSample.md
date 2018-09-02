@@ -38,7 +38,7 @@ init
 ### Compile and Run
 
 ```shell
-$ valac --pkg=libusb-1.0 usb-sample.vala
+$ valac --pkg=libusb-1.0 usb-sample.gs
 $ ./usb-sample
 ```
 

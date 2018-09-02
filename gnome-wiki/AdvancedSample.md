@@ -35,7 +35,7 @@ init
 ## Compile and Run
 
 ```shell
-$ valac -o advancedsample AdvancedSample.vala
+$ valac -o advancedsample AdvancedSample.gs
 $ ./advancedsample
 ```
 
@@ -85,7 +85,7 @@ init  // string[] args) {
 ## Compile and Run
 
 ```shell
-$ valac number-guessing.vala
+$ valac number-guessing.gs
 $ ./number-guessing
 ```
 

@@ -140,7 +140,7 @@ init  // (string[] args) {
 ### Compile and Run
 
 ```shell
-$ valac --pkg=dbus-glib-1 -o dbussample DBusSample.vala
+$ valac --pkg=dbus-glib-1 -o dbussample DBusSample.gs
 $ ./dbussample
 ...
 ```

@@ -117,7 +117,7 @@ init
 
 ```shell
 Compile and Run
-$ valac --pkg=gtk+-3.0 cairo-sample.vala
+$ valac --pkg=gtk+-3.0 cairo-sample.gs
 $ ./cairo-sample
 ```
 
@@ -129,9 +129,9 @@ awareness. Every step in this example is explained on cairographics.org. (Note
 for future editors of this example: Please the leave the function names so that
 they still match the original example and the original description from
 cairographics.org! This will make it easier to understand.)
-vala-test:examples/cairo-threaded.vala
 
 ```genie
+// vala-test:examples/cairo-threaded.vala
 [indent=4]
 uses Gtk
 uses Gdk
@@ -289,7 +289,7 @@ init  // string[] args
 
 ```shell
 Compile and Run
-$ valac --pkg=gtk+-3.0 --thread cairo-threaded.vala
+$ valac --pkg=gtk+-3.0 --thread cairo-threaded.gs
 $ ./cairo-threaded
 ```
 
@@ -302,10 +302,11 @@ $ ./cairo-threaded
 
 ## Shaped Window Example
 Code adapted from this Python example. First example uses Gtk2, second using
-Gtk3 vala-test:examples/cairo-shaped.vala
+Gtk3
 
 ```genie
 [indent=4]
+// vala-test:examples/cairo-shaped.vala
 uses Gtk
 uses Cairo
 
@@ -487,7 +488,7 @@ init  // string[] args) {
 
 ```shell
 Compile and Run
-$ valac --pkg=gtk+-2.0 --pkg=cairo --pkg=gdk-2.0 cairo-shaped.vala
+$ valac --pkg=gtk+-2.0 --pkg=cairo --pkg=gdk-2.0 cairo-shaped.gs
 $ ./cairo-shaped
 ```
 
@@ -791,7 +792,7 @@ init  // (string[] args) {
 
 ```shell
 Compile and Run
-$ valac -X -lm --pkg=gtk+-3.0 --pkg=cairo --pkg=gdk-3.0 cairo-shaped.vala
+$ valac -X -lm --pkg=gtk+-3.0 --pkg=cairo --pkg=gdk-3.0 cairo-shaped.gs
 $ ./cairo-shaped
 ```
 

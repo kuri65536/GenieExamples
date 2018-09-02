@@ -54,7 +54,7 @@ class SqliteSample: GLib.Object
 ### Compile and Run
 
 ```shell
-$ valac --pkg=sqlite3 -o sqlitesample SqliteSample.vala
+$ valac --pkg=sqlite3 -o sqlitesample SqliteSample.gs
 $ ./sqlitesample
 ```
 
@@ -111,7 +111,7 @@ EOF
 ### Compile and run
 
 ```shell
-$ valac --pkg=sqlite3 -o sqlitesample2 SqliteSample2.vala
+$ valac --pkg=sqlite3 -o sqlitesample2 SqliteSample2.gs
 $ ./sqlitesample2 testdb "select * from tbl"
 data = First row
 num = 10.0

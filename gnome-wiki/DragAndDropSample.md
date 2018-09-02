@@ -6,7 +6,7 @@ https://mail.gnome.org/archives/vala-list/2008-October/msg00147.html and cleaned
 up for modern GTK and Vala.
 
 ```genie
-/* TestDnD - dnd.vala : Simple tutorial for GTK+
+/* TestDnD - dnd.gs : Simple tutorial for GTK+
 Drag-N-Drop
  * Copyright (C) 2005 Ryan McDougall.
  * Vala port 2008 by Frederik
@@ -26,7 +26,7 @@ Drag-N-Drop
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-// Compile with: valac dnd.vala --pkg gtk+-3.0
+// Compile with: valac dnd.gs --pkg gtk+-3.0
 [indent=4]
 uses Gtk
 uses Gdk

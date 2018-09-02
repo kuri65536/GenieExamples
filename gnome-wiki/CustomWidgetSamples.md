@@ -115,9 +115,9 @@ class CustomWidget: DrawingArea
 ## Egg Clock Sample
 This is a Vala port of the famous Egg Clock sample widget using Cairo and GTK+
 as described in the GNOME Journal: Part 1 and part 2
-vala-test:examples/egg-clock.vala 
 
 ```genie
+// vala-test:examples/egg-clock.vala
 [indent=4]
 uses Gtk
 
@@ -275,7 +275,7 @@ init  // string[] args
 ### Compile and Run
 
 ```shell
-$ valac --pkg=gtk+-3.0 -X -lm eggclock.vala
+$ valac --pkg=gtk+-3.0 -X -lm eggclock.gs
 $ ./eggclockNote: You can drag around the minute hand.
 ```
 
@@ -352,7 +352,7 @@ init  // (string[] args) {
 ### Compile and Run
 
 ```shell
-$ valac --pkg=gtk+-3.0 valawidget.vala
+$ valac --pkg=gtk+-3.0 valawidget.gs
 $ ./valawidget
 ```
 

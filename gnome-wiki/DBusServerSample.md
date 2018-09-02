@@ -77,7 +77,7 @@ init
 ```
 
 ```shell
-$ valac --pkg=gio-2.0 gdbus-demo-server.vala
+$ valac --pkg=gio-2.0 gdbus-demo-server.gs
 ```
 
 
@@ -118,7 +118,7 @@ init
 ```
 
 ```shell
-$ valac --pkg=gio-2.0 gdbus-demo-client.vala
+$ valac --pkg=gio-2.0 gdbus-demo-client.gs
 Type Table
    D-Bus 
    Vala        
@@ -298,7 +298,7 @@ init
 ```
 
 ```shell
-$ valac --pkg=gio-2.0 gdbus-change-notificationst.vala
+$ valac --pkg=gio-2.0 gdbus-change-notificationst.gs
 ```
 
 Vala/Examples Projects/Vala/DBusServerSample

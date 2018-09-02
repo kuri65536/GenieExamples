@@ -290,7 +290,7 @@ init  // args[]
 ```
 
 ```shell
-$ valac --pkg=gstreamer-pbutils-0.10 --pkg=gee-0.8 gstreamer-discoverer.vala
+$ valac --pkg=gstreamer-pbutils-0.10 --pkg=gee-0.8 gstreamer-discoverer.gs
 $ ./gstreamer-discoverer <uris>
 ```
 

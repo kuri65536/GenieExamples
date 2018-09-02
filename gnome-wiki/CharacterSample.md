@@ -33,7 +33,7 @@ init
 ### Compile and Run
 
 ```shell
-$ valac character.vala
+$ valac character.gs
 $ ./character
 ```
 

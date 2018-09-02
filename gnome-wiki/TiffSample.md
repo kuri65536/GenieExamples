@@ -64,7 +64,7 @@ init  // atic int main (string[] args) {
 ### Compile and Run
 
 ```shell
-$ valac --pkg=tiff -X -ltiff -o tiffreadwrite TiffReadWrite.vala
+$ valac --pkg=tiff -X -ltiff -o tiffreadwrite TiffReadWrite.gs
 $ ./tiffreadwrite
 ```
 

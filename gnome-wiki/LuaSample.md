@@ -27,7 +27,7 @@ init
 ### Compile and Run
 
 ```shell
-$ valac --pkg=lua luatest.vala -o luatest
+$ valac --pkg=lua luatest.gs -o luatest
 $ ./luatest
 Lua Code From Vala Code!
 Vala Code From Lua Code! (33.000000)
@@ -80,7 +80,7 @@ init  // t main () {
 ```
 
 ```shell
-$ valac --pkg=lua simplesample.vala -o simplesample
+$ valac --pkg=lua simplesample.gs -o simplesample
 $ ./simplesample
 ```
 

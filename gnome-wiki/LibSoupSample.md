@@ -27,7 +27,7 @@ init
 
 ### Compile and Run
 ```shell
-$ valac --pkg=libsoup-2.4 --thread twitter.vala
+$ valac --pkg=libsoup-2.4 --thread twitter.gs
 $ ./twitter
 ```
 
@@ -62,7 +62,7 @@ init  //  () {
 ### Compile and Run
 
 ```shell
-$ valac --pkg=libsoup-2.4 --thread soup-sample.vala
+$ valac --pkg=libsoup-2.4 --thread soup-sample.gs
 $ ./soup-sample
 ```
 
@@ -115,7 +115,7 @@ init  //  () {
 ### Compile and Run
 
 ```shell
-$ valac --pkg=libsoup-2.4 --thread soup-server-example.vala
+$ valac --pkg=libsoup-2.4 --thread soup-server-example.gs
 $ ./soup-server-example
 ```
 
@@ -147,7 +147,7 @@ init  //  () {
 ### Compile and Run
 
 ```shell
-$ valac --pkg=libsoup-2.4 --thread soup-xmlrpc-test-hello.vala
+$ valac --pkg=libsoup-2.4 --thread soup-xmlrpc-test-hello.gs
 $ ./soup-xmlrpc-test-hello
 ```
 
@@ -178,7 +178,7 @@ init  //  () {
 ### Compile and Run
 
 ```shell
-$ valac --pkg=libsoup-2.4 --thread soup-xmlrpc-test-addnumbers.vala
+$ valac --pkg=libsoup-2.4 --thread soup-xmlrpc-test-addnumbers.gs
 $ ./soup-xmlrpc-test-addnumbers
 ```
 

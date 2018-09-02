@@ -40,7 +40,7 @@ init
 ### Compile and Run
 
 ```shell
-$ valac --thread --pkg=libsoup-2.4 --pkg=json-glib-1.0 json-sample.vala
+$ valac --thread --pkg=libsoup-2.4 --pkg=json-glib-1.0 json-sample.gs
 $ ./jsonsample
 ```
 
@@ -85,7 +85,7 @@ init  //  () {
 ### Compile and Run
 
 ```shell
-$ valac --thread --pkg=libsoup-2.4 --pkg=json-glib-1.0 json-translator.vala
+$ valac --thread --pkg=libsoup-2.4 --pkg=json-glib-1.0 json-translator.gs
 $ ./json-translator
 ```
 
@@ -181,7 +181,7 @@ init  //  static void main() {
 ### Compile and Run
 
 ```shell
-$ valac --thread --pkg=libsoup-2.4 --pkg=json-glib-1.0 transmission-rpc.vala
+$ valac --thread --pkg=libsoup-2.4 --pkg=json-glib-1.0 transmission-rpc.gs
 $ ./transmission-rpc
 ```
 

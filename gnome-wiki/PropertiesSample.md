@@ -44,7 +44,7 @@ init  //  () {
 ### Compile and Run
 
 ```shell
-$ valac prop_sample.vala
+$ valac prop_sample.gs
 $ ./prop_sample
 ```
 
@@ -118,7 +118,7 @@ init  //  () {
 ### Compile and Run
 
 ```shell
-$ valac prop_construction.vala
+$ valac prop_construction.gs
 $ ./prop_construction
 ```
 

@@ -3,7 +3,7 @@
 This example shows how to use modules (plugins) within your program and how to
 write such modules (plugins) with Vala. The first thing needed is a common
 interface that will describe the interface between the main program and other
-modules / plugins. Interface (plugin-interface.vala):
+modules / plugins. Interface (plugin-interface.gs):
 
 ```genie
 // vala-test:examples/type-modules-interface.vala
@@ -13,7 +13,7 @@ interface TestPlugin: Object
 ```
 
 This should be put into its own file that is then shared between the main
-program and plugins. Main program (main.vala):
+program and plugins. Main program (main.gs):
 
 ```genie
 // vala-test:examples/type-modules-main.vala
@@ -59,14 +59,14 @@ in other modules.
 ### Compiling:
 
 ```shell
-$ valac --pkg gmodule-2.0 main.vala plugin-interface.vala -o main
+$ valac --pkg gmodule-2.0 main.gs plugin-interface.gs -o main
 ```
 
 A module must provide its own implementation of TestPlugin and a register_plugin
 method which is used to register the class in the main program.
 
 
-## Example of a plugin (plugin.vala):
+## Example of a plugin (plugin.gs):
 
 ```genie
 // vala-test:examples/type-modules-myplugin.vala
@@ -83,7 +83,7 @@ def register_plugin(module: Module): Type
 ### Compiling:
 
 ```shell
-$ valac --pkg=gmodule-2.0 -C plugin.vala plugin-interface.vala
+$ valac --pkg=gmodule-2.0 -C plugin.gs
 $ gcc -shared -fPIC \
    $(pkg-config --cflags --libs glib-2.0 gmodule-2.0) -o libplugin.so plugin.c
 ```

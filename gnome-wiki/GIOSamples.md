@@ -51,9 +51,12 @@ init
 ### Compile and Run
 
 ```shell
-$ valac --pkg=gio-2.0 gio-sample.vala
-$ ./gio-sampleNote that you don't have to close streams explicitly. They are closed automatically as soon as they go out of scope (RAII). 
+$ valac --pkg=gio-2.0 gio-sample.gs
+$ ./gio-sample
 ```
+
+Note that you don't have to close streams explicitly. They are closed
+automatically as soon as they go out of scope (RAII).
 
 
 ## File Objects
@@ -131,7 +134,7 @@ file will get closed.
 ### Compile and Run
 
 ```shell
-$ valac --pkg gio-2.0 gio-file-operations.vala
+$ valac --pkg gio-2.0 gio-file-operations.gs
 $ ./gio-file-operations
 ```
 
@@ -179,7 +182,7 @@ int main () {
 ### Compile and Run
 
 ```shell
-$ valac --pkg gio-2.0 gio-write-data.vala
+$ valac --pkg gio-2.0 gio-write-data.gs
 $ ./gio-write-data
 ```
 
@@ -231,7 +234,7 @@ int main () {
 ### Compile and Run
 
 ```shell
-$ valac --pkg gio-2.0 gio-binary-sample.vala 
+$ valac --pkg gio-2.0 gio-binary-sample.gs
 $ ./gio-binary-sample
 ```
 
@@ -262,7 +265,7 @@ int main (string[] args) {
 ### Compile and Run
 
 ```shell
-$ valac --pkg gio-2.0 gio-ls.vala
+$ valac --pkg gio-2.0 gio-ls.gs
 $ ./gio-ls
 ```
 
@@ -270,7 +273,8 @@ $ ./gio-ls
 ## Asynchronous File Listing
 
 ```genie
-vala-test:examples/gio-async.vala using Gtk;
+// vala-test:examples/gio-async.vala
+using Gtk;
 /**
  * Loads the list of files in user's home directory and displays them
  * in a GTK+ list view.
@@ -331,7 +335,7 @@ class ASyncGIOSample : Window {
 ### Compile and Run
 
 ```shell
-$ valac --pkg gtk+-3.0 gio-async.vala
+$ valac --pkg gtk+-3.0 gio-async.gs
 $ ./gio-async
 ```
 
@@ -371,7 +375,7 @@ void main (string[] args) {
 ### Compile and Run
 
 ```shell
-$ valac --pkg gio-2.0 gio-async-reading.vala
+$ valac --pkg gio-2.0 gio-async-reading.gs
 $ ./gio-async-reading
 ```
 

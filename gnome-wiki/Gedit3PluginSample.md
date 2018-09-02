@@ -14,8 +14,12 @@ files: a library (.so) and the plugin file definition (.plugin). Our example
 plugin will be contained in just one Vala soure file, so the directory listing
 at the start will be:
 
+```
 $ ls gedit-3-example.plugin
-gedit-3-example-plugin.valaIn order to make the example really simple we decided
+gedit-3-example-plugin.vala
+```
+
+In order to make the example really simple we decided
 to implement a very basic function: the plugin will just close an xml tag upon
 writing the '>'. Eg. if you write <test> it will add the corresponding </test>
 close tag. Source code for the file:
@@ -114,7 +118,7 @@ $ valac \
     --pkg=gedit \
     --pkg=libpeas-gtk-1.0 \
     --pkg=gtksourceview-3.0 \
-    gedit-3-example-plugin.vala \
+    gedit-3-example-plugin.gs \
     -X --shared \
     -X -fPIC \
     --library libgedit-3-example-plugin \

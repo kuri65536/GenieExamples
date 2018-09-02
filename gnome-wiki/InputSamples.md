@@ -16,7 +16,7 @@ init
 ```
 
 ```shell
-$ valac stdin-input.vala
+$ valac stdin-input.gs
 $ ./stdin-input
 ```
 
@@ -46,7 +46,7 @@ init  // () {
 ```
 
 ```shell
-$ valac stdin-input.vala
+$ valac stdin-input.gs
 $ ./stdin-input
 ```
 
@@ -70,7 +70,7 @@ init  //  () {
 ```
 
 ```shell
-$ valac readline-sample.vala --pkg=readline -X -lreadline
+$ valac readline-sample.gs --pkg=readline -X -lreadline
 $ ./readline-sample
 ```
 
@@ -91,7 +91,7 @@ init  // atic void main (string[] args) {
 ```
 
 ```shell
-$ valac character-input.vala
+$ valac character-input.gs
 $ ./character-input
 ```
 

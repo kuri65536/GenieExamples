@@ -31,7 +31,7 @@ init  //  () {
 ```
 
 ```shell
-$ valac datetime.vala
+$ valac datetime.gs
 $ ./datetime
 ```
 

@@ -102,7 +102,7 @@ They may contain quotes and may span multiple lines.""";
 ### Compile and Run
 
 ```shell
-$ valac stringsample.vala
+$ valac stringsample.gs
 $ ./stringsample
 ```
 

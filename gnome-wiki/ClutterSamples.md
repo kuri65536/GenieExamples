@@ -126,7 +126,7 @@ init
 
 ```shell
 # (install required in Ubuntu 18.04): sudo apt install libclutter-1.0-dev
-$ valac --pkg=clutter-1.0 clutter-demo.vala
+$ valac --pkg=clutter-1.0 clutter-demo.gs
 $ ./clutter-demo
 ```
 
@@ -215,7 +215,7 @@ init  // (string[] args) {
 
 ```shell
 # (install required in Ubuntu 18.04): sudo apt install libclutter-1.0-dev
-$ valac --pkg=clutter-1.0 clutter-demo.vala
+$ valac --pkg=clutter-1.0 clutter-demo.gs
 $ ./clutter-demo
 ```
 
@@ -277,7 +277,7 @@ in the Vala GIR parser:
 
 ```shell
 $ valac --pkg=atk --pkg=clutter-1.0 --pkg=Mash-0.1 \
-    mash-demo.vala -X -I/usr/include/mash-0.1 -X -lmash-0.1
+    mash-demo.gs -X -I/usr/include/mash-0.1 -X -lmash-0.1
 $ ./mash-demo TheMonkey.ply
 ```
 

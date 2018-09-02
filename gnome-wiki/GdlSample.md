@@ -174,7 +174,7 @@ init  // (string[] args) {
 ### Compile and Run
 
 ```shell
-$ valac --pkg=gdl-3.0 gdl-sample.vala
+$ valac --pkg=gdl-3.0 gdl-sample.gs
 $ ./gdl-sample
 ```
 

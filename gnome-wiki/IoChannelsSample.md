@@ -82,7 +82,7 @@ init
 ### Compile and Run
 
 ```shell
-$ valac --pkg=posix giochanneltest.vala
+$ valac --pkg=posix giochanneltest.gs
 $ ./giochanneltest
 ```
 

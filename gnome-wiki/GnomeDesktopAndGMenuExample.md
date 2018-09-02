@@ -61,7 +61,7 @@ init  // string[] args) {
 ```shell
 $ valac --pkg=gio-unix-2.0 --pkg=libgnome-menu --pkg=gee-0.8 \
     -o gnomemenusample \
-    GnomeMenuSample.vala -X "-DGMENU_I_KNOW_THIS_IS_UNSTABLE"
+    GnomeMenuSample.gs -X "-DGMENU_I_KNOW_THIS_IS_UNSTABLE"
 $ ./gnomemenusample
 ```
 

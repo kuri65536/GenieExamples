@@ -74,7 +74,7 @@ init  // (string[] args) {
 ### Compile and Run
 
 ```shell
-$ valac --pkg=gtk+-3.0 gtk-cell-renderer.vala
+$ valac --pkg=gtk+-3.0 gtk-cell-renderer.gs
 $ ./gtk-cell-renderer
 ```
 

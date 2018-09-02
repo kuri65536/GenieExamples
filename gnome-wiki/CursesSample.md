@@ -24,7 +24,7 @@ init  // args: array of string
 
 ```shell
 # (install required in Ubuntu 18.04): sudo apt install libncurses-dev
-$ valac --pkg=curses -X -lncurses cursesdemo.vala
+$ valac --pkg=curses -X -lncurses cursesdemo.gs
 $ ./cursesdemo Vala/Examples
 ```
 

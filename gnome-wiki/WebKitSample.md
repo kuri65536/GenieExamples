@@ -93,7 +93,7 @@ Currently, Vala doesn't come with bindings for WebKitGTK+ 3.0. To compile it
 with WebKitGTK+ 1.0, you'll have to also use GTK+ 2.0, like this:
 
 ```shell
-$ valac --pkg=gtk+-2.0 --pkg=webkit-1.0 --thread webkit-sample.vala
+$ valac --pkg=gtk+-2.0 --pkg=webkit-1.0 --thread webkit-sample.gs
 $ ./webkit-sample
 ```
 

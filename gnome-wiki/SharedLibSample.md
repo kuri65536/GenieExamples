@@ -36,7 +36,7 @@ namespace MyMath
 Compiling to generate the VAPI and shared library:
 
 ```shell
-$ valac --library=test_shared -H test_shared.h test_shared.vala \
+$ valac --library=test_shared -H test_shared.h test_shared.gs \
     -X -fPIC -X -shared -o test_shared.so
 ```
 
@@ -59,7 +59,7 @@ almost any address in memory.
 Our program that needs to access functionality from the library,
 
 ```genie
-// main.vala:
+// main.gs:
 [indent=4]
 uses MyMath
 
@@ -72,7 +72,7 @@ init  // id main() {
 Compiling to create an executable:
 
 ```shell
-$ valac test_shared.vapi main.vala -X test_shared.so -X -I. -o valatest
+$ valac test_shared.vapi main.gs -X test_shared.so -X -I. -o valatest
 ```
 
 You use the -X -I. flag to tell the C compiler to search the current directory
@@ -102,7 +102,7 @@ different compile switches, to tell valac additionally generate some
 introspection metadata:
 
 ```
-$ valac test_shared.vala -X -fPIC -X -shared -o test_shared.so \
+$ valac test_shared.gs -X -fPIC -X -shared -o test_shared.so \
     --library=testShared --gir testShared-0.1.gir
 ```
 

@@ -144,7 +144,7 @@ init
 ```
 
 ```shell
-$ valac --pkg=dbus-glib-1 --pkg=gee-0.8 -o dbussample DBusSample.vala
+$ valac --pkg=dbus-glib-1 --pkg=gee-0.8 -o dbussample DBusSample.gs
 ```
 
 ## The other way around, passing an object to the service

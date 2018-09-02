@@ -30,7 +30,7 @@
  * Note: The synchronous API is being removed in the 2.0 branch of Loudmouth.
  *
  * Build instructions:
- * valac --pkg loudmouth-1.0 lm-send-sync.vala
+ * valac --pkg loudmouth-1.0 lm-send-sync.gs
  */
 [indent=4]
 uses Lm
@@ -110,8 +110,9 @@ init
 ### Compile and run
 
 ```shell
-$ valac --pkg=loudmouth-1.0 lm-send-sync.vala
-$ ./lm-send-sync -s jabber.org -u myusername -p mypassword -m "message to send" -t someone_else@jabber.org
+$ valac --pkg=loudmouth-1.0 lm-send-sync.gs
+$ ./lm-send-sync -s jabber.org -u myusername -p mypassword \
+    -m "message to send" -t someone_else@jabber.org
 ```
 
 
@@ -248,7 +249,7 @@ init  // c int main (string[] args) {
 ### Compile and run
 
 ```shell
-$ valac --pkg=loudmouth-1.0 --pkg=gtk+-2.0 lm-send-async.vala
+$ valac --pkg=loudmouth-1.0 --pkg=gtk+-2.0 lm-send-async.gs
 $ ./lm-send-async
 ```
 

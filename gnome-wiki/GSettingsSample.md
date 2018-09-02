@@ -72,7 +72,7 @@ init  // main () {
 ### Compile and Run
 
 ```shell
-$ valac --pkg=gio-2.0 gio-settings-demo.vala
+$ valac --pkg=gio-2.0 gio-settings-demo.gs
 $ ./gio-settings-demo
 ```
 

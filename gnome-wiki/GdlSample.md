@@ -173,6 +173,12 @@ init  // (string[] args) {
 
 ### Compile and Run
 
+- prerequiste on Ubuntu 18.04
+
+```
+$ apt intall libgdl-3-dev
+```
+
 ```shell
 $ valac --pkg=gdl-3.0 gdl-sample.gs
 $ ./gdl-sample

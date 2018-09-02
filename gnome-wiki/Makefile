@@ -9,7 +9,6 @@
 # disabled: CairoSample.md:2-3, by gtk+-2.0 dependencies.
 # disabled: ClutterSample.md:3, by mash-0.1 dependencies. -> not in ubuntu repo
 # disabled: DBusServerSamplePassingObjects.md:1-2-3 old?
-# disabled: GdlSample.md:1 by gdl dependencies.
 # disabled: GSFSample.md:1 by dependencie. -> not in ubuntu repo
 # disabled: GStreamerSample.md:1-2-3 by gstreamer dependencies
 # disabled: GStreamerSample.md:4 by gstreamer and gtk-2.0 dependencies
@@ -49,6 +48,7 @@ src := \
     GSLSample.md:1-2-3-4-5-6-7-8-9-10 \
     GSettingsSample.md:1 \
     GTKSample.md:1-2-3-4-5-6-7-8-9-10 \
+    GdlSample.md:1 \
     GeeSamples.md:1-2-3 \
     GtkCellRendererSample.md:1 \
     InputSamples.md:1-2-3-4-5 \

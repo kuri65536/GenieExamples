@@ -22,6 +22,7 @@
 # disabled: PopplerSample.md:1 by dependencies poppler-dev
 # disabled: TiffSample.md:1 dependencies libtiff
 # disabled: WebKitSample.md:1 dependencies gtk-2.0
+# disabled: PulseAudioSamples.md:1 by dependencies gtk-2.0 and pulse-audio
 
 # can't compile
 # GeeSamples.md:4 can't compile by Gee.Traverse.
@@ -55,9 +56,8 @@ src := \
     JsonSample.md:1-2-3 \
     LibSoupSample.md:1-2-3-4-5 \
     ListSample.md:1 \
-    PangoCairoSample.md \
+    PangoCairoSample.md:1-2 \
     PropertiesSample.md:1-2 \
-    PulseAudioSamples.md:1 \
     SDLSample.md \
     SqliteSample.md \
     StringSample.md:1-2-3-4-5 \

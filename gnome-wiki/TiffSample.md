@@ -63,6 +63,12 @@ init  // atic int main (string[] args) {
 
 ### Compile and Run
 
+- prerequiste on Ubuntu 18.04
+
+```
+$ apt install libtiff-dev
+```
+
 ```shell
 $ valac --pkg=tiff -X -ltiff -o tiffreadwrite TiffReadWrite.gs
 $ ./tiffreadwrite

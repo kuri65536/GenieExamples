@@ -90,7 +90,7 @@ func1 = $(foreach i,$(subst -, ,$(word 2,$(1))), \
 bin_examples := $(foreach i,$(src),$(call func1,$(subst :, ,$(i))))
 bin_examples := $(addprefix tmp/,$(bin_examples))
 
-build: $(bin_examples) tmp/valatest.exe tmp/libplugin.so
+build: $(bin_examples) tmp/valatest.exe tmp/libplugin.so tmp/libplugin2.so
 
 extract := ./extract
 
@@ -153,7 +153,24 @@ tmp/valatest.exe: tmp/main.gs tmp/test_shared.so
 tmp/libplugin.so: TypeModuleSample.md tmp/TypeModuleSample-2.exe $(extract)
 	$(extract) 1 $(filter %.md,$^) > plugin.gs
 	valac --ccode plugin.gs
-	gcc -fPIC -shared -o libplugin.so plugin.c \
+	gcc -fPIC -shared -o tmp/libplugin.so plugin.c \
 	    $$(pkg-config --libs --cflags gobject-2.0 gmodule-2.0)
-	LD_LIBRARY_PATH=$$PWD ./tmp/TypeModuleSample-2.exe
+	LD_LIBRARY_PATH=$$PWD/tmp ./tmp/TypeModuleSample-2.exe
+
+# TypeModules
+tmp/plugin-interface.gs: TypeModules.md $(extract)
+	$(extract) 1 $(filter %.md,$^) > $@
+
+tmp/main2.exe: TypeModules.md tmp/plugin-interface.gs $(extract)
+	$(extract) 2 $(filter %.md,$^) > tmp/main2.gs
+	valac --pkg=gmodule-2.0 tmp/main2.gs \
+	    tmp/plugin-interface.gs -o tmp/main2.exe
+
+tmp/libplugin2.so: TypeModules.md tmp/main2.exe tmp/plugin-interface.gs $(extract)
+	$(extract) 3 $(filter %.md,$^) > tmp/plugin2.gs
+	valac --pkg=gmodule-2.0 -C tmp/plugin2.gs tmp/plugin-interface.gs
+	gcc -shared -fPIC  -o tmp/libplugin2.so tmp/plugin2.c \
+	    $$(pkg-config --cflags --libs glib-2.0 gmodule-2.0)
+	LD_LIBRARY_PATH=$$PWD/tmp ./tmp/main2.exe
+
 

@@ -74,6 +74,13 @@ class SDLSample: Object
 
 ### Compile and Run
 
+- prerequiste on Ubuntu 18.04
+
+```
+$ apt install libsdl-dev
+$ apt install libsdl-gfx1.2
+```
+
 ```shell
 $ valac --pkg=sdl --pkg=sdl-gfx -X -lSDL_gfx -o sdlsample SDLSample.gs
 $ ./sdlsample
@@ -137,6 +144,12 @@ def process_events(): bool
 
 ### Compile and Run
 Put a TrueType font file named "myfont.ttf" in the current folder and type :
+
+- prerequiste on Ubuntu 18.04
+
+```
+$ apt install libsdl-ttf2.0-dev
+```
 
 ```shell
 $ valac --pkg=sdl --pkg=sdl-ttf -X -lSDL_ttf sdlttf-sample.gs

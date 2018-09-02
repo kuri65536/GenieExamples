@@ -69,6 +69,12 @@ init  //  () {
             break;
 ```
 
+- prerequiste on Ubuntu 18.04
+
+```
+$ apt install libreadline-dev
+```
+
 ```shell
 $ valac readline-sample.gs --pkg=readline -X -lreadline
 $ ./readline-sample

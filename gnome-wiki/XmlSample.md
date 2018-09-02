@@ -5,34 +5,35 @@ The libxml2 binding is somewhat odd to use from Vala since you must do manual
 memory management via pointers. An alternative is to use the GObject-based
 abstraction layer/wrapper GXml, written in Vala.  Anyway, here's the sample:
 
-```genei
+```genie
 // vala-test:examples/libxml2.vala
 /*
  * Various operations with libxml2: Parsing and creating an XML file
  */
-using Xml;
-class XmlSample {
+[indent=4]
+uses Xml
+
+class XmlSample
     // Line indentation
-    private int indent = 0;
-    private void print_indent (string node, string content, char token = '+') {
-        string indent = string.nfill (this.indent * 2, ' ');
+    indent: int = 0;
+
+    def print_indent(node: string, content: string, token: char='+')
+        var indent = string.nfill(this.indent * 2, ' ')
         stdout.printf ("%s%c%s: %s\n", indent, token, node, content);
-    }
-    public void parse_file (string path) {
+
+    def parse_file(path: string)
         // Parse the document from path
-        Xml.Doc* doc = Parser.parse_file (path);
-        if (doc == null) {
+        var doc = Parser.parse_file (path);
+        if doc == null
             stderr.printf ("File %s not found or permissions missing", path);
             return;
-        }
         // Get the root node. notice the dereferencing operator -> instead of .
-        Xml.Node* root = doc->get_root_element ();
-        if (root == null) {
+        var root = doc->get_root_element()
+        if root == null
             // Free the document manually before returning
             delete doc;
             stderr.printf ("The xml file '%s' is empty", path);
             return;
-        }
         print_indent ("XML document", path, '-');
         // Print the root node's name
         print_indent ("Root node", root->name);
@@ -40,78 +41,75 @@ class XmlSample {
         parse_node (root);
         // Free the document
         delete doc;
-    }
-    private void parse_node (Xml.Node* node) {
+
+    def parse_node(node: Xml.Node*)
         this.indent++;
         // Loop over the passed node's children
-        for (Xml.Node* iter = node->children; iter != null; iter = iter->next) {
+        var _iter = node->children
+        while _iter != null
             // Spaces between tags are also nodes, discard them
-            if (iter->type != ElementType.ELEMENT_NODE) {
+            var iter = _iter
+            _iter = _iter->next
+            if iter->type != ElementType.ELEMENT_NODE
                 continue;
-            }
             // Get the node's name
-            string node_name = iter->name;
+            var node_name = iter->name;
             // Get the node's content with <tags> stripped
-            string node_content = iter->get_content ();
+            var node_content = iter->get_content ();
             print_indent (node_name, node_content);
             // Now parse the node's properties (attributes) ...
             parse_properties (iter);
             // Followed by its children nodes
             parse_node (iter);
-        }
         this.indent--;
-    }
-    private void parse_properties (Xml.Node* node) {
+
+    def parse_properties(node: Xml.Node*)
         // Loop over the passed node's properties (attributes)
-        for (Xml.Attr* prop = node->properties; prop != null; prop = prop->next) {
-            string attr_name = prop->name;
+        var prop = node->properties
+        while prop != null
+            var attr_name = prop->name;
             // Notice the ->children which points to a Node*
             // (Attr doesn't feature content)
-            string attr_content = prop->children->content;
+            var attr_content = prop->children->content;
             print_indent (attr_name, attr_content, '|');
-        }
-    }
-    public static string create_simple_xml () {
-        Xml.Doc* doc = new Xml.Doc ("1.0");
-        Xml.Ns* ns = new Xml.Ns (null, "", "foo");
-        ns->type = Xml.ElementType.ELEMENT_NODE;
-        Xml.Node* root = new Xml.Node (ns, "simple");
-        doc->set_root_element (root);
-        root->new_prop ("property", "value");
-        Xml.Node* subnode = root->new_text_child (ns, "subnode", "");
-        subnode->new_text_child (ns, "textchild", "another text" );
-        subnode->new_prop ("subprop", "escaping \" and  < and >" );
-        Xml.Node* comment = new Xml.Node.comment ("This is a comment");
-        root->add_child (comment);
-        string xmlstr;
+            prop = prop->next
+
+    def static create_simple_xml(): string
+        var doc = new Xml.Doc("1.0")
+        var ns = new Xml.Ns(null, "", "foo")
+        ns.type = Xml.ElementType.ELEMENT_NODE
+        var root = new Xml.Node(ns, "simple")
+        doc.set_root_element(root)
+        root.new_prop("property", "value")
+        var subnode = root.new_text_child(ns, "subnode", "")
+        subnode->new_text_child(ns, "textchild", "another text")
+        subnode->new_prop("subprop", "escaping \" and  < and >")
+        var comment = new Xml.Node.comment("This is a comment")
+        root.add_child(comment)
+        xmlstr: string
         // This throws a compiler warning, see bug 547364
-        doc->dump_memory (out xmlstr);
-        delete doc;
+        doc.dump_memory(out xmlstr)
         return xmlstr;
-    }
-}
-int main (string[] args) {
-    if (args.length < 2) {
+
+init  // (string[] args) {
+    if args.length < 2
         stderr.printf ("Argument required!\n");
-        return 1;
-    }
+        return
     // Initialisation, not instantiation since the parser is a static class
     Parser.init ();
-    string simple_xml = XmlSample.create_simple_xml ();
+    var simple_xml = XmlSample.create_simple_xml()
     stdout.printf ("Simple XML is:\n%s\n", simple_xml);
     var sample = new XmlSample ();
     // Parse the file listed in the first passed argument
     sample.parse_file (args[1]);
     // Do the parser cleanup to free the used memory
     Parser.cleanup ();
-    return 0;
-}
 ```
 
 ### Compile
 
 ```shell
-$ valac --pkg libxml-2.0 xmlsample.vala
+$ valac --pkg=libxml-2.0 xmlsample.vala
 $ ./xmlsample
 ```
 
@@ -122,7 +120,8 @@ required for this example.
 
 ```genie
 // vala-test:examples/libxml2-writer.vala
-void main () {
+[indent=4]
+init
     var writer = new Xml.TextWriter.filename ("test.xml");
     writer.set_indent (true);
     writer.set_indent_string ("\t");
@@ -144,9 +143,12 @@ void main () {
     writer.end_element();
     writer.end_document();
     writer.flush();
-}
 ```
 
+```shell
+$ valac --pkg=libxml-2.0 xmlsample.vala
+$ ./xmlsample
+```
 
 ## XPath Sample
 This example based on
@@ -154,43 +156,38 @@ http://charette.no-ip.com:81/programming/2010-01-03_LibXml2/2010-01-03_LibXml2.c
 . Read the original for comments.
 
 ```genie
-using Xml.XPath;
-using Xml;
-class xpathsample {
-        public static int main(string[] args) {
-                Parser.init ();
-                string path = "example.xml";
-                Xml.Doc* doc = Parser.parse_file (path);
-                if(doc==null) print("failed to read the .xml file\n");
-                Context ctx = new Context(doc);
-                if(ctx==null) print("failed to create the xpath context\n");
-                Xml.XPath.Object* obj = ctx.eval_expression("/Example/Objects/Pet");
-                if(obj==null) print("failed to evaluate xpath\n");
-                Xml.Node* node = null;
-                if ( obj->nodesetval != null && obj->nodesetval->item(0) != null ) {
-                        node = obj->nodesetval->item(0);
-                        print("Found the node we want");
-                } else {
-                        print("failed to find the expected node");
-                }
-                Xml.Attr* attr = null;
-                attr = node->properties;
-                while ( attr != null )
-                {
-                        print("Attribute: \tname: %s\tvalue: %s\n", attr->name, attr->children->content);
-                        attr = attr->next;
-                }
-                //...
-                delete obj;
-                delete doc;
-                return 0;
-        }
-}
+[indent=4]
+uses Xml.XPath
+uses Xml
+
+// class xpathsample
+init  // c static int main(string[] args) {
+    Parser.init ();
+    var path = "example.xml";
+    var doc = Parser.parse_file (path);
+    assert(doc != null)  // "failed to read the .xml file");
+    var ctx = new Context(doc);
+    assert(ctx != null)  // "failed to create the xpath context");
+    var obj = ctx.eval_expression("/Example/Objects/Pet");
+    assert(obj != null)  // "failed to evaluate xpath");
+    node: Xml.Node* = null;
+    if obj->nodesetval != null and obj->nodesetval->item(0) != null
+        node = obj->nodesetval->item(0);
+        print("Found the node we want");
+    else
+        print("failed to find the expected node");
+    var attr = node->properties
+    while attr != null
+        print("Attribute: \tname: %s\tvalue: %s\n", attr->name, attr->children->content);
+        attr = attr->next;
+    //...
+    delete obj;
+    delete doc;
 ```
 
 ### Compile
 ```shell
-$ valac --pkg libxml-2.0 xpathsample.vala
+$ valac --pkg=libxml-2.0 xpathsample.vala
 $ ./xpathsample
 ```
 
@@ -211,17 +208,18 @@ it automatically, but I'm not sure.
  * original: This example is based on http://www.xmlsoft.org/examples/reader1.c
  * copy: Please see the original file for Copyright and Author.
  */
-using Xml;
+[indent=4]
+uses Xml
+
 /**
  * processNode:
  * @reader: the xmlReader
  *
  * Dump information about the current node
  */
-static void
-processNode(Xml.TextReader reader) { 
+def processNode(reader: Xml.TextReader)
     var name = reader.const_name();
-    if (name == null)
+    if name == null
         name = "--";
     var val = reader.const_value();
     print("%d %d %s %d %d", 
@@ -231,41 +229,35 @@ processNode(Xml.TextReader reader) {
         reader.is_empty_element(),
         reader.has_value());
     if (val == null)
-    print("\n");
-    else {
+        print("\n");
+    else
         if (val.length > 40)
             print(" %.40s...\n", val);
         else
-        print(" %s\n", val);
-    }
-}
+            print(" %s\n", val);
+
 /**
  * streamFile:
  * @uri: the file name to parse
  *
  * Parse and print information about an XML file.
  */
-static void
-streamFile(string uri) {
-    int ret;
+def streamFile(uri: string)
     var reader = new Xml.TextReader.filename(uri);
-    if (reader != null) {
-        ret = reader.read();
-        while (ret == 1) {
+    if reader != null
+        var ret = reader.read();
+        while ret == 1
             processNode(reader);
             ret = reader.read();
-        }
         reader = null; // TODO fixme c-function is xmlFreeTextReader(reader);
-        if (ret != 0) {
+        if ret != 0
             printerr("%s : failed to parse\n", uri);
-        }
-    } else {
+    else
         printerr("Unable to open %s\n", uri);
-    }
-}
-int main(string[] args) {
-    if (args.length != 2)
-        return(1);
+
+init  // string[] args) {
+    if args.length != 2
+        return
     streamFile(args[1]);
     /*
      * Cleanup function for the XML library.
@@ -275,14 +267,12 @@ int main(string[] args) {
      * this is to debug memory for regression tests
      */
     // TODO fixme c-function is xmlMemoryDump();
-    return(0);
-}
 ```
 
 ### Compile
 
 ```shell
-$ valac --pkg libxml-2.0 reader1.vala
+$ valac --pkg=libxml-2.0 reader1.vala
 $ ./reader1 <filename>
 ```
 

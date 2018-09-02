@@ -59,7 +59,7 @@ src := \
     PangoCairoSample.md:1-2 \
     PropertiesSample.md:1-2 \
     SDLSample.md \
-    SqliteSample.md \
+    SqliteSample.md:2 \
     StringSample.md:1-2-3-4-5 \
     TestSample.md:1-2 \
     ThreadingSamples.md:1-2-3-4 \

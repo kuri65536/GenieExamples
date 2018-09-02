@@ -63,7 +63,7 @@ src := \
     ThreadingSamples.md:1-2-3-4 \
     TimeSample.md:1 \
     TypeModuleSample.md:2 \
-    USBSample.md \
+    USBSample.md:1 \
     ValueSample.md:1 \
     WebKitSample.md \
     Win32CrossBuildSample.md \

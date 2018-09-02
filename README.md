@@ -6,6 +6,14 @@ https://wiki.gnome.org/Projects/Vala/Examples and plus alpha.
 
 This page links to all the Genie examples available in this repository.
 
+you can build them in gnome-wiki directory:
+
+```
+$ git cloen this-repository
+$ cd GenieExamples/gnome-wiki
+$ make
+```
+
 List of pages in this category:
 
 - [AdvancedSample](gnome-wiki/AdvancedSample.md)
@@ -73,5 +81,13 @@ List of pages in this category:
 
 - Array.
 - Read a file.
+
+
+## Build infomation
+
+| term     | description  | note  |
+|:--------:|:-------------|:------|
+| OS       | Ubuntu 18.04 | amd64 |
+| compiler | Vala 0.40.4  |       |
 
 

@@ -19,7 +19,7 @@ init
 ### Compile and Run
 
 ```shell
-$ valac valuesample.vala
+$ valac valuesample.gs
 $ ./valuesample
 ```
 

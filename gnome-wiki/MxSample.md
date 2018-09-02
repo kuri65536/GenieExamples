@@ -52,7 +52,7 @@ init
 ```
 
 ```shell
-$ valac --pkg=mx-1.0 mx-expander-demo.vala
+$ valac --pkg=mx-1.0 mx-expander-demo.gs
 $ ./mx-expander-demo
 ```
 
@@ -156,7 +156,7 @@ init  // (string [] args) {
 ```
 
 ```shell
-$ valac --pkg=mx-1.0 mx-widget-factory.vala
+$ valac --pkg=mx-1.0 mx-widget-factory.gs
 $ ./mx-widget-factory
 ```
 

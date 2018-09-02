@@ -69,7 +69,7 @@ init  //ic static int main (string[] args) {
 ### Compile and Run
 
 ```shell
-$ valac --pkg=poppler-glib --pkg=gtk+-3.0 -o popplersample PopplerSample.vala
+$ valac --pkg=poppler-glib --pkg=gtk+-3.0 -o popplersample PopplerSample.gs
 $ ./popplersample /full/path/to/some.pdf
 ```
 

@@ -20,7 +20,7 @@ These samples are found in the reference manual of GSL and were rewritten for
 vala.  Compile all the examples with:
 
 ```shell
-$ valac sample.vala --pkg=gsl
+$ valac sample.gs --pkg=gsl
 ```
 
 ## Statistics Sample
@@ -59,7 +59,7 @@ init
 ```
 
 ```shell
-$ valac sample.vala --pkg=gsl
+$ valac sample.gs --pkg=gsl
 ```
 
 
@@ -85,7 +85,7 @@ init  // id main (string[] args)
 ```
 
 ```shell
-$ valac sample.vala --pkg=gsl
+$ valac sample.gs --pkg=gsl
 ```
 
 
@@ -114,7 +114,7 @@ init
 ```
 
 ```shell
-$ valac sample.vala --pkg=gsl
+$ valac sample.gs --pkg=gsl
 ```
 
 ## Eigen System Sample
@@ -146,7 +146,7 @@ init
 ```
 
 ```shell
-$ valac sample.vala --pkg=gsl
+$ valac sample.gs --pkg=gsl
 ```
 
 
@@ -172,7 +172,7 @@ init
 ```
 
 ```shell
-$ valac sample.vala --pkg=gsl
+$ valac sample.gs --pkg=gsl
 ```
 
 
@@ -204,7 +204,7 @@ init  // atic void main (string[] args)
 ```
 
 ```shell
-$ valac sample.vala --pkg=gsl
+$ valac sample.gs --pkg=gsl
 ```
 
 
@@ -261,7 +261,7 @@ init  // atic void main (string[] args)
 ```
 
 ```shell
-$ valac sample.vala --pkg=gsl
+$ valac sample.gs --pkg=gsl
 ```
 
 
@@ -338,7 +338,7 @@ init  // atic void main (string[] args)
 ```
 
 ```shell
-$ valac sample.vala --pkg=gsl
+$ valac sample.gs --pkg=gsl
 ```
 
 
@@ -449,7 +449,7 @@ init  // atic void main (string[] args)
 ```
 
 ```shell
-$ valac sample.vala --pkg=gsl
+$ valac sample.gs --pkg=gsl
 ```
 
 

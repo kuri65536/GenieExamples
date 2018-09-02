@@ -68,7 +68,7 @@ init  // () {
 ### Compile and Run
 
 ```shell
-$ valac --pkg=gio-2.0 dbus-bluez.vala
+$ valac --pkg=gio-2.0 dbus-bluez.gs
 $ ./dbus-bluez
 ```
 
@@ -105,7 +105,7 @@ init  // () {
 ### Compile and Run
 
 ```shell
-$ valac --pkg=gio-2.0 dbus-purple.vala
+$ valac --pkg=gio-2.0 dbus-purple.gs
 $ ./dbus-purple
 ```
 
@@ -147,7 +147,7 @@ init  // (string[] args) {
 ### Compile and Run
 
 ```shell
-$ valac --pkg=gio-2.0 dbus-skype.vala
+$ valac --pkg=gio-2.0 dbus-skype.gs
 $ ./dbus-skype
 USERSTATUS ONLINE
 $ ./dbus-skype AWAY

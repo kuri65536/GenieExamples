@@ -31,11 +31,11 @@ init  //n () {
 ### Compile and Run
 
 ```shell
-$ valac -D FOOBAR conditional-compilation.vala
+$ valac -D FOOBAR conditional-compilation.gs
 $ ./conditional-compilation
-$ valac -D FOO -D BAR conditional-compilation.vala
+$ valac -D FOO -D BAR conditional-compilation.gs
 $ ./conditional-compilation
-$ valac -D FOO -D BAR -D FOOBAR -D NOFOO conditional-compilation.vala
+$ valac -D FOO -D BAR -D FOOBAR -D NOFOO conditional-compilation.gs
 $ ./conditional-compilation
 ```
 

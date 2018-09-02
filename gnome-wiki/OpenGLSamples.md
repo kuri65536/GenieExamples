@@ -57,7 +57,7 @@ init
 ### Compile with
 
 ```shell
-$ valac --pkg=gl --pkg=libglfw glfw-sample.vala
+$ valac --pkg=gl --pkg=libglfw glfw-sample.gs
 ```
 
 
@@ -134,7 +134,7 @@ init  //  (string[] args) {
 ### Compile with
 
 ```shell
-$ valac --pkg gtk+-2.0 --pkg gl --pkg gtkglext-1.0 gtkglext-sample.vala
+$ valac --pkg=gtk+-2.0 --pkg gl --pkg gtkglext-1.0 gtkglext-sample.gs
 ```
 
 
@@ -293,7 +293,8 @@ init  //  (string[] args) {
 ### Compile with
 
 ```shell
-$ valac --pkg=gtk+-2.0 --pkg=gl --pkg=glu --pkg=gtkglext-1.0 gtkglext-spot-sample.vala
+$ valac --pkg=gtk+-2.0 --pkg=gl --pkg=glu --pkg=gtkglext-1.0 \
+    gtkglext-spot-sample.gs
 ```
 
 
@@ -373,7 +374,7 @@ init  //  (string[] args) {
 ### Compile with
 
 ```shell
-$ valac --pkg=gtk+-2.0 --pkg=gdk-x11-2.0 --pkg=gl --pkg=glx glx-sample.vala
+$ valac --pkg=gtk+-2.0 --pkg=gdk-x11-2.0 --pkg=gl --pkg=glx glx-sample.gs
 ```
 
 
@@ -699,7 +700,7 @@ init  // atic void main (string[] args) {
 ### Compile with
 
 ```shell
-$ valac --pkg=gl --pkg=glu --pkg=glut -X -lglut glut-sample.vala
+$ valac --pkg=gl --pkg=glu --pkg=glut -X -lglut glut-sample.gs
 ```
 
 Vala/Examples Projects/Vala/OpenGLSamples

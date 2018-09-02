@@ -29,7 +29,7 @@ init  // (string[] args) {
 ### Compile and Run
 
 ```shell
-$ valac -o list --pkg=gee-0.8 list.vala
+$ valac -o list --pkg=gee-0.8 list.gs
 $ ./list
 ```
 

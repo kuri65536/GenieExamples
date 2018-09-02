@@ -109,7 +109,7 @@ init  // (string[] args) {
 ### Compile
 
 ```shell
-$ valac --pkg=libxml-2.0 xmlsample.vala
+$ valac --pkg=libxml-2.0 xmlsample.gs
 $ ./xmlsample
 ```
 
@@ -146,7 +146,7 @@ init
 ```
 
 ```shell
-$ valac --pkg=libxml-2.0 xmlsample.vala
+$ valac --pkg=libxml-2.0 xmlsample.gs
 $ ./xmlsample
 ```
 
@@ -187,7 +187,7 @@ init  // c static int main(string[] args) {
 
 ### Compile
 ```shell
-$ valac --pkg=libxml-2.0 xpathsample.vala
+$ valac --pkg=libxml-2.0 xpathsample.gs
 $ ./xpathsample
 ```
 
@@ -272,7 +272,7 @@ init  // string[] args) {
 ### Compile
 
 ```shell
-$ valac --pkg=libxml-2.0 reader1.vala
+$ valac --pkg=libxml-2.0 reader1.gs
 $ ./reader1 <filename>
 ```
 

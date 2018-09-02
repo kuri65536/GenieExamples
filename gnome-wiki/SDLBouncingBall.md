@@ -313,7 +313,7 @@ $ apt install libsdl-gfx1.2-dev
 
 ```shell
 $ valac -g --pkg sdl --pkg sdl-gfx -X -lSDL_gfx -X -I/usr/include/SDL \
-    World.vala Window.vala Ball.vala main.vala -o BouncingBall
+    World.gs Window.gs Ball.gs main.gs -o BouncingBall
 $ ./BouncingBall
 ```
 

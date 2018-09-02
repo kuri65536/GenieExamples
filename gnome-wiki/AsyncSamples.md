@@ -17,7 +17,7 @@ This illustrates calling async methods from within an async method.
 ```shell
 # Example with GIO asynchronous methods:
 # Build with:
-$ valac --pkg=gio-2.0 example.vala
+$ valac --pkg=gio-2.0 example.gs
 ```
 
 ```genie
@@ -59,7 +59,7 @@ init
 This illustrates an async method which starts a background thread to do processing, and receives a result back from it when it is complete. It also illustrates catching exceptions from an async method. // Async method to run a slow calculation in a background thread.
 
 ```genie
-// Build with: valac --pkg=gio-2.0 example.vala
+// Build with: valac --pkg=gio-2.0 example.gs
 [indent=4]
 
 /*
@@ -125,13 +125,19 @@ init
 ```
 
 ```shell
-$ valac --pkg=gio-2.0 example.vala
+$ valac --pkg=gio-2.0 example.gs
 ```
 
 ## Generator example
-This is based on Luca Bruno's Generator.  It illustrates using async methods to emulate a generator style of iterator coding.  Note that this runs fine without a main loop. // Build with: valac --pkg=gio-2.0 example.vala
+This is based on Luca Bruno's Generator.
+
+It illustrates using async methods to emulate a generator style of iterator
+coding.
+
+Note that this runs fine without a main loop.
 
 ```genie
+// Build with: valac --pkg=gio-2.0 example.gs
 [indent=4]
 class abstract Generator of G
     consumed: bool
@@ -179,7 +185,7 @@ init  // (string[] args) {
 ```
 
 ```shell
-$ valac --pkg=gio-2.0 example.vala
+$ valac --pkg=gio-2.0 example.gs
 ```
 
 
@@ -188,7 +194,7 @@ This is a version of the venerable sleep() function which allows the main loop
 to continue iterating, and therefore will not block the UI:
 
 ```genie
-// Build with: valac --pkg=gio-2.0 example.vala
+// Build with: valac --pkg=gio-2.0 example.gs
 [indent=4]
 class AsyncSample4
     loop: MainLoop
@@ -212,7 +218,7 @@ init  // (string[] args) {
 ```
 
 ```shell
-$ valac --pkg=gio-2.0 example.vala
+$ valac --pkg=gio-2.0 example.gs
 ```
 
 
@@ -220,7 +226,7 @@ $ valac --pkg=gio-2.0 example.vala
 
 ```genie
 // Demo class with async function
-// Build with: valac --pkg=gio-2.0 example.vala
+// Build with: valac --pkg=gio-2.0 example.gs
 [indent=4]
 class Test.Async: Object
     loop: MainLoop
@@ -245,7 +251,7 @@ init  // args[]
 ```
 
 ```shell
-$ valac --pkg=gio-2.0 example.vala
+$ valac --pkg=gio-2.0 example.gs
 ```
 
 from Vala/Examples Projects/Vala/AsyncSamples

@@ -75,7 +75,7 @@ class SDLSample: Object
 ### Compile and Run
 
 ```shell
-$ valac --pkg=sdl --pkg=sdl-gfx -X -lSDL_gfx -o sdlsample SDLSample.vala
+$ valac --pkg=sdl --pkg=sdl-gfx -X -lSDL_gfx -o sdlsample SDLSample.gs
 $ ./sdlsample
 ```
 
@@ -84,7 +84,7 @@ header files,
 
 ```
 $ valac --pkg sdl --pkg sdl-gfx -X -lSDL_gfx -o sdlsample \
-    SDLSample.vala --Xcc=-I/usr/include/SDL
+    SDLSample.gs --Xcc=-I/usr/include/SDL
 $ ./sdlsample
 ```
 
@@ -139,7 +139,7 @@ def process_events(): bool
 Put a TrueType font file named "myfont.ttf" in the current folder and type :
 
 ```shell
-$ valac --pkg=sdl --pkg=sdl-ttf -X -lSDL_ttf sdlttf-sample.vala
+$ valac --pkg=sdl --pkg=sdl-ttf -X -lSDL_ttf sdlttf-sample.gs
 $ ./sdlttf-sample
 ```
 

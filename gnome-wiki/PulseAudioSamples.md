@@ -10,7 +10,7 @@ or using:
 ```
 $ git clone git://git.0pointer.de/pulseaudio.git
 $ valac --pkg libpulse --pkg posix --pkg gtk+-2.0 \
-    --pkg libpulse-mainloop-glib pulse.vala
+    --pkg libpulse-mainloop-glib pulse.gs
 ```
 
 ```genie
@@ -167,7 +167,7 @@ init  // (string[] args) {
 
 ```shell
 $ valac --pkg=libpulse --pkg=posix --pkg=gtk+-2.0 \
-    --pkg=libpulse-mainloop-glib pulse.vala
+    --pkg=libpulse-mainloop-glib pulse.gs
 ```
 
 Vala/Examples Projects/Vala/PulseAudioSamples

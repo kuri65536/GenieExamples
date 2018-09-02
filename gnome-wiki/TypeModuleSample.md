@@ -24,7 +24,7 @@ def plugin_init(type_modul: GLib.TypeModule): Type
 ```
 
 ```shell
-$ valac --ccode plugin.vala
+$ valac --ccode plugin.gs
 $ gcc -fPIC -shared -o libplugin.so plugin.c \
     $(pkg-config --libs --cflags gobject-2.0 gmodule-2.0)
 ```
@@ -77,16 +77,16 @@ init
 ### Build
 
 ```shell
-$ valac -o loader loader.vala --pkg=gmodule-2.0
+$ valac -o loader loader.gs --pkg=gmodule-2.0
 ```
 
 ### Run
 
 ```
 $ LD_LIBRARY_PATH=$PWD ./loader
-** Message: plugin.vala:5: MyClass init
-** Message: plugin.vala:10: MyClass deinit
-** Message: loader.vala:37: Library unloaded
+** Message: plugin.gs:5: MyClass init
+** Message: plugin.gs:10: MyClass deinit
+** Message: loader.gs:37: Library unloaded
 ```
 
 

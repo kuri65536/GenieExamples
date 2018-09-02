@@ -36,7 +36,7 @@ src.wave = 1;
 ### Compile and Run
 
 ```shell
-$ valac --pkg=gstreamer-0.10 gst-squarebeep.vala
+$ valac --pkg=gstreamer-0.10 gst-squarebeep.gs
 $ ./gst-squarebeep
 ```
 
@@ -109,7 +109,7 @@ init  // (string[] args) {
 ### Compile and Run
 
 ```shell
-$ valac --pkg=gstreamer-1.0 gst-play-stream.vala
+$ valac --pkg=gstreamer-1.0 gst-play-stream.gs
 $ ./gst-play-stream
 ```
 
@@ -167,7 +167,7 @@ init  // atic int main (string[] args) {
 ### Compile and Run
 
 ```shell
-$ valac --pkg=gtk+-3.0 --pkg=gstreamer-1.0 gst-videotest.vala
+$ valac --pkg=gtk+-3.0 --pkg=gstreamer-1.0 gst-videotest.gs
 $ ./gst-videotest
 ```
 
@@ -180,7 +180,7 @@ $ ./gst-videotest
 //# You may modify and redistribute this file under the same terms as
 //# the CMU Sphinx system.  See
 //# http://cmusphinx.sourceforge.net/html/LICENSE for more information.
-// valac --pkg gstreamer-0.10 --pkg gtk+-2.0 shpinx_livedemo.vala
+// valac --pkg gstreamer-0.10 --pkg gtk+-2.0 shpinx_livedemo.gs
 using Gtk;
 using Gst;
 public class DemoApp : GLib.Object {
@@ -312,7 +312,7 @@ void main(string[] args) {
 ### Compile and run
 
 ```shell
-$ valac --pkg=gstreamer-0.10 --pkg=gtk+-2.0 sphinx_livedemo.vala
+$ valac --pkg=gstreamer-0.10 --pkg=gtk+-2.0 sphinx_livedemo.gs
 $ ./sphinx_livedemo
 ```
 

@@ -15,10 +15,10 @@ init
 Compile and Run
 
 ```shell
-$ valac hello.vala
-$ ./helloIf
-# the binary should have a different name:
-$ valac hello.vala -o greeting
+$ valac hello.gs
+$ ./hello
+# If the binary should have a different name:
+$ valac hello.gs -o greeting
 $ ./greeting
 ```
 

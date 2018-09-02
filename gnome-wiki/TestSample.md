@@ -22,7 +22,7 @@ init  //  (string[] args) {
 Compile this with:
 
 ```shell
-$ valac unit-test.vala
+$ valac unit-test.gs
 ```
 
 
@@ -54,7 +54,7 @@ init  //  (string[] args) {
 Compile this with:
 
 ```shell
-$ valac --pkg=gtk+-3.0 unit-test-gtk.vala
+$ valac --pkg=gtk+-3.0 unit-test-gtk.gs
 ```
 
 

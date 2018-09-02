@@ -36,7 +36,7 @@ init
 ### Compile and Run
 
 ```shell
-$ valac --pkg=gee-0.8 gee-list.vala
+$ valac --pkg=gee-0.8 gee-list.gs
 $ ./gee-list
 ```
 
@@ -67,7 +67,7 @@ init
 ### Compile and Run
 
 ```shell
-$ valac --pkg=gee-0.8 gee-set.vala
+$ valac --pkg=gee-0.8 gee-set.gs
 $ ./gee-set
 ```
 
@@ -113,7 +113,7 @@ init
 ### Compile and Run
 
 ```shell
-$ valac --pkg=gee-0.8 gee-map.vala
+$ valac --pkg=gee-0.8 gee-map.gs
 $ ./gee-map
 ```
 
@@ -210,7 +210,7 @@ init
 ### Compile and Run
 
 ```shell
-$ valac --pkg=gee-0.8 iterable.vala
+$ valac --pkg=gee-0.8 iterable.gs
 $ ./iterable
 ```
 

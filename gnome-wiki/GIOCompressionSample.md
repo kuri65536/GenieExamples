@@ -43,7 +43,7 @@ init  // string[] args
 ### Compile
 
 ```shell
-$ valac --pkg=gio-2.0 gio-compression.vala
+$ valac --pkg=gio-2.0 gio-compression.gs
 $ ./gio-compression FILENAME
 ```
 

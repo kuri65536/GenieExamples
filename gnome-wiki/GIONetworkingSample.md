@@ -37,7 +37,7 @@ init
 ### Compile and Run
 
 ```shell
-$ valac --pkg=gio-2.0 gio-network-client.vala
+$ valac --pkg=gio-2.0 gio-network-client.gs
 $ ./gio-network-client
 ```
 
@@ -87,7 +87,7 @@ void main () {
 ### Compile and Run
 
 ```shell
-$ valac --pkg gio-2.0 gio-network-client-async.vala
+$ valac --pkg gio-2.0 gio-network-client-async.gs
 $ ./gio-network-client-async
 ```
 
@@ -95,7 +95,8 @@ $ ./gio-network-client-async
 ## Server Example
 
 ```genie
-vala-test:examples/gio-server.vala void process_request (InputStream input, OutputStream output) throws Error {
+// vala-test:examples/gio-server.vala
+void process_request (InputStream input, OutputStream output) throws Error {
     var data_in = new DataInputStream (input);
     string line;
     while ((line = data_in.read_line (null)) != null) {
@@ -130,9 +131,11 @@ int main () {
 ### Compile and Run
 
 ```shell
-$ valac --pkg gio-2.0 gio-server.vala
-$ ./gio-serverEnter http://localhost:8080/ in your browser address bar. 
+$ valac --pkg gio-2.0 gio-server.gs
+$ ./gio-server
 ```
+
+Enter http://localhost:8080/ in your browser address bar.
 
 
 ## Asynchronous Server Example
@@ -170,8 +173,15 @@ void main () {
 ### Compile and Run
 
 ```genie
-$ valac --pkg gio-2.0 gio-server-async.vala
-$ ./gio-server-asyncConnect to localhost via netcat or telnet on port 3333 and issue a command ending with a newline.  echo "blub" | nc localhost 3333  
+$ valac --pkg gio-2.0 gio-server-async.gs
+$ ./gio-server-async
+```
+
+Connect to localhost via netcat or telnet on port 3333 and issue a command
+ending with a newline.
+
+```
+$ echo "blub" | nc localhost 3333
 ```
 
 
@@ -212,7 +222,7 @@ int main () {
 ### Compile and Run
 
 ```shell
-$ valac --pkg gio-2.0 gio-udp-demo.vala
+$ valac --pkg gio-2.0 gio-udp-demo.gs
 $ ./gio-udp-demoSend
 ```
 

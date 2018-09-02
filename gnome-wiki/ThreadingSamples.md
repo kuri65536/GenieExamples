@@ -49,7 +49,7 @@ init
 ```
 
 ```shell
-$ valac --thread threads.vala
+$ valac --thread threads.gs
 $ ./threads
 ```
 
@@ -94,7 +94,7 @@ init
 ```
 
 ```shell
-$ valac --thread --target-glib=2.32 threads.vala
+$ valac --thread --target-glib=2.32 threads.gs
 $ ./threads
 ```
 
@@ -176,7 +176,7 @@ init  // (string[] args) {
 ```
 
 ```shell
-$ valac --thread philosophers.vala
+$ valac --thread philosophers.gs
 $ ./philosophers
 ```
 
@@ -253,7 +253,7 @@ init
 ```
 
 ```shell
-$ valac --thread async-queue-test.vala
+$ valac --thread async-queue-test.gs
 $ ./async-queue-test
 ```
 

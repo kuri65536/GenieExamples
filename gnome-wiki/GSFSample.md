@@ -51,7 +51,7 @@ init
 Put a zip archive named "myarchive.zip" in current folder and :
 
 ```shell
-$ valac --pkg=libgsf-1 gsf-sample.vala
+$ valac --pkg=libgsf-1 gsf-sample.gs
 $ ./gsf-sample
 ```
 

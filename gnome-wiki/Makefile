@@ -21,6 +21,7 @@
 # disabled: MxSample.md:1-2 by dependencies mx-dev
 # disabled: PopplerSample.md:1 by dependencies poppler-dev
 # disabled: TiffSample.md:1 dependencies libtiff
+# disabled: WebKitSample.md:1 dependencies gtk-2.0
 
 # can't compile
 # GeeSamples.md:4 can't compile by Gee.Traverse.
@@ -65,9 +66,8 @@ src := \
     TypeModuleSample.md:2 \
     USBSample.md:1 \
     ValueSample.md:1 \
-    WebKitSample.md:1 \
     Win32CrossBuildSample.md \
-    XmlSample.md \
+    XmlSample.md:1-2-3-4 \
 
 
 # ver.1: extract the first `genie` block

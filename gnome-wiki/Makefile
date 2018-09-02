@@ -61,7 +61,7 @@ src := \
     TestSample.md:1-2 \
     TiffSample.md \
     TimeSample.md:1 \
-    TypeModuleSample.md \
+    TypeModuleSample.md:2 \
     USBSample.md \
     ValueSample.md:1 \
     WebKitSample.md \
@@ -90,7 +90,7 @@ func1 = $(foreach i,$(subst -, ,$(word 2,$(1))), \
 bin_examples := $(foreach i,$(src),$(call func1,$(subst :, ,$(i))))
 bin_examples := $(addprefix tmp/,$(bin_examples))
 
-build: $(bin_examples) tmp/valatest.exe
+build: $(bin_examples) tmp/valatest.exe tmp/libplugin.so
 
 extract := ./extract
 
@@ -149,4 +149,11 @@ tmp/main.gs: SharedLibSample.md $(extract)
 tmp/valatest.exe: tmp/main.gs tmp/test_shared.so
 	valac test_shared.vapi tmp/main.gs -X tmp/test_shared.so -X -I. -o $@
 
+# TypeModuleSample
+tmp/libplugin.so: TypeModuleSample.md tmp/TypeModuleSample-2.exe $(extract)
+	$(extract) 1 $(filter %.md,$^) > plugin.gs
+	valac --ccode plugin.gs
+	gcc -fPIC -shared -o libplugin.so plugin.c \
+	    $$(pkg-config --libs --cflags gobject-2.0 gmodule-2.0)
+	LD_LIBRARY_PATH=$$PWD ./tmp/TypeModuleSample-2.exe
 

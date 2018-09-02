@@ -1,13 +1,14 @@
-Projects/Vala/WebKitSample - GNOME Wiki!
-<!--
-var search_hint = "Search";
-//-->
-	   
-	    
-Projects/Vala/WebKitSampleHomeRecentChangesScheduleLogin
-Vala WebKit Sample
-Requires Vala >= 0.11.0 vala-test:examples/webkit-sample.vala using Gtk;
+# Projects/Vala/WebKitSample - GNOME Wiki!
+
+## Vala WebKit Sample
+
+Requires Vala >= 0.11.0
+
+```genie
+// vala-test:examples/webkit-sample.vala
+using Gtk;
 using WebKit;
+
 public class ValaBrowser : Window {
     private const string TITLE = "Vala Browser";
     private const string HOME_URL = "http://acid3.acidtests.org/";
@@ -90,24 +91,19 @@ public class ValaBrowser : Window {
         return 0;
     }
 }
-Compile and Run
-Currently, Vala doesn't come with bindings for WebKitGTK+ 3.0. To compile it with WebKitGTK+ 1.0, you'll have to also use GTK+ 2.0, like this: $ valac --pkg gtk+-2.0 --pkg webkit-1.0 --thread webkit-sample.vala
-$ ./webkit-sampleIf you'd rather use GTK+ 3.0, you can easily create your own .vapi and .deps files. Follow instructions here.  The above   Vala/Examples Projects/Vala/WebKitSample  (last edited 2013-11-22 16:48:24 by WilliamJonMcCann)
-Search:
-<input id="searchinput" type="text" name="value" value="" size="20"
-    onfocus="searchFocus(this)" onblur="searchBlur(this)"
-    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
-<input id="titlesearch" name="titlesearch" type="submit"
-    value="Titles" alt="Search Titles">
-<input id="fullsearch" name="fullsearch" type="submit"
-    value="Text" alt="Search Full Text">
-<!--// Initialize search form
-var f = document.getElementById('searchform');
-f.getElementsByTagName('label')[0].style.display = 'none';
-var e = document.getElementById('searchinput');
-searchChange(e);
-searchBlur(e);
-//-->
-        Copyright &copy; 2005 -  The GNOME Project.
-        Hosted by Red Hat.
-  document.getElementById('current-year').innerHTML = new Date().getFullYear();
+```
+
+### Compile and Run
+Currently, Vala doesn't come with bindings for WebKitGTK+ 3.0. To compile it
+with WebKitGTK+ 1.0, you'll have to also use GTK+ 2.0, like this:
+
+```shell
+$ valac --pkg gtk+-2.0 --pkg webkit-1.0 --thread webkit-sample.vala
+$ ./webkit-sample
+```
+
+If you'd rather use GTK+ 3.0, you can easily create your own .vapi and .deps
+files. Follow instructions here. The above
+
+Vala/Examples Projects/Vala/WebKitSample
+    (last edited 2013-11-22 16:48:24 by WilliamJonMcCann)

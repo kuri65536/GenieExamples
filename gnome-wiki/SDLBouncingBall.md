@@ -1,12 +1,14 @@
-Projects/Vala/SDLBouncingBall - GNOME Wiki!
-<!--
-var search_hint = "Search";
-//-->
-	   
-	    
-Projects/Vala/SDLBouncingBallHomeRecentChangesScheduleLogin
-SDL Bouncing Ball
-Based on SDLSample Please take into consideration that I, WolterHellmund, am starting to learn this language, and therefore you shall not take this example as a base for your Vala coding. World.vala using GLib;
+# Projects/Vala/SDLBouncingBall - GNOME Wiki!
+
+## SDL Bouncing Ball
+Based on SDLSample Please take into consideration that I, WolterHellmund, am
+starting to learn this language, and therefore you shall not take this example
+as a base for your Vala coding.
+
+```genie
+// World.vala
+using GLib;
+
 public class World : GLib.Object {
         public float gravity    { get; set; }
         public float air_res    { get; set; }
@@ -96,7 +98,11 @@ public class Window : GLib.Object {
                 //video_init ();
         }
 }
-Ball.vala using GLib;
+```
+
+```genie
+// Ball.vala
+using GLib;
 using SDL;
 using SDLGraphics;
 public class Ball : GLib.Object {
@@ -253,7 +259,11 @@ public class Ball : GLib.Object {
                 this.velx = 2;
         }
 }
-main.vala using GLib;
+```
+
+```genie
+// main.vala
+using GLib;
 using SDL;
 using SDLGraphics;
 // Re-write of BBWindow's screen_update (linked in the run void)
@@ -286,24 +296,15 @@ void main (string[] args) {
         // Run the window
         BBWindow.run ();
 }
-Building and Running
-$ valac -g --pkg sdl --pkg sdl-gfx -X -lSDL_gfx -X -I/usr/include/SDL World.vala Window.vala Ball.vala main.vala -o BouncingBall
-$ ./BouncingBall Vala/Examples Projects/Vala/SDLBouncingBall  (last edited 2013-11-22 16:48:24 by WilliamJonMcCann)
-Search:
-<input id="searchinput" type="text" name="value" value="" size="20"
-    onfocus="searchFocus(this)" onblur="searchBlur(this)"
-    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
-<input id="titlesearch" name="titlesearch" type="submit"
-    value="Titles" alt="Search Titles">
-<input id="fullsearch" name="fullsearch" type="submit"
-    value="Text" alt="Search Full Text">
-<!--// Initialize search form
-var f = document.getElementById('searchform');
-f.getElementsByTagName('label')[0].style.display = 'none';
-var e = document.getElementById('searchinput');
-searchChange(e);
-searchBlur(e);
-//-->
-        Copyright &copy; 2005 -  The GNOME Project.
-        Hosted by Red Hat.
-  document.getElementById('current-year').innerHTML = new Date().getFullYear();
+```
+
+### Building and Running
+
+```shell
+$ valac -g --pkg sdl --pkg sdl-gfx -X -lSDL_gfx -X -I/usr/include/SDL \
+    World.vala Window.vala Ball.vala main.vala -o BouncingBall
+$ ./BouncingBall
+```
+
+Vala/Examples Projects/Vala/SDLBouncingBall
+    (last edited 2013-11-22 16:48:24 by WilliamJonMcCann)

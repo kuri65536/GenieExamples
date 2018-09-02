@@ -1,68 +1,7 @@
-Projects/Vala/PangoCairoSample - GNOME Wiki!
-<!--
-var search_hint = "Search";
-//-->
-	   
-	    
-Projects/Vala/PangoCairoSampleHomeRecentChangesScheduleLogin
-vala-test:examples/pango-cairo.vala 
-function isnumbered(obj) {
-  return obj.childNodes.length && obj.firstChild.childNodes.length && obj.firstChild.firstChild.className == 'LineNumber';
-}
-function nformat(num,chrs,add) {
-  var nlen = Math.max(0,chrs-(''+num).length), res = '';
-  while (nlen>0) { res += ' '; nlen-- }
-  return res+num+add;
-}
-function addnumber(did, nstart, nstep) {
-  var c = document.getElementById(did), l = c.firstChild, n = 1;
-  if (!isnumbered(c)) {
-    if (typeof nstart == 'undefined') nstart = 1;
-    if (typeof nstep  == 'undefined') nstep = 1;
-    var n = nstart;
-    while (l != null) {
-      if (l.tagName == 'SPAN') {
-        var s = document.createElement('SPAN');
-        var a = document.createElement('A');
-        s.className = 'LineNumber';
-        a.appendChild(document.createTextNode(nformat(n,4,'')));
-        a.href = '#' + did + '_' + n;
-        s.appendChild(a);
-        s.appendChild(document.createTextNode(' '));
-        n += nstep;
-        if (l.childNodes.length) {
-          l.insertBefore(s, l.firstChild);
-        }
-        else {
-          l.appendChild(s);
-        }
-      }
-      l = l.nextSibling;
-    }
-  }
-  return false;
-}
-function remnumber(did) {
-  var c = document.getElementById(did), l = c.firstChild;
-  if (isnumbered(c)) {
-    while (l != null) {
-      if (l.tagName == 'SPAN' && l.firstChild.className == 'LineNumber') l.removeChild(l.firstChild);
-      l = l.nextSibling;
-    }
-  }
-  return false;
-}
-function togglenumber(did, nstart, nstep) {
-  var c = document.getElementById(did);
-  if (isnumbered(c)) {
-    remnumber(did);
-  } else {
-    addnumber(did,nstart,nstep);
-  }
-  return false;
-}
-document.write('<a href="#" onclick="return togglenumber(\'CA-ba2e0063558b0b33ed37ca7773b158392feecf2e\', 1, 1);" \
-                class="codenumbers">Toggle line numbers');
+# Projects/Vala/PangoCairoSample - GNOME Wiki!
+
+```genie
+// vala-test:examples/pango-cairo.vala
 //======================================================================
 //  pags.vala - Converting text to rendered image files of the text.
 //              It may e.g. be used for rendering text files to put
@@ -197,9 +136,18 @@ public class Pags {
         return 0;
     }
 }
-The following is an example using Gtk+-3.0 to draw boxes around each glyph cluster.  You can optionally change it to render boxes around each line, run, or char.  The box rendering routine may also be edited to display either the inked rectangle (ink_rect) or logical rectangle (log_rect) for each of these except 'char' with which it only has a logical rectangle associated.  I've found this useful in understanding how Pango works internally. 
-document.write('<a href="#" onclick="return togglenumber(\'CA-702449ae7e23188a498faa8185fe438a0ac863ad\', 1, 1);" \
-                class="codenumbers">Toggle line numbers');
+```
+
+
+The following is an example using Gtk+-3.0 to draw boxes around each glyph
+cluster.  You can optionally change it to render boxes around each line, run, or
+char.  The box rendering routine may also be edited to display either the inked
+rectangle (ink_rect) or logical rectangle (log_rect) for each of these except
+'char' with which it only has a logical rectangle associated.  I've found this
+useful in understanding how Pango works internally.
+
+
+```genie
 // valac --pkg gtk+-3.0 --pkg cairo --pkg pango extentdemo.vala 
 using Gtk;
 using Cairo;
@@ -319,22 +267,8 @@ static int main (string[] args) {
         //Gdk.threads_leave ();
         return 0;
 }
- Vala/Examples Projects/Vala/PangoCairoSample  (last edited 2013-11-22 16:48:30 by WilliamJonMcCann)
-Search:
-<input id="searchinput" type="text" name="value" value="" size="20"
-    onfocus="searchFocus(this)" onblur="searchBlur(this)"
-    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
-<input id="titlesearch" name="titlesearch" type="submit"
-    value="Titles" alt="Search Titles">
-<input id="fullsearch" name="fullsearch" type="submit"
-    value="Text" alt="Search Full Text">
-<!--// Initialize search form
-var f = document.getElementById('searchform');
-f.getElementsByTagName('label')[0].style.display = 'none';
-var e = document.getElementById('searchinput');
-searchChange(e);
-searchBlur(e);
-//-->
-        Copyright &copy; 2005 -  The GNOME Project.
-        Hosted by Red Hat.
-  document.getElementById('current-year').innerHTML = new Date().getFullYear();
+```
+
+
+Vala/Examples Projects/Vala/PangoCairoSample
+    (last edited 2013-11-22 16:48:30 by WilliamJonMcCann)

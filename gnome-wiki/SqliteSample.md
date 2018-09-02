@@ -1,12 +1,10 @@
-Projects/Vala/SqliteSample - GNOME Wiki!
-<!--
-var search_hint = "Search";
-//-->
-	   
-	    
-Projects/Vala/SqliteSampleHomeRecentChangesScheduleLogin
-Vala Sqlite Example
-vala-test:examples/sqlite.vala /**
+# Projects/Vala/SqliteSample - GNOME Wiki!
+
+## Vala Sqlite Example
+
+```genie
+// vala-test:examples/sqlite.vala
+/**
  * Using SQLite in Vala Sample Code
  * Port of an example found on the SQLite site.
  * http://www.sqlite.org/quickstart.html
@@ -56,10 +54,18 @@ public class SqliteSample : GLib.Object {
         return 0;
     }
 }
-Compile and Run
+```
+
+### Compile and Run
+
+```shell
 $ valac --pkg sqlite3 -o sqlitesample SqliteSample.vala
 $ ./sqlitesample
+```
+
 Retrieving rows from a database
+
+```genie
 using GLib;
 using Sqlite;
 void main (string[] args) {
@@ -97,34 +103,28 @@ void main (string[] args) {
         }
     } while (rc == Sqlite.ROW);
 }
+```
+
 Set up a database to test
+
+```
 $ sqlite3 testdb << EOF
 CREATE TABLE tbl (data TEXT, num DOUBLE);
 INSERT INTO tbl VALUES ("First row", 10);
 INSERT INTO tbl VALUES ("Second row", 20);
 EOF
-Compile and run
+```
+
+### Compile and run
+
+```shell
 $ valac --pkg sqlite3 -o sqlitesample2 SqliteSample2.vala
 $ ./sqlitesample2 testdb "select * from tbl"
 data = First row
 num = 10.0
 data = Second row
-num = 20.0 Vala/Examples Projects/Vala/SqliteSample  (last edited 2013-11-22 16:48:24 by WilliamJonMcCann)
-Search:
-<input id="searchinput" type="text" name="value" value="" size="20"
-    onfocus="searchFocus(this)" onblur="searchBlur(this)"
-    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
-<input id="titlesearch" name="titlesearch" type="submit"
-    value="Titles" alt="Search Titles">
-<input id="fullsearch" name="fullsearch" type="submit"
-    value="Text" alt="Search Full Text">
-<!--// Initialize search form
-var f = document.getElementById('searchform');
-f.getElementsByTagName('label')[0].style.display = 'none';
-var e = document.getElementById('searchinput');
-searchChange(e);
-searchBlur(e);
-//-->
-        Copyright &copy; 2005 -  The GNOME Project.
-        Hosted by Red Hat.
-  document.getElementById('current-year').innerHTML = new Date().getFullYear();
+num = 20.0
+```
+
+Vala/Examples Projects/Vala/SqliteSample
+    (last edited 2013-11-22 16:48:24 by WilliamJonMcCann)

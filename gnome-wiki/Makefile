@@ -20,6 +20,7 @@
 # disabled: LoudmouthSample.md:1-2 by dependencies gtk-2.0
 # disabled: MxSample.md:1-2 by dependencies mx-dev
 # disabled: PopplerSample.md:1 by dependencies poppler-dev
+# disabled: TiffSample.md:1 dependencies libtiff
 
 # can't compile
 # GeeSamples.md:4 can't compile by Gee.Traverse.
@@ -60,7 +61,6 @@ src := \
     StringSample.md:1-2-3-4-5 \
     TestSample.md:1-2 \
     ThreadingSamples.md:1-2-3-4 \
-    TiffSample.md:1 \
     TimeSample.md:1 \
     TypeModuleSample.md:2 \
     USBSample.md \
@@ -90,8 +90,11 @@ func1 = $(foreach i,$(subst -, ,$(word 2,$(1))), \
           $(subst .md,-$(i).exe,$(word 1,$(1))))
 bin_examples := $(foreach i,$(src),$(call func1,$(subst :, ,$(i))))
 bin_examples := $(addprefix tmp/,$(bin_examples))
+bin_all := $(bin_examples) \
+           tmp/valatest.exe tmp/libplugin.so tmp/libplugin2.so \
+           tmp/SDLBouncingBall.exe
 
-build: $(bin_examples) tmp/valatest.exe tmp/libplugin.so tmp/libplugin2.so
+build: $(bin_all)
 
 extract := ./extract
 
@@ -174,4 +177,14 @@ tmp/libplugin2.so: TypeModules.md tmp/main2.exe tmp/plugin-interface.gs $(extrac
 	    $$(pkg-config --cflags --libs glib-2.0 gmodule-2.0)
 	LD_LIBRARY_PATH=$$PWD/tmp ./tmp/main2.exe
 
+
+# SDLBouncing
+tmp/SDLBouncingBall.exe: SDLBouncingBall.md $(extract)
+	$(extract) 1 $(filter %.md,$^) > tmp/sdl_world.gs
+	$(extract) 2 $(filter %.md,$^) > tmp/sdl_window.gs
+	$(extract) 3 $(filter %.md,$^) > tmp/sdl_ball.gs
+	$(extract) 4 $(filter %.md,$^) > tmp/sdl_bounce.gs
+	$ valac -g --pkg=sdl --pkg=sdl-gfx -X -lSDL_gfx -X -I/usr/include/SDL \
+	    tmp/sdl_world.gs tmp/sdl_window.gs tmp/sdl_ball.gs tmp/sdl_bounce.gs \
+	    -X -lm -o tmp/SDLBouncingBall.exe
 

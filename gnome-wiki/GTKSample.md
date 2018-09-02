@@ -128,9 +128,11 @@ A simple text file viewer:
 
 ```genie
 // vala-test:examples/gtk-text-viewer.vala
-using Gtk;
-public class TextFileViewer : Window {
-    private TextView text_view;
+[indent=4]
+uses Gtk
+
+class TextFileViewer: Window
+    text_view: TextView
 
     construct()
         this.title = "Text File Viewer";
@@ -154,35 +156,31 @@ public class TextFileViewer : Window {
         vbox.pack_start (toolbar, false, true, 0);
         vbox.pack_start (scroll, true, true, 0);
         add (vbox);
-    }
-    private void on_open_clicked () {
+
+    def on_open_clicked()
         var file_chooser = new FileChooserDialog ("Open File", this,
                                       FileChooserAction.OPEN,
                                       "_Cancel", ResponseType.CANCEL,
                                       "_Open", ResponseType.ACCEPT);
-        if (file_chooser.run () == ResponseType.ACCEPT) {
+        if file_chooser.run () == ResponseType.ACCEPT
             open_file (file_chooser.get_filename ());
-        }
         file_chooser.destroy ();
-    }
-    private void open_file (string filename) {
-        try {
-            string text;
+
+    def open_file(filename: string)
+        try
+            text: string
             FileUtils.get_contents (filename, out text);
             this.text_view.buffer.text = text;
-        } catch (Error e) {
+        except e: Error
             stderr.printf ("Error: %s\n", e.message);
-        }
-    }
-    public static int main (string[] args) {
+
+    def static main(args: array of string): int
         Gtk.init (ref args);
         var window = new TextFileViewer ();
         window.destroy.connect (Gtk.main_quit);
         window.show_all ();
         Gtk.main ();
         return 0;
-    }
-}
 ```
 
 ### Compile and Run
@@ -540,29 +538,30 @@ $ ./gtk-treeview-treestore
 
 ```genie
 // vala-test:examples/gtk-treeview-listsample.vala
-using Gtk;
+[indent=4]
+uses Gtk
 
-public class ListSample : Gtk.Window {
-    private ListStore list_store;
-    private TreeView tree_view;
-    private enum Columns {
-        TOGGLE,
-        TEXT,
+class ListSample: Gtk.Window
+    list_store: Gtk.ListStore
+    tree_view: TreeView
+    enum Columns
+        TOGGLE
+        TEXT
         N_COLUMNS
-    }
-    public ListSample () {
+
+    construct()
         this.title = "List Sample";
         this.destroy.connect (Gtk.main_quit);
         set_size_request (200, 200);
-        list_store = new ListStore (Columns.N_COLUMNS, typeof (bool), typeof (string));
+        list_store = new Gtk.ListStore(
+            Columns.N_COLUMNS, typeof(bool), typeof(string))
         tree_view = new TreeView.with_model (list_store);
         var toggle = new CellRendererToggle ();
-        toggle.toggled.connect ((toggle, path) => {
+        toggle.toggled += def(toggle, path)
             var tree_path = new TreePath.from_string (path);
-            TreeIter iter;
+            iter: TreeIter
             list_store.get_iter (out iter, tree_path);
             list_store.set (iter, Columns.TOGGLE, !toggle.active);
-        });
         var column = new TreeViewColumn ();
         column.pack_start (toggle, false);
         column.add_attribute (toggle, "active", Columns.TOGGLE);
@@ -573,15 +572,14 @@ public class ListSample : Gtk.Window {
         column.add_attribute (text, "text", Columns.TEXT);
         tree_view.append_column (column);
         tree_view.set_headers_visible (false);
-        TreeIter iter;
+        iter: TreeIter
         list_store.append (out iter);
         list_store.set (iter, Columns.TOGGLE, true, Columns.TEXT, "item 1");
         list_store.append (out iter);
         list_store.set (iter, Columns.TOGGLE, false, Columns.TEXT, "item 2");
         add (tree_view);
-    }
-}
-void main (string[] args) {
+
+init  //  (string[] args) {
     Gtk.init (ref args);
     var sample = new ListSample ();
     sample.show_all ();

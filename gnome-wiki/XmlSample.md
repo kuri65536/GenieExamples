@@ -1,12 +1,13 @@
-Projects/Vala/XmlSample - GNOME Wiki!
-<!--
-var search_hint = "Search";
-//-->
-	   
-	    
-Projects/Vala/XmlSampleHomeRecentChangesScheduleLogin
-XML Vala Sample
-The libxml2 binding is somewhat odd to use from Vala since you must do manual memory management via pointers. An alternative is to use the GObject-based abstraction layer/wrapper GXml, written in Vala.  Anyway, here's the sample: vala-test:examples/libxml2.vala /*
+# Projects/Vala/XmlSample - GNOME Wiki!
+
+## XML Vala Sample
+The libxml2 binding is somewhat odd to use from Vala since you must do manual
+memory management via pointers. An alternative is to use the GObject-based
+abstraction layer/wrapper GXml, written in Vala.  Anyway, here's the sample:
+
+```genei
+// vala-test:examples/libxml2.vala
+/*
  * Various operations with libxml2: Parsing and creating an XML file
  */
 using Xml;
@@ -105,11 +106,23 @@ int main (string[] args) {
     Parser.cleanup ();
     return 0;
 }
-Compile
+```
+
+### Compile
+
+```shell
 $ valac --pkg libxml-2.0 xmlsample.vala
 $ ./xmlsample
-XML Text Writer example
-This example shows how to use xmlTextWriter from libxml2 in Vala. NOTE: Vala 0.8 required for this example. vala-test:examples/libxml2-writer.vala void main () {
+```
+
+
+## XML Text Writer example
+This example shows how to use xmlTextWriter from libxml2 in Vala. NOTE: Vala 0.8
+required for this example.
+
+```genie
+// vala-test:examples/libxml2-writer.vala
+void main () {
     var writer = new Xml.TextWriter.filename ("test.xml");
     writer.set_indent (true);
     writer.set_indent_string ("\t");
@@ -132,8 +145,16 @@ This example shows how to use xmlTextWriter from libxml2 in Vala. NOTE: Vala 0.8
     writer.end_document();
     writer.flush();
 }
-XPath Sample
-This example based on http://charette.no-ip.com:81/programming/2010-01-03_LibXml2/2010-01-03_LibXml2.cpp . Read the original for comments. using Xml.XPath;
+```
+
+
+## XPath Sample
+This example based on
+http://charette.no-ip.com:81/programming/2010-01-03_LibXml2/2010-01-03_LibXml2.cpp
+. Read the original for comments.
+
+```genie
+using Xml.XPath;
 using Xml;
 class xpathsample {
         public static int main(string[] args) {
@@ -165,11 +186,24 @@ class xpathsample {
                 return 0;
         }
 }
-Compile
+```
+
+### Compile
+```shell
 $ valac --pkg libxml-2.0 xpathsample.vala
 $ ./xpathsample
-XML Text Reader Sample
-This example shows how to use xmlTextReader from libxml2 in Vala and is based on http://www.xmlsoft.org/examples/reader1.c .  Note: It's a simple translation of the c-code and it works for me just the same but could still have memory errors, because I do not know how I give the memory free, maybe the libxml-wrapper makes it automatically, but I'm not sure.  /**
+```
+
+
+## XML Text Reader Sample
+This example shows how to use xmlTextReader from libxml2 in Vala and is based on
+http://www.xmlsoft.org/examples/reader1.c .  Note: It's a simple translation of
+the c-code and it works for me just the same but could still have memory errors,
+because I do not know how I give the memory free, maybe the libxml-wrapper makes
+it automatically, but I'm not sure.
+
+```genie
+/**
  * section: xmlReader
  * synopsis: Parse an XML file with an xmlReader
  * purpose: Demonstrate the use of xmlReaderForFile() to parse an XML file
@@ -243,24 +277,14 @@ int main(string[] args) {
     // TODO fixme c-function is xmlMemoryDump();
     return(0);
 }
-Compile
+```
+
+### Compile
+
+```shell
 $ valac --pkg libxml-2.0 reader1.vala
-$ ./reader1 <filename> Vala/Examples Projects/Vala/XmlSample  (last edited 2013-11-22 16:48:31 by WilliamJonMcCann)
-Search:
-<input id="searchinput" type="text" name="value" value="" size="20"
-    onfocus="searchFocus(this)" onblur="searchBlur(this)"
-    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
-<input id="titlesearch" name="titlesearch" type="submit"
-    value="Titles" alt="Search Titles">
-<input id="fullsearch" name="fullsearch" type="submit"
-    value="Text" alt="Search Full Text">
-<!--// Initialize search form
-var f = document.getElementById('searchform');
-f.getElementsByTagName('label')[0].style.display = 'none';
-var e = document.getElementById('searchinput');
-searchChange(e);
-searchBlur(e);
-//-->
-        Copyright &copy; 2005 -  The GNOME Project.
-        Hosted by Red Hat.
-  document.getElementById('current-year').innerHTML = new Date().getFullYear();
+$ ./reader1 <filename>
+```
+
+Vala/Examples Projects/Vala/XmlSample
+    (last edited 2013-11-22 16:48:31 by WilliamJonMcCann)

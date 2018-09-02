@@ -1,13 +1,16 @@
-Projects/Vala/USBSample - GNOME Wiki!
-<!--
-var search_hint = "Search";
-//-->
-	   
-	    
-Projects/Vala/USBSampleHomeRecentChangesScheduleLogin
-Vala USB Sample
-Listing USB devices
-This sample shows usage of LibUSB to display currently connected USB devices.  Requires Vala 0.14.0 & libusb 1.0 ("libusb-1.0" on Debian/Ubuntu). vala-test:examples/usb-sample.vala using LibUSB;
+# Projects/Vala/USBSample - GNOME Wiki!
+
+## Vala USB Sample
+
+## Listing USB devices
+
+This sample shows usage of LibUSB to display currently connected USB devices.
+Requires Vala 0.14.0 & libusb 1.0 ("libusb-1.0" on Debian/Ubuntu).
+
+```genie
+// vala-test:examples/usb-sample.vala
+using LibUSB;
+
 int main () {
         // declare objects
         Context context;
@@ -32,24 +35,14 @@ int main () {
     }
     return 0;
 }
-Compile and Run
-$ valac --pkg libusb-1.0 usb-sample.vala
-$ ./usb-sample Vala/Examples Projects/Vala/USBSample  (last edited 2013-11-22 16:48:31 by WilliamJonMcCann)
-Search:
-<input id="searchinput" type="text" name="value" value="" size="20"
-    onfocus="searchFocus(this)" onblur="searchBlur(this)"
-    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
-<input id="titlesearch" name="titlesearch" type="submit"
-    value="Titles" alt="Search Titles">
-<input id="fullsearch" name="fullsearch" type="submit"
-    value="Text" alt="Search Full Text">
-<!--// Initialize search form
-var f = document.getElementById('searchform');
-f.getElementsByTagName('label')[0].style.display = 'none';
-var e = document.getElementById('searchinput');
-searchChange(e);
-searchBlur(e);
-//-->
-        Copyright &copy; 2005 -  The GNOME Project.
-        Hosted by Red Hat.
-  document.getElementById('current-year').innerHTML = new Date().getFullYear();
+```
+
+### Compile and Run
+
+```shell
+$ valac --pkg=libusb-1.0 usb-sample.vala
+$ ./usb-sample
+```
+
+Vala/Examples Projects/Vala/USBSample
+    (last edited 2013-11-22 16:48:31 by WilliamJonMcCann)

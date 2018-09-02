@@ -1,13 +1,12 @@
-Projects/Vala/SDLSample - GNOME Wiki!
-<!--
-var search_hint = "Search";
-//-->
-	   
-	    
-Projects/Vala/SDLSampleHomeRecentChangesScheduleLogin
-SDL Vala Sample
-vala-test:examples/sdl-sample.vala using SDL;
+# Projects/Vala/SDLSample - GNOME Wiki!
+
+## SDL Vala Sample
+
+```genie
+// vala-test:examples/sdl-sample.vala
+using SDL;
 using SDLGraphics;
+
 public class SDLSample : Object {
     private const int SCREEN_WIDTH = 640;
     private const int SCREEN_HEIGHT = 480;
@@ -78,12 +77,31 @@ public class SDLSample : Object {
         return 0;
     }
 }
-Compile and Run
+```
+
+### Compile and Run
+
+```shell
 $ valac --pkg sdl --pkg sdl-gfx -X -lSDL_gfx -o sdlsample SDLSample.vala
-$ ./sdlsample You might need to pass the include directory to the C compiler for it to find header files, $ valac --pkg sdl --pkg sdl-gfx -X -lSDL_gfx -o sdlsample SDLSample.vala --Xcc=-I/usr/include/SDL
 $ ./sdlsample
-SDLTTF Vala Sample
-This sample shows how to display text, using a TrueType font with SDL. vala-test:examples/sdlttf-sample.vala using SDL;
+```
+
+You might need to pass the include directory to the C compiler for it to find
+header files,
+
+```
+$ valac --pkg sdl --pkg sdl-gfx -X -lSDL_gfx -o sdlsample \
+    SDLSample.vala --Xcc=-I/usr/include/SDL
+$ ./sdlsample
+```
+
+
+## SDLTTF Vala Sample
+This sample shows how to display text, using a TrueType font with SDL.
+
+```genie
+// vala-test:examples/sdlttf-sample.vala
+using SDL;
 using SDLTTF;
 int main()
 {
@@ -126,24 +144,15 @@ public bool process_events ()
         }
         return false;
 }
-Compile and Run
-Put a TrueType font file named "myfont.ttf" in the current folder and type : $ valac --pkg sdl --pkg sdl-ttf sdlttf-sample.vala
-$ ./sdlttf-sample Vala/Examples Projects/Vala/SDLSample  (last edited 2013-11-22 16:48:31 by WilliamJonMcCann)
-Search:
-<input id="searchinput" type="text" name="value" value="" size="20"
-    onfocus="searchFocus(this)" onblur="searchBlur(this)"
-    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
-<input id="titlesearch" name="titlesearch" type="submit"
-    value="Titles" alt="Search Titles">
-<input id="fullsearch" name="fullsearch" type="submit"
-    value="Text" alt="Search Full Text">
-<!--// Initialize search form
-var f = document.getElementById('searchform');
-f.getElementsByTagName('label')[0].style.display = 'none';
-var e = document.getElementById('searchinput');
-searchChange(e);
-searchBlur(e);
-//-->
-        Copyright &copy; 2005 -  The GNOME Project.
-        Hosted by Red Hat.
-  document.getElementById('current-year').innerHTML = new Date().getFullYear();
+```
+
+### Compile and Run
+Put a TrueType font file named "myfont.ttf" in the current folder and type :
+
+```shell
+$ valac --pkg sdl --pkg sdl-ttf sdlttf-sample.vala
+$ ./sdlttf-sample
+```
+
+Vala/Examples Projects/Vala/SDLSample
+    (last edited 2013-11-22 16:48:31 by WilliamJonMcCann)

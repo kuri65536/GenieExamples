@@ -1,12 +1,19 @@
-Projects/Vala/PulseAudioSamples - GNOME Wiki!
-<!--
-var search_hint = "Search";
-//-->
-	   
-	    
-Projects/Vala/PulseAudioSamplesHomeRecentChangesScheduleLogin
-Vala PulseAudio playback Example
-This is a simple test example using pulseaudio's asynchronous API.  It opens a connection to the audio device and plays a sine wave.  Notice that you have to check the state on a context to see that it is ready BEFORE attempting to do stream.connect_playback(); Get the libpulse vapi's at http://www.pulseaudio.org/  or using: $ git clone git://git.0pointer.de/pulseaudio.git// valac --pkg libpulse --pkg posix --pkg gtk+-2.0 --pkg libpulse-mainloop-glib pulse.vala
+# Projects/Vala/PulseAudioSamples - GNOME Wiki!
+
+## Vala PulseAudio playback Example
+This is a simple test example using pulseaudio's asynchronous API.  It opens a
+connection to the audio device and plays a sine wave.  Notice that you have to
+check the state on a context to see that it is ready BEFORE attempting to do
+stream.connect_playback(); Get the libpulse vapi's at http://www.pulseaudio.org/
+or using:
+
+```
+$ git clone git://git.0pointer.de/pulseaudio.git
+$ valac --pkg libpulse --pkg posix --pkg gtk+-2.0 \
+    --pkg libpulse-mainloop-glib pulse.vala
+```
+
+```genie
 using PulseAudio;
 public class AudioDevice : GLib.Object {
         private PulseAudio.GLibMainLoop loop;
@@ -137,23 +144,14 @@ int main (string[] args) {
         Gtk.main ();
         return 1;
 }
-Compile and Run
-$ valac --pkg libpulse --pkg posix --pkg gtk+-2.0 --pkg libpulse-mainloop-glib pulse.vala Vala/Examples Projects/Vala/PulseAudioSamples  (last edited 2013-11-22 16:48:28 by WilliamJonMcCann)
-Search:
-<input id="searchinput" type="text" name="value" value="" size="20"
-    onfocus="searchFocus(this)" onblur="searchBlur(this)"
-    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
-<input id="titlesearch" name="titlesearch" type="submit"
-    value="Titles" alt="Search Titles">
-<input id="fullsearch" name="fullsearch" type="submit"
-    value="Text" alt="Search Full Text">
-<!--// Initialize search form
-var f = document.getElementById('searchform');
-f.getElementsByTagName('label')[0].style.display = 'none';
-var e = document.getElementById('searchinput');
-searchChange(e);
-searchBlur(e);
-//-->
-        Copyright &copy; 2005 -  The GNOME Project.
-        Hosted by Red Hat.
-  document.getElementById('current-year').innerHTML = new Date().getFullYear();
+```
+
+### Compile and Run
+
+```shell
+$ valac --pkg libpulse --pkg posix --pkg gtk+-2.0 \
+    --pkg libpulse-mainloop-glib pulse.vala
+```
+
+Vala/Examples Projects/Vala/PulseAudioSamples
+    (last edited 2013-11-22 16:48:28 by WilliamJonMcCann)

@@ -23,6 +23,7 @@
 # disabled: TiffSample.md:1 dependencies libtiff
 # disabled: WebKitSample.md:1 dependencies gtk-2.0
 # disabled: PulseAudioSamples.md:1 by dependencies gtk-2.0 and pulse-audio
+# disabled: SqliteSample.md:1-2 by dependencies sqlite3
 
 # can't compile
 # GeeSamples.md:4 can't compile by Gee.Traverse.
@@ -58,8 +59,7 @@ src := \
     ListSample.md:1 \
     PangoCairoSample.md:1-2 \
     PropertiesSample.md:1-2 \
-    SDLSample.md \
-    SqliteSample.md:2 \
+    SDLSample.md:1-2 \
     StringSample.md:1-2-3-4-5 \
     TestSample.md:1-2 \
     ThreadingSamples.md:1-2-3-4 \

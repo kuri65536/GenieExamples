@@ -4,85 +4,78 @@
 
 ```genie
 // vala-test:examples/sdl-sample.vala
-using SDL;
-using SDLGraphics;
+[indent=4]
+uses SDL
+uses SDLGraphics
 
-public class SDLSample : Object {
-    private const int SCREEN_WIDTH = 640;
-    private const int SCREEN_HEIGHT = 480;
-    private const int SCREEN_BPP = 32;
-    private const int DELAY = 10;
-    private unowned SDL.Screen screen;
-    private GLib.Rand rand;
-    private bool done;
-    public SDLSample () {
+class SDLSample: Object
+    const SCREEN_WIDTH: int = 640;
+    const SCREEN_HEIGHT: int = 480;
+    const SCREEN_BPP: int = 32;
+    const DELAY: int = 10;
+    screen: unowned SDL.Screen
+    rand: GLib.Rand
+    done: bool
+
+    construct()
         this.rand = new GLib.Rand ();
-    }
-    public void run () {
+
+    def run()
         init_video ();
-        while (!done) {
+        while !done
             draw ();
             process_events ();
             SDL.Timer.delay (DELAY);
-        }
-    }
-    private void init_video () {
-        uint32 video_flags = SurfaceFlag.DOUBLEBUF
-                           | SurfaceFlag.HWACCEL
-                           | SurfaceFlag.HWSURFACE;
+
+    def init_video()
+        var video_flags = SurfaceFlag.DOUBLEBUF \
+                          | SurfaceFlag.HWACCEL \
+                          | SurfaceFlag.HWSURFACE
         this.screen = Screen.set_video_mode (SCREEN_WIDTH, SCREEN_HEIGHT,
                                              SCREEN_BPP, video_flags);
-        if (this.screen == null) {
+        if this.screen == null
             stderr.printf ("Could not set video mode.\n");
-        }
         SDL.WindowManager.set_caption ("Vala SDL Demo", "");
-    }
-    private void draw () {
-        int16 x = (int16) rand.int_range (0, screen.w);
-        int16 y = (int16) rand.int_range (0, screen.h);
-        int16 radius = (int16) rand.int_range (0, 100);
-        uint32 color = rand.next_int ();
+
+    def draw()
+        var x = (int16)rand.int_range(0, screen.w)
+        var y = (int16)rand.int_range(0, screen.h)
+        var radius = (int16) rand.int_range(0, 100)
+        var color = (uint32)rand.next_int()
         Circle.fill_color (this.screen, x, y, radius, color);
         Circle.outline_color_aa (this.screen, x, y, radius, color);
         this.screen.flip ();
-    }
-    private void process_events () {
-        Event event;
-        while (Event.poll (out event) == 1) {
-            switch (event.type) {
-            case EventType.QUIT:
-                this.done = true;
-                break;
-            case EventType.KEYDOWN:
-                this.on_keyboard_event (event.key);
-                break;
-            }
-        }
-    }
-    private void on_keyboard_event (KeyboardEvent event) {
-        if (is_alt_enter (event.keysym)) {
+
+    def process_events()
+        event: Event
+        while Event.poll(out event) == 1
+            case event.type
+                when EventType.QUIT
+                    this.done = true;
+                when EventType.KEYDOWN
+                    this.on_keyboard_event (event.key);
+
+    def on_keyboard_event(event: KeyboardEvent)
+        if is_alt_enter(event.keysym)
             WindowManager.toggle_fullscreen (screen);
-        }
-    }
-    private static bool is_alt_enter (Key key) {
-        return ((key.mod & KeyModifier.LALT)!=0)
-            && (key.sym == KeySymbol.RETURN
-                    || key.sym == KeySymbol.KP_ENTER);
-    }
-    public static int main (string[] args) {
+
+    def static is_alt_enter(key: Key): bool
+        return ((key.mod & KeyModifier.LALT) != 0) and \
+                (key.sym == KeySymbol.RETURN or \
+                 key.sym == KeySymbol.KP_ENTER);
+
+    def static main(args: array of string): int
         SDL.init (InitFlag.VIDEO);
         var sample = new SDLSample ();
         sample.run ();
         SDL.quit ();
         return 0;
-    }
-}
 ```
 
 ### Compile and Run
 
 ```shell
-$ valac --pkg sdl --pkg sdl-gfx -X -lSDL_gfx -o sdlsample SDLSample.vala
+$ valac --pkg=sdl --pkg=sdl-gfx -X -lSDL_gfx -o sdlsample SDLSample.vala
 $ ./sdlsample
 ```
 
@@ -101,56 +94,52 @@ This sample shows how to display text, using a TrueType font with SDL.
 
 ```genie
 // vala-test:examples/sdlttf-sample.vala
-using SDL;
-using SDLTTF;
-int main()
-{
-           // initialize SDL and SDLTTF
-        SDL.init (InitFlag.VIDEO);
-        SDLTTF.init ();
-           // choose the video mode & window title
-        unowned Screen screen;
-        screen = Screen.set_video_mode (320, 240, 16, SurfaceFlag.HWSURFACE);
-        SDL.WindowManager.set_caption ("Vala SDLTTF Demo","");
-           // set font with size 56
-        var font = new SDLTTF.Font ("myfont.ttf", 56);
-           // set color red ({ R=255, G=0, B=0 })
-        SDL.Color color = { 255,0,0 };
-           // create and fill image surface, with the chosen text, font & color
-        Surface image;
-        image = font.render_utf8 ("Hello World !", color);
-           // put image on screen
-        image.blit (null, screen, null);
-           // loop...
-        bool quit = false;
-        while (!quit)
-        {
-                screen.flip ();
-                quit = process_events ();
-                SDL.Timer.delay (10);
-        }
-        SDLTTF.quit ();
-        SDL.quit ();
-        return 0;
-}
+[indent=4]
+uses SDL
+uses SDLTTF
+
+init
+    // initialize SDL and SDLTTF
+    SDL.init (InitFlag.VIDEO);
+    SDLTTF.init ();
+    // choose the video mode & window title
+    screen: unowned Screen = \
+        Screen.set_video_mode(320, 240, 16, SurfaceFlag.HWSURFACE)
+    SDL.WindowManager.set_caption ("Vala SDLTTF Demo","");
+    // set font with size 56
+    var font = new SDLTTF.Font ("myfont.ttf", 56);
+    // set color red ({ R=255, G=0, B=0 })
+    var color = SDL.Color() {r=255, g=0, b=0}
+    // create and fill image surface, with the chosen text, font & color
+    var image = font.render_utf8 ("Hello World !", color);
+    // put image on screen
+    image.blit (null, screen, null);
+
+    // loop...
+    message("enter the loop...")
+    var quit = false;
+    while !quit
+        screen.flip ();
+        quit = process_events ();
+        SDL.Timer.delay (10);
+    message("quit...")
+    SDLTTF.quit ();
+    SDL.quit ();
+
    // catch events
-public bool process_events ()
-{
-        SDL.Event e;
-        while (SDL.Event.poll (out e) == 1)
-        {
-                if (e.type == SDL.EventType.QUIT)
-                 return true;
-        }
-        return false;
-}
+def process_events(): bool
+    e: SDL.Event
+    while SDL.Event.poll(out e) == 1
+        if e.type == SDL.EventType.QUIT
+            return true;
+    return false;
 ```
 
 ### Compile and Run
 Put a TrueType font file named "myfont.ttf" in the current folder and type :
 
 ```shell
-$ valac --pkg sdl --pkg sdl-ttf sdlttf-sample.vala
+$ valac --pkg=sdl --pkg=sdl-ttf -X -lSDL_ttf sdlttf-sample.vala
 $ ./sdlttf-sample
 ```
 

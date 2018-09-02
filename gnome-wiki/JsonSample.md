@@ -39,6 +39,13 @@ init
 
 ### Compile and Run
 
+- prerequiste on Ubuntu 18.04
+
+```
+$ apt install libsoup2.4-dev
+$ apt install libjson-glib-dev
+```
+
 ```shell
 $ valac --thread --pkg=libsoup-2.4 --pkg=json-glib-1.0 json-sample.gs
 $ ./jsonsample

@@ -124,8 +124,15 @@ init
     // TODO(shimoda): return 0; in init()
 ```
 
+### Compile and Run
+
+- prerequiste on Ubuntu 18.04
+
+```
+$ apt install libclutter-1.0-dev
+```
+
 ```shell
-# (install required in Ubuntu 18.04): sudo apt install libclutter-1.0-dev
 $ valac --pkg=clutter-1.0 clutter-demo.gs
 $ ./clutter-demo
 ```

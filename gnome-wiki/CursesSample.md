@@ -22,8 +22,13 @@ init  // args: array of string
     // TODO(shimoda): return 0; in init()
 ```
 
+- prerequiste on Ubuntu 18.04
+
+```
+$ apt install libncurses-dev
+```
+
 ```shell
-# (install required in Ubuntu 18.04): sudo apt install libncurses-dev
 $ valac --pkg=curses -X -lncurses cursesdemo.gs
 $ ./cursesdemo Vala/Examples
 ```

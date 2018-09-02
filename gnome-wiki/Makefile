@@ -12,7 +12,6 @@
 # disabled: DBusServerSamplePassingObjects.md:1-2-3 old?
 # disabled: GdlSample.md:1 by gdl dependencies.
 # disabled: GSFSample.md:1 by dependencie
-# disabled: GSLSample.md:1-2-3-4-5-6-7-8-9-10 by gsl dependencies.
 # disabled: GStreamerSample.md:1-2-3 by gstreamer dependencies
 # disabled: GStreamerSample.md:4 by gstreamer and gtk-2.0 dependencies
 # disabled: GStreamerSamples.md:1 by dependencies
@@ -47,6 +46,7 @@ src := \
     GIOCompressionSample.md:1 \
     GIONetworkingSample.md:1-2-3-4-5 \
     GIOSamples.md:1-2-3-4-5-6-7 \
+    GSLSample.md:1-2-3-4-5-6-7-8-9-10 \
     GSettingsSample.md:1 \
     GStreamerSamples.md \
     GTKSample.md:1-2-3-4-5-6-7-8-9-10 \

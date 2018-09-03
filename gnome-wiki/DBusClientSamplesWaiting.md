@@ -29,8 +29,8 @@ class Registrar: GLib.Object
         print ("cleanup\n");
 
     def SetMany(subjects: array of string,
-                predicates: array of string,  // TODO: string[][],
-                values: array of string) raises GLib.Error  // TODO: string[][]
+                predicates: array of void*,  // TODO: string[][],
+                values: array of void*) raises GLib.Error  // TODO: string[][]
         var len = subjects.length
         var i = 0
         print ("setmany: %d\n", subjects.length);

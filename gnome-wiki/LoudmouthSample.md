@@ -249,7 +249,7 @@ init  // c int main (string[] args) {
 ### Compile and run
 
 ```shell
-$ valac --pkg=loudmouth-1.0 --pkg=gtk+-2.0 lm-send-async.gs
+$ valac --pkg=loudmouth-1.0 --pkg=gtk+-3.0 lm-send-async.gs
 $ ./lm-send-async
 ```
 

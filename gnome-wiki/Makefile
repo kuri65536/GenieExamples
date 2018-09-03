@@ -12,11 +12,11 @@
 # disabled: GStreamerSample.md:1-2-3 by gstreamer dependencies
 # disabled: GStreamerSamples.md:1 by dependencies
 # disabled: LuaSample.md:1-2 by dependencies for lua-dev.
+# disabled: LoudmouthSample.md:1-2 by loudmouth and dependencies gtk-2.0
 
 # can't build with GTK+-2.0
 # disabled: CairoSample.md:2-3, by gtk+-2.0 dependencies.
 # disabled: GStreamerSample.md:4 by gstreamer and gtk-2.0 dependencies
-# disabled: LoudmouthSample.md:1-2 by dependencies gtk-2.0
 # disabled: WebKitSample.md:1 dependencies gtk-2.0
 # disabled: PulseAudioSamples.md:1 by dependencies gtk-2.0 and pulse-audio
 

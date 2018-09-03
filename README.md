@@ -6,15 +6,7 @@ https://wiki.gnome.org/Projects/Vala/Examples and plus alpha.
 
 This page links to all the Genie examples available in this repository.
 
-you can build them in gnome-wiki directory:
-
-```
-$ git clone this-repository
-$ cd GenieExamples/gnome-wiki
-$ make
-```
-
-List of pages in this category:
+### List of pages in this category:
 
 - [AdvancedSample](gnome-wiki/AdvancedSample.md)
 - [AsyncSamples](gnome-wiki/AsyncSamples.md)
@@ -75,12 +67,27 @@ List of pages in this category:
 - [XmlSample](gnome-wiki/XmlSample.md)
 
 
-## My samples
+### Build
+you can build them in gnome-wiki directory:
 
-(T.B.D)
+```
+$ git clone this-repository
+$ cd GenieExamples/gnome-wiki
+$ make
+```
+
+
+## My samples in Gist
 
 - Array.
-- Read a file.
+- [Simple reading a text file](https://gist.github.com/kuri65536/7b1930570a94e9a7ffc7a6ff9657edfb)
+- [Genie GUI Basic](https://gist.github.com/kuri65536/d787a6cbbe0ed485ec4e714085a266bf)
+    this is equivalent to https://wiki.gnome.org/Projects/Genie/GtkGuiTutorial
+
+- [gtk+-3.0 DrawingArea.html](https://gist.github.com/kuri65536/844b89c1825f2c581d4333d5c8b2a3dd)
+- [SDL2 Move character](https://gist.github.com/kuri65536/844b89c1825f2c581d4333d5c8b2a3dd)
+- [SDL2 Draw circle](https://gist.github.com/kuri65536/55b19ae1b230f4d41539243d2c60da25)
+    this is equivalent to SDLSample:1 but written by SDL2.
 
 
 ## Build infomation

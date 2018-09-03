@@ -6,14 +6,16 @@
 # You can obtain one at https://mozilla.org/MPL/2.0/.
 
 # can't link
-# disabled: CairoSample.md:2-3, by gtk+-2.0 dependencies.
 # disabled: ClutterSample.md:3, by mash-0.1 dependencies. -> not in ubuntu repo
 # disabled: DBusServerSamplePassingObjects.md:1-2-3 old?
 # disabled: GSFSample.md:1 by dependencie. -> not in ubuntu repo
 # disabled: GStreamerSample.md:1-2-3 by gstreamer dependencies
-# disabled: GStreamerSample.md:4 by gstreamer and gtk-2.0 dependencies
 # disabled: GStreamerSamples.md:1 by dependencies
 # disabled: LuaSample.md:1-2 by dependencies for lua-dev.
+
+# can't build with GTK+-2.0
+# disabled: CairoSample.md:2-3, by gtk+-2.0 dependencies.
+# disabled: GStreamerSample.md:4 by gstreamer and gtk-2.0 dependencies
 # disabled: LoudmouthSample.md:1-2 by dependencies gtk-2.0
 # disabled: WebKitSample.md:1 dependencies gtk-2.0
 # disabled: PulseAudioSamples.md:1 by dependencies gtk-2.0 and pulse-audio
@@ -74,8 +76,7 @@ src := \
 
 # ver.1: extract the first `genie` block
 ifeq (x,x1)
-bin_examples := $(addprefix tmp/,$(subst .md,.exe,$(src)) \
-                  NumberGuessing.exe)
+bin_examples := $(addprefix tmp/,$(subst .md,.exe,$(src)))
 
 tmp/%.exe: tmp/%.gs extract
 	mkdir -p tmp

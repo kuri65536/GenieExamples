@@ -1,17 +1,27 @@
 # Genie Examples
-genie clone codes of the vala examples from
-https://wiki.gnome.org/Projects/Vala/Examples and plus alpha.
+Genie examples source code and build script.
 
-## Clones from [vala examples](https://wiki.gnome.org/Projects/Vala/Examples)
+- from the vala examples:
+    https://wiki.gnome.org/Projects/Vala/Examples
+- and from my gist
 
-This page links to all the Genie examples available in this repository.
+## Examples from [gnome wiki for Vala](https://wiki.gnome.org/Projects/Vala/Examples)
+
+I converted the Vala examples to the Genie launguage.
+below links to all the Genie examples available in this repository.
 
 ### List of pages in this category:
+
+<summary>
 
 - [AdvancedSample](gnome-wiki/AdvancedSample.md)
 - [AsyncSamples](gnome-wiki/AsyncSamples.md)
 - [BasicSample](gnome-wiki/BasicSample.md)
 - [CairoSample](gnome-wiki/CairoSample.md)
+
+<details>
+<summary>click to see more...</summary><p>
+
 - [CharacterSample](gnome-wiki/CharacterSample.md)
 - [ClutterSamples](gnome-wiki/ClutterSamples.md)
 - [ConditionalCompilationSample](gnome-wiki/ConditionalCompilationSample.md)
@@ -66,6 +76,7 @@ This page links to all the Genie examples available in this repository.
 - [Win32CrossBuildSample](gnome-wiki/Win32CrossBuildSample.md)
 - [XmlSample](gnome-wiki/XmlSample.md)
 
+</p></details>
 
 ### Build
 you can build them in gnome-wiki directory:
@@ -79,7 +90,6 @@ $ make
 
 ## My samples in Gist
 
-- Array.
 - [Simple reading a text file](https://gist.github.com/kuri65536/7b1930570a94e9a7ffc7a6ff9657edfb)
 - [Genie GUI Basic](https://gist.github.com/kuri65536/d787a6cbbe0ed485ec4e714085a266bf)
     this is equivalent to https://wiki.gnome.org/Projects/Genie/GtkGuiTutorial
@@ -90,11 +100,16 @@ $ make
     this is equivalent to SDLSample:1 but written by SDL2.
 
 
-## Build infomation
+## My Build infomation
 
 | term     | description  | note  |
 |:--------:|:-------------|:------|
 | OS       | Ubuntu 18.04 | amd64 |
 | compiler | Vala 0.40.4  |       |
 
+
+## License
+
+- clones from gnome-wiki vala are according to original codes.
+- my works belong to MPL-2.0
 

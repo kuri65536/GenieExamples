@@ -1,8 +1,8 @@
 # Projects/Vala/GSLSample - GNOME Wiki!
 
-Contents
+## Contents
 
-- GNU Scientific Library - Vala Samples
+- GNU Scientific Library - Genie Samples
 - Statistics Sample
 - Special Functions Sample
 - Combination Sample
@@ -14,7 +14,7 @@ Contents
 - Multidimensional Root-Finding Sample
 - Nonlinear Least-Squares Fitting Sample
 
-# GNU Scientific Library - Vala Samples
+# GNU Scientific Library - Genie Samples
 
 These samples are found in the reference manual of GSL and were rewritten for
 vala.  Compile all the examples with:

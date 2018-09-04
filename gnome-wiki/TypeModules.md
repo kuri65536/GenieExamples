@@ -1,7 +1,7 @@
 # Projects/Vala/TypeModules - GNOME Wiki!
 
 This example shows how to use modules (plugins) within your program and how to
-write such modules (plugins) with Vala. The first thing needed is a common
+write such modules (plugins) with Genie. The first thing needed is a common
 interface that will describe the interface between the main program and other
 modules / plugins. Interface (plugin-interface.gs):
 
@@ -90,7 +90,7 @@ $ gcc -shared -fPIC \
 
 
 ## Real World Example(s)
-A real world Vala application that uses this code as the base for its plugin
+A real world Genie application that uses this code as the base for its plugin
 loading is Rygel.
 
 

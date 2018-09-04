@@ -3,7 +3,7 @@
 ## SDL Bouncing Ball
 Based on SDLSample Please take into consideration that I, WolterHellmund, am
 starting to learn this language, and therefore you shall not take this example
-as a base for your Vala coding.
+as a base for your Genie coding.
 
 ```genie
 // World.vala

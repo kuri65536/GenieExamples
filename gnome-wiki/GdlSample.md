@@ -1,5 +1,5 @@
 # Projects/Vala/GdlSample - GNOME Wiki!
-# Vala GDL example
+# Genie GDL example
 
 GDL provides docking widgets for GTK+ (often used for IDEs).
 

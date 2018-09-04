@@ -1,6 +1,6 @@
 # Projects/Vala/InputSamples - GNOME Wiki!
 
-# Vala Input Examples
+# Genie Input Examples
 
 ## Reading a Single Line
 

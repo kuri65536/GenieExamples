@@ -1,8 +1,8 @@
 # Projects/Vala/GTKSample - GNOME Wiki!
 
-Contents
+## Contents
 
-- Vala GTK+ Examples
+- Genie GTK+ Examples
 - Basic Sample
 - Setting an Application Icon
 - Synchronizing Widgets
@@ -17,7 +17,7 @@ Contents
 - EntryCompletion with two cells
 
 
-## Vala GTK+ Examples
+## Genie GTK+ Examples
 Note:  These examples require GTK+ 3.x installed, e.g. Fedora >= 15: gtk3-devel
 openSUSE >= 11.4: gtk3-devel Ubuntu >= 11.04: libgtk-3-dev If you're still
 developing for GTK+ 2.x you can find examples on the GTK+ 2.x version of this
@@ -508,7 +508,7 @@ class TreeViewSample: Window
         store.append (out product_iter, category_iter);
         store.set (product_iter, 0, "Ulysses", 1, "$26.09", -1);
         store.append (out product_iter, category_iter);
-        store.set (product_iter, 0, "Effective Vala", 1, "$38.99", -1);
+        store.set(product_iter, 0, "Effective Genie", 1, "$38.99", -1);
         store.append (out category_iter, root);
         store.set (category_iter, 0, "Films", -1);
         store.append (out product_iter, category_iter);

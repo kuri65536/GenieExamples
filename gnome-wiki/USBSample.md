@@ -1,6 +1,6 @@
 # Projects/Vala/USBSample - GNOME Wiki!
 
-## Vala USB Sample
+# Genie USB Sample
 
 ## Listing USB devices
 

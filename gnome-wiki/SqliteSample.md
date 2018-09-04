@@ -1,11 +1,11 @@
 # Projects/Vala/SqliteSample - GNOME Wiki!
 
-## Vala Sqlite Example
+# Genie Sqlite Example
 
 ```genie
 // vala-test:examples/sqlite.vala
 /**
- * Using SQLite in Vala Sample Code
+ * Using SQLite in Genie Sample Code
  * Port of an example found on the SQLite site.
  * http://www.sqlite.org/quickstart.html
  */

@@ -1,8 +1,8 @@
 # Projects/Vala/OpenGLSamples - GNOME Wiki!
 
-Contents
+## Contents
 
-- Vala OpenGL Samples
+- Genie OpenGL Samples
 - Using GLFW
 - Using GtkGLExt: Coloured Triangle
 - Using GtkGLExt: Spotlight
@@ -10,7 +10,7 @@ Contents
 - Using GLUT/FreeGLUT: Teapot
 
 
-## Vala OpenGL Samples
+## Genie OpenGL Samples
 
 You can find the OpenGL bindings for Vala on ../ExternalBindings
 

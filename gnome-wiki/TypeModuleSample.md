@@ -1,8 +1,8 @@
 # Projects/Vala/TypeModuleSample - GNOME Wiki!
 
-## GLib.TypeModule based Plugin in Vala
+# GLib.TypeModule based Plugin in Genie
 
-This example shows you how to implement a GLib.TypeModule based plugin in Vala.
+This example shows you how to implement a GLib.TypeModule based plugin in Genie.
 It also shows the usage of static construct/destruct block.
 
 

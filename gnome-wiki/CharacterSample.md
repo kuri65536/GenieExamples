@@ -1,5 +1,5 @@
 # Projects/Vala/CharacterSample - GNOME Wiki!
-## Vala Character Sample
+# Genie Character Sample
 
 This sample demonstrates how to extract each character from a Unicode string
 and convert it to a Unicode character to get its type.

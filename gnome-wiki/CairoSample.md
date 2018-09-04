@@ -2,13 +2,13 @@
 
 Contents
 
-- Vala Cairo Example
+- Genie Cairo Example
 - Multi-threaded Animation with Cairo and GTK+
 - Shaped Window Example
 - Shaped Window Example (gtk+-3.0)
 
 
-## Vala Cairo Example
+## Genie Cairo Example
 
 ```genie
 // vala-test:examples/cairo-sample.vala
@@ -20,7 +20,7 @@ class CairoSample: Gtk.Window
     const SIZE: int = 30
 
     construct()
-        this.title = "Cairo Vala Demo"
+        this.title = "Cairo Genie Demo"
         this.destroy.connect(Gtk.main_quit)
         set_default_size(450, 550)
         create_widgets()
@@ -123,7 +123,9 @@ $ ./cairo-sample
 
 
 ## Multi-threaded Animation with Cairo and GTK+
-This multi-threaded animation is a port of this example to Vala. It demontrates
+This multi-threaded animation is a port of this example to Genie.
+
+It demontrates
 the usage of Cairo drawing in a seperate thread and is making use of GTK+ thread
 awareness. Every step in this example is explained on cairographics.org. (Note
 for future editors of this example: Please the leave the function names so that
@@ -330,7 +332,7 @@ class CairoShaped: Gtk.Window
      * Just creating the window, setting things up
      */
     construct()
-        this.title = "Cairo Vala Demo";
+        this.title = "Cairo Genie Demo";
         set_default_size (200, 200);
         // 'skip_taskbar_hint' determines whether the window gets an icon in
         // the taskbar / dock
@@ -531,7 +533,7 @@ class CairoShaped: Gtk.Window
      * Just creating the window, setting things up
      **/
     construct()
-        this.title = "Cairo Vala Demo";
+        this.title = "Cairo Genie Demo";
         this.destroy.connect (Gtk.main_quit);
         // skip_taskbar_hint determines whether the window gets an icon in the taskbar / dock
         skip_taskbar_hint = true;

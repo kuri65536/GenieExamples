@@ -3,7 +3,7 @@
 Here's a simple example of drag-and-drop within a single GTK3 application. The
 code compiles cleanly as of Vala 0.20. Credit: the code was taken from
 https://mail.gnome.org/archives/vala-list/2008-October/msg00147.html and cleaned
-up for modern GTK and Vala.
+up for modern GTK and Genie.
 
 ```genie
 /* TestDnD - dnd.gs : Simple tutorial for GTK+

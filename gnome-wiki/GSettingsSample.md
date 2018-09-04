@@ -1,5 +1,5 @@
 # Projects/Vala/GSettingsSample - GNOME Wiki!
-# Vala Settings Sample
+# Genie Settings Sample
 
 Requires Vala >= 0.10.0 and GLib/GIO >= 2.26 Create a GSettings schema file for
 your application settings, with filename extension .gschema.xml, e.g.

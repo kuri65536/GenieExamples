@@ -8,7 +8,13 @@ Contents
 - Async sleep example
 - Simple Example
 - Async Method Samples
-- These illustrate the use of async methods in Vala.  The Vala Tutorial has more details on using async methods.  See also GIO Samples which has a couple of examples which use async. 
+
+These illustrate the use of async methods in Genie.
+
+The Genie Tutorial has more details on using async methods.
+See also [GIO Samples](GIOSamples.md)
+which has a couple of examples which use async.
+
 
 ## GIO Example
 

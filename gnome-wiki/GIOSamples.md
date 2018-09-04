@@ -1,7 +1,7 @@
 # Projects/Vala/GIOSamples - GNOME Wiki!
 
-Contents
-- Vala GIO Samples
+## Contents
+- Genie GIO Samples
 - Reading Text File Line by Line
 - File Objects
 - Some Simple File Operations
@@ -10,7 +10,9 @@ Contents
 - Enumerating Directory Content
 - Asynchronous File Listing
 - Asynchronous Stream Reading
-- Vala GIO Samples
+
+
+## Genie GIO Samples
 
 GIO is similar to the Java IO framework. References to files and directories are
 represented by File objects which you can create from a file name or a URI. GIO

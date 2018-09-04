@@ -33,7 +33,7 @@ init
         stdout.printf("Hello, %s!\n", name)
 ```
 
-Vala provides the objects stdin (standard input),
+Genie provides the objects stdin (standard input),
 stdout (standard output) and stderr (standard error)
 for the three standard streams.
 

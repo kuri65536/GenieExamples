@@ -1,7 +1,7 @@
 # Projects/Vala/DBusClientSamples - GNOME Wiki!
 
 ## Contents
-- Vala D-Bus Client Examples
+- Genie D-Bus Client Examples
 - BlueZ - Bluetooth Discovery
 - Purple - Instant Messaging
 - Skype status client
@@ -9,7 +9,7 @@
 - Generating a vala interface from an existing DBus interface 
 
 
-## Vala D-Bus Client Examples
+## Genie D-Bus Client Examples
 These examples require Vala >= 0.9.2 and GLib/GIO >= 2.26 Rules for writing Vala
 D-Bus interfaces: annotate the interface with [DBus (name = "...")] convert
 DBusCamelCaseNames to vala_lower_case_names add throws IOError to each interface

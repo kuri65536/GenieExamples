@@ -1,9 +1,9 @@
 # Projects/Vala/DBusServerSample - GNOME Wiki!
 
-Vala D-Bus Examples
+# Genie D-Bus Examples
 
-Contents
-- Vala D-Bus Examples
+## Contents
+- Genie D-Bus Examples
 - Using GDBus
 - Server
 - Client
@@ -14,7 +14,8 @@ Contents
 
 Service with D-Bus property change notifications Vala supports D-Bus
 inter-process communication using the GDBus API that is part of GLib/GIO since
-version 2.26. Vala automatically transforms Vala style lower_case_names to D-Bus
+version 2.26.
+Genie automatically transforms Genie style lower_case_names to D-Bus
 style CamelCaseNames behind the scenes.  You can use methods, signals,
 properties in D-Bus objects as if they were Vala objects.
 
@@ -106,11 +107,11 @@ init
         demo.pong += def(c, m)
             stdout.printf ("Got pong %d for msg '%s'\n", c, m);
             loop.quit ();
-        var reply = demo.ping ("Hello from Vala");
+        var reply = demo.ping ("Hello from Genie");
         stdout.printf ("%d\n", reply);
-        reply = demo.ping_with_sender ("Hello from Vala with sender");
+        reply = demo.ping_with_sender ("Hello from Genie with sender");
         stdout.printf ("%d\n", reply);
-        reply = demo.ping_with_signal ("Hello from Vala with signal");
+        reply = demo.ping_with_signal ("Hello from Genie with signal");
         stdout.printf ("%d\n", reply);
     except e: GLib.Error
         stderr.printf ("%s\n", e.message);
@@ -121,7 +122,7 @@ init
 $ valac --pkg=gio-2.0 gdbus-demo-client.gs
 Type Table
    D-Bus 
-   Vala        
+   Genie        
    Description 
    Example 
    b         
@@ -171,10 +172,14 @@ Type Table
    a struct type Struct      
    a(ii) maps to Foo[] where Foo might be defined as
 ```
-struct Foo { public int a; public int b };
+
+`struct Foo { public int a; public int b };`
+
 A struct representing a(tsav) might look like
-struct Bar { public uint64 a; public string b; public Variant[] c;} 
-Debugging D-Bus Applications
+
+`struct Bar { public uint64 a; public string b; public Variant[] c;}`
+
+## Debugging D-Bus Applications
 
 ## D-Feet
 D-Feet is a graphical D-Bus debugger.  This is what our little D-Bus service
@@ -182,11 +187,13 @@ looks like in D-Feet:
 
 dbus-monitor
 Open a terminal and enter: $ dbus-monitorExcerpt from the output showing a
-property change notification: signal sender=:1.454 -> dest=(null destination)
+property change notification:
+
+```
+signal sender=:1.454 -> dest=(null destination)
 serial=9 path=/org/example/demo; interface=org.freedesktop.DBus.Properties;
 member=PropertiesChanged
 
-```
    string "org.example.Demo"
    array [
       dict entry(

@@ -30,9 +30,9 @@ $ apt install libncurses-dev
 
 ```shell
 $ valac --pkg=curses -X -lncurses cursesdemo.gs
-$ ./cursesdemo Vala/Examples
+$ ./cursesdemo
 ```
 
-Projects/Vala/CursesSample
+Vala/Examples Projects/Vala/CursesSample
     (last edited 2013-11-22 16:48:25 by WilliamJonMcCann)
 

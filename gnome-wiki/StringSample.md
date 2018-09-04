@@ -1,6 +1,6 @@
 # Projects/Vala/StringSample - GNOME Wiki!
 
-## Vala String Sample
+# Genie String Sample
 
 ```genie
 // vala-test:examples/string.vala
@@ -67,7 +67,7 @@ init  //  () {
         when "ruby"
             assert_not_reached ();
 
-    /* Vala offers a feature called verbatim strings. These are strings in
+    /* Genie offers a feature called verbatim strings. These are strings in
      * which escape sequences (such as \n) won't be interpreted, line breaks
      * will be preserved and quotation marks don't have to be masked. They are
      * enclosed with triple double quotation marks. Possible indentations

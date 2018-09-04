@@ -1,5 +1,5 @@
 # Projects/Vala/ClutterSamples - GNOME Wiki!
-# Vala Clutter Samples
+# Genie Clutter Samples
 
 ## Animated Actors
 

@@ -60,7 +60,7 @@ init
                 "org.gnome.TestService",
                 deleg_path,
                 "org.gnome.TestDelegate");
-            var pong = test_deleg_object.ping ("Hello from Vala");
+            var pong = test_deleg_object.ping ("Hello from Genie");
             message ("%lli", pong);
     except e: Error
         stderr.printf ("Oops: %s\n", e.message);
@@ -135,7 +135,7 @@ init
                                                                       "org.gnome.TestDelegate");
             var i = 0
             while i < 100000
-                var pong = test_deleg_object.ping ("Hello from Vala");
+                var pong = test_deleg_object.ping ("Hello from Genie");
                 message ("%lli", pong);
                 i += 1
             test_server_object.Unregister (deleg_path);
@@ -177,7 +177,7 @@ class TestServer: Object
         int64 pong;
         var i = 0
         while i < 1000
-            pong = test_deleg_object.ping ("Hello from Vala");
+            pong = test_deleg_object.ping ("Hello from Genie");
             message ("%lli", pong);
             i += 1
 

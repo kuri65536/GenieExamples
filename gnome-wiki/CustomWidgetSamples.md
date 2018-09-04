@@ -113,7 +113,7 @@ class CustomWidget: DrawingArea
 
 
 ## Egg Clock Sample
-This is a Vala port of the famous Egg Clock sample widget using Cairo and GTK+
+This is a Genie port of the famous Egg Clock sample widget using Cairo and GTK+
 as described in the GNOME Journal: Part 1 and part 2
 
 ```genie
@@ -294,7 +294,7 @@ $ ./eggclockNote: You can drag around the minute hand.
 [indent=4]
 uses Gtk
 
-class ValaWidget: Widget
+class GenieWidget: Widget
     const TEXT: string = "Hello World!"
     const BORDER_WIDTH: int = 10
     layout: Pango.Layout
@@ -341,9 +341,9 @@ init  // (string[] args) {
     win.border_width = 5;
     win.title = "Widget test";
     win.destroy.connect (Gtk.main_quit);
-    var frame = new Gtk.Frame ("Example Vala Widget");
+    var frame = new Gtk.Frame("Example Genie Widget")
     win.add (frame);
-    var widget = new ValaWidget ();
+    var widget = new GenieWidget ();
     frame.add (widget);
     win.show_all ();
     Gtk.main ();

@@ -1,5 +1,5 @@
 # Projects/Vala/GtkCellRendererSample - GNOME Wiki!
-# Vala Gtk+ CellRenderer Sample
+# Genie Gtk+ CellRenderer Sample
 
 ```genie
 // vala-test:examples/gtk-cell-renderer.vala

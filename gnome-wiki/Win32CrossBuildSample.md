@@ -125,7 +125,7 @@ $ ../autogen.sh && make
 $ pushd ../win32/bin && wine ../../build/hello-world.exe; popd
 ```
 
-Where is Vala?
+Where is Genie/Vala?
 
 Vala/Examples Projects/Vala/Win32CrossBuildSample
     (last edited 2013-11-22 16:48:30 by WilliamJonMcCann)

@@ -1,6 +1,6 @@
 # Projects/Vala/ValueSample - GNOME Wiki!
 
-## Vala Value Sample
+# Genie Value Sample
 
 ```genie
 // vala-test:examples/value.vala

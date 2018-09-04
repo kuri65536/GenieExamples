@@ -1,5 +1,5 @@
 # Projects/Vala/GStreamerSamples - GNOME Wiki!
-# Vala GStreamer Samples
+# Genie GStreamer Samples
 
 ## GstDiscoverer
 Requires Vala >= 0.10.2
@@ -261,7 +261,7 @@ def run(): bool
 init  // args[]
     var loop = new MainLoop(null, false);
     var ctx = new OptionContext(
-        "- discover files with GstDiscoverer using Vala bindings");
+        "- discover files with GstDiscoverer using Genie bindings");
     Globals.timeout = 10;
     Globals.asynch = false;
     Globals.tab = 1;

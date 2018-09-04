@@ -9,7 +9,7 @@ Contents
 - Customizing the equality function
 - Implementing your own Iterable
 
-Vala Home Vala Collections: libgeeYou should install the Vala collection
+Genie Home Genie Collections: libgeeYou should install the Vala collection
 library, libgee, from your distribution. More information about libgee is
 available from https://wiki.gnome.org/Projects/Libgee Gee API Documentation
 

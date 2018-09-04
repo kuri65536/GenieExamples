@@ -1,6 +1,6 @@
 # Projects/Vala/ConditionalCompilationSample - GNOME Wiki!
 
-# Vala Conditional Compilation Sample
+# Genie Conditional Compilation Sample
 A contrived example demonstrating conditional compilation usage and features.
 This is not a macro preprocessor.
 

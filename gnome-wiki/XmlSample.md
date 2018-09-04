@@ -1,9 +1,9 @@
 # Projects/Vala/XmlSample - GNOME Wiki!
 
-## XML Vala Sample
-The libxml2 binding is somewhat odd to use from Vala since you must do manual
+## XML Genie Sample
+The libxml2 binding is somewhat odd to use from Genie since you must do manual
 memory management via pointers. An alternative is to use the GObject-based
-abstraction layer/wrapper GXml, written in Vala.  Anyway, here's the sample:
+abstraction layer/wrapper GXml, written in Genie.  Anyway, here's the sample:
 
 ```genie
 // vala-test:examples/libxml2.vala
@@ -115,8 +115,9 @@ $ ./xmlsample
 
 
 ## XML Text Writer example
-This example shows how to use xmlTextWriter from libxml2 in Vala. NOTE: Vala 0.8
-required for this example.
+This example shows how to use xmlTextWriter from libxml2 in Genie.
+
+NOTE: Vala 0.8 required for this example.
 
 ```genie
 // vala-test:examples/libxml2-writer.vala
@@ -193,7 +194,8 @@ $ ./xpathsample
 
 
 ## XML Text Reader Sample
-This example shows how to use xmlTextReader from libxml2 in Vala and is based on
+This example shows how to use xmlTextReader from libxml2 in Genie
+and is based on
 http://www.xmlsoft.org/examples/reader1.c .  Note: It's a simple translation of
 the c-code and it works for me just the same but could still have memory errors,
 because I do not know how I give the memory free, maybe the libxml-wrapper makes

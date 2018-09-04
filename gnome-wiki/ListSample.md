@@ -1,6 +1,6 @@
 # Projects/Vala/ListSample - GNOME Wiki!
 
-# Vala List Example
+# Genie List Example
 
 This sample uses the List class from GLib.  There is also various container
 classes in libgee, which are often easier to use or more powerful. See

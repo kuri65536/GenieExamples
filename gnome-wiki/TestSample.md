@@ -1,6 +1,6 @@
 # Projects/Vala/TestSample - GNOME Wiki!
 
-## Unit tests in Vala
+# Unit tests in Genie
 
 Simple test
 

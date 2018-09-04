@@ -1,6 +1,6 @@
 # Projects/Vala/JsonSample - GNOME Wiki!
 
-# Vala JSON Samples
+# Genie JSON Samples
 
 ## Gisgraphy Web Service
 

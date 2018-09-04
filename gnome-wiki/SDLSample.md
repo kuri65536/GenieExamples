@@ -1,6 +1,6 @@
 # Projects/Vala/SDLSample - GNOME Wiki!
 
-## SDL Vala Sample
+# SDL Genie Sample
 
 ```genie
 // vala-test:examples/sdl-sample.vala
@@ -35,7 +35,7 @@ class SDLSample: Object
                                              SCREEN_BPP, video_flags);
         if this.screen == null
             stderr.printf ("Could not set video mode.\n");
-        SDL.WindowManager.set_caption ("Vala SDL Demo", "");
+        SDL.WindowManager.set_caption("Genie SDL Demo", "")
 
     def draw()
         var x = (int16)rand.int_range(0, screen.w)
@@ -96,7 +96,7 @@ $ ./sdlsample
 ```
 
 
-## SDLTTF Vala Sample
+## SDLTTF Genie Sample
 This sample shows how to display text, using a TrueType font with SDL.
 
 ```genie
@@ -112,7 +112,7 @@ init
     // choose the video mode & window title
     screen: unowned Screen = \
         Screen.set_video_mode(320, 240, 16, SurfaceFlag.HWSURFACE)
-    SDL.WindowManager.set_caption ("Vala SDLTTF Demo","");
+    SDL.WindowManager.set_caption("Genie SDLTTF Demo","")
     // set font with size 56
     var font = new SDLTTF.Font ("myfont.ttf", 56);
     // set color red ({ R=255, G=0, B=0 })

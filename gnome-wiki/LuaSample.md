@@ -9,12 +9,12 @@
 uses Lua
 
 def my_func(vm: LuaVM): int
-    stdout.printf ("Vala Code From Lua Code! (%f)\n", vm.to_number (1));
+    stdout.printf("Genie Code From Lua Code! (%f)\n", vm.to_number (1));
     return 1;
 
 init
     var code = """
-            print "Lua Code From Vala Code!"
+            print "Lua Code From Genie Code!"
             my_func(33)
         """;
     var vm = new LuaVM ();
@@ -29,8 +29,8 @@ init
 ```shell
 $ valac --pkg=lua luatest.gs -o luatest
 $ ./luatest
-Lua Code From Vala Code!
-Vala Code From Lua Code! (33.000000)
+Lua Code From Genie Code!
+Genie Code From Lua Code! (33.000000)
 ```
 
 Note: Some distributions such as Debian and

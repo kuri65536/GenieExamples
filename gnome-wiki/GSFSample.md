@@ -1,6 +1,6 @@
 # Projects/Vala/GSFSample - GNOME Wiki!
 
-# Vala GSF Samples
+# Genie GSF Samples
 
 ## ZIP Archive decompression
 This sample shows usage of LibGSF to deflate a ZIP archive.  Requires Vala 0.8.0

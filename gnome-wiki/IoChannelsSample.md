@@ -1,7 +1,7 @@
 # Projects/Vala/IoChannelsSample - GNOME Wiki!
 
 # Using gio's IO channels to communicate through pipes
-Vala port of example from http://www.linuxjournal.com/article/8545 Complete and
+Genie port of example from http://www.linuxjournal.com/article/8545 Complete and
 working console application that uses IO channels to communicate across two
 pipes. The example will continuously read and write and spam your console.  You
 can stop the program via <Ctrl>-C.

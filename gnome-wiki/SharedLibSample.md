@@ -5,17 +5,17 @@
 - About
 - The sample
 - The Library
-- A Client Program Written in Vala
-- Calling Vala Functions Using Introspection
+- A Client Program Written in Genie
+- Calling Genie Functions Using Introspection
 - A Client Program Written in Javascript
-- Creating a Shared Library in Vala
+- Creating a Shared Library in Genie
 
 ## About
-In addition to standalone applications, you can use Vala to build shared
+In addition to standalone applications, you can use Genie to build shared
 libraries. By using the compile-time flag --library, you can generate a shared
-library that can be used from another program written in Vala or any other
-language.  The sample code below includes a shared library written in Vala plus
-a separate Vala program that calls functions from the shared library.
+library that can be used from another program written in Genie or any other
+language.  The sample code below includes a shared library written in Genie plus
+a separate Genie program that calls functions from the shared library.
 
 ## The sample
 
@@ -45,7 +45,7 @@ shared library.
 
 You can add a --vapi=filename  flag to cause the generated VAPI to have a
 specific name; if you omit this, the generated VAPI will have the same name as
-the Vala source file.
+the Genie source file.
 
 The -H flag tells the compiler to export a C header containing the methods
 exposed in the VAPI. You use the -X flag to indicate that the next flag should
@@ -55,7 +55,7 @@ You use the -fPIC flag to tell the C compiler to generate position-independent
 code; this is needed because the functions in a shared library may be loaded at
 almost any address in memory.
 
-## A Client Program Written in Vala
+## A Client Program Written in Genie
 Our program that needs to access functionality from the library,
 
 ```genie
@@ -94,7 +94,7 @@ Testing shlib
 $
 ```
 
-## Calling Vala Functions Using Introspection
+## Calling Genie Functions Using Introspection
 To use code written in vala from a third language (e.g. JavaScript via gjs) you
 can use GObject's introspection (gi) capabilities. Taking the library code above
 (it is important to provide a namespace), you just need to use slightly
@@ -137,8 +137,8 @@ Result: 1764
 
 You can get examples for other languages in this github repository:
 
-https://github.com/antono/vala-object  Vala/Examples
+https://github.com/antono/vala-object
 
-Projects/Vala/SharedLibSample
+Vala/Examples Projects/Vala/SharedLibSample
     (last edited 2016-09-19 19:38:10 by AlThomas)
 

@@ -1,6 +1,6 @@
 # Projects/Vala/WebKitSample - GNOME Wiki!
 
-## Vala WebKit Sample
+## Genie WebKit Sample
 
 Requires Vala >= 0.11.0
 
@@ -10,8 +10,8 @@ Requires Vala >= 0.11.0
 uses Gtk
 uses WebKit
 
-class ValaBrowser: Window
-    const TITLE: string = "Vala Browser"
+class GenieBrowser: Window
+    const TITLE: string = "Genie Browser"
     const HOME_URL: string = "http://acid3.acidtests.org/"
     const DEFAULT_PROTOCOL: string = "http"
     protocol_regex: Regex
@@ -23,7 +23,7 @@ class ValaBrowser: Window
     reload_button: ToolButton
 
     construct()
-        this.title = ValaBrowser.TITLE;
+        this.title = GenieBrowser.TITLE;
         set_default_size (800, 600);
         try
             this.protocol_regex = new Regex (".*://.*");
@@ -59,7 +59,7 @@ class ValaBrowser: Window
         this.destroy.connect (Gtk.main_quit);
         this.url_bar.activate.connect (on_activate);
         this.web_view.title_changed += def(source, frame, title)
-            this.title = "%s - %s".printf (title, ValaBrowser.TITLE);
+            this.title = "%s - %s".printf (title, GenieBrowser.TITLE);
         this.web_view.load_committed += def(source, frame)
             this.url_bar.text = frame.get_uri ();
             update_buttons ();
@@ -74,22 +74,22 @@ class ValaBrowser: Window
     def on_activate()
         var url = this.url_bar.text;
         if !this.protocol_regex.match(url)
-            url = "%s://%s".printf (ValaBrowser.DEFAULT_PROTOCOL, url);
+            url = "%s://%s".printf (GenieBrowser.DEFAULT_PROTOCOL, url);
         this.web_view.open (url);
 
     def start()
         show_all ();
-        this.web_view.open (ValaBrowser.HOME_URL);
+        this.web_view.open (GenieBrowser.HOME_URL);
 
 init  // atic int main (string[] args) {
     Gtk.init (ref args);
-    var browser = new ValaBrowser ();
+    var browser = new GenieBrowser ();
     browser.start ();
     Gtk.main ();
 ```
 
 ### Compile and Run
-Currently, Vala doesn't come with bindings for WebKitGTK+ 3.0. To compile it
+Currently, Genie doesn't come with bindings for WebKitGTK+ 3.0. To compile it
 with WebKitGTK+ 1.0, you'll have to also use GTK+ 2.0, like this:
 
 ```shell

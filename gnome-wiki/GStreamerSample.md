@@ -1,5 +1,5 @@
 # Projects/Vala/GStreamerSample - GNOME Wiki!
-# Vala GStreamer Audio Example
+# Genie GStreamer Audio Example
 
 ```genie
 // vala-test:examples/gstreamer-square-beep.vala
@@ -41,7 +41,7 @@ $ ./gst-squarebeep
 ```
 
 
-## Vala GStreamer Audio Stream Example
+## Genie GStreamer Audio Stream Example
 
 ```genie
 // vala-test:examples/gstreamer-audio-player.vala
@@ -114,7 +114,7 @@ $ ./gst-play-stream
 ```
 
 
-## Vala GStreamer Video Example
+## Genie GStreamer Video Example
 Requires gtk+-3.0 and gstreamer-1.0 (with gstreamer1.0-plugins-bad >= 1.7.91 for
 'gtksink' element)
 
@@ -172,7 +172,7 @@ $ ./gst-videotest
 ```
 
 
-## Vala Gstreamer-PocketSphinx Example
+## Genie Gstreamer-PocketSphinx Example
 
 ```genie
 //# Copyright (c) 2008 Carnegie Mellon University.

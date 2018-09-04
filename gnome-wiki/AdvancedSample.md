@@ -1,4 +1,4 @@
-# Vala Advanced Example
+# Genie Advanced Example
 
 ```genie
 /* class derived from GObject */

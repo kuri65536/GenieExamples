@@ -4,7 +4,7 @@
 ```genie
 // vala-test:examples/poppler-sample.vala
 [indent=4]
-/* Using Poppler for PDF rendering in Vala sample code */
+/* Using Poppler for PDF rendering in Genie sample code */
 uses Cairo
 uses Gtk
 

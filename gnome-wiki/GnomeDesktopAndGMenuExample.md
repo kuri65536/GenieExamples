@@ -53,7 +53,6 @@ init  // string[] args) {
     stdout.printf ("Comment: %s\n", app_info.get_description ());
     stdout.printf ("Exec: %s\n", app_info.get_commandline ());
     stdout.printf ("Icon: %s\n", app_info.get_icon ().to_string ());
-    // TODO(shimoda): return 0; in init
 ```
 
 ### Compile and Run

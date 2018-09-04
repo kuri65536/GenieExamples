@@ -48,7 +48,6 @@ init  // (string[] args) {
     window.add (button);
     window.show_all ();
     Gtk.main ();
-    // TODO(shimoda): return 0; in init()
 ```
 
 All GTK+ classes are inside the Gtk namespace. You must initialize every GTK+

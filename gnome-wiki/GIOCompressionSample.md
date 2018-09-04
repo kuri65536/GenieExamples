@@ -24,11 +24,11 @@ def convert(source: File, dest: File, converter: Converter) raises Error
 init  // string[] args
     if args.length < 2
         stdout.printf ("Usage: %s FILE\n", args[0]);
-        return  // 0;
+        Process.exit(0)
     var infile = File.new_for_commandline_arg (args[1]);
     if !infile.query_exists()
         stderr.printf ("File '%s' does not exist.\n", args[1]);
-        return  // 1;
+        Process.exit(1)
     var zipfile = File.new_for_commandline_arg (args[1] + ".gz");
     var outfile = File.new_for_commandline_arg (args[1] + "_out");
     try
@@ -36,14 +36,14 @@ init  // string[] args
         decompress (zipfile, outfile);
     except e: Error
         stderr.printf ("%s\n", e.message);
-        return  // 1;
-    // TODO(shimoda): return 0; in init()
+        Process.exit(1)
+    Process.exit(0)
 ```
 
 ### Compile
 
 ```shell
-$ valac --pkg=gio-2.0 gio-compression.gs
+$ valac --pkg=gio-2.0 --pkg=posix gio-compression.gs
 $ ./gio-compression FILENAME
 ```
 

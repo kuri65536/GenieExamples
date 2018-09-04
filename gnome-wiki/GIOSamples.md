@@ -47,7 +47,6 @@ init
             line = dis.read_line(null)
     except e: Error
         error ("%s", e.message);
-    // TODO(shimoda): return 0; in init()
 ```
 
 ### Compile and Run

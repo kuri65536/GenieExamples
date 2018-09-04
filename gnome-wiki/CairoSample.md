@@ -112,7 +112,6 @@ init
     var cairo_sample = new CairoSample ()
     cairo_sample.show_all ()
     Gtk.main ()
-    // TODO(shimoda): return 0 in init()
 ```
 
 ```shell

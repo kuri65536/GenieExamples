@@ -121,7 +121,6 @@ init
     var demo = new ClutterDemo ()
     demo.start ()
     Clutter.main ()
-    // TODO(shimoda): return 0; in init()
 ```
 
 ### Compile and Run

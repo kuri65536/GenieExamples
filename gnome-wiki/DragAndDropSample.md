@@ -268,7 +268,6 @@ init  // string[] args
     window.show_all ();
     // Start the event loop
     Gtk.main ();
-    // TODO(shimoda): return 0; in init()
 ```
 
 ```shell

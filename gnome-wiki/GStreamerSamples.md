@@ -286,7 +286,6 @@ init  // args[]
         Globals.d.stop();
     else
         run();
-    // TODO(shimoda): return 0; in init()
 ```
 
 ```shell

@@ -19,7 +19,6 @@ init  // args: array of string
     win.getch ();                  // read a character
     /* Reset the terminal mode */
     endwin ();
-    // TODO(shimoda): return 0; in init()
 ```
 
 - prerequiste on Ubuntu 18.04

@@ -68,7 +68,6 @@ init  // (string[] args) {
     win.add (tv);
     win.show_all ();
     Gtk.main ();
-    // TODO(shimoda): return 0; in init()
 ```
 
 ### Compile and Run

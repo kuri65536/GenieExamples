@@ -33,6 +33,11 @@ init
         stdout.printf("Hello, %s!\n", name)
 ```
 
+```shell
+$ valac hello.gs
+$ ./hello
+```
+
 Genie provides the objects stdin (standard input),
 stdout (standard output) and stderr (standard error)
 for the three standard streams.
@@ -64,6 +69,12 @@ init
     stdout.printf("Random number between 0 and 1: %g\n", Random.next_double())
 ```
 
+```shell
+$ valac hello.gs
+$ ./hello
+```
+
+
 ## Command-Line Arguments and Exit Code
 
 ```genie
@@ -76,13 +87,17 @@ init
     for arg in args
         stdout.printf("%s\n", arg)
 
-    // TODO(shimoda): find to implement to this in genie
     // Exit code (0: success, 1: failure)
-    // return 0;
+    Process.exit(0)
 ```
 
 The first command line argument (args[0]) is always
 the invocation of the program itself.
+
+```shell
+$ valac --pkg=posix hello.gs
+$ ./hello
+```
 
 
 ## Reading and Writing Text File Content
@@ -150,8 +165,6 @@ init
     var sample = new BasicSample()
     // call the run method
     sample.run()
-    // TODO(shimoda): return from this main method
-    // return 0;
 ```
 
 The entry point may as well be inside the class, if you prefer it this way:
@@ -165,7 +178,6 @@ class BasicSample: Object
     init
         var sample = new BasicSample()
         sample.run()
-        // TODO(shimoda): return 0
 
 init
     pass

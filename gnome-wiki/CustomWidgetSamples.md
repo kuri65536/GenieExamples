@@ -268,7 +268,6 @@ init  // string[] args
     window.destroy.connect (Gtk.main_quit);
     window.show_all ();
     Gtk.main ();
-    // TODO(shimoda): return 0; in init()
 ```
 
 

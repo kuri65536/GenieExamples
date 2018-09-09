@@ -14,7 +14,7 @@ bin_examples := $(foreach i,$(src),$(call func1,$(subst :, ,$(i))))
 bin_examples := $(addprefix tmp/,$(bin_examples))
 
 
-build: $(bin_examples)
+build: $(bin_examples) tmp/twofiles.exe
 	@echo $(src)
 	@echo $(bin_examples)
 
@@ -51,4 +51,9 @@ $(foreach i,$(bin_examples),$(eval $(call exe_template, \
     $(call fn_nm,$(i)), \
     $(call fn_md,$(i)) \
   )))
+
+tmp/twofiles.exe: twofiles.md $(extract)
+	$(extract) 1 $(filter %.md,$^) > tmp/b.gs
+	$(extract) 2 $(filter %.md,$^) > tmp/a.gs
+	valac -o $@ tmp/b.gs tmp/a.gs $$($(extract) --opt 1)
 

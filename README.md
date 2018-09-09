@@ -90,6 +90,7 @@ $ make
 
 ## My samples in Gist
 
+- [Split program into two files](examples/twofiles.md)
 - [Simple reading a text file](https://gist.github.com/kuri65536/7b1930570a94e9a7ffc7a6ff9657edfb)
 - [Subprocess and get stdout as string](examples/subprocess_pipe.md)
 - [Genie GUI Basic](https://gist.github.com/kuri65536/d787a6cbbe0ed485ec4e714085a266bf)

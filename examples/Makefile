@@ -1,5 +1,6 @@
 src := \
-    subprocess_pipe.md:1
+    subprocess_pipe.md:1 \
+    delegate.md:1
 
 extract := ./extract
 

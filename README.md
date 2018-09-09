@@ -92,7 +92,8 @@ $ make
 
 - [Split program into two files](examples/twofiles.md)
 - [Delegate](examples/delegate.md)
-- [Simple reading a text file](https://gist.github.com/kuri65536/7b1930570a94e9a7ffc7a6ff9657edfb)
+- [Simple reading a text file](examples/file_read.md)
+    [original gist is here](https://gist.github.com/kuri65536/7b1930570a94e9a7ffc7a6ff9657edfb)
 - [Subprocess and get stdout as string](examples/subprocess_pipe.md)
 - [Genie GUI Basic](https://gist.github.com/kuri65536/d787a6cbbe0ed485ec4e714085a266bf)
     this is equivalent to https://wiki.gnome.org/Projects/Genie/GtkGuiTutorial

@@ -64,6 +64,30 @@ init
     fn(ary)
 ```
 
+### Genie jagged array, part 3
+
+use unowned keyword to treat jagged array.
+
+```genie
+[indent=4]
+// array-4.gs
+def fn(jag: array of void*)
+    for i in jag
+        var j = 0
+        ary: unowned array of string? = (array of string?)i
+        while ary[j] != null
+            stdout.printf("%s ", ary[j])
+            j += 1
+
+init
+    var ary = new array of void*[3]
+    ary[0] = new array of string = {"hello", "world", "I'm", "Genie", null}
+    ary[1] = new array of string = {"\nsecond", "sample", "is", "jagged",
+                                    "array", null}
+    ary[2] = new array of string = {"\na", "b", "c", null}
+    fn(ary)
+```
+
 ### Genie jagged array (failure code)
 
 ```failure code
@@ -72,7 +96,7 @@ init
 /** dump jag array.
  * This code can be compiled with Genie.
  * But at runtime, this code cause segfault at `ary[j]`.
- * In c code for `var ary = (array of string)i`:
+ * At c code for `var ary = (array of string)i`:
  *
  * ```
  * _tmp1_ = (((gchar**) _tmp0_) != NULL) ?
@@ -81,7 +105,8 @@ init
  * ```
  *
  * so, _tmp1_ size is 0 and next `ary[j]` cause segfault.
- * we must use pointer to solve it.
+ * we must use pointer or unowned keyword to prevent the dup(copy)
+ * to solve it.
  */
 def fn(jag: array of void*)
     for i in jag

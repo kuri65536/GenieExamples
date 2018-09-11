@@ -90,7 +90,7 @@ $ make
 
 ## My samples in Gist
 
-- [Split program into two files](examples/twofiles.md)
+- [Split program into two(or multi) source files](examples/twofiles.md)
 - [Delegate](examples/delegate.md)
 - [Simple reading a text file](examples/file_read.md)
     [original gist is here](https://gist.github.com/kuri65536/7b1930570a94e9a7ffc7a6ff9657edfb)

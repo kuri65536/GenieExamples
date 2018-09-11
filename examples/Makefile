@@ -1,7 +1,8 @@
 src := \
     subprocess_pipe.md:1 \
     delegate.md:1 \
-    file_read.md:1
+    file_read.md:1 \
+    array.md:1-2-3
 
 extract := ./extract
 

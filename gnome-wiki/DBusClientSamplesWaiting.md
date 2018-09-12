@@ -14,9 +14,13 @@ spec being proposed at Evolution/Metadata
 [indent=4]
 uses DBus
 
+delegate fn(e: GLib.Error)
+
 [DBus (name = "org.gnome.evolution.metadata.Manager")]
 interface Manager: GLib.Object
     def abstract Register(registrar_path: DBus.ObjectPath, last_checkout: uint)
+                          last_checkout: uint,
+                          callback: fn) raises GLib.Error
 
 
 [DBus (name = "org.gnome.evolution.metadata.Registrar")]
@@ -29,8 +33,8 @@ class Registrar: GLib.Object
         print ("cleanup\n");
 
     def SetMany(subjects: array of string,
-                predicates: array of void*,  // TODO: string[][],
-                values: array of void*) raises GLib.Error  // TODO: string[][]
+                predicates: array of void*,
+                values: array of void*) raises GLib.Error
         var len = subjects.length
         var i = 0
         print ("setmany: %d\n", subjects.length);
@@ -42,14 +46,14 @@ class Registrar: GLib.Object
 //              longer NULL terminated after demarshalign, which makes calcu-
 //              lating the length impossible)
 //
-//              uint plen = 7; // strv_length (predicates[i]); 
-//              uint y;
-//
-//              for (y = 0; y < plen; y++) {
-//                      if (predicates[i][y] != null && values[i][y] != null) {
-//                              print ("\t%s=%s\n", predicates[i][y], values[i][y]);
-//                      }
-//              }
+            plen: uint = 7; // strv_length (predicates[i]); 
+            y: uint = 0
+            prds: unowned array of string? = (array of string?)predicates[i]
+            vals: unowned array of string? = (array of string?)values[i]
+            while y < plen
+                if prds[y] != null and vals[y] != null
+                    print ("\t%s=%s\n", prds[y], vals[y]);
+                y += 1
 
     def UnsetMany(subjects: array of string) raises GLib.Error
         print ("unsetmany %d\n", subjects.length);

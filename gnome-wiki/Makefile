@@ -24,7 +24,8 @@
 # disabled: MxSample.md:1-2 by dependencies libmx-dev
 
 # can't compile
-# DBusClientSamplesWaiting.md:1 by string[][]
+# DBusClientSamplesWaiting.md:1 by
+#         can't convert params(array of void*, delegate) to GVariant.
 # GeeSamples.md:4 can't compile by Gee.Traverse.
 # Gedit3PluginSample.md:1 by gedit.vapi
 # OpenGLSamples.md:1-2-3-4 by gl.vapi libglfw.vapi glx.vapi glu.vapi glut.vapi

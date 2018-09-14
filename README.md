@@ -92,6 +92,7 @@ $ make
 
 - [Split program into two(or multi) source files](examples/twofiles.md)
 - [Delegate](examples/delegate.md)
+- [HTTPS request](examples/https_request.md)
 - [Simple reading a text file](examples/file_read.md)
     [original gist is here](https://gist.github.com/kuri65536/7b1930570a94e9a7ffc7a6ff9657edfb)
 - [Subprocess and get stdout as string](examples/subprocess_pipe.md)
@@ -99,8 +100,17 @@ $ make
     this is equivalent to https://wiki.gnome.org/Projects/Genie/GtkGuiTutorial
 
 - [gtk+-3.0 DrawingArea.html](https://gist.github.com/kuri65536/844b89c1825f2c581d4333d5c8b2a3dd)
-- [SDL2 Move character](https://gist.github.com/kuri65536/844b89c1825f2c581d4333d5c8b2a3dd)
-- [SDL2 Draw circle](https://gist.github.com/kuri65536/55b19ae1b230f4d41539243d2c60da25)
+
+
+### SDL2
+
+[SDL2](sdl2/README.md)
+
+- [SDL2 Texture - Move character](sdl2/sdl2_texture.gs)
+    https://gist.github.com/kuri65536/844b89c1825f2c581d4333d5c8b2a3dd
+
+- [SDL2 Draw circle](sdl2/sdl2_basic.gs)
+    https://gist.github.com/kuri65536/55b19ae1b230f4d41539243d2c60da25)
     this is equivalent to SDLSample:1 but written by SDL2.
 
 

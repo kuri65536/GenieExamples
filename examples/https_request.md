@@ -1,13 +1,10 @@
-/** compile command
- *
- * ```bash
- * valac --pkg gio-2.0 genie-https-get.gs
- * ./gui-test
- * ```
- *
- * this is equivalent to https://wiki.gnome.org/Projects/Vala/GIONetworkingSample
- * but these sample can't compile with my ubuntu 18.04 valac.
- */
+# make HTTPS request from Genie
+
+this is equivalent to https://wiki.gnome.org/Projects/Vala/GIONetworkingSample
+but these sample can't compile with my ubuntu 18.04 valac.
+
+
+```genie
 [indent=4]
 init
     var host = "www.google.com"
@@ -50,3 +47,12 @@ init
         stderr.printf("%s\n", ex.message)
 
 // vi: ft=genie:et:ts=4
+```
+
+### compile command
+
+```shell
+valac --pkg=gio-2.0 genie-https-get.gs
+./genie-https-get
+```
+

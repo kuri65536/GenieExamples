@@ -2,7 +2,10 @@ src := \
     subprocess_pipe.md:1 \
     delegate.md:1 \
     file_read.md:1 \
-    array.md:1-2-3-4
+    array.md:1-2-3-4 \
+    https_request.md:1 \
+    drawing_area_gtk3.md:1 \
+    simple_gui_gtk3.md:1
 
 extract := ./extract
 
